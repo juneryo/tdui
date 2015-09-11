@@ -5,7 +5,8 @@ define(['avalon', 'text!./td.checkbox.html', 'css!./td.checkbox.css'], function(
 		//外部参数
 		
 		//view属性
-		checked: false,
+		label   : "",
+		checked : false,
 		disabled: false,
 		
 		//view接口

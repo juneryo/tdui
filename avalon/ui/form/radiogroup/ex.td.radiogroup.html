@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <title>Radio</title>
+    <title>TdRadioGroup</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
     <meta name="renderer" content="webkit"/>
@@ -25,10 +25,10 @@
 </head>
 <body>
     <div class="container">
-        <h3>TdRadio&nbsp;<small>单选框</small></h3>
+        <h3>TdRadioGroup&nbsp;<small>单选框组</small></h3>
         <div class="row base_border padding_top padding_bottom bg_white">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ms-controller" ms-controller="test">
-                <td:radio config="$opt" label="Boy" checked="true" disabled="false"></td:radio>
+                <td:radiogroup config="$opt" name="selectGroup" checked="true" disabled="false"></td:radiogroup>
             </div>
         </div>
         
@@ -38,7 +38,7 @@
             </blockquote>
             <pre>
 <strong>HTML:</strong>
-&lt;td:radio config="$opt" label="Boy" checked="true" disabled="false"&gt;&lt;/td:radio&gt;
+&lt;td:radiogroup config="$opt" label="Boy" checked="true" disabled="false"&gt;&lt;/td:radiogroup&gt;
 <br/>
 <strong>JS:</strong>
 require(['ui/form/radio/td.radio'], function () {
@@ -62,16 +62,24 @@ require(['ui/form/radio/td.radio'], function () {
 <script type="text/javascript" src="../../../avalon.js"></script>
 <script type="text/javascript" src="../../base/js/td.base.js"></script>
 <script>
-    require(['ui/form/radio/td.radio'], function () {
+    require(['ui/form/radiogroup/td.radiogroup'], function () {
         avalon.define({
             $id: 'test',
             $opt: {
-                //在td:radio标签中不定义属性，也可以在这里定义。若标签中和$opt中都不定义则使用默认。
-                //label:"Radio后面的名称"
-                //checked:true|false
-                //disabled:true|false
+                //在td:radiogroup标签中不定义属性，也可以在这里定义。若标签中和$opt中都不定义则使用默认。
+                //name:"RadioGroup的名称"(必须)
+                //group:radio组的对象
+                //checked:true|false(非必须)默认选择状态
+                //disabled:true|false(非必须)默认可用状态
                 //标签中属性优先级最高、其次$opt中、再次默认值
                 //注意：标签中属性命名方式不要以驼峰式命名，要以横线分割，例：labelText="Boy"(错) label-text="Boy"(对) 
+                group:{
+                    name:"testGroup",
+                    label:"你想要：",
+                    childs:[
+                        {label:"升职",checked:true,disabled:false,value:"1"},
+                        {label:"加薪",checked:false,disabled:false,value:"2"}
+                    ]}
             }
         });
         avalon.scan();
