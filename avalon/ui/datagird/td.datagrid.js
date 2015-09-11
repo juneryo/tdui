@@ -230,7 +230,6 @@ define(['avalon', '../base/js/mmRequest', 'text!./td.datagrid.html', 'css!./td.d
 				if(vm._loadUrl != '') {
 					vm.doRequest(vm._loadUrl, function(dat, status, xhr) {
 						vm._rows.removeAll();
-						avalon.log(vm._rows);
 						vm._rows.pushArray(dat.rows);
 						vm.curPage = 1;
 						vm.lastSelectIdx = -1;
