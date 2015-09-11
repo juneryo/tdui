@@ -1,0 +1,7 @@
+<div class="td_spinner_container">
+	<label class="control-label" ms-if="label != ''">{{label}}：</label>
+	<input class="form-control" type="text" placeholder="" ms-attr-name="name" ms-duplex="value" ms-keydown="checkInput($event)" ms-keyup="verifyInput($event)" />
+	<div class="td_spinner_oper">
+		<i class="td_spinner_up" ms-click="clickUp($event)">▲</i><i class="td_spinner_down" ms-click="clickDown($event)">▼</i>
+	</div>
+</div>

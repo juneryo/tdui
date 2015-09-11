@@ -1,0 +1,34 @@
+.td_spinner_container {
+	position: relative;
+}
+
+.td_spinner_container .td_spinner_oper {
+	position: absolute;
+	cursor: pointer;
+	right: 0px;
+	bottom: 5px;
+	font-size: 12px;
+}
+
+.td_spinner_container .td_spinner_oper .td_spinner_up {
+	position: relative;
+	bottom: 4px;
+	left: 12px;
+}
+.td_spinner_container .td_spinner_oper .td_spinner_up:active {
+	color: #009688;
+	bottom: 5px;
+}
+
+.td_spinner_container .td_spinner_oper .td_spinner_down {
+	position: relative;
+	top: 6px;
+}
+.td_spinner_container .td_spinner_oper .td_spinner_down:active {
+	color: #009688;
+	top: 7px;
+}
+
+
+
+
