@@ -1,0 +1,43 @@
+<form class="td_form">
+	<div class="row" ms-repeat="_eles" ms-if-loop="$first || el.row > _eles[$index - 1].row">
+		<div class="input-field col" ms-class="s{{el.col}}" ms-repeat="_eles" ms-if-loop="$outer.el.row == el.row">
+			<input type="text" ms-if="el.type == 'text' || el.type == 'password'" ms-attr-id="{{initId}}-{{el.name}}" ms-attr-name="el.name" 
+			ms-duplex="el.value" ms-focus="eleFocus($index, el.name);" ms-blur="eleBlur($index, el.name);" />	
+			
+			<select ms-if="el.type == 'select'" ms-attr-id="{{initId}}-{{el.name}}" ms-attr-name="el.name" ms-duplex="el.value"
+				ms-focus="eleFocus($index, el.name);" ms-blur="eleBlur($index, el.name);" >
+				<option value=""></option>
+				<option ms-repeat="el.option" ms-attr-value="$key">{{$val}}</option>
+			</select>
+			
+			<div class="switch" ms-if="el.type == 'switch'">
+				<label>
+					<span class="switch-off" ms-visible="!el.value">{{el.option['false']}}</span>
+					<span class="switch-on" ms-visible="el.value">{{el.option['true']}}</span>
+					<input type="checkbox" ms-attr-id="{{initId}}-{{el.name}}" ms-attr-name="el.name" ms-duplex-checked="el.value" />
+					<span class="lever"></span>
+				</label>
+			</div>
+			
+			<div class="td_group_container" ms-if="el.type == 'checkbox'">
+				<div class="td_group" ms-if="el.type == 'checkbox'" ms-repeat="el.option">
+					<input type="checkbox" ms-attr-name="el.name" ms-attr-id="{{initId}}-{{el.name}}-{{$key}}" 
+					  ms-attr-value="$key" ms-duplex="el.value" />
+					<label ms-attr-for="{{initId}}-{{el.name}}-{{$key}}">{{$val}}</label> 
+					&nbsp;&nbsp;
+				</div>
+			</div>
+			
+			<div class="td_group_container" ms-if="el.type == 'radio'">
+				<div class="td_group" ms-if="el.type == 'radio'" ms-repeat="el.option">
+					<input type="radio" ms-attr-name="el.name" ms-attr-id="{{initId}}-{{el.name}}-{{$key}}" 
+					  ms-attr-value="$key" ms-duplex-string="el.value" />
+					<label ms-attr-for="{{initId}}-{{el.name}}-{{$key}}">{{$val}}</label> 
+					&nbsp;&nbsp;
+				</div>
+			</div>
+			
+			<label class="td_label" ms-attr-for="{{initId}}-{{el.name}}" ms-class="active:activeEleIdx == $index|| el.type=='switch' || el.type=='checkbox' || el.type=='radio' || el.value!=''">{{el.display}}：</label>
+		</div>
+	</div>
+</form>

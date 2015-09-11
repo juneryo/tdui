@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title>DataGrid</title>
+  <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+	<meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	
+	<link rel="stylesheet" href="../../base/normalize.min.css" />
+	<link rel="stylesheet" href="../../base/bootstrap.min.css" />
+	<link rel="stylesheet" href="../../base/material.css">
+	<link rel="stylesheet" href="../../base/td.base.css">
+	
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+    <script src="../../base/html5.min.js"></script>
+		<script src="../../base/respond.min.js"></script>
+	<![endif]-->
+	
+	<!--[if (gte IE 10)|!(IE)]>
+		<link type="text/css" rel="stylesheet" href="../../base/waves.css" />
+		<script type="text/javascript" src="../../base/waves.js"></script>
+	<![endif]-->
+</head>
+<body>
+	<div class="container">
+		<h3>TdDataGrid&nbsp;<small>数据表格</small></h3>
+		<div class="row base_border padding_top padding_bottom bg_white">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ms-controller" ms-controller="test">
+				<div ms-widget="datagrid,datagrid,$opt"></div>
+			</div>
+		</div>
+		
+		<div class="row margin_top2">
+			<blockquote>
+				<p>示例代码：</p>
+			</blockquote>
+			<pre>
+	var cols = [
+		{name: 'id', display: '编号', width: 100, type: 'text', value: '', row: 1, col: 3, disabled: true}, 
+		{name: 'name', display: '名称', width: 150, type: 'text', value: '', row: 1, col: 3}, 
+		{name: 'price', display: '价格', width: 120, type: 'text', value: '', row: 1, col: 3},
+		{name: 'category', display: '类别', width: 150, type: 'select', value: '', option: {
+			'A1': '游戏', 'A2' : '电影', 'A3' : '音乐'
+		}, row: 1, col: 3}
+	];
+	require(["ui/datagird/td.datagrid"], function () {
+		avalon.define({
+			$id: 'test',
+			$opt: {
+				title: '测试数据表格',
+				h: 300,              //表体高度(可选)
+				loadUrl: '/tdui/data/td.datagrid.json',
+				cols: cols,
+				checkbox: true,      //是否显示checkbox(默认true)
+				singleSelect: false, //是否单选(默认false)
+				operations: [{display: '新增', icon: 'glyphicon glyphicon-plus', fun: function(ev, vm) {
+					alert('新增');
+				}}, {display: '删除', icon: 'glyphicon glyphicon-remove', fun: function(ev, vm) {
+					alert('删除');
+				}}]
+			}
+		});
+		avalon.scan();
+	});
+			</pre>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="../../../avalon-1.46.js"></script>
+<script type="text/javascript" src="../../base/td.base.js"></script>
+<script>
+	var cols = [
+		{name: 'id', display: '编号', width: 100, type: 'text', value: '', row: 1, col: 3, disabled: true}, 
+		{name: 'name', display: '名称', width: 150, type: 'text', value: '', row: 1, col: 3}, 
+		{name: 'price', display: '价格', width: 120, type: 'text', value: '', row: 1, col: 3},
+		{name: 'category', display: '类别', width: 150, type: 'select', value: '', option: {
+			'A1': '游戏', 'A2' : '电影', 'A3' : '音乐'
+		}, row: 1, col: 3}
+	];
+	require(["ui/datagird/old/td.datagrid"], function () {
+		avalon.define({
+			$id: 'test',
+			$opt: {
+				title: '测试数据表格',
+				h: 300,              //表体高度(可选)
+				loadUrl: '/tdui/data/td.datagrid.json',
+				cols: cols,
+				checkbox: true,      //是否显示checkbox(默认true)
+				singleSelect: false, //是否单选(默认false)
+				operations: [{display: '新增', icon: 'glyphicon glyphicon-plus', fun: function(ev, vm) {
+					alert('新增');
+				}}, {display: '删除', icon: 'glyphicon glyphicon-remove', fun: function(ev, vm) {
+					alert('删除');
+				}}]
+			}
+		});
+		avalon.scan();
+	});
+</script>
+</html>

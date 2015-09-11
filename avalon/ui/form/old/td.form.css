@@ -1,0 +1,24 @@
+.td_form .td_label {
+	font-weight: bold;
+}
+.td_form input[type="text"] {
+	height: 35px !important;
+}
+.td_form select {
+	margin-top: 5px;
+	height: 30px !important;
+}
+.td_form .switch {
+	height: 40px;
+}
+.td_form .td_group_container {
+	height: 40px;
+}
+.td_form .td_group {
+	display: inline-block;
+	float: left;
+	height: 40px;
+}
+.td_form .td_group label{
+	left: 0px;
+}

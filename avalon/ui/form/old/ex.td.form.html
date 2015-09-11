@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Form</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+	<link type="text/css" rel="stylesheet" href="../base/td.base.css" />
+	<!--[if (gte IE 9)|!(IE)]><!-->
+		<link type="text/css" rel="stylesheet" href="../base/td.base.modern.css" />
+	<!--<![endif]-->
+	<!--[if lte IE 8]>
+		<link type="text/css" rel="stylesheet" href="../base/td.base.traditional.css" />
+	<![endif]-->
+	<script type="text/javascript" src="../base/td.base.js"></script>
+	<script type="text/javascript" src="../../avalon.js"></script>
+	<script>
+		var eles = [
+			{name: 'id', display: '编号', type: 'text', value: '', col: 6, row: 1}, 
+			{name: 'name', display: '姓名', type: 'text', value: '', col: 6, row: 2},
+			{name: 'sex', display: '性别', type: 'switch', value: true, option: {
+				'true': '男', 'false': '女'
+			}, col:6, row:3},
+			{name: 'fav', display: '爱好', type: 'checkbox', value: ['1', '3'], option: {
+				'1': '游戏', '2': '电影', '3': '音乐'
+			}, col: 6, row: 4},
+			{name: 'job', display: '职业', type: 'select', value: '1', option: {
+				'1': '攻城狮', '2' : '程序猿', '3' : '项目经理'
+			}, col: 6, row: 5},
+			{name: 'from', display: '来自', type: 'radio', value: 'A', option: {
+				'A': '美国', 'C': '中国', 'J': '日本'
+			}, col:6, row: 6}
+		];
+		require(["ui/form/td.form"], function () {
+			avalon.define("test", function (vm) {
+				vm.$opt = {
+					eles: eles
+				}
+			});
+			avalon.scan();
+		});
+	</script>
+</head>
+<body class="ms-controller" ms-controller="test">
+	<div id="widget" ms-widget="form,form,$opt"></div>
+</body>
+</html>
