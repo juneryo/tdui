@@ -5,6 +5,7 @@ define(['avalon', 'text!./td.radio.html', 'css!./td.radio.css'], function(avalon
 		//外部参数
 		
 		//view属性
+		label:"",
 		checked: false,
 		disabled: false,
 		
