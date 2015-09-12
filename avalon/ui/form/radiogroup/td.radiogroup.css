@@ -11,6 +11,12 @@
 	height: 22px;
 	width: 22px;
 }
+.td_radiogroup_container_label{
+	position: relative;
+	display: inline-block;
+	height: 22px;
+	width: 22px;
+}
 .td_radiogroup_container .td_radiogroup_label {
 	position: relative;
 	height: 22px;

@@ -1,8 +1,10 @@
-<div class="td_radiogroup_container" ms-if="group.label">
-    <span class="td_radiogroup_label">{{group.label}}</span>
-</div>
-<br/>
-<div class="td_radiogroup_container" ms-repeat="group.childs" ms-class="td_radiogroup_disabled: el.disabled" ms-click="clickradiogroup($event,el, $index)">
+<span ms-if="group.label != null">
+    <div class="td_radiogroup_container">
+        <span class="td_radiogroup_label">{{group.label}}</span>
+    </div>
+    <br/>
+</span>
+<div class="td_radiogroup_container" ms-repeat="group.childs" ms-class="td_radiogroup_disabled: el.disabled" ms-click="clickradiogroup($event,el)">
     <span class="td_radiogroup" ms-class-1="td_checked: el.checked"  ms-class-2="td_unchecked: !el.checked"></span>
     <span class="td_radiogroup_label">{{el.label}}</span>
     <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>

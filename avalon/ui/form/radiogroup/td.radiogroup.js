@@ -1,4 +1,4 @@
-define(['avalon', 'text!./td.radiogroup.html', 'css!./td.radiogroup.css', 'css!../radio/td.radio.css'], function(avalon, template) {
+define(['avalon', 'text!./td.radiogroup.html', 'css!./td.radiogroup.css'], function(avalon, template) {
 	var _interface = function () {};
 	
 	avalon.component("td:radiogroup", {
@@ -6,8 +6,6 @@ define(['avalon', 'text!./td.radiogroup.html', 'css!./td.radiogroup.css', 'css!.
 		
 		//view属性
 		group:{},
-		checked: false,
-		disabled: false,
 		
 		//view接口
 		clickradiogroup: _interface,
@@ -36,7 +34,7 @@ define(['avalon', 'text!./td.radiogroup.html', 'css!./td.radiogroup.css', 'css!.
 		},
 		$init: function(vm, elem) {
 			//在此进行事件的实现
-			vm.clickradiogroup = function(ev,el, idx) {
+			vm.clickradiogroup = function(ev,el) {
 				if(!el.disabled && !el.checked) {
 				    var bFlag = !el.checked;
     			    vm.group.childs.forEach(function(el2){
