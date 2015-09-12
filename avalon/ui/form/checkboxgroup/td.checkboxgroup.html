@@ -1,0 +1,11 @@
+<span ms-if="group.label != null">
+    <div class="td_checkboxgroup_container">
+        <span class="td_checkboxgroup_label" ms-click="getData()">{{group.label}}</span>
+    </div>
+    <br/>
+</span>
+<div class="td_checkboxgroup_container" ms-repeat="group.childs" ms-class="td_checkboxgroup_disabled: disabled" ms-click="clickCheckboxGroup($event,el)">
+	<span class="td_checkboxgroup" ms-class-1="td_checked: el.checked"  ms-class-2="td_unchecked: !el.checked"></span>
+	<span class="td_checkboxgroup_label">{{el.label}}</span>
+	<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+</div>
