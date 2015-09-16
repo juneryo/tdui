@@ -1,0 +1,40 @@
+.td_rate_container {
+	position: relative;
+	height: 22px;
+	cursor: pointer;
+	display: inline-block;
+}
+
+.td_rate_container .td_rate {
+	position: relative;
+	display: inline-block;
+	height: 19px;
+	width: 20px;
+}
+.td_rate_container .td_rate_label {
+	position: relative;
+	height: 22px;
+	line-height:18px;
+	font-size: 18px;
+	bottom: 3px;
+}
+
+.td_rate_container .td_rate_checked {
+	background-image: url(img/checked.png);
+}
+
+.td_rate_container .td_rate_unchecked {
+	background-repeat: no-repeat;
+	background-image: url(img/unchecked.png);
+}
+
+.td_rate_container .td_rate_halfchecked {
+	background-repeat: no-repeat;
+	background-image: url(img/halfchecked.png);
+}
+
+.td_rate_disabled {
+	color: #ccc;
+	cursor: default;
+	cursor: not-allowed;
+}
