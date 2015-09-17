@@ -1,0 +1,40 @@
+.td_combobox_container {
+	position: relative;
+	height: 22px;
+	cursor: pointer;
+	display: inline-block;
+}
+.td_comboboxgroup_container .td_comboboxgroup_label {
+	position: relative;
+	height: 22px;
+	line-height:18px;
+	font-size: 18px;
+	bottom: 3px;
+}
+.td_combobox_container .td_combobox {
+	position: relative;
+	display: inline-block;
+	height: 22px;
+	width: 22px;
+}
+.td_combobox_container .td_combobox_label {
+	position: relative;
+	height: 22px;
+	line-height:18px;
+	font-size: 18px;
+	bottom: 3px;
+}
+
+.td_combobox_container .td_checked {
+	background-image: url(img/checked.png);
+}
+
+.td_combobox_container .td_unchecked {
+	background-image: url(img/unchecked.png);
+}
+
+.td_combobox_disabled {
+	color: #ccc;
+	cursor: default;
+	cursor: not-allowed;
+}
