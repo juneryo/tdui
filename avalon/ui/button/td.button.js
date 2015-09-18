@@ -1,4 +1,4 @@
-define(['avalon', 'text!./td.button.html', 'css!./td.button.css'], function(avalon, template) {
+define(['avalon', 'text!./td.button.html'], function(avalon, template) {
 	var _interface = function () {
 	};
 	avalon.component("td:button", {
@@ -6,6 +6,7 @@ define(['avalon', 'text!./td.button.html', 'css!./td.button.css'], function(aval
 		value: '',
 		type: 'default',  //default, primary, success, info, warning, danger
 		size: 'normal',   //large, mormal, small, xsmall
+		pull: '',
 		disabled: false,
 		isAction: false,
 		click: null,

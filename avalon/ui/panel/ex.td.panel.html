@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title>Panel</title>
+  <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+	<meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	
+	<link rel="stylesheet" href="../base/css/normalize.min.css" />
+	<link rel="stylesheet" href="../base/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="../base/css/material.css">
+	<link rel="stylesheet" href="../base/css/td.base.css">
+	
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+    <script src="../base/js/html5.min.js"></script>
+		<script src="../base/js/respond.min.js"></script>
+	<![endif]-->
+	
+	<!--[if (gte IE 10)|!(IE)]>-->
+		<link type="text/css" rel="stylesheet" href="../base/css/waves.css" />
+		<script type="text/javascript" src="../base/js/waves.js"></script>
+	<!--[endif]-->
+</head>
+<body>
+	<div class="container">
+		<h3>TdPanel&nbsp;<small>面板</small></h3>
+		<div class="row base_border padding_top padding_bottom bg_white">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ms-controller" ms-controller="test">
+				<td:panel config="$opt" title="面板">
+					<div slot="content">
+						这里是content(内容可以为component)
+					</div>
+					<div slot="footer">
+						这里是footer(内容可以为component)<br/>
+						若无此元素(div slot="footer")则footer不显示
+					</div>
+				</td:panel>
+			</div>
+		</div>
+		
+		<div class="row margin_top2">
+			<blockquote>
+				<p>示例代码：</p>
+			</blockquote>
+			<pre>
+<strong>HTML:</strong>
+&lt;td:panel config="$opt" title="面板"
+	&lt;div slot="content"&gt;
+		这里是content(内容可以为component)
+	&lt;/div&gt;
+	&lt;div slot="footer"&gt;
+		这里是footer(内容可以为component)
+		若无此元素(div slot="footer")则footer不显示
+	&lt;/div&gt;
+&lt;/td:panel&gt;
+<br/>
+<strong>JS:</strong>
+require(['ui/panel/td.panel'], function () {
+	avalon.define({
+		$id: 'test',
+		$opt: {
+			
+		}
+	});
+	avalon.scan();
+});
+			</pre>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="../../avalon.js"></script>
+<script type="text/javascript" src="../base/js/td.base.js"></script>
+<script>
+	require(['ui/panel/td.panel'], function () {
+		avalon.define({
+			$id: 'test',
+			$opt: {
+				
+			}
+		});
+		avalon.scan();
+	});
+</script>
+</html>

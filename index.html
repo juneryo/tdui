@@ -1,7 +1,63 @@
-<html>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title>index</title>
+  <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+	<meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	
+	<link rel="stylesheet" href="avalon/ui/base/css/normalize.min.css" />
+	<link rel="stylesheet" href="avalon/ui/base/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="avalon/ui/base/css/material.css">
+	<link rel="stylesheet" href="avalon/ui/base/css/td.base.css">
+	
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+    <script src="avalon/ui/base/js/html5.min.js"></script>
+		<script src="avalon/ui/base/js/respond.min.js"></script>
+	<![endif]-->
+	
+	<!--[if (gte IE 10)|!(IE)]>-->
+		<link type="text/css" rel="stylesheet" href="avalon/ui/base/css/waves.css" />
+		<script type="text/javascript" src="avalon/ui/base/js/waves.js"></script>
+	<!--[endif]-->
+</head>
 <body>
-<a href="avalon/ui/datagird/ex.td.datagrid.html"> DataGrid </a>
-<br/>
-<a href="avalon/ui/form/ex.td.form.html"> Form </a>
+
+<div class="container">
+	<h3>Index&nbsp;<small>首页</small></h3>
+	<div class="row base_border padding_top padding_bottom bg_white">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ms-controller" ms-controller="index">
+			<td:panel config="$panel_opt" title="面板">
+				<div slot="content">
+					
+				</div>
+				<div slot="footer">
+					<td:button config="$button_opt" type="primary" value="测试"></td:button>
+				</div>
+			</td:panel>
+		</div>
+	</div>
+</div>
+
 </body>
+<script type="text/javascript" src="avalon/avalon.js"></script>
+<script type="text/javascript" src="avalon/ui/base/js/td.base.js"></script>
+<script>
+	require(['ui/panel/td.panel', 'ui/button/td.button'], function () {
+		avalon.define({
+			$id: 'index',
+			$panel_opt: {
+				
+			},
+			$button_opt: {
+				actions: [{display: '提交', fun: function(ev, vm) {
+					alert('submit')
+				}}]
+			}
+		});
+		avalon.scan();
+	});
+</script>
 </html>

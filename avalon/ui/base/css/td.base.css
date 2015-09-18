@@ -29,6 +29,10 @@
 	top: 2px;
 }
 
+.btn-default {
+	border: solid 1px #ddd !important;
+}
+
 .ms-controller, .ms-important{
 	visibility:hidden;
 }
