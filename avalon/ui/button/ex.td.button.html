@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title>Button</title>
+  <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+	<meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	
+	<link rel="stylesheet" href="../base/css/normalize.min.css" />
+	<link rel="stylesheet" href="../base/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="../base/css/material.css">
+	<link rel="stylesheet" href="../base/css/td.base.css">
+	
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+    <script src="../base/js/html5.min.js"></script>
+		<script src="../base/js/respond.min.js"></script>
+	<![endif]-->
+	
+	<!--[if (gte IE 10)|!(IE)]>-->
+		<link type="text/css" rel="stylesheet" href="../base/css/waves.css" />
+		<script type="text/javascript" src="../base/js/waves.js"></script>
+	<!--[endif]-->
+</head>
+<body>
+	<div class="container">
+		<h3>TdButton&nbsp;<small>按钮</small></h3>
+		<div class="row base_border padding_top padding_bottom bg_white">
+			
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ms-controller" ms-controller="test">
+				<h4>Action Button:</h4>
+				<td:button config="$opt"  value="禁用default action按钮" disabled="true"></td:button>
+				<td:button config="$opt1" value="primary按钮" type="primary"></td:button>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ms-controller" ms-controller="test">
+				<h4>Button:</h4>
+				<td:button config="$opt2" value="大success按钮" type="success" size="large"></td:button>
+				<td:button config="$opt3" value="普通info按钮" type="info"></td:button>
+				<td:button config="$opt4" value="小warning按钮" type="warning" size="small"></td:button>
+				<td:button config="$opt5" value="超小禁用danger按钮" type="danger" size="xsmall" disabled="true"></td:button>
+			</div>
+		</div>
+		
+		<div class="row margin_top2">
+			<blockquote>
+				<p>示例代码：</p>
+			</blockquote>
+			<pre>
+<strong>HTML:</strong>
+&lt;td:button config="$opt"  value="禁用default action按钮" disabled="true"&gt;&lt;/td:button&gt;
+&lt;td:button config="$opt1" value="primary按钮" type="primary"&gt;&lt;/td:button&gt;
+&lt;td:button config="$opt2" value="大success按钮" type="success" size="large"&gt;&lt;/td:button&gt;
+&lt;td:button config="$opt3" value="普通info按钮" type="info"&gt;&lt;/td:button&gt;
+&lt;td:button config="$opt4" value="小warning按钮" type="warning" size="small"&gt;&lt;/td:button&gt;
+&lt;td:button config="$opt5" value="超小禁用danger按钮" type="danger" size="xsmall" disabled="true"&gt;&lt;/td:button&gt;
+<br/>
+<strong>JS:</strong>
+require(["ui/button/td.button"], function () {
+	avalon.define({
+		$id: 'test',
+		$opt: {
+			click: function(ev, vm) {
+				alert('default');
+			},
+			actions: [{display: '操作1', fun: function(ev, vm) {
+				alert('操作1');
+			}},{display: '操作2', fun: function(ev, vm) {
+				alert('操作2');
+			}}]
+		},
+		$opt1: {
+			click: function(ev, vm) {
+				alert('primary');
+			},
+			actions: [{display: '操作1', fun: function(ev, vm) {
+				alert('primary操作1');
+			}},{display: '操作2', fun: function(ev, vm) {
+				alert('primary操作2');
+			}}, {type:'split'}, {display: '操作3', fun: function(ev, vm) {
+				alert('primary操作3');
+			}}]
+		},
+		$opt2: {
+			click: function(ev, vm) {
+				alert('success');
+			}
+		},
+		$opt3: {
+			click: function(ev, vm) {
+				alert('info');
+			}
+		},
+		$opt4: {
+			click: function(ev, vm) {
+				alert('warning');
+			}
+		},
+		$opt5: {
+			click: function(ev, vm) {
+				alert('danger');
+			}
+		}
+	});
+	avalon.scan();
+});
+			</pre>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="../../avalon.js"></script>
+<script type="text/javascript" src="../base/js/td.base.js"></script>
+<script>
+	require(["ui/button/td.button"], function () {
+		avalon.define({
+			$id: 'test',
+			$opt: {
+				click: function(ev, vm) {
+					alert('default');
+				},
+				actions: [{display: '操作1', fun: function(ev, vm) {
+					alert('操作1');
+				}},{display: '操作2', fun: function(ev, vm) {
+					alert('操作2');
+				}}]
+			},
+			$opt1: {
+				click: function(ev, vm) {
+					alert('primary');
+				},
+				actions: [{display: '操作1', fun: function(ev, vm) {
+					alert('primary操作1');
+				}},{display: '操作2', fun: function(ev, vm) {
+					alert('primary操作2');
+				}}, {type:'split'}, {display: '操作3', fun: function(ev, vm) {
+					alert('primary操作3');
+				}}]
+			},
+			$opt2: {
+				click: function(ev, vm) {
+					alert('success');
+				}
+			},
+			$opt3: {
+				click: function(ev, vm) {
+					alert('info');
+				}
+			},
+			$opt4: {
+				click: function(ev, vm) {
+					alert('warning');
+				}
+			},
+			$opt5: {
+				click: function(ev, vm) {
+					alert('danger');
+				}
+			}
+		});
+		avalon.scan();
+	});
+</script>
+</html>
