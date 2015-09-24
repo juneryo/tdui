@@ -23,57 +23,64 @@
     <![endif]-->
 </head>
 <body>
-    <div class="container">
-        <h3>TdCheckbox&nbsp;<small>选择框</small></h3>
-        <div class="row base_border padding_top padding_bottom bg_white">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ms-controller" ms-controller="test">
-                 <td:checkbox config="$opt" label="加薪" checked="true" disabled="false"></td:checkbox>
-            </div>
-        </div>
+	<div class="container">
+		<h3>TdCheckbox&nbsp;<small>选择框</small></h3>
+		<div class="row base_border padding_top padding_bottom bg_white">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ms-controller" ms-controller="test">
+				<td:checkbox config="$opt" label="加薪" checked="true" disabled="false"></td:checkbox>
+				<br/><br/>
+				<td:checkboxgroup config="$group_opt" label="组选择" name="group"></td:checkboxgroup>
+			</div>
+		</div>
         
-        <div class="row margin_top2">
-            <blockquote>
-                <p>示例代码：</p>
-            </blockquote>
-            <pre>
+		<div class="row margin_top2">
+			<blockquote>
+					<p>示例代码：</p>
+			</blockquote>
+			<pre>
 <strong>HTML:</strong>
 &lt;td:checkbox config="$opt" checked="true" disabled="false"&gt;&lt;/td:checkbox&gt;
+&lt;td:checkboxgroup config="$group_opt" label="选择" name="group"&gt;&lt;/td:checkboxgroup&gt;
 <br/>
 <strong>JS:</strong>
-require(['ui/form/checkbox/td.checkbox'], function () {
-    avalon.define({
-        $id: 'test',
-        $opt: {
-            //在td:checkbox标签中不定义属性，也可以在这里定义。若标签中和$opt中都不定义则使用默认。
-            //label:"Checkbox后面的名称"
-            //checked:true|false
-            //disabled:true|false
-            //标签中属性优先级最高、其次$opt中、再次默认值
-            //注意：标签中属性命名方式不要以驼峰式命名，要以横线分割，例：labelText="Boy"(错) label-text="Boy"(对) 
-        }
-    });
-    avalon.scan();
+require(['ui/form/checkbox/td.checkbox', 'ui/form/checkbox/td.checkboxgroup'], function () {
+	avalon.define({
+		$id: 'test',
+		$opt: {
+			
+		},
+		$group_opt: {
+			checkboxes:[
+				{label:'升职', checked:true , disabled:false, value:'1'},
+				{label:'加薪', checked:false, disabled:false, value:'2'},
+				{label:'减薪', checked:false, disabled:true,  value:'3'}
+			]
+		}
+	});
+	avalon.scan();
 });
-            </pre>
-        </div>
-    </div>
+			</pre>
+		</div>
+	</div>
 </body>
 <script type="text/javascript" src="../../../avalon.js"></script>
 <script type="text/javascript" src="../../base/js/td.base.js"></script>
 <script>
-    require(['ui/form/checkbox/td.checkbox'], function () {
-        avalon.define({
-            $id: 'test',
-            $opt: {
-                //在td:checkbox标签中不定义属性，也可以在这里定义。若标签中和$opt中都不定义则使用默认。
-                //label:"Checkbox后面的名称"
-                //checked:true|false
-                //disabled:true|false
-                //标签中属性优先级最高、其次$opt中、再次默认值
-                //注意：标签中属性命名方式不要以驼峰式命名，要以横线分割，例：labelText="Boy"(错) label-text="Boy"(对) 
-            }
-        });
-        avalon.scan();
-    });
+	require(['ui/form/checkbox/td.checkbox', 'ui/form/checkbox/td.checkboxgroup'], function () {
+		avalon.define({
+			$id: 'test',
+			$opt: {
+				
+			},
+			$group_opt: {
+				checkboxes:[
+					{label:'升职', checked:true , disabled:false, value:'1'},
+					{label:'加薪', checked:false, disabled:false, value:'2'},
+					{label:'减薪', checked:false, disabled:true,  value:'3'}
+				]
+			}
+		});
+		avalon.scan();
+	});
 </script>
 </html>
