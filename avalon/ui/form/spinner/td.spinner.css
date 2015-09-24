@@ -12,21 +12,22 @@
 
 .td_spinner_container .td_spinner_oper .td_spinner_up {
 	position: relative;
-	bottom: 4px;
-	left: 12px;
+	bottom: 8px;
+	left: 10px;
 }
 .td_spinner_container .td_spinner_oper .td_spinner_up:active {
 	color: #009688;
-	bottom: 5px;
+	bottom: 10px;
 }
 
 .td_spinner_container .td_spinner_oper .td_spinner_down {
 	position: relative;
-	top: 6px;
+	left: -2px;
+	top: 2px;
 }
 .td_spinner_container .td_spinner_oper .td_spinner_down:active {
 	color: #009688;
-	top: 7px;
+	top: 4px;
 }
 
 

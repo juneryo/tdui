@@ -3,7 +3,8 @@
 }
 
 .td_dropdown_container .td_dropdown_trigger {
-	margin-top: -25px;
+	margin-top: -27px;
+	margin-right: 2px;
 	cursor: pointer;
 }
 

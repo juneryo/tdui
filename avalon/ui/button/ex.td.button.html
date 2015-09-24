@@ -9,7 +9,7 @@
 	
 	<link rel="stylesheet" href="../base/css/normalize.min.css" />
 	<link rel="stylesheet" href="../base/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="../base/css/material.css">
+	
 	<link rel="stylesheet" href="../base/css/td.base.css">
 	
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -31,13 +31,13 @@
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ms-controller" ms-controller="test">
 				<h4>Action Button:</h4>
 				<td:button config="$opt"  value="禁用default action按钮" disabled="true"></td:button>
-				<td:button config="$opt1" value="primary按钮" type="primary"></td:button>
+				<td:button config="$opt1" value="primary按钮" badge="5" type="primary"></td:button>
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ms-controller" ms-controller="test">
 				<h4>Button:</h4>
 				<td:button config="$opt2" value="大success按钮" type="success" size="large"></td:button>
 				<td:button config="$opt3" value="普通info按钮" type="info"></td:button>
-				<td:button config="$opt4" value="小warning按钮" type="warning" size="small"></td:button>
+				<td:button config="$opt4" value="小warning按钮" badge="5" type="warning" size="small"></td:button>
 				<td:button config="$opt5" value="超小禁用danger按钮" type="danger" size="xsmall" disabled="true"></td:button>
 			</div>
 		</div>
@@ -49,10 +49,10 @@
 			<pre>
 <strong>HTML:</strong>
 &lt;td:button config="$opt"  value="禁用default action按钮" disabled="true"&gt;&lt;/td:button&gt;
-&lt;td:button config="$opt1" value="primary按钮" type="primary"&gt;&lt;/td:button&gt;
+&lt;td:button config="$opt1" value="primary按钮" badge="5" type="primary"&gt;&lt;/td:button&gt;
 &lt;td:button config="$opt2" value="大success按钮" type="success" size="large"&gt;&lt;/td:button&gt;
 &lt;td:button config="$opt3" value="普通info按钮" type="info"&gt;&lt;/td:button&gt;
-&lt;td:button config="$opt4" value="小warning按钮" type="warning" size="small"&gt;&lt;/td:button&gt;
+&lt;td:button config="$opt4" value="小warning按钮" badge="5" type="warning" size="small"&gt;&lt;/td:button&gt;
 &lt;td:button config="$opt5" value="超小禁用danger按钮" type="danger" size="xsmall" disabled="true"&gt;&lt;/td:button&gt;
 <br/>
 <strong>JS:</strong>

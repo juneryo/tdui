@@ -4,6 +4,7 @@ define(['avalon', 'text!./td.button.html'], function(avalon, template) {
 	avalon.component("td:button", {
 		//外部参数
 		value: '',
+		badge: '',
 		type: 'default',  //default, primary, success, info, warning, danger
 		size: 'normal',   //large, mormal, small, xsmall
 		pull: '',

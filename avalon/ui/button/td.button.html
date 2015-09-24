@@ -6,6 +6,7 @@
 		ms-class-10="no_border_right: actions.length > 0"
 		ms-click="doClick($event)">
 		{{value}}
+		<span class="badge" ms-if="badge != ''">{{badge}}</span>
 	</a>
 	<a class="btn btn-default dropdown-toggle waves-effect waves-light no_border_left" href="javascript:void(0)"
 		ms-if="actions.length > 0" ms-click="toggleAction($event)"
