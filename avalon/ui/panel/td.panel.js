@@ -18,10 +18,12 @@ define(['avalon', 'text!./td.panel.html', 'css!./td.panel.css'], function(avalon
 			elem.innerHTML = elem.textContent = '';
 		},
 		$init: function(vm, elem) {
-			avalon.log(vm.footer)
+			vm.setTitle = function(title) {
+				vm.title = title;
+			}
 		},
 		$ready: function (vm) {
-      avalon.log("构建完成");
+      
     }
 	});
 	

@@ -5,7 +5,7 @@
  http://weibo.com/jslouvre/
  
  Released under the MIT license
- avalon.js 1.5.1 built in 2015.9.10
+ avalon.js 1.5.2 built in 2015.9.22
  support IE6+ and other browsers
  ==================================================*/
 (function(global, factory) {
@@ -74,11 +74,10 @@ var class2type = {}
 "Boolean Number String Function Array Date RegExp Object Error".replace(rword, function (name) {
     class2type["[object " + name + "]"] = name.toLowerCase()
 })
-
-
-function noop() {
+function CSPcompile(array){
+    return Object.constructor.apply(0,array)
 }
-
+function noop(){}
 
 function oneObject(array, val) {
     if (typeof array === "string") {
@@ -111,11 +110,6 @@ avalon = function (el) { //创建jQuery式的无new 实例化结构
     return new avalon.init(el)
 }
 
-avalon.profile = function () {
-    if (window.console && avalon.config.profile) {
-        Function.apply.call(console.log, console, arguments)
-    }
-}
 
 /*视浏览器情况采用最快的异步回调*/
 avalon.nextTick = new function () {// jshint ignore:line
@@ -292,7 +286,7 @@ function _number(a, len) { //用于模拟slice, splice的效果
 avalon.mix({
     rword: rword,
     subscribers: subscribers,
-    version: 1.51,
+    version: 1.52,
     ui: {},
     log: log,
     slice: W3C ? function (nodes, start, end) {
@@ -958,14 +952,14 @@ function $watch(expr, binding) {
     var queue = $events[expr] || ($events[expr] = [])
     if (typeof binding === "function") {
         var backup = binding
-        backup.uuid = Math.random()
+        backup.uniqueNumber = Math.random()
         binding = {
             element: root,
             type: "user-watcher",
             handler: noop,
             vmodels: [this],
             expr: expr,
-            uuid: backup.uuid
+            uniqueNumber: backup.uniqueNumber
         }
         binding.wildcard = /\*/.test(expr)
     }
@@ -973,11 +967,11 @@ function $watch(expr, binding) {
     if (!binding.update) {
         if (/\w\.*\B/.test(expr)) {
             binding.getter = noop
-
-            binding.update = function (x) {
+            var host = this
+            binding.update = function () {
                 var args = this.fireArgs || []
                 if (args[2])
-                    binding.handler.apply(this, args)
+                    binding.handler.apply(host, args)
                 delete this.fireArgs
             }
             queue.sync = true
@@ -1431,8 +1425,11 @@ function toJson(val) {
     } else if (xtype === "object") {
         var obj = {}
         for (i in val) {
+            if(i === "__proxy__" || i === "__data__" || i === "__const__")
+                continue
             if (val.hasOwnProperty(i)) {
-                obj[i] = toJson(val[i])
+                var value = val[i]
+                obj[i] = value && value.nodeType ? value :toJson(value)
             }
         }
         return obj
@@ -1805,7 +1802,7 @@ avalon.injectBinding = function (binding) {
             } else if (Array.isArray(a) ? a.length !== (b && b.length) : false) {
                 binding.handler(a, b)
                 binding.oldValue = a.concat()
-            } else if (a !== b) {
+            } else if (!("oldValue" in binding) || a !== b) {
                 binding.handler(a, b)
                 binding.oldValue = a
             }
@@ -1855,19 +1852,19 @@ var beginTime = new Date()
 var oldInfo = {}
 
 function getUid(data) { //IE9+,标准浏览器
-    if (!data.uuid) {
+    if (!data.uniqueNumber) {
         var elem = data.element
         if (elem) {
             if (elem.nodeType !== 1) {
-                data.uuid = data.type + (data.pos || 0) + "-" + getUid(elem.parentNode)
+                data.uniqueNumber = data.type + (data.pos || 0) + "-" + getUid(elem.parentNode)
             } else {
-                data.uuid = data.name + "-" + getUid(elem)
+                data.uniqueNumber = data.name + "-" + getUid(elem)
             }
         } else {
-            data.uuid = ++disposeCount
+            data.uniqueNumber = ++disposeCount
         }
     }
-    return data.uuid
+    return data.uniqueNumber
 }
 
 //添加到回收列队中
@@ -1915,7 +1912,7 @@ function rejectDisposeQueue(data) {
             }
             if (iffishTypes[data.type] && shouldDispose(data.element)) { //如果它没有在DOM树
                 disposeQueue.splice(i, 1)
-                delete disposeQueue[data.uuid]
+                delete disposeQueue[data.uniqueNumber]
                 var lists = data.lists
                 for (var k = 0, list; list = lists[k++]; ) {
                     avalon.Array.remove(lists, list)
@@ -1930,7 +1927,7 @@ function rejectDisposeQueue(data) {
 }
 
 function disposeData(data) {
-    delete disposeQueue[data.uuid] // 先清除，不然无法回收了
+    delete disposeQueue[data.uniqueNumber] // 先清除，不然无法回收了
     data.element = null
     data.rollback && data.rollback()
     for (var key in data) {
@@ -2524,8 +2521,9 @@ function showHidden(node, array) {
     avalon.fn[method] = function (value) { //会忽视其display
         var node = this[0]
         if (arguments.length === 0) {
-            if (node.setTimeout) { //取得窗口尺寸,IE9后可以用node.innerWidth /innerHeight代替
+            if (node.setTimeout) { //取得窗口尺寸
                 return node["inner" + name] || node.document.documentElement[clientProp]
+                 || node.document.body[clientProp] //IE6下前两个分别为undefined,0
             }
             if (node.nodeType === 9) { //取得页面尺寸
                 var doc = node.documentElement
@@ -2692,7 +2690,7 @@ function parser(input) {
 
         try {
             /* jshint ignore:start */
-            var execText = Function("return " + content)()
+            var execText = CSPcompile(["return " + content])()
             /* jshint ignore:end */
 
             execText += ''
@@ -2927,7 +2925,7 @@ function parseExpr(expr, vmodels, binding) {
             return nameOne[a] ? nameOne[a] : a
         })
         /* jshint ignore:start */
-        var fn2 = Function.apply(noop, names.concat("'use strict';" +
+        var fn2 = CSPcompile(names.concat("'use strict';" +
                 "return function(vvv){" + expr + " = vvv\n}\n"))
         /* jshint ignore:end */
         evaluatorPool.put(exprId + "setter", fn2)
@@ -2950,7 +2948,7 @@ function parseExpr(expr, vmodels, binding) {
         expr = "\nreturn " + expr + ";" //IE全家 Function("return ")出错，需要Function("return ;")
     }
     /* jshint ignore:start */
-    getter = Function.apply(noop, names.concat("'use strict';\nvar " +
+    getter = CSPcompile(names.concat("'use strict';\nvar " +
             assigns.join(",\n") + expr))
     /* jshint ignore:end */
 
@@ -3006,7 +3004,7 @@ function parseFilter(filters) {
                 return '",'
             }) + "]"
     /* jshint ignore:start */
-    return  Function("return [" + filters + "]")()
+    return  CSPcompile(["return [" + filters + "]"])()
     /* jshint ignore:end */
 
 }
@@ -3160,7 +3158,7 @@ function scanAttr(elem, vmodels, match) {
                             name: name,
                             expr: newValue,
                             oneTime: oneTime,
-                            uuid: attr.name + "-" + getUid(elem),
+                            uniqueNumber: attr.name + "-" + getUid(elem),
                             //chrome与firefox下Number(param)得到的值不一样 #855
                             priority: (directives[type].priority || type.charCodeAt(0) * 10) + (Number(param.replace(/\D/g, "")) || 0)
                         }
@@ -3474,6 +3472,7 @@ Buffer.prototype = {
 
 var buffer = new Buffer()
 var componentQueue = []
+var widgetList = []
 var componentHooks = {
     $construct: function () {
         return avalon.mix.apply(null, arguments)
@@ -3484,7 +3483,7 @@ var componentHooks = {
     $container: null,
     $childReady: noop,
     $replace: false,
-    $extends: null,
+    $extend: null,
     $$template: function (str) {
         return str
     }
@@ -3517,7 +3516,7 @@ avalon.component = function (name, opts) {
                 delete elemOpts.identifier
                 var componentDefinition = {}
 
-                var parentHooks = avalon.components[hooks.$extends]
+                var parentHooks = avalon.components[hooks.$extend]
                 if (parentHooks) {
                     avalon.mix(true, componentDefinition, parentHooks)
                     componentDefinition = parentHooks.$construct.call(elem, componentDefinition, {}, {})
@@ -3927,7 +3926,7 @@ var duplexBinding = avalon.directive("duplex", {
         if (elem.msData) {
             elem.msData["ms-duplex"] = binding.expr
         }
-
+   
         binding.param.replace(rw20g, function (name) {
             if (rduplexType.test(elem.type) && rduplexParam.test(name)) {
                 if (name === "radio")
@@ -3948,9 +3947,6 @@ var duplexBinding = avalon.directive("duplex", {
             }
             avalon.Array.ensure(params, name)
         })
-        if (elem.type === "radio") {
-            binding.xtype = "radio"
-        }
         if (!hasCast) {
             params.push("string")
         }
@@ -3959,6 +3955,7 @@ var duplexBinding = avalon.directive("duplex", {
         if (!binding.xtype) {
             binding.xtype = elem.tagName === "SELECT" ? "select" :
                     elem.type === "checkbox" ? "checkbox" :
+                    elem.type === "radio" ? "radio" :
                     /^change/.test(elem.getAttribute("data-duplex-event")) ? "change" :
                     "input"
         }
@@ -4099,7 +4096,7 @@ var duplexBinding = avalon.directive("duplex", {
         switch (this.xtype) {
             case "input":
             case "change":
-                curValue = this.pipe(value, this, "set") + "" //fix #673
+                curValue = this.pipe(value, this, "set")  //fix #673
                 if (curValue !== this.oldValue) {
                     elem.value = this.oldValue = curValue
                 }
@@ -4637,15 +4634,18 @@ avalon.directive("if", {
     update: function (val) {
         var binding = this
         var elem = this.element
-        var stamp = binding.stamp = + new Date()
+        var stamp = binding.stamp = +new Date()
         var par
-        var after = function() {
-            if(stamp !== binding.stamp) return
+        var after = function () {
+            if (stamp !== binding.stamp)
+                return
             binding.recoverNode = null
         }
-        if(binding.recoverNode) binding.recoverNode() // 还原现场，有移动节点的都需要还原现场
+        if (binding.recoverNode)
+            binding.recoverNode() // 还原现场，有移动节点的都需要还原现场
         try {
-            if (!elem.parentNode) return
+            if (!elem.parentNode)
+                return
             par = elem.parentNode
         } catch (e) {
             return
@@ -4661,9 +4661,20 @@ avalon.directive("if", {
             if (elem.nodeType === 8) {
                 var keep = binding.keep
                 var hasEffect = avalon.effect.apply(keep, 1, function () {
-                    if(stamp !== binding.stamp) return
+                    if (stamp !== binding.stamp)
+                        return
                     elem.parentNode.replaceChild(keep, elem)
                     elem = binding.element = keep //这时可能为null
+                    if (keep.getAttribute("_required")) {//#1044
+                        elem.required = true
+                        elem.removeAttribute("_required")
+                    }
+                    if (elem.querySelectorAll) {
+                        avalon.each(elem.querySelectorAll("[_required=true]"), function (el) {
+                            el.required = true
+                            el.removeAttribute("_required")
+                        })
+                    }
                     alway()
                 }, after)
                 hasEffect = hasEffect === false
@@ -4672,18 +4683,32 @@ avalon.directive("if", {
                 alway()
         } else { //移出DOM树，并用注释节点占据原位置
             if (elem.nodeType === 1) {
+                if (elem.required === true) {
+                    elem.required = false
+                    elem.setAttribute("_required", "true")
+                }
+                try {// 如果不支持querySelectorAll或:required,可以直接无视
+                    avalon.each(elem.querySelectorAll(":required"), function (el) {
+                        elem.required = false
+                        el.setAttribute("_required", "true")
+                    })
+                } catch (e) {
+                }
+
                 var node = binding.element = DOC.createComment("ms-if"),
-                    pos = elem.nextSibling
-                binding.recoverNode = function() {
+                        pos = elem.nextSibling
+                binding.recoverNode = function () {
                     binding.recoverNode = null
-                    if(node.parentNode !== par) {
+                    if (node.parentNode !== par) {
                         par.insertBefore(node, pos)
                         binding.keep = elem
                     }
                 }
+
                 avalon.effect.apply(elem, 0, function () {
                     binding.recoverNode = null
-                    if(stamp !== binding.stamp) return
+                    if (stamp !== binding.stamp)
+                        return
                     elem.parentNode.replaceChild(node, elem)
                     binding.keep = elem //元素节点
                     ifGroup.appendChild(elem)
@@ -4725,7 +4750,7 @@ function getTemplateContainer(binding, id, text) {
 }
 function nodesToFrag(nodes) {
     var frag = DOC.createDocumentFragment()
-    for(var i = 0, len = nodes.length; i < len; i++) {
+    for (var i = 0, len = nodes.length; i < len; i++) {
         frag.appendChild(nodes[i])
     }
     return frag
@@ -4770,55 +4795,54 @@ avalon.directive("include", {
             }
 
             // cache or animate，移动节点
-            if(effectClass || templateCache) {
-                (templateCache || {})[lastID] = leaveEl
-                var fragOnDom = binding.recoverNodes() // 恢复动画中的节点
-                if(fragOnDom) {
-                    target.insertBefore(fragOnDom, binding.end)
-                }
-                while (true) {
-                    var node = binding.start.nextSibling
-                    if (node && node !== leaveEl && node !== binding.end) {
-                        leaveEl.appendChild(node)
-                    } else {
-                        break
-                    }
+            (templateCache || {})[lastID] = leaveEl
+            var fragOnDom = binding.recoverNodes() // 恢复动画中的节点
+            if (fragOnDom) {
+                target.insertBefore(fragOnDom, binding.end)
+            }
+            while (true) {
+                var node = binding.start.nextSibling
+                if (node && node !== leaveEl && node !== binding.end) {
+                    leaveEl.appendChild(node)
+                } else {
+                    break
                 }
             }
             // 元素退场
             avalon.effect.remove(leaveEl, target, function () {
                 if (templateCache) { // write cache
-                    if(_stamp === binding._stamp) ifGroup.appendChild(leaveEl)
-                    leaveEl.setAttribute("sb", lastID)
+                    if (_stamp === binding._stamp)
+                        ifGroup.appendChild(leaveEl)
                 }
             }, binding)
 
 
             var enterEl = target,
-                before = avalon.noop,
-                after = avalon.noop
+                    before = avalon.noop,
+                    after = avalon.noop
 
             var fragment = getTemplateContainer(binding, val, text)
             var nodes = avalon.slice(fragment.childNodes)
 
-            if(outer && effectClass) {
+            if (outer && effectClass) {
                 enterEl = _ele
                 enterEl.innerHTML = "" // 清空
                 enterEl.setAttribute("ms-skip", "true")
                 target.insertBefore(enterEl, binding.end.nextSibling) // 插入到bingding.end之后避免被错误的移动
-                before = function() {
+                before = function () {
                     enterEl.insertBefore(fragment, null) // 插入节点
                 }
-                after = function() {
+                after = function () {
                     binding.recoverNodes = avalon.noop
-                    if(_stamp === binding._stamp) {
+                    if (_stamp === binding._stamp) {
                         fragment = nodesToFrag(nodes)
                         target.insertBefore(fragment, binding.end) // 插入真实element
                         scanNodeArray(nodes, vmodels)
                     }
-                    if(enterEl.parentNode === target) target.removeChild(enterEl) // 移除入场动画元素
+                    if (enterEl.parentNode === target)
+                        target.removeChild(enterEl) // 移除入场动画元素
                 }
-                binding.recoverNodes = function() {
+                binding.recoverNodes = function () {
                     binding.recoverNodes = avalon.noop
                     return nodesToFrag(nodes)
                 }
@@ -4828,9 +4852,9 @@ avalon.directive("include", {
                     scanNodeArray(nodes, vmodels)
                 }
             }
-           
+
             avalon.effect.apply(enterEl, "enter", before, after)
-            
+
 
 
         }
@@ -4871,7 +4895,7 @@ avalon.directive("include", {
             if (el) {
                 if (el.tagName === "NOSCRIPT" && !(el.innerHTML || el.fixIE78)) { //IE7-8 innerText,innerHTML都无法取得其内容，IE6能取得其innerHTML
                     xhr = getXHR() //IE9-11与chrome的innerHTML会得到转义的内容，它们的innerText可以
-                    xhr.open("GET", location, false) 
+                    xhr.open("GET", location, false)
                     xhr.send(null)
                     //http://bbs.csdn.net/topics/390349046?page=1#post-393492653
                     var noscripts = DOC.getElementsByTagName("noscript")
@@ -5428,86 +5452,6 @@ avalon.directive("visible", {
         }
     }
 })
-
-avalon.directive("widget", {
-    priority: 110,
-    init: function (data) {
-        var args = data.expr.match(rword)
-        var elem = data.element
-        var vmodels = data.vmodels
-        var widget = args[0]
-        var id = args[1]
-        if (!id || id === "$") { //没有定义或为$时，取组件名+随机数
-            id = generateID(widget)
-        }
-        var optName = args[2] || widget //没有定义，取组件名
-        var constructor = avalon.ui[widget]
-        if (typeof constructor === "function") { //ms-widget="tabs,tabsAAA,optname"
-            vmodels = elem.vmodels || vmodels
-            for (var i = 0, v; v = vmodels[i++]; ) {
-                if (v.hasOwnProperty(optName) && typeof v[optName] === "object") {
-                    var vmOptions = v[optName]
-                    vmOptions = vmOptions.$model || vmOptions
-                    break
-                }
-            }
-            if (vmOptions) {
-                var wid = vmOptions[widget + "Id"]
-                if (typeof wid === "string") {
-                    log("warning!不再支持" + widget + "Id")
-                    id = wid
-                }
-            }
-            //抽取data-tooltip-text、data-tooltip-attr属性，组成一个配置对象
-            var widgetData = avalon.getWidgetData(elem, widget)
-            data.expr = [widget, id, optName].join(",")
-            data[widget + "Id"] = id
-            data.evaluator = noop
-            elem.msData["ms-widget-id"] = id
-            var options = data[widget + "Options"] = avalon.mix({}, constructor.defaults, vmOptions || {}, widgetData)
-            elem.removeAttribute("ms-widget")
-            var vmodel = constructor(elem, data, vmodels) || {} //防止组件不返回VM
-            if (vmodel.$id) {
-                avalon.vmodels[id] = vmodel
-                createSignalTower(elem, vmodel)
-                try {
-                    vmodel.$init(function () {
-                        avalon.scan(elem, [vmodel].concat(vmodels))
-                        if (typeof options.onInit === "function") {
-                            options.onInit.call(elem, vmodel, options, vmodels)
-                        }
-                    })
-                } catch (e) {
-                }
-                data.rollback = function () {
-                    try {
-                        vmodel.$remove()
-                        vmodel.widgetElement = null // 放到$remove后边
-                    } catch (e) {
-                    }
-                    elem.msData = {}
-                    delete avalon.vmodels[vmodel.$id]
-                }
-                injectDisposeQueue(data, widgetList)
-                if (window.chrome) {
-                    elem.addEventListener("DOMNodeRemovedFromDocument", function () {
-                        setTimeout(rejectDisposeQueue)
-                    })
-                }
-            } else {
-                avalon.scan(elem, vmodels)
-            }
-        } else if (vmodels.length) { //如果该组件还没有加载，那么保存当前的vmodels
-            elem.vmodels = vmodels
-        }
-    },
-    update: function (arr) {
-    
-    }
-    
-})
-var widgetList = []
-//不存在 bindingExecutors.widget
 
 /*********************************************************************
  *                             自带过滤器                            *
@@ -6421,6 +6365,10 @@ new function () { // jshint ignore:line
         //5. 还原扩展名，query
         var urlNoQuery = url + ext
         url = urlNoQuery + this.query
+        urlNoQuery = url.replace(rquery, function (a) {
+          this.query = a
+          return ""
+        })
         //6. 处理urlArgs
         eachIndexArray(id, kernel.urlArgs, function (value) {
             url += (url.indexOf("?") === -1 ? "?" : "&") + value;

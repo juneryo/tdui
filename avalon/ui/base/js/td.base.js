@@ -1,3 +1,9 @@
+//Éú³ÉUUID
+function genId(prefix) {
+	prefix = prefix.toUpperCase() || 'ID'
+	return String(Math.random() + Math.random()).replace(/\d\.\d{4}/, prefix);
+}
+
 avalon.config({
 	paths: {
 		mmRequest: './mmRequest.js',

@@ -29,12 +29,12 @@
 	<h3>Index&nbsp;<small>首页</small></h3>
 	<div class="row base_border padding_top padding_bottom bg_white">
 		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ms-controller" ms-controller="index">
-			<td:panel config="$panel_opt" title="面板">
+			<td:panel $id="idx-panel" config="$panel_opt" title="面板">
 				<div slot="content">
 					
 				</div>
 				<div slot="footer">
-					<td:button config="$button_opt" type="primary" value="测试"></td:button>
+					<td:button $id="idx-btn" config="$button_opt" type="primary" value="测试"></td:button>
 				</div>
 			</td:panel>
 		</div>
@@ -52,8 +52,8 @@
 				
 			},
 			$button_opt: {
-				actions: [{display: '提交', fun: function(ev, vm) {
-					alert('submit')
+				actions: [{display: '设置面板标题', fun: function(ev, vm) {
+					avalon.vmodels['idx-panel'].setTitle('新标题');
 				}}]
 			}
 		});
