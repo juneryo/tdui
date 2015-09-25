@@ -27,8 +27,11 @@
 		<h3>TdCheckbox&nbsp;<small>选择框</small></h3>
 		<div class="row base_border padding_top padding_bottom bg_white">
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ms-controller" ms-controller="test">
+				<h4>Checkbox</h4>
 				<td:checkbox config="$opt" label="加薪" checked="true" disabled="false"></td:checkbox>
-				<br/><br/>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ms-controller" ms-controller="test">
+				<h4>CheckboxGroup</h4>
 				<td:checkboxgroup config="$group_opt" label="组选择" name="group"></td:checkboxgroup>
 			</div>
 		</div>
@@ -47,13 +50,28 @@ require(['ui/form/checkbox/td.checkbox', 'ui/form/checkbox/td.checkboxgroup'], f
 	avalon.define({
 		$id: 'test',
 		$opt: {
-			
+			onchecked: function(ev, vm) {
+				avalon.log('选中事件 checked: ' + vm.checked);
+			},
+			onchanged: function(ev, vm) {
+				avalon.log('变更事件 checked: ' + vm.checked);
+			}
 		},
 		$group_opt: {
 			checkboxes:[
-				{label:'升职', checked:true , disabled:false, value:'1'},
-				{label:'加薪', checked:false, disabled:false, value:'2'},
-				{label:'减薪', checked:false, disabled:true,  value:'3'}
+				{label:'升职', checked:true , disabled:false, value:'1', onchecked: function(ev, vm, box) {
+					avalon.log(vm.getData());
+				}},
+				{label:'加薪', checked:false, disabled:false, value:'2', onchanged: function(ev, vm, box) {
+					avalon.log(vm.value);
+					if(box.checked == true) {
+						vm.checkboxes[3].disabled = false;
+					}else {
+						vm.checkboxes[3].disabled = true;
+					}
+				}},
+				{label:'减薪', checked:false, disabled:true,  value:'3'},
+				{label:'转正', checked:true,  disabled:true,  value:'4'}
 			]
 		}
 	});
@@ -70,13 +88,28 @@ require(['ui/form/checkbox/td.checkbox', 'ui/form/checkbox/td.checkboxgroup'], f
 		avalon.define({
 			$id: 'test',
 			$opt: {
-				
+				onchecked: function(ev, vm) {
+					avalon.log('选中事件 checked: ' + vm.checked);
+				},
+				onchanged: function(ev, vm) {
+					avalon.log('变更事件 checked: ' + vm.checked);
+				}
 			},
 			$group_opt: {
 				checkboxes:[
-					{label:'升职', checked:true , disabled:false, value:'1'},
-					{label:'加薪', checked:false, disabled:false, value:'2'},
-					{label:'减薪', checked:false, disabled:true,  value:'3'}
+					{label:'升职', checked:true , disabled:false, value:'1', onchecked: function(ev, vm, box) {
+						avalon.log(vm.getData());
+					}},
+					{label:'加薪', checked:false, disabled:false, value:'2', onchanged: function(ev, vm, box) {
+						avalon.log(vm.value);
+						if(box.checked == true) {
+							vm.checkboxes[3].disabled = false;
+						}else {
+							vm.checkboxes[3].disabled = true;
+						}
+					}},
+					{label:'减薪', checked:false, disabled:true,  value:'3'},
+					{label:'转正', checked:true,  disabled:true,  value:'4'}
 				]
 			}
 		});
