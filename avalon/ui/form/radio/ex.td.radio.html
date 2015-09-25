@@ -1,80 +1,133 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <title>Radio</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
-    <meta name="renderer" content="webkit"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+	<title>Radio</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+	<meta name="renderer" content="webkit"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+	
+	<link rel="stylesheet" href="../../base/css/normalize.min.css" />
+	<link rel="stylesheet" href="../../base/css/bootstrap.min.css" />
+	
+	<link rel="stylesheet" href="../../base/css/td.base.css"/>
     
-    <link rel="stylesheet" href="../../base/css/normalize.min.css" />
-    <link rel="stylesheet" href="../../base/css/bootstrap.min.css" />
-    
-    <link rel="stylesheet" href="../../base/css/td.base.css"/>
-    
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="../../base/js/html5.min.js"></script>
-        <script src="../../base/js/respond.min.js"></script>
-    <![endif]-->
-    
-    <!--[if (gte IE 10)|!(IE)]>
-        <link type="text/css" rel="stylesheet" href="../../base/css/waves.css" />
-        <script type="text/javascript" src="../../base/js/waves.js"></script>
-    <![endif]-->
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="../../base/js/html5.min.js"></script>
+		<script src="../../base/js/respond.min.js"></script>
+	<![endif]-->
+	
+	<!--[if (gte IE 10)|!(IE)]>-->
+		<link type="text/css" rel="stylesheet" href="../../base/css/waves.css" />
+		<script type="text/javascript" src="../../base/js/waves.js"></script>
+	<!--[endif]-->
 </head>
 <body>
-    <div class="container">
-        <h3>TdRadio&nbsp;<small>单选框</small></h3>
-        <div class="row base_border padding_top padding_bottom bg_white">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ms-controller" ms-controller="test">
-                <td:radio config="$opt" label="Boy" checked="true" disabled="false"></td:radio>
-            </div>
-        </div>
+  <div class="container">
+		<h3>TdRadio&nbsp;<small>单选框</small></h3>
+		<div class="row base_border padding_top padding_bottom bg_white ms-controller" ms-controller="test">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<h4>Radio</h4>
+				<td:radio config="$opt" label="单选" checked="true" disabled="false"></td:radio>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<h4>RadioGroup</h4>
+				<td:radiogroup config="$group_opt" label="多选组" name="group"></td:radiogroup>
+			</div>
+		</div>
         
-        <div class="row margin_top2">
-            <blockquote>
-                <p>示例代码：</p>
-            </blockquote>
-            <pre>
+		<div class="row margin_top2">
+			<blockquote>
+					<p>示例代码：</p>
+			</blockquote>
+			<pre>
 <strong>HTML:</strong>
 &lt;td:radio config="$opt" label="Boy" checked="true" disabled="false"&gt;&lt;/td:radio&gt;
 <br/>
 <strong>JS:</strong>
-require(['ui/form/radio/td.radio'], function () {
-    avalon.define({
-        $id: 'test',
-        $opt: {
-            //在td:radio标签中不定义属性，也可以在这里定义。若标签中和$opt中都不定义则使用默认。
-            //label:"Radio后面的名称"
-            //checked:true|false
-            //disabled:true|false
-            //标签中属性优先级最高、其次$opt中、再次默认值
-            //注意：标签中属性命名方式不要以驼峰式命名，要以横线分割，例：labelText="Boy"(错) label-text="Boy"(对) 
-        }
-    });
-    avalon.scan();
+require(['ui/form/radio/td.radio', 'ui/form/radio/td.radiogroup'], function () {
+	avalon.define({
+		$id: 'test',
+		$opt: {
+			onchecked: function(ev, vm) {
+				avalon.log('选中事件 checked: ' + vm.checked);
+			},
+			onchanged: function(ev, vm) {
+				avalon.log('变更事件 checked: ' + vm.checked);
+			}
+		},
+		$group_opt: {
+			onchanged: function(ev, vm, radio) {
+				avalon.log('checked radio is changed, radio [' + radio.label + '] is checked.');
+			},
+			radios: [
+				{label:'博士', checked:true , disabled:false, value:'1', onchecked: function(ev, vm, radio) {
+					avalon.log('博士radio checked:');
+					avalon.log(vm.getData());
+				}},
+				{label:'硕士', checked:false, disabled:false, value:'2', onchanged: function(ev, vm, radio) {
+					avalon.log('硕士radio changed:' + vm.value);
+					if(radio.checked == true) {
+						vm.radios[2].disabled = false;
+					}else {
+						vm.radios[2].disabled = true;
+					}
+				}},
+				{label:'本科', checked:false, disabled:true, value:'3', onchanged: function(ev, vm, radio) {
+					avalon.log('本科radio changed:');
+					avalon.log(vm.getData());
+				}},
+				{label:'大专', checked:false, disabled:true, value:'4'}
+			]
+		}
+	});
+	avalon.scan();
 });
-            </pre>
-        </div>
-    </div>
+			</pre>
+		</div>
+	</div>
 </body>
 <script type="text/javascript" src="../../../avalon.js"></script>
 <script type="text/javascript" src="../../base/js/td.base.js"></script>
 <script>
-    require(['ui/form/radio/td.radio'], function () {
-        avalon.define({
-            $id: 'test',
-            $opt: {
-                //在td:radio标签中不定义属性，也可以在这里定义。若标签中和$opt中都不定义则使用默认。
-                //label:"Radio后面的名称"
-                //checked:true|false
-                //disabled:true|false
-                //标签中属性优先级最高、其次$opt中、再次默认值
-                //注意：标签中属性命名方式不要以驼峰式命名，要以横线分割，例：labelText="Boy"(错) label-text="Boy"(对) 
-            }
-        });
-        avalon.scan();
-    });
+	require(['ui/form/radio/td.radio', 'ui/form/radio/td.radiogroup'], function () {
+		avalon.define({
+			$id: 'test',
+			$opt: {
+				onchecked: function(ev, vm) {
+					avalon.log('选中事件 checked: ' + vm.checked);
+				},
+				onchanged: function(ev, vm) {
+					avalon.log('变更事件 checked: ' + vm.checked);
+				}
+			},
+			$group_opt: {
+				onchanged: function(ev, vm, radio) {
+					avalon.log('checked radio is changed, radio [' + radio.label + '] is checked.');
+				},
+				radios: [
+					{label:'博士', checked:true , disabled:false, value:'1', onchecked: function(ev, vm, radio) {
+						avalon.log('博士radio checked:');
+						avalon.log(vm.getData());
+					}},
+					{label:'硕士', checked:false, disabled:false, value:'2', onchanged: function(ev, vm, radio) {
+						avalon.log('硕士radio changed:' + vm.value);
+						if(radio.checked == true) {
+							vm.radios[2].disabled = false;
+						}else {
+							vm.radios[2].disabled = true;
+						}
+					}},
+					{label:'本科', checked:false, disabled:true, value:'3', onchanged: function(ev, vm, radio) {
+						avalon.log('本科radio changed:');
+						avalon.log(vm.getData());
+					}},
+					{label:'大专', checked:false, disabled:true, value:'4'}
+				]
+			}
+		});
+		avalon.scan();
+	});
 </script>
 </html>

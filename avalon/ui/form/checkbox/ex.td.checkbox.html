@@ -17,20 +17,20 @@
         <script src="../../base/js/respond.min.js"></script>
     <![endif]-->
     
-    <!--[if (gte IE 10)|!(IE)]>
+    <!--[if (gte IE 10)|!(IE)]>-->
         <link type="text/css" rel="stylesheet" href="../../base/css/waves.css" />
         <script type="text/javascript" src="../../base/js/waves.js"></script>
-    <![endif]-->
+    <!--[endif]-->
 </head>
 <body>
 	<div class="container">
 		<h3>TdCheckbox&nbsp;<small>选择框</small></h3>
-		<div class="row base_border padding_top padding_bottom bg_white">
-			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ms-controller" ms-controller="test">
+		<div class="row base_border padding_top padding_bottom bg_white ms-controller" ms-controller="test">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 				<h4>Checkbox</h4>
 				<td:checkbox config="$opt" label="加薪" checked="true" disabled="false"></td:checkbox>
 			</div>
-			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ms-controller" ms-controller="test">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 				<h4>CheckboxGroup</h4>
 				<td:checkboxgroup config="$group_opt" label="组选择" name="group"></td:checkboxgroup>
 			</div>
