@@ -2,124 +2,115 @@ define(['avalon', 'text!./td.rate.html', 'css!./td.rate.css'], function(avalon, 
 	var _interface = function () {
 	};
 	avalon.component("td:rate", {
-		//外部参数
-		num : 5,          //星星默认个数
-		isHalf : false,   //是否允许半个星星
-		defaultNum : 1,   //星星默认选中个数
+		//外部属性
+		label: '',
+		name: 'rate',
+		num: 5,       //星星默认个数
+		default: 0,   //星星默认选中个数
+		value: 0,
+		half: false,  //是否允许半个星星
+		disabled: false,
+		//外部属性
+		onclicked: null,
 		
 		//view属性
-		disabled: false,
-		starArr: [0, 0, 0, 0, 0],
+		stars: [],
+		tmpStars: [],
 		//view接口
 		clickRate: _interface,
-		mouseOverRate: _interface,
+		mouseInRate: _interface,
 		mouseOutRate: _interface,
 		
-		uncheckedAll: _interface,
-		checkedRateHalf: _interface,
-		checkedRate:_interface,
-		countChecked:_interface,
-		checkedByCount:_interface,
-		
 		$template: template,
-		$construct: function (hooks, vmOpts, elemOpts) {	
+		$construct: function (hooks, vmOpts, elemOpts) {
 			var options = avalon.mix(hooks, vmOpts, elemOpts);
+			//根据外部参数num, half及default 调整内部监控对象stars
+			var starsNum = elemOpts.num > 0 ? elemOpts.num : hooks.num;
+			var defaultNum = elemOpts.default > 0 ? elemOpts.default : 0;
+			for(var i = 0; i < starsNum; i ++) {
+				if((i + 0.5) < defaultNum) {
+					hooks.stars.push(2);
+					hooks.tmpStars.push(2);
+				}else if((i + 0.5) == defaultNum) {
+					hooks.stars.push(elemOpts.half ? 1 : 2);
+					hooks.tmpStars.push(elemOpts.half ? 1 : 2);
+				}else {
+					hooks.stars.push(0);
+					hooks.tmpStars.push(0);
+				}
+			}
 			return options;
 		},
 		$dispose: function (vm, elem) {
 			elem.innerHTML = elem.textContent = '';
 		},
 		$init: function(vm, elem) {
-			//初始化星星个数
-			var starArrInit = [];
-			for(var k = 1; k <= vm.num; k++){
-				starArrInit.push(k <= vm.defaultNum ? 2 : 0);
-			}
-			vm.starArr = starArrInit;
-			
-			var count = vm.defaultNum;   //上次星星选中个数
-			
-			//事件绑定
-			vm.clickRate = function(index) {   //点击事件
-				if(!vm.disabled) {
-					if(vm.isHalf){
-						var countArr = count.toString().split('.');
-						var len = countArr.length;
-						count = len == 2 ? count + 0.5 : count;
-						if(index + 1 - count != 0){
-							vm.checkedRateHalf(index);
-						}else if(index + 1 - count == 0){
-							if(len == 2){
-								vm.starArr.set(index, 2);
-							}else{
-								vm.starArr.set(index, 0);
-							}
+			//内部方法
+			//内部方法
+			vm._trigger = function(ev, type) {
+				switch (type) {
+					case 'changed':
+						if(typeof vm.onchanged == 'function') {
+							vm.onchanged(ev, vm);
 						}
-					}else{
-						vm.checkedRate(index);
-					}
-					count = vm.countChecked();
+						break;
+					case 'clicked':
+						if(typeof vm.onclicked == 'function') {
+							vm.onclicked(ev, vm);
+						}
+						break;
+					default: break;
 				}
 			}
-			vm.mouseOverRate = function(index) { //鼠标悬浮事件
+			vm._setRate = function(idx) {
+				var val = 2;
+				for(var i = 0; i < vm.num; i ++) {
+					if(i == idx) {
+						if(vm.stars[idx] == 0) {
+							val = vm.half ? 1 : 2; 
+						}else if(vm.stars[idx] == 2) {
+							val = 0;
+						}
+						vm.stars.set(i, val);
+					}else if(i > idx) {
+						vm.stars.set(i, 0);
+					}else {
+						vm.stars.set(i, (i + 0.5 == idx) ? 1 : 2);
+					}
+				}
+				return val;
+			}
+			//接口方法
+			vm.clickRate = function(ev, idx) {
+				var val = vm._setRate(idx);
+				vm.value = idx + (val > 0 ? (val == 1 ? 0.5 : 1) : 0);
 				if(!vm.disabled) {
-					vm.checkedRate(index);
+					vm._trigger(ev, 'clicked');
+					//click时肯定会变
+					vm._trigger(ev, 'changed');
 				}
 			}
-			vm.mouseOutRate = function() {   //鼠标离开事件
-				if(!vm.disabled) {
-					vm.checkedByCount(count);
+			//对外方法
+			vm.getData = function() {
+				var data = {};
+				data[vm.name] = vm.value;
+				return data;
+			}
+			vm.getValue = function() {
+				return vm.value;
+			}
+			vm.setValue = function(val) {
+				vm._setRate(val);
+				var changed = !(val == vm.value);
+				vm.value = val;
+				if(changed) {
+					vm._trigger(ev, 'changed');
 				}
 			}
-			
-			vm.uncheckedAll = function(){
-				for(var i = 0; i < vm.num; i++){
-					vm.starArr.set(i, 0);
-				}
-			}
-			vm.checkedRateHalf = function(index){
-				vm.uncheckedAll();
-				for(var i = 0; i < index; i ++){
-					vm.starArr.set(i, 2);
-				}
-				vm.starArr.set(index, 1);
-			}
-			vm.checkedRate = function(index){
-				vm.uncheckedAll();
-				for(var i = 0; i <= index; i ++){
-					vm.starArr.set(i, 2);
-				}
-			}
-			vm.countChecked = function(){
-				count = 0;
-				for(var i = 0; i < vm.num; i++){
-					if(vm.starArr[i] == 2){
-						count ++;
-					}else if(vm.starArr[i] == 1){
-						count = count + 0.5;
-					}
-				}
-				return count;
-			}
-			vm.checkedByCount = function(count){
-				vm.uncheckedAll();
-				var countArr = count.toString().split('.');
-				if(countArr.length == 2){
-					for(var i = 0; i < count - 1; i ++){
-						vm.starArr.set(i, 2);
-					}
-					vm.starArr.set(i, 1);
-				}else{
-					for(var i = 0; i < count; i ++){
-						vm.starArr.set(i, 2);
-					}
-				}
-			}
-			
 		},
 		$ready: function (vm) {
-	      avalon.log("构建完成");
-	    }
+	    
+	  }
 	});
 	
 	var widget = avalon.components["td:rate"];

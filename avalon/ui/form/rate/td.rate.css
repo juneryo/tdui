@@ -8,15 +8,8 @@
 .td_rate_container .td_rate {
 	position: relative;
 	display: inline-block;
-	height: 19px;
-	width: 20px;
-}
-.td_rate_container .td_rate_label {
-	position: relative;
-	height: 22px;
-	line-height:18px;
-	font-size: 18px;
-	bottom: 3px;
+	height: 24px;
+	width: 24px;
 }
 
 .td_rate_container .td_rate_checked {

@@ -18,17 +18,17 @@
 		<script src="../../base/js/respond.min.js"></script>
 	<![endif]-->
 	
-	<!--[if (gte IE 10)|!(IE)]>
+	<!--[if (gte IE 10)|!(IE)]>-->
 		<link type="text/css" rel="stylesheet" href="../../base/css/waves.css" />
 		<script type="text/javascript" src="../../base/js/waves.js"></script>
-	<![endif]-->
+	<!--[endif]-->
 </head>
 <body>
 	<div class="container">
 		<h3>TDRate&nbsp;<small>评分</small></h3>
 		<div class="row base_border padding_top padding_bottom bg_white">
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ms-controller" ms-controller="test">
-	            <td:rate config="$opt" disabled="false" num="8"></td:rate>
+	      <td:rate config="$opt" label="评分" name="rate" disabled="false" half="true" num="5" default="3.5"></td:rate>
 			</div>
 		</div>
 		
@@ -37,9 +37,24 @@
 				<p>示例代码：</p>
 			</blockquote>
 			<pre>
-			<strong>HTML:</strong>
+<strong>HTML:</strong>
+&lt;td:rate config="$opt" label="评分" name="rate" disabled="false" half="true" num="5" default="3.5"&gt;&lt;/td:rate&gt;
 			<br/>
-			<strong>JS:</strong>
+<strong>JS:</strong>
+require(['ui/form/rate/td.rate'], function () {
+	avalon.define({
+		$id: 'test',
+		$opt: {
+			onclicked: function(ev, vm) {
+				avalon.log(vm.getData());
+			},
+			onchanged: function(ev, vm) {
+				avalon.log('value changed to: ' + vm.value);
+			}
+		}
+	});
+	avalon.scan();
+});
 			</pre>
 		</div>
 	</div>
@@ -51,9 +66,12 @@
 		avalon.define({
 			$id: 'test',
 			$opt: {
-				defaultNum : 2,
-				isHalf : true
-				//label,name,disabled也可以写在这里或这里、html中都不写，默认''、'rate'、false
+				onclicked: function(ev, vm) {
+					avalon.log(vm.getData());
+				},
+				onchanged: function(ev, vm) {
+					avalon.log('value changed to: ' + vm.value);
+				}
 			}
 		});
 		avalon.scan();
