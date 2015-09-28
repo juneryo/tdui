@@ -16,8 +16,7 @@
 	left: 10px;
 }
 .td_spinner_container .td_spinner_oper .td_spinner_up:active {
-	color: #009688;
-	bottom: 10px;
+	bottom: 9px;
 }
 
 .td_spinner_container .td_spinner_oper .td_spinner_down {
@@ -26,8 +25,7 @@
 	top: 2px;
 }
 .td_spinner_container .td_spinner_oper .td_spinner_down:active {
-	color: #009688;
-	top: 4px;
+	top: 3px;
 }
 
 

@@ -42,11 +42,18 @@
 <br/>
 <strong>JS:</strong>
 require(['ui/form/spinner/td.spinner'], function () {
-	avalon.define({
+	var vm = avalon.define({
 		$id: 'test',
 		$opt: {
-			//属性 label,name,disabled,max,min 也可以写在这里或这里、html中都不写，
-			//默认 ''、'spinner'、false、''、''
+			onchanged: function(ev, vm) {
+				avalon.log('value changed to:' + vm.value);
+			},
+			onupclicked: function(ev, vm) {
+				avalon.log('click up');
+			},
+			ondownclicked: function(ev, vm) {
+				avalon.log('click down');
+			}
 		}
 	});
 	avalon.scan();
@@ -59,11 +66,18 @@ require(['ui/form/spinner/td.spinner'], function () {
 <script type="text/javascript" src="../../base/js/td.base.js"></script>
 <script>
 	require(['ui/form/spinner/td.spinner'], function () {
-		avalon.define({
+		var vm = avalon.define({
 			$id: 'test',
 			$opt: {
-				//属性 label,name,disabled,value,max,min 也可以写在这里或这里、html中都不写，
-				//默认 ''、'spinner'、false、value、''、''
+				onchanged: function(ev, vm) {
+					avalon.log('value changed to:' + vm.value);
+				},
+				onupclicked: function(ev, vm) {
+					avalon.log('click up');
+				},
+				ondownclicked: function(ev, vm) {
+					avalon.log('click down');
+				}
 			}
 		});
 		avalon.scan();
