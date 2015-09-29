@@ -1,0 +1,21 @@
+.td_select_container {
+	position: relative;
+}
+
+.td_select_container .td_select_trigger {
+	margin-top: -27px;
+	margin-right: 2px;
+	cursor: pointer;
+}
+
+.td_select_container .td_select_list {
+	width:100%;
+}
+
+.td_select_container .td_select_selected {
+	margin-top:-22px;
+	margin-right:5px;
+}
+
+
+

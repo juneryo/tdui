@@ -1,0 +1,12 @@
+<div class="td_select_container">
+	<label class="control-label" ms-if="label != ''">{{label}}：</label>
+	<input class="form-control" type="text" placeholder="" readOnly 
+		ms-attr-name="name" ms-attr-value="text" ms-click="toggleList($event)" />
+	<i class="pull-right td_select_trigger">▼</i>
+	<ul class="dropdown-menu td_select_list" ms-if="data != null" ms-visible="isShow">
+		<li ms-repeat="data">
+			<a href="javascript:void(0)" ms-attr-name="$key" ms-click="selectOne($event, $key)">{{$val}}</a>
+			<span class="pull-right td_select_selected" ms-if="isSelected($key)">✔</span>
+		</li>
+	</ul>
+</div>
