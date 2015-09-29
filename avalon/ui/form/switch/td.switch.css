@@ -1,7 +1,7 @@
 .td_switch_container {
 	position: relative;
-	cursor: pointer;
 	display: inline-block;
+	cursor: pointer;
 }
 
 .td_switch_disabled {
@@ -9,20 +9,12 @@
 	cursor: not-allowed;
 }
 
-.td_switch_container .td_switch_label {
-	position: relative;
-	display: inline-block;
-	height: 22px;
-	line-height: 22px;
-	bottom: 5px;
-}
-
 .td_switch_container .td_switch {
 	position: relative;
 	width: 55px;
 	height: 22px;
 	line-height: 22px;
-	border-radius: 11px;
+	border-radius: 8px;
 	display: inline-block;
 }
 
@@ -45,8 +37,17 @@
 	border-radius: 11px;
 	background-color: #f5f5f5;
 	background: rgba(0, 0, 0, 0) linear-gradient(#f5f5f5 10%, #eeeeee) repeat scroll 0 0;
-  box-shadow: 0 0.1em 0.15em -0.05em rgba(255, 255, 255, 0.9) inset, 0 0.2em 0.2em -0.12em rgba(0, 0, 0, 0.5);
 }
 
+.td_switch_container .td_switch_display {
+	position: relative;
+	display: inline-block;
+	top: -5px;
+	font-size: 15px;
+	height: 15px;
+	line-height: 15px;
+}
 
-
+.td_switch_container .td_switch_display_disabled {
+	color: gray;
+}

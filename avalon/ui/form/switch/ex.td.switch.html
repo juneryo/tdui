@@ -18,17 +18,17 @@
 		<script src="../../base/js/respond.min.js"></script>
 	<![endif]-->
 	
-	<!--[if (gte IE 10)|!(IE)]>
+	<!--[if (gte IE 10)|!(IE)]>-->
 		<link type="text/css" rel="stylesheet" href="../../base/css/waves.css" />
 		<script type="text/javascript" src="../../base/js/waves.js"></script>
-	<![endif]-->
+	<!--[endif]-->
 </head>
 <body>
 	<div class="container">
 		<h3>TdSwitch&nbsp;<small>开关</small></h3>
 		<div class="row base_border padding_top padding_bottom bg_white">
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ms-controller" ms-controller="test">
-				 <td:switch config="$opt" label="开关" name="status" disabled="false" on="true"></td:switch>
+				 <td:switch config="$opt" label="状态" name="status" disabled="false" on="true"></td:switch>
 			</div>
 		</div>
 		
@@ -45,6 +45,10 @@ require(['ui/form/switch/td.switch'], function () {
 	avalon.define({
 		$id: 'test',
 		$opt: {
+			display: {
+				on: '可用',
+				off: '禁用'
+			},
 			onclicked: function(ev, vm) {
 				avalon.log('switch clicked');
 			},
@@ -66,6 +70,10 @@ require(['ui/form/switch/td.switch'], function () {
 		avalon.define({
 			$id: 'test',
 			$opt: {
+				display: {
+					on: '可用',
+					off: '禁用'
+				},
 				onclicked: function(ev, vm) {
 					avalon.log('switch clicked');
 				},

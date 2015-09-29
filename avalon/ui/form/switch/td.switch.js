@@ -8,6 +8,7 @@ define(['avalon', 'text!./td.switch.html', 'css!./td.switch.css'], function(aval
 		disabled: false,
 		on: false,
 		//外部参数
+		display: {},
 		onclicked: null,
 		onchanged: null,
 		//view接口
