@@ -1,7 +1,7 @@
-<div class="td_select_container">
+<div class="td_select_container" ms-class="td_select_disabled: disabled">
 	<label class="control-label" ms-if="label != ''">{{label}}：</label>
 	<input class="form-control" type="text" placeholder="" readOnly 
-		ms-attr-name="name" ms-attr-value="text" ms-click="toggleList($event)" />
+		ms-disabled="disabled" ms-attr-name="name" ms-attr-value="text" ms-click="toggleList($event)" />
 	<i class="pull-right td_select_trigger">▼</i>
 	<ul class="dropdown-menu td_select_list" ms-if="data != null" ms-visible="isShow">
 		<li ms-repeat="data">
