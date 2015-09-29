@@ -5,6 +5,12 @@
 	display: inline-block;
 }
 
+.td_checkboxgroup_container {
+	position: relative;
+	cursor: pointer;
+	display: inline-block;
+}
+
 .td_checkbox_container .td_checkbox {
 	position: relative;
 	display: inline-block;
@@ -28,7 +34,7 @@
 }
 
 .td_checkbox_disabled {
-	color: #ccc;
+	color: gray;
 	cursor: default;
 	cursor: not-allowed;
 }

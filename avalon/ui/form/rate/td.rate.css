@@ -1,8 +1,7 @@
 .td_rate_container {
 	position: relative;
-	height: 22px;
-	cursor: pointer;
 	display: inline-block;
+	cursor: pointer;
 }
 
 .td_rate_container .td_rate {

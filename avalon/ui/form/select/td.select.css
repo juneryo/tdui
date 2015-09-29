@@ -1,5 +1,6 @@
 .td_select_container {
 	position: relative;
+	cursor: pointer;
 }
 
 .td_select_container .td_select_trigger {

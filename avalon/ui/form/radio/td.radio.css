@@ -5,6 +5,12 @@
 	display: inline-block;
 }
 
+.td_radiogroup_container {
+	position: relative;
+	cursor: pointer;
+	display: inline-block;
+}
+
 .td_radio_container .td_radio {
 	position: relative;
 	display: inline-block;
@@ -28,7 +34,7 @@
 }
 
 .td_radio_disabled {
-	color: #ccc;
+	color: gray;
 	cursor: default;
 	cursor: not-allowed;
 }
