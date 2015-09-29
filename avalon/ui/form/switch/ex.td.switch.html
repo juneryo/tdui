@@ -45,7 +45,12 @@ require(['ui/form/switch/td.switch'], function () {
 	avalon.define({
 		$id: 'test',
 		$opt: {
-			//label,name,disabled,on 也可以写在这里或这里、html中都不写，默认''、'switch'、false、false
+			onclicked: function(ev, vm) {
+				avalon.log('switch clicked');
+			},
+			onchanged: function(ev, vm) {
+				avalon.log('switch changed to ' + (vm.on == true ? 'on' : 'off'));
+			}
 		}
 	});
 	avalon.scan();
@@ -61,7 +66,12 @@ require(['ui/form/switch/td.switch'], function () {
 		avalon.define({
 			$id: 'test',
 			$opt: {
-				//label,name,disabled,on 也可以写在这里或这里、html中都不写，默认''、'switch'、false、false
+				onclicked: function(ev, vm) {
+					avalon.log('switch clicked');
+				},
+				onchanged: function(ev, vm) {
+					avalon.log('switch changed to ' + (vm.on == true ? 'on' : 'off'));
+				}
 			}
 		});
 		avalon.scan();

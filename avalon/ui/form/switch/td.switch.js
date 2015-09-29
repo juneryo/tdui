@@ -2,13 +2,14 @@ define(['avalon', 'text!./td.switch.html', 'css!./td.switch.css'], function(aval
 	var _interface = function () {
 	};
 	avalon.component("td:switch", {
-		//外部参数
-		disabled: false,
-		on: false,
+		//外部属性
 		label: '',
 		name: 'switch',
-		//view属性
-		
+		disabled: false,
+		on: false,
+		//外部参数
+		onclicked: null,
+		onchanged: null,
 		//view接口
 		clickSwitch: _interface,
 		
@@ -21,11 +22,31 @@ define(['avalon', 'text!./td.switch.html', 'css!./td.switch.css'], function(aval
 			elem.innerHTML = elem.textContent = '';
 		},
 		$init: function(vm, elem) {
+			//内部方法
+			vm._trigger = function(ev, type) {
+				switch (type) {
+					case 'changed':
+						if(typeof vm.onchanged == 'function') {
+							vm.onchanged(ev, vm);
+						}
+						break;
+					case 'clicked':
+						if(typeof vm.onclicked == 'function') {
+							vm.onclicked(ev, vm);
+						}
+						break;
+					default: break;
+				}
+			}
+			//接口方法
 			vm.clickSwitch = function(ev) {
 				if(!vm.disabled) {
 					vm.on = !vm.on;
+					vm._trigger(ev, 'clicked');
+					vm._trigger(ev, 'changed');
 				}
 			}
+			//对外方法
 			vm.getData = function() {
 				var data = new Object();
 				data[vm.name] = vm.on;
@@ -33,7 +54,7 @@ define(['avalon', 'text!./td.switch.html', 'css!./td.switch.css'], function(aval
 			}
 		},
 		$ready: function (vm) {
-      avalon.log("构建完成");
+      
     }
 	});
 	
