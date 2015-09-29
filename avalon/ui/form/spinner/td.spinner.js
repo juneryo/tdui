@@ -52,13 +52,13 @@ define(['avalon', 'text!./td.spinner.html', 'css!./td.spinner.css'], function(av
 			//接口方法
 			vm.clickUp = function(ev) {
 				if(!vm.disabled) {
-					vm._trigger(ev, 'upclicked');
 					var val = (vm.value === '' ? (vm.min == '' ? 0 : vm.min) : (parseInt(vm.value) + 1));
 					if(vm.max != '' && parseInt(vm.max) < val) {
 						val = vm.max;
 					}
 					var changed = (!(vm.value == val) || vm.value === '');
 					vm.value = val;
+					vm._trigger(ev, 'upclicked');
 					if(changed) {
 						vm._trigger(ev, 'changed');
 					}
@@ -66,13 +66,13 @@ define(['avalon', 'text!./td.spinner.html', 'css!./td.spinner.css'], function(av
 			}
 			vm.clickDown = function(ev) {
 				if(!vm.disabled) {
-					vm._trigger(ev, 'downclicked');
 					var val = (vm.value === '' ? 0 : (parseInt(vm.value) - 1));
 					if(vm.min != '' && parseInt(vm.min) > val) {
 						val = vm.min;
 					}
 					var changed = (!(vm.value == val) || vm.value === '');
 					vm.value = val;
+					vm._trigger(ev, 'downclicked');
 					if(changed) {
 						vm._trigger(ev, 'changed');
 					}
