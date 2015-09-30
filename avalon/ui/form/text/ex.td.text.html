@@ -50,7 +50,8 @@
 &lt;!-- 
 	目前校验相关属性 
 	valid: int, +int, -int, float, +float, -float, ip, email, phone, mobile
-	must: true/false or number(实际数字)
+	must: true/false or number(必须长度)
+	max/min: number(最大/最小值)
 --&gt;
 &lt;td:text config="$opt" label="ID(宽度固定200)" name="id" disabled="true" value="000001" must="6" width="200"&gt;&lt;/td:text&gt;
 &lt;td:text config="$opt" label="姓名(宽度固定300)" name="name" value="" must="true" width="300" maxlen="20"&gt;&lt;/td:text&gt;
@@ -63,7 +64,6 @@ require(['ui/form/text/td.text'], function () {
 		$id: 'test',
 		$opt: {
 			onclicked: function(ev, vm) {
-				avalon.log(vm);
 				avalon.log(vm.getData());
 			},
 			onchanged: function(data, vm) {
