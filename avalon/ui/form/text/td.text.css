@@ -1,0 +1,16 @@
+.td_text_container {
+	position: relative;
+}
+
+.td_text_disabled {
+	cursor: default;
+	cursor: not-allowed;
+}
+
+.td_text_container .td_text_valid_info {
+	color: #a94442;
+	line-height: 30px;
+}
+
+
+
