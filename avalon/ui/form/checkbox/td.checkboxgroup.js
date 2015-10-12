@@ -12,6 +12,30 @@ define(['avalon', 'text!./td.checkboxgroup.html', 'css!./td.checkbox.css'], func
 		
 		$computed:{
 			value:{
+				set: function(val) {
+					var arr = val.split(',');
+					for(var j=0; j<this.checkboxes.length; j++) {
+						var box = this.checkboxes[j];
+						var dealed = false;
+						for(var i=0; i<arr.length; i++) {
+							if(box.value == arr[i]) {
+								if(box.checked == false) {
+									box.checked = true;
+									this._trigger(box, null, 'checked');
+									this._trigger(box, null, 'changed');
+								}
+								dealed = true;
+								break;
+							}
+						}
+						if(!dealed) {
+							if(box.checked == true) {
+								box.checked = false;
+								this._trigger(box, null, 'changed');
+							}
+						}
+					}
+				},
 				get: function() {
 					var val = '';
 					this.checkboxes.forEach(function(el){
@@ -68,6 +92,12 @@ define(['avalon', 'text!./td.checkboxgroup.html', 'css!./td.checkbox.css'], func
 				var data = {};
 				data[vm.name] = vm.value;
 				return data;
+			}
+			vm.getValue = function() {
+				return vm.value;
+			}
+			vm.setValue = function(val) {
+				vm.value = val;
 			}
 		},
 		$ready: function (vm) {
