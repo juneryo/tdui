@@ -41,12 +41,12 @@ define(['avalon', '../base/js/mmRequest', 'text!./td.form.html', 'css!./td.form.
 						headers: {},
 						success: function(data, status, xhr) {
 							if(vm.submit === true && typeof vm.submitCallback == 'function') {
-								vm.submitCallback(ev);
+								vm.submitCallback(ev, vm);
 							}
 						},
 						error: function(data) {
 							if(typeof vm.errorCallback == 'function') {
-								vm.errorCallback(data);
+								vm.errorCallback(ev, vm, data);
 							}
 						}
 					});
@@ -55,7 +55,7 @@ define(['avalon', '../base/js/mmRequest', 'text!./td.form.html', 'css!./td.form.
 			
 			vm.doReset = function(ev) {
 				if(vm.reset===true && typeof vm.resetCallback == 'function') {
-					vm.resetCallback(ev);
+					vm.resetCallback(ev, vm);
 				}
 			}
 			
