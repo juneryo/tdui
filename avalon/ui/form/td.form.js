@@ -1,15 +1,21 @@
-define(['avalon', 'text!./td.form.html', 'css!./td.form.css'], function(avalon, template) {
+define(['avalon', '../base/js/mmRequest', 'text!./td.form.html', 'css!./td.form.css'], function(avalon, req, template) {
 	var _interface = function () {
 	};
 	avalon.component("td:form", {
 		//外部属性
 		title: '',
+		url: '',
+		submit: true,  //是否存在submit按钮
+		reset: true,   //是否存在reset按钮
 		//外部参数
-
-		
+		submitCallback: null,
+		resetCallback: null,
+		errorCallback: null,
 		//view属性
 
 		//view接口
+		doSubmit: _interface,
+		doReset: _interface,
 		//slot
 		content: '',
 		
@@ -26,6 +32,53 @@ define(['avalon', 'text!./td.form.html', 'css!./td.form.css'], function(avalon, 
 		},
 		$init: function(vm, elem) {
 			
+			vm.doSubmit = function(ev) {
+				if(vm.url != '') {
+					req.ajax({
+						type: 'POST',
+						url: vm.url,
+						data: vm.getData(),
+						headers: {},
+						success: function(data, status, xhr) {
+							if(vm.submit === true && typeof vm.submitCallback == 'function') {
+								vm.submitCallback(ev);
+							}
+						},
+						error: function(data) {
+							if(typeof vm.errorCallback == 'function') {
+								vm.errorCallback(data);
+							}
+						}
+					});
+				}
+			}
+			
+			vm.doReset = function(ev) {
+				if(vm.reset===true && typeof vm.resetCallback == 'function') {
+					vm.resetCallback(ev);
+				}
+			}
+			
+			//对外方法
+			vm.getData = function() {
+				var data = {};
+				for(k in vm.$refs) {
+					var comp = vm.$refs[k];
+					if(comp.name != undefined && comp.value != undefined) {
+						data[comp.name] = comp.value;
+					}
+				}
+				return data;
+			}
+			
+			vm.setData = function(data) {
+				for(k in vm.$refs) {
+					var comp = vm.$refs[k];
+					if(comp.name != undefined && typeof comp.setValue == 'function') {
+						comp.setValue(data[comp.name] == undefined ? '' : data[comp.name]);
+					}
+				}
+			}
 		},
 		$ready: function (vm) {
       

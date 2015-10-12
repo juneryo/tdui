@@ -77,6 +77,14 @@
 		'ui/form/radio/td.radiogroup', 'ui/form/checkbox/td.checkboxgroup', 'ui/form/textarea/td.textarea'], function () {
 		avalon.define({
 			$id: 'test',
+			$opt: {
+				submitCallback: function(ev, data) {
+					alert('submit');
+				},
+				resetCallback: function(ev) {
+					alert('reset');
+				}
+			},
 			$switch_opt: {
 				display: {
 					on: '男',
