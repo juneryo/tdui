@@ -1,4 +1,4 @@
-<div class="td_radiogroup_container">
+<div class="form-group td_radiogroup_container">
 	<label class="control-label" ms-if="label != ''">{{label}}：</label><br/>
 	<div class="td_radio_container" ms-repeat="radios" ms-class="td_radio_disabled: el.disabled" ms-click="clickRadio($event, $index)">
 		<span class="td_radio" ms-class-1="td_checked: el.checked&&!el.disabled"  ms-class-2="td_unchecked: !el.checked&&!el.disabled"

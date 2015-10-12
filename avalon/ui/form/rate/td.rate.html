@@ -1,11 +1,12 @@
-<div class="td_rate_container" ms-class="td_rate_disabled: disabled">
+<div class="form-group td_rate_container" ms-class="td_rate_disabled: disabled">
 	<label class="control-label" ms-if="label != ''">{{label}}：</label>
 	<div>
-		<i class="td_rate" ms-repeat="stars" 
-			ms-click="clickRate($event, $index)" 
-			ms-class-1="td_rate_unchecked: el == 0" 
-			ms-class-2="td_rate_halfchecked: el == 1"
-			ms-class-3="td_rate_checked: el == 2">
-		</i>
+		<span ms-repeat="stars">
+			<i class="td_rate" ms-click="clickRate($event, $index)" 
+				ms-class-1="td_rate_unchecked: el == 0" 
+				ms-class-2="td_rate_halfchecked: el == 1"
+				ms-class-3="td_rate_checked: el == 2">
+			</i>
+		</span>
 	</div>
 </div>
