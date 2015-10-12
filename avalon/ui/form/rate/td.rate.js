@@ -104,7 +104,7 @@ define(['avalon', 'text!./td.rate.html', 'css!./td.rate.css'], function(avalon, 
 				var changed = !(val == vm.value);
 				vm.value = val;
 				if(changed) {
-					vm._trigger(ev, 'changed');
+					vm._trigger(null, 'changed');
 				}
 			}
 		},

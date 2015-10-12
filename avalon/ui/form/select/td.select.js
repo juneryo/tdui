@@ -29,9 +29,10 @@ define(['avalon', '../../base/js/mmRequest', 'text!./td.select.html', 'css!./td.
 		$construct: function (hooks, vmOpts, elemOpts) {
 			var options = avalon.mix(hooks, vmOpts, elemOpts);
 			if(hooks.url == '') {
-				for(var i = 0; i < vmOpts.selected.length; i ++) {
-					hooks.value += (vmOpts.selected[i] + ',');
-					hooks.text += (vmOpts.data[vmOpts.selected[i]] + ',');
+				var selected = vmOpts.selected ? vmOpts.selected : [];
+				for(var i = 0; i < selected.length; i ++) {
+					hooks.value += (selected[i] + ',');
+					hooks.text += (vmOpts.data[selected[i]] + ',');
 				}
 				hooks.value = hooks.value == '' ? '' : hooks.value.substring(0, hooks.value.length - 1);
 				hooks.text = hooks.text == '' ? '' : hooks.text.substring(0, hooks.text.length - 1);
@@ -125,6 +126,18 @@ define(['avalon', '../../base/js/mmRequest', 'text!./td.select.html', 'css!./td.
 				var data = {};
 				data[vm.name] = vm.value;
 				return data;
+			}
+			vm.getValue = function() {
+				return vm.value;
+			}
+			vm.setValue = function(val) {
+				var arr = val.split(',');
+				if(vm.selected.sort().toString() != arr.sort().toString()) {
+					vm.selected.removeAll();
+					vm.selected.pushArray(arr);
+					vm._buildSelected();
+					vm._trigger(null, 'changed');
+				}
 			}
 		},
 		$ready: function (vm) {

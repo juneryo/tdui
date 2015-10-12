@@ -21,7 +21,7 @@ define(['avalon', 'text!./td.text.html', 'css!./td.text.css'], function(avalon, 
 		isValid: true,
 		validInfo: '',
 		//view接口
-		checkInput: _interface,
+		validValue: _interface,
 		doClick: _interface,
 		
 		$template: template,
@@ -60,7 +60,7 @@ define(['avalon', 'text!./td.text.html', 'css!./td.text.css'], function(avalon, 
 			vm.doClick = function(ev) {
 				vm._trigger(ev, 'clicked');
 			}
-			vm.checkInput = function(ev) {
+			vm.validValue = function(ev) {
 				vm.isValid = true;
 				var reg = null;
 				switch(vm.valid) {
@@ -123,13 +123,22 @@ define(['avalon', 'text!./td.text.html', 'css!./td.text.css'], function(avalon, 
 				data[vm.name] = vm.value;
 				return data;
 			}
+			vm.getValue = function() {
+				return vm.value;
+			}
+			vm.setValue = function(val) {
+				if(val != vm.value) {
+					vm.value = val;
+					vm.validValue(null);
+				}
+			}
 			
 			vm.$watch('value', function(newVal, oldVal) {
 				vm._trigger({newVal: newVal, oldVal: oldVal}, 'changed');
 			});
 		},
 		$ready: function (vm) {
-      vm.checkInput(null);
+      vm.validValue(null);
     }
 	});
 	

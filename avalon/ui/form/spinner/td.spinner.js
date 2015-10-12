@@ -105,11 +105,22 @@ define(['avalon', 'text!./td.spinner.html', 'css!./td.spinner.css'], function(av
 				//通过vm设置value, 此处会执行2次？
 				//vm._trigger({}, 'changed');
 			//});
+			
 			//对外方法
 			vm.getData = function() {
 				var data = new Object();
 				data[vm.name] = vm.value;
 				return data;
+			}
+			vm.getValue = function() {
+				return vm.value;
+			}
+			vm.setValue = function(val) {
+				if(vm.value != val) {
+					vm.value = val;
+					vm._trigger(null, 'changed');
+					//需添加校验
+				}
 			}
 		},
 		$ready: function (vm) {

@@ -53,6 +53,16 @@ define(['avalon', 'text!./td.switch.html', 'css!./td.switch.css'], function(aval
 				data[vm.name] = vm.on;
 				return data;
 			}
+			vm.getValue = function() {
+				return vm.on;
+			}
+			vm.setValue = function(val) {
+				var v = (val === true || val.toString() === '1') ? true : false;
+				if(v != vm.on) {
+					vm.on = v;
+					vm._trigger(null, 'changed');
+				}
+			}
 		},
 		$ready: function (vm) {
       

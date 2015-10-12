@@ -2,6 +2,6 @@
 	<label class="control-label" ms-if="label != ''">{{label}}：</label>
 	<input class="form-control" type="text" placeholder="" 
 		ms-attr-maxLength="maxlen" ms-attr-disabled="disabled" ms-attr-name="name" ms-duplex="value" 
-		ms-css-width="width" ms-input="checkInput($event)" ms-paste="checkInput($event)" ms-click="doClick($event)" />
+		ms-css-width="width" ms-input="validValue($event)" ms-paste="validValue($event)" ms-click="doClick($event)" />
 	<span class="td_text_valid_info" ms-if="!isValid && validInfo != ''">{{validInfo}}</span>
 </div>

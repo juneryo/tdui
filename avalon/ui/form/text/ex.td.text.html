@@ -37,7 +37,7 @@
 				<td:text config="$opt" label="年龄(宽度30%)" name="age" value="" valid="+int" min="10" max="120" width="30%" maxlen="3"></td:text>
 			</div>
 			<div class="col-lg-12">
-				<td:text config="$opt" label="电子邮件(宽度50%)" name="email" value="" valid="email" width="50%" maxlen="50"></td:text>
+				<td:text $id="email-input" config="$opt" label="电子邮件(宽度50%)" name="email" value="" valid="email" width="50%" maxlen="50"></td:text>
 			</div>
 		</div>
 		
@@ -72,6 +72,7 @@ require(['ui/form/text/td.text'], function () {
 		}
 	});
 	avalon.scan();
+	avalon.vmodels['email-input'].setValue('test@qq.com');
 });
 			</pre>
 		</div>
@@ -94,6 +95,8 @@ require(['ui/form/text/td.text'], function () {
 			}
 		});
 		avalon.scan();
+		
+		avalon.vmodels['email-input'].setValue('test@qq.com');
 	});
 </script>
 </html>

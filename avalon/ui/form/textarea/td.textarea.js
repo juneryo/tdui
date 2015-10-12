@@ -20,7 +20,7 @@ define(['avalon', 'text!./td.textarea.html', 'css!./td.textarea.css'], function(
 		isValid: true,
 		validInfo: '',
 		//view接口
-		checkInput: _interface,
+		validValue: _interface,
 		doClick: _interface,
 		
 		$template: template,
@@ -59,7 +59,7 @@ define(['avalon', 'text!./td.textarea.html', 'css!./td.textarea.css'], function(
 			vm.doClick = function(ev) {
 				vm._trigger(ev, 'clicked');
 			}
-			vm.checkInput = function(ev) {
+			vm.validValue = function(ev) {
 				vm.isValid = true;
 				if(vm.must && vm.value == '') {
 					vm.validInfo = '该字段不允许为空';
@@ -68,7 +68,7 @@ define(['avalon', 'text!./td.textarea.html', 'css!./td.textarea.css'], function(
 				//禁止输入html内容
 				if(!vm.html && vm.isValid) {
 					vm.isValid = !/<[^>]+>/.test(vm.value);
-					vm.validInfo = vm.isValid ? '' : '不允许输入html标签内容';
+					vm.validInfo = vm.isValid ? '' : '不允许输入标签';
 				}
 			}
 			
@@ -78,13 +78,22 @@ define(['avalon', 'text!./td.textarea.html', 'css!./td.textarea.css'], function(
 				data[vm.name] = vm.value;
 				return data;
 			}
+			vm.getValue = function() {
+				return vm.value;
+			}
+			vm.setValue = function(val) {
+				if(val != vm.value) {
+					vm.value = val;
+					vm.validValue(null);
+				}
+			}
 			
 			vm.$watch('value', function(newVal, oldVal) {
 				vm._trigger({newVal: newVal, oldVal: oldVal}, 'changed');
 			});
 		},
 		$ready: function (vm) {
-      vm.checkInput(null);
+      vm.validValue(null);
     }
 	});
 	
