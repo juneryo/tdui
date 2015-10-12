@@ -6,7 +6,6 @@ define(['avalon', 'text!./td.rate.html', 'css!./td.rate.css'], function(avalon, 
 		label: '',
 		name: 'rate',
 		num: 5,       //星星默认个数
-		default: 0,   //星星默认选中个数
 		value: 0,
 		half: false,  //是否允许半个星星
 		disabled: false,
@@ -26,7 +25,7 @@ define(['avalon', 'text!./td.rate.html', 'css!./td.rate.css'], function(avalon, 
 			var options = avalon.mix(hooks, vmOpts, elemOpts);
 			//根据外部参数num, half及default 调整内部监控对象stars
 			var starsNum = elemOpts.num > 0 ? elemOpts.num : hooks.num;
-			var defaultNum = elemOpts.default > 0 ? elemOpts.default : 0;
+			var defaultNum = elemOpts.value > 0 ? elemOpts.value : 0;
 			for(var i = 0; i < starsNum; i ++) {
 				if((i + 0.5) < defaultNum) {
 					hooks.stars.push(2);
@@ -38,6 +37,7 @@ define(['avalon', 'text!./td.rate.html', 'css!./td.rate.css'], function(avalon, 
 					hooks.stars.push(0);
 					hooks.tmpStars.push(0);
 				}
+				hooks.value = defaultNum;
 			}
 			return options;
 		},
