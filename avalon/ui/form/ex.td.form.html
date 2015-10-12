@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title>Form</title>
+  <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+	<meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	
+	<link rel="stylesheet" href="../base/css/normalize.min.css" />
+	<link rel="stylesheet" href="../base/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="../base/css/td.base.css">
+	
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+    <script src="../base/js/html5.min.js"></script>
+		<script src="../base/js/respond.min.js"></script>
+	<![endif]-->
+	
+	<!--[if (gte IE 10)|!(IE)]>-->
+		<link type="text/css" rel="stylesheet" href="../base/css/waves.css" />
+		<script type="text/javascript" src="../base/js/waves.js"></script>
+	<!--[endif]-->
+</head>
+<body>
+	<div class="container">
+		<h3>TdForm&nbsp;<small>表单</small></h3>
+		<div class="row base_border ms-controller" ms-controller="test">
+			<div class="col-xs-8 col-sm-8 col-xs-offset-2 col-sm-offset-2">
+				<td:form config="$opt" title="用户注册">
+					<div slot="content">
+						<div class="row">
+							<td:text label="姓名" name="name" class="col-xs-12 col-sm-12"></td:text>
+						</div>
+						<div class="row">
+							<td:spinner label="年龄" name="age" min="1" max="100" class="col-xs-12 col-sm-6"></td:spinner>
+						</div>
+						<div class="row">
+							<td:switch config="$switch_opt" label="性别" name="sex" class="col-xs-12 col-sm-12"></td:switch>
+						</div>
+						<div class="row">
+							<td:radiogroup config="$radiogroup_opt" label="学历" name="edu" class="col-xs-12 col-sm-12"></td:radiogroup>
+						</div>
+						<div class="row">
+							<td:checkboxgroup config="$checkboxgroup_opt" label="爱好" name="favo" class="col-xs-12 col-sm-12"></td:checkboxgroup>
+						</div>
+						<div class="row">
+							<td:rate label="信用" name="credit" half="true" num="5" default="3" class="col-xs-12 col-sm-12"></td:rate>
+						</div>
+						<div class="row">
+							<td:textarea label="备注" name="comment" class="col-xs-12 col-sm-12"></td:textarea>
+						</div>
+					</div>
+				</td:form>
+			</div>
+		</div>
+		
+		<div class="row margin_top2">
+			<blockquote>
+				<p>示例代码：</p>
+			</blockquote>
+			<pre>
+<strong>HTML:</strong>
+
+<br/>
+<strong>JS:</strong>
+
+			</pre>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="../../avalon.js"></script>
+<script type="text/javascript" src="../base/js/td.base.js"></script>
+<script>
+	require(['ui/form/td.form', 'ui/form/text/td.text',
+		'ui/form/spinner/td.spinner', 'ui/form/switch/td.switch', 'ui/form/rate/td.rate',
+		'ui/form/radio/td.radiogroup', 'ui/form/checkbox/td.checkboxgroup', 'ui/form/textarea/td.textarea'], function () {
+		avalon.define({
+			$id: 'test',
+			$switch_opt: {
+				display: {
+					on: '男',
+					off: '女'
+				}
+			},
+			$radiogroup_opt: {
+				radios: [
+					{label:'大专', checked:false, disabled:false, value:'1'},
+					{label:'本科', checked:true, disabled:false, value:'2'},
+					{label:'硕士', checked:false, disabled:false, value:'3'},
+					{label:'博士', checked:false, disabled:false, value:'4'}
+				]
+			},
+			$checkboxgroup_opt: {
+				checkboxes:[
+					{label:'电影', checked:false, disabled:false, value:'1'},
+					{label:'音乐', checked:false, disabled:false, value:'2'},
+					{label:'游戏', checked:false, disabled:false, value:'3'},
+					{label:'旅游', checked:false, disabled:false, value:'4'}
+				]
+			}
+		});
+		avalon.scan();
+	});
+</script>
+</html>
