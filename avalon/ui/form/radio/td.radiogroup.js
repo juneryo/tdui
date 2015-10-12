@@ -13,6 +13,23 @@ define(['avalon', 'text!./td.radiogroup.html', 'css!./td.radio.css'], function(a
 		
 		$computed:{
 			value:{
+				set: function(val) {
+					for(var i=0; i<this.radios.length; i++) {
+						var radio = this.radios[i];
+						if(radio.value == val) {
+							if(radio.checked == false) {
+								radio.checked = true;
+								this._trigger(radio, null, 'checked');
+								this._trigger(radio, null, 'changed');
+							}
+						}else {
+							if(radio.checked == true) {
+								radio.checked = false;
+								this._trigger(radio, null, 'changed');
+							}
+						}
+					}
+				},
 				get: function() {
 					var val = '';
 					for(var i=0; i<this.radios.length; i++) {
@@ -82,6 +99,12 @@ define(['avalon', 'text!./td.radiogroup.html', 'css!./td.radio.css'], function(a
 				var data = {};
 				data[vm.name] = vm.value;
 				return data;
+			}
+			vm.getValue = function() {
+				return vm.value;
+			}
+			vm.setValue = function(val) {
+				vm.value = val;
 			}
 		},
 		$ready: function (vm) {
