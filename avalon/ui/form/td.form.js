@@ -13,6 +13,7 @@ define(['avalon', '../base/js/mmRequest', 'text!./td.form.html', 'css!./td.form.
 		submitCallback: null,
 		resetCallback: null,
 		errorCallback: null,
+		onloaded: null,
 		//view属性
 		isLoading: false,
 		//view接口
