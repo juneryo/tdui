@@ -1,0 +1,239 @@
+define(['avalon', 'text!./td.datepicker.html', 'css!./td.datepicker.css'], function(avalon, template) {
+	var _interface = function () {
+	};
+	avalon.component("td:datepicker", {
+		//外部属性
+		label: '',
+		name: 'datepicker',
+		format: 'yyyy-MM-dd',
+		disabled: false,
+		//外部参数
+
+		//内部属性
+		value: '',
+
+		//view属性
+		isShow: false,
+		showDate: true,
+		showMonth: false,
+		showYear: false,
+		today: null,
+		pickYear: '',
+		pickMonth: '',
+		pickDate: '',
+		firstYear: '',
+		lastYear: '',
+		dateArr: [],
+		weekArr: ['一', '二', '三', '四', '五', '六', '日'],
+		monthArr: [
+			['一月', '二月', '三月'],
+			['四月', '五月', '六月'],
+			['七月', '八月', '九月'],
+			['十月', '十一月', '十二月']
+		],
+		yearArr: [],
+		//view接口
+		
+		togglePicker: _interface,
+		changeMonth: _interface,
+		displayMonth: _interface,
+		showMonthPicker: _interface,
+		showYearPicker: _interface,
+		doPick: _interface,
+		
+		$template: template,
+		// hooks : 定义component中的属性
+		//vmOpts : 引用component时的js配置$opt 
+		//eleOpts: 使用component时标签中的属性
+		$construct: function (hooks, vmOpts, elemOpts) {
+			var options = avalon.mix(hooks, vmOpts, elemOpts);
+			hooks.today = new Date();
+			hooks.pickMonth = hooks.today.getMonth();
+			hooks.pickYear = hooks.today.getFullYear();
+			return options;
+		},
+		$dispose: function (vm, elem) {
+			elem.innerHTML = elem.textContent = '';
+		},
+		$init: function(vm, elem) {
+			//内部方法
+			vm._trigger = function(ev, type) {
+				switch (type) {
+					case 'loaded': 
+						if(typeof vm.onloaded == 'function') {
+							vm.onloaded(ev, vm);
+						}
+						break;
+					case 'changed':
+						if(typeof vm.onchanged == 'function') {
+							vm.onchanged(ev, vm);
+						}
+						break;
+					case 'datepickered':
+						if(typeof vm.ondatepickered == 'function') {
+							vm.ondatepickered(ev, vm);
+						}
+						break;
+					default: break;
+				}
+			}
+			vm._buildDateArr = function(yyyy, MM, dd) {
+				var dt = new Date(yyyy + '/' + MM + '/' + dd);
+				dt.setDate(1);  //设置为月1号
+				var day = dt.getDay();  //获取周(0为周日)
+				var leftPad = day == 0 ? 6 : day - 1;
+				dt.setMonth(dt.getMonth() + 1); //设置为下月1号
+				dt.setDate(0); //设置为月最后一天
+				var lastDate = dt.getDate();
+				var count = Math.ceil((lastDate + leftPad) / 7);
+				
+				vm.dateArr.removeAll();
+				for(var i = 0; i < count; i ++) {
+					var arr = [];
+					for(var j = 0; j < 7; j ++) {
+						if(i == 0) {
+							if(j < leftPad) {
+								arr.push('');
+							}else {
+								arr.push(j - leftPad + 1);
+							}
+						}else {
+							var d = 7*i - leftPad + j + 1;
+							arr.push(d > lastDate ? '' : d);
+						}
+					}
+					vm.dateArr.push(arr);
+				}
+			}
+			vm._buildYearArr = function(yyyy, MM, dd) {
+				var dt = new Date(yyyy + '/' + MM + '/' + dd);
+				var fYear = parseInt(vm.pickYear) - 8;
+				vm.yearArr.removeAll();
+				for(var i = 0; i < 4; i ++) {
+					var arr = [];
+					for(var j = 0; j < 4; j ++) {
+						arr.push(fYear + i*4 + j);
+					}
+					vm.yearArr.push(arr);
+				}
+				vm.firstYear = vm.yearArr[0][0];
+				vm.lastYear = vm.yearArr[3][3];
+			}
+			vm._setPickMonth = function(val) {
+				for(var i = 0; i < vm.monthArr.length; i ++) {
+					for(var j = 0; j < vm.monthArr[i].length; j ++) {
+						if(vm.monthArr[i][j] == val) {
+							vm.pickMonth = (i*3 + j).toString();
+						}
+					}
+				}
+			}
+
+			//接口方法
+			vm.togglePicker = function(ev) {
+				if(!vm.disabled) {
+					vm.isShow = !vm.isShow;
+				}
+			}
+			vm.changeMonth = function(ev, oper) {
+				if(oper == '+') {
+					if(vm.pickMonth == '11') {
+						vm.pickMonth = '0';
+						vm.pickYear ++;
+					}else {
+						vm.pickMonth ++;
+					}
+				}else {
+					if(vm.pickMonth == '0') {
+						vm.pickMonth = '11';
+						vm.pickYear --;
+					}else {
+						vm.pickMonth --;
+					}
+				}
+			}
+			vm.displayMonth = function() {
+				var v = 0;
+				for(var i = 0; i < vm.monthArr.length; i++) {
+					for(var j=0; j<vm.monthArr[i].length; j++) {
+						if((3*i + j).toString() == vm.pickMonth) {
+							return vm.monthArr[i][j];
+						}
+					}
+				}
+				return '';
+			}
+			vm.showDatePicker = function(ev) {
+				vm.showMonth = false;
+				vm.showYear = false;
+				vm.showDate = true;
+			}
+			vm.showMonthPicker = function(ev) {
+				vm.showDate = false;
+				vm.showYear = false;
+				vm.showMonth = true;
+			}
+			vm.showYearPicker = function(ev) {
+				vm.showDate = false;
+				vm.showMonth = false;
+				vm.showYear = true;
+			}
+			vm.doPick = function(ev, val, type) {
+				switch(type) {
+					case 'D':
+						vm.pickDate = val; break;
+					case 'M':
+						vm._setPickMonth(val); 
+						vm.showDatePicker(null);
+						break;
+					case 'Y':
+						vm.pickYear = val; 
+						vm.showDatePicker(null);
+						break;
+					default:
+						break;
+				}
+			}
+
+			//对外方法
+			vm.getData = function() {
+				var data = {};
+				data[vm.name] = vm.value;
+				return data;
+			}
+			vm.getValue = function() {
+				return vm.value;
+			}
+			vm.setValue = function(val) {
+				
+			}
+			vm.$watch('pickDate', function(newVal, oldVal) {
+				var dt = new Date(vm.pickYear + '/' + (parseInt(vm.pickMonth) + 1) + '/' + newVal);
+				vm.value = dt.format(vm.format);
+			});
+			vm.$watch('pickMonth', function(newVal, oldVal) {
+				var yyyy = vm.pickYear, MM = parseInt(newVal) + 1, dd = (vm.pickDate == '' ? vm.today.getDate() : vm.pickDate);
+				var dt = new Date(yyyy + '/' + MM + '/' + dd);
+				vm._buildDateArr(yyyy, MM, dd);
+				if(vm.pickDate != '') {
+					vm.value = dt.format(vm.format);
+				}
+			});
+			vm.$watch('pickYear', function(newVal, oldVal) {
+				var yyyy = newVal, MM = parseInt(vm.pickMonth) + 1, dd = (vm.pickDate == '' ? vm.today.getDate() : vm.pickDate);
+				var dt = new Date(yyyy + '/' + MM + '/' + dd);
+				vm._buildDateArr(yyyy, MM, dd);
+				if(vm.pickDate != '') {
+					vm.value = dt.format(vm.format);
+				}
+			});
+		},
+		$ready: function (vm) {
+			vm._buildDateArr(vm.today.getFullYear(), vm.today.getMonth() + 1, vm.today.getDate());
+			vm._buildYearArr(vm.today.getFullYear(), vm.today.getMonth() + 1, vm.today.getDate());
+    }
+	});
+	
+	var widget = avalon.components["td:datepicker"];
+  widget.regionals = {};
+})
