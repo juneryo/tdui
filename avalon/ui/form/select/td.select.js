@@ -39,7 +39,7 @@ define(['avalon', '../../base/js/mmRequest', 'text!./td.select.html', 'css!./td.
 			}
 			return options;
 		},
-		$textpose: function (vm, elem) {
+		$dispose: function (vm, elem) {
 			elem.innerHTML = elem.textContent = '';
 		},
 		$init: function(vm, elem) {

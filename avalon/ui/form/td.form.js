@@ -30,7 +30,7 @@ define(['avalon', '../base/js/mmRequest', 'text!./td.form.html', 'css!./td.form.
 			var options = avalon.mix(hooks, vmOpts, elemOpts);
 			return options;
 		},
-		$textpose: function (vm, elem) {
+		$dispose: function (vm, elem) {
 			elem.innerHTML = elem.textContent = '';
 		},
 		$init: function(vm, elem) {

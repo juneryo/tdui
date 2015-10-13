@@ -34,7 +34,7 @@ define(['avalon', 'text!./td.textarea.html', 'css!./td.textarea.css'], function(
 			var options = avalon.mix(hooks, vmOpts, elemOpts);
 			return options;
 		},
-		$textpose: function (vm, elem) {
+		$dispose: function (vm, elem) {
 			elem.innerHTML = elem.textContent = '';
 		},
 		$init: function(vm, elem) {

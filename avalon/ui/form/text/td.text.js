@@ -35,7 +35,7 @@ define(['avalon', 'text!./td.text.html', 'css!./td.text.css'], function(avalon, 
 			var options = avalon.mix(hooks, vmOpts, elemOpts);
 			return options;
 		},
-		$textpose: function (vm, elem) {
+		$dispose: function (vm, elem) {
 			elem.innerHTML = elem.textContent = '';
 		},
 		$init: function(vm, elem) {
