@@ -1,3 +1,7 @@
 .td_form_container {
 	position: relative;
 }
+
+.td_form_container .td_form_title {
+	margin-top: 10px;
+}
