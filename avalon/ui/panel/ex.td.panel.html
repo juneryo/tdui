@@ -28,13 +28,30 @@
 		<h3>TdPanel&nbsp;<small>面板</small></h3>
 		<div class="row base_border padding_top padding_bottom bg_white">
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ms-controller" ms-controller="test">
-				<td:panel config="$opt" title="面板">
+				<td:panel config="$opt" title="注册面板">
 					<div slot="content">
-						这里是content(内容可以为component)
+						<td:form config="$form_opt" title="用户注册" class="col-xs-10 col-sm-8 col-xs-offset-1 col-sm-offset-2">
+							<div slot="content">
+								<div class="row">
+									<td:text label="用户名" name="name" must="true" class="col-xs-12 col-sm-6"></td:text>
+								</div>
+								<div class="row">
+									<td:radiogroup config="$sex_opt" label="性别" name="sex" class="col-xs-12 col-sm-12"></td:radiogroup>
+								</div>
+								<div class="row">
+									<td:datepicker label="出生日期" name="date" must="true" class="col-xs-12 col-sm-6"></td:datepicker>
+								</div>
+								<div class="row">
+									<td:text label="邮件地址" name="email" valid="email" must="true" class="col-xs-12 col-sm-6"></td:text>
+								</div>
+								<div class="row">
+									<td:text label="手机号码" name="mobile" valid="mobile" must="true" class="col-xs-12 col-sm-6"></td:text>
+								</div>
+							</div>
+						</td:form>
 					</div>
 					<div slot="footer">
-						这里是footer(内容可以为component)<br/>
-						若无此元素(div slot="footer")则footer不显示
+						{{submitInfo}}
 					</div>
 				</td:panel>
 			</div>
@@ -46,22 +63,56 @@
 			</blockquote>
 			<pre>
 <strong>HTML:</strong>
-&lt;td:panel config="$opt" title="面板"
+&lt;td:panel config="$opt" title="注册面板"&gt;
 	&lt;div slot="content"&gt;
-		这里是content(内容可以为component)
+		&lt;td:form config="$form_opt" title="用户注册" class="col-xs-10 col-sm-8 col-xs-offset-1 col-sm-offset-2"&gt;
+			&lt;div slot="content"&gt;
+				&lt;div class="row"&gt;
+					&lt;td:text label="用户名" name="name" must="true" class="col-xs-12 col-sm-6"&gt;&lt;/td:text&gt;
+				&lt;/div&gt;
+				&lt;div class="row"&gt;
+					&lt;td:radiogroup config="$sex_opt" label="性别" name="sex" class="col-xs-12 col-sm-12"&gt;&lt;/td:radiogroup&gt;
+				&lt;/div&gt;
+				&lt;div class="row"&gt;
+					&lt;td:datepicker label="出生日期" name="date" must="true" class="col-xs-12 col-sm-6"&gt;&lt;/td:datepicker&gt;
+				&lt;/div&gt;
+				&lt;div class="row"&gt;
+					&lt;td:text label="邮件地址" name="email" valid="email" must="true" class="col-xs-12 col-sm-6"&gt;&lt;/td:text&gt;
+				&lt;/div&gt;
+				&lt;div class="row"&gt;
+					&lt;td:text label="手机号码" name="mobile" valid="mobile" must="true" class="col-xs-12 col-sm-6"&gt;&lt;/td:text&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+		&lt;/td:form&gt;
 	&lt;/div&gt;
 	&lt;div slot="footer"&gt;
-		这里是footer(内容可以为component)
-		若无此元素(div slot="footer")则footer不显示
+		{{submitInfo}}
 	&lt;/div&gt;
 &lt;/td:panel&gt;
 <br/>
 <strong>JS:</strong>
-require(['ui/panel/td.panel'], function () {
-	avalon.define({
+require(['ui/panel/td.panel', 'ui/form/td.form', 'ui/form/text/td.text', 
+	'ui/form/radio/td.radiogroup', 'ui/form/datepicker/td.datepicker'], function () {
+	var v = avalon.define({
 		$id: 'test',
+		submitInfo: '',
 		$opt: {
-			
+			buttons: [{
+				display: '帮助', icon: 'glyphicon glyphicon-question-sign', fun: function(ev, vm) {
+					alert('帮助');
+				}
+			}]
+		},
+		$form_opt: {
+			resetCallback: function(ev, vm) {
+				v.submitInfo = vm.getData();
+			}
+		},
+		$sex_opt: {
+			radios: [
+				{label:'男', checked:true, disabled:false, value:'1'},
+				{label:'女', checked:false, disabled:false, value:'2'}
+			]
 		}
 	});
 	avalon.scan();
@@ -73,11 +124,28 @@ require(['ui/panel/td.panel'], function () {
 <script type="text/javascript" src="../../avalon.js"></script>
 <script type="text/javascript" src="../base/js/td.base.js"></script>
 <script>
-	require(['ui/panel/td.panel'], function () {
-		avalon.define({
+	require(['ui/panel/td.panel', 'ui/form/td.form', 'ui/form/text/td.text', 
+		'ui/form/radio/td.radiogroup', 'ui/form/datepicker/td.datepicker'], function () {
+		var v = avalon.define({
 			$id: 'test',
+			submitInfo: '',
 			$opt: {
-				
+				buttons: [{
+					display: '帮助', icon: 'glyphicon glyphicon-question-sign', fun: function(ev, vm) {
+						alert('帮助');
+					}
+				}]
+			},
+			$form_opt: {
+				resetCallback: function(ev, vm) {
+					v.submitInfo = vm.getData();
+				}
+			},
+			$sex_opt: {
+				radios: [
+					{label:'男', checked:true, disabled:false, value:'1'},
+					{label:'女', checked:false, disabled:false, value:'2'}
+				]
 			}
 		});
 		avalon.scan();

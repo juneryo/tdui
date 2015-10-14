@@ -1,0 +1,19 @@
+.td_panel_container {
+	
+}
+
+.td_panel_container>.td_panel_btns {
+	padding: 0px;
+}
+.td_panel_container>.td_panel_btns>.navbar {
+	border-radius: 0px;
+	margin-bottom: 0px;
+}
+
+.td_panel_container>.td_panel_btns .container-fluid {
+	padding-left: 0px;
+}
+
+.td_panel_container>.td_panel_btns .container-fluid>.navbar-collapse {
+	padding-left: 0px;
+}
