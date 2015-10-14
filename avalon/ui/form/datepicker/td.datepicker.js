@@ -37,6 +37,7 @@ define(['avalon', 'text!./td.datepicker.html', 'css!./td.datepicker.css'], funct
 		//view接口
 		togglePicker: _interface,
 		changeMonth: _interface,
+		changeYear: _interface,
 		displayMonth: _interface,
 		showMonthPicker: _interface,
 		showYearPicker: _interface,
@@ -51,11 +52,13 @@ define(['avalon', 'text!./td.datepicker.html', 'css!./td.datepicker.css'], funct
 			hooks.today = new Date();
 			hooks.pickMonth = hooks.today.getMonth();
 			hooks.pickYear = hooks.today.getFullYear();
-			var dt = hooks.value.toString().toDate();
-			hooks.value = dt.format(hooks.displayFormat);
-			hooks.pickYear = dt.getFullYear();
-			hooks.pickMonth = dt.getMonth();
-			hooks.pickDate = dt.getDate();
+			if(hooks.value != '') {
+				var dt = hooks.value.toString().toDate();
+				hooks.value = dt.format(hooks.displayFormat);
+				hooks.pickYear = dt.getFullYear();
+				hooks.pickMonth = dt.getMonth();
+				hooks.pickDate = dt.getDate();
+			}
 			return options;
 		},
 		$dispose: function (vm, elem) {
@@ -107,9 +110,9 @@ define(['avalon', 'text!./td.datepicker.html', 'css!./td.datepicker.css'], funct
 				}
 			}
 			//根据当年构建年份二维数组
-			vm._buildYearArr = function(yyyy, MM, dd) {
-				var dt = new Date(yyyy + '/' + MM + '/' + dd);
-				var fYear = parseInt(vm.pickYear) - 8;
+			vm._buildYearArr = function(yyyy) {
+				var dt = new Date(yyyy + '/01/01');
+				var fYear = parseInt(yyyy) - 8;
 				vm.yearArr.removeAll();
 				for(var i = 0; i < 4; i ++) {
 					var arr = [];
@@ -153,6 +156,13 @@ define(['avalon', 'text!./td.datepicker.html', 'css!./td.datepicker.css'], funct
 					}
 				}
 			}
+			vm.changeYear = function(ev, oper) {
+				var fyear = vm.firstYear - 16;
+				if(oper == '+') {
+					fyear = vm.lastYear + 1;
+				}
+				vm._buildYearArr(fyear + 8);
+			}
 			//根据属性pickMonth在月份二维数组中查找月份
 			vm.displayMonth = function() {
 				var v = 0;
@@ -179,6 +189,7 @@ define(['avalon', 'text!./td.datepicker.html', 'css!./td.datepicker.css'], funct
 					case 'D':
 						vm.pickDate = val; 
 						vm._trigger(ev, 'picked');
+						vm.isShow = false;
 						break;
 					case 'M':
 						vm._setPickMonth(val); 
@@ -212,16 +223,26 @@ define(['avalon', 'text!./td.datepicker.html', 'css!./td.datepicker.css'], funct
 				return vm.value.toDate().format(vm.valueFormat);
 			}
 			vm.setValue = function(val) {
-				var dt = val.toDate();
-				vm.value = dt.format(vm.displayFormat);
-				vm.pickYear = dt.getFullYear();
-				vm.pickMonth = dt.getMonth();
-				vm.pickDate = dt.getDate();
+				if(val != '') {
+					var dt = val.toDate();
+					vm.value = dt.format(vm.displayFormat);
+					vm.pickYear = dt.getFullYear();
+					vm.pickMonth = dt.getMonth();
+					vm.pickDate = dt.getDate();
+				}else {
+					vm.value = '';
+					vm.pickYear = vm.today.getFullYear();
+					vm.pickMonth = vm.today.getMonth();
+					vm.pickDate = '';
+				}
 			}
 			//观测方法
 			vm.$watch('pickDate', function(newVal, oldVal) {
-				var dt = new Date(vm.pickYear + '/' + (parseInt(vm.pickMonth) + 1) + '/' + newVal);
-				vm.value = dt.format(vm.displayFormat);
+				if(!vm.isInit) {
+					avalon.log(newVal + ':' + oldVal);
+					var dt = new Date(vm.pickYear + '/' + (parseInt(vm.pickMonth) + 1) + '/' + newVal);
+					vm.value = dt.format(vm.displayFormat);
+				}
 			});
 			vm.$watch('pickMonth', function(newVal, oldVal) {
 				var yyyy = vm.pickYear, MM = parseInt(newVal) + 1, dd = (vm.pickDate == '' ? vm.today.getDate() : vm.pickDate);
@@ -248,7 +269,8 @@ define(['avalon', 'text!./td.datepicker.html', 'css!./td.datepicker.css'], funct
 		},
 		$ready: function (vm) {
 			vm._buildDateArr(vm.today.getFullYear(), vm.today.getMonth() + 1, vm.today.getDate());
-			vm._buildYearArr(vm.today.getFullYear(), vm.today.getMonth() + 1, vm.today.getDate());
+			vm._buildYearArr(vm.today.getFullYear());
+			vm.validValue();
 			vm.isInit = false;
     }
 	});

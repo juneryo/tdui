@@ -37,7 +37,9 @@
 		<table>
 		<table class="table td_datepicker_picker" ms-visible="showYear">
 			<tr>
-				<td colspan="4">{{firstYear}} - {{lastYear}}</td>
+				<td ms-click="changeYear($event, '-')">◄</td>
+				<td colspan="2">{{firstYear}} - {{lastYear}}</td>
+				<td ms-click="changeYear($event, '+')">►</td>
 			</tr>
 			<tr ms-repeat="yearArr">
 				<td ms-repeat="el" ms-class="td_datepicker_picked: pickYear == el&&pickYear != ''" ms-click="doPick($event, el, 'Y')">{{el}}</td>
