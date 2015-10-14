@@ -3,6 +3,11 @@
 	cursor: pointer;
 }
 
+.td_datepicker_container .td_datepicker_valid_info {
+	color: #a94442;
+	line-height: 30px;
+}
+
 .td_datepicker_container .td_datepicker_trigger {
 	margin-top: -27px;
 	margin-right: 2px;
@@ -22,6 +27,10 @@
 .td_datepicker_container table.td_datepicker_picker td.td_datepicker_picked {
 	background-color: #08c;
 	color: #fff;
+}
+
+.td_datepicker_container table.td_datepicker_picker td.td_datepicker_today{
+	background-color: #eee;
 }
 
 .td_datepicker_disabled {
