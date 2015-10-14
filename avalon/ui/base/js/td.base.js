@@ -1,20 +1,20 @@
 //author: meizz
-//¶ÔDateµÄÀ©Õ¹£¬½« Date ×ª»¯ÎªÖ¸¶¨¸ñÊ½µÄString   
-//ÔÂ(M)¡¢ÈÕ(d)¡¢Ğ¡Ê±(h)¡¢·Ö(m)¡¢Ãë(s)¡¢¼¾¶È(q) ¿ÉÒÔÓÃ 1-2 ¸öÕ¼Î»·û£¬   
-//Äê(y)¿ÉÒÔÓÃ 1-4 ¸öÕ¼Î»·û£¬ºÁÃë(S)Ö»ÄÜÓÃ 1 ¸öÕ¼Î»·û(ÊÇ 1-3 Î»µÄÊı×Ö)   
-//Àı×Ó£º   
+//å¯¹Dateçš„æ‰©å±•ï¼Œå°† Date è½¬åŒ–ä¸ºæŒ‡å®šæ ¼å¼çš„String   
+//æœˆ(M)ã€æ—¥(d)ã€å°æ—¶(h)ã€åˆ†(m)ã€ç§’(s)ã€å­£åº¦(q) å¯ä»¥ç”¨ 1-2 ä¸ªå ä½ç¬¦ï¼Œ   
+//å¹´(y)å¯ä»¥ç”¨ 1-4 ä¸ªå ä½ç¬¦ï¼Œæ¯«ç§’(S)åªèƒ½ç”¨ 1 ä¸ªå ä½ç¬¦(æ˜¯ 1-3 ä½çš„æ•°å­—)   
+//ä¾‹å­ï¼š   
 //(new Date()).format("yyyy-MM-dd hh:mm:ss.S") ==> 2006-07-02 08:09:04.423   
 //(new Date()).format("yyyy-M-d h:m:s.S")      ==> 2006-7-2 8:9:4.18
-//Ö§³ÖyyyyMMdd yyyy/MM/dd MM/dd/yyyyµÈ
+//æ”¯æŒyyyyMMdd yyyy/MM/dd MM/dd/yyyyç­‰
 Date.prototype.format = function(fmt) {
   var o = {   
-    "M+" : this.getMonth()+1,                 //ÔÂ·İ   
-    "d+" : this.getDate(),                    //ÈÕ   
-    "h+" : this.getHours(),                   //Ğ¡Ê±   
-    "m+" : this.getMinutes(),                 //·Ö   
-    "s+" : this.getSeconds(),                 //Ãë   
-    "q+" : Math.floor((this.getMonth()+3)/3), //¼¾¶È   
-    "S"  : this.getMilliseconds()             //ºÁÃë   
+    "M+" : this.getMonth()+1,                 //æœˆä»½   
+    "d+" : this.getDate(),                    //æ—¥   
+    "h+" : this.getHours(),                   //å°æ—¶   
+    "m+" : this.getMinutes(),                 //åˆ†   
+    "s+" : this.getSeconds(),                 //ç§’   
+    "q+" : Math.floor((this.getMonth()+3)/3), //å­£åº¦   
+    "S"  : this.getMilliseconds()             //æ¯«ç§’   
   };   
   if(/(y+)/.test(fmt))   
     fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));   
@@ -24,11 +24,82 @@ Date.prototype.format = function(fmt) {
   return fmt;   
 }
 
+String.prototype.trim=function(){
+	return this.replace(/(^\s*)|(\s*$)/g, '');
+}
+String.prototype.ltrim=function(){
+	return this.replace(/(^\s*)/g, '');
+}
+String.prototype.rtrim=function(){
+	return this.replace(/(\s*$)/g, '');
+}
+String.prototype.toDate = function() {
+	var str = this;
+	var dt = null;
+	if(str.indexOf('-') != -1) {
+		dt = new Date(str.replace(/-/g, '/'));
+	}else if(str.indexOf('/') != -1) {
+		dt = new Date(str);
+	}else if(str.length == 8) {
+		dt = new Date(str.substr(0, 4) + '/' + str.substr(4, 2) + '/' + str.substr(6, 2));
+	}else if(str.length >= 14) {
+		dt = new Date(str.substr(0, 4) + '/' + str.substr(4, 2) + '/' + str.substr(6, 2) + ' ' + str.substr(8, 2) + ':' + str.substr(10, 2) + ':' + str.substr(12, 2));
+	}else {
+		dt = new Date();
+	}
+	return dt;
+}
 
-//Éú³ÉUUID
-function genId(prefix) {
-	prefix = prefix.toUpperCase() || 'ID'
-	return String(Math.random() + Math.random()).replace(/\d\.\d{4}/, prefix);
+TD = {
+	version: '0.1beta',
+	util: {
+		//ç”ŸæˆUUID(idå‰ç¼€)
+		genId: function(prefix) {
+			prefix = prefix.toUpperCase() || 'ID'
+			return String(Math.random() + Math.random()).replace(/\d\.\d{4}/, prefix);
+		}
+	},
+	validate: function(val, valids) {
+		var info = '', reg = null, flag = true, validArr = valids.split(',');
+		for(var i = 0; i < validArr.length; i ++) {
+			var valid = validArr[i];
+			switch(valid) {
+				case 'int':
+					reg = /^\-?\d+$/;
+					info = reg.test(val) ? '' : 'è¯·è¾“å…¥æ­£ç¡®çš„æ•´æ•°'; break;
+				case '+int':
+					reg = /^\+?[1-9][0-9]*$/;
+					info = reg.test(val) ? '' : 'è¯·è¾“å…¥æ­£ç¡®çš„æ­£æ•´æ•°'; break;
+				case '-int':
+					reg = /^\-[1-9][0-9]*$/;
+					info = reg.test(val) ? '' : 'è¯·è¾“å…¥æ­£ç¡®çš„è´Ÿæ•´æ•°'; break;
+				case 'float':
+					reg = /^(-?\d+)(\.\d+)?/; 
+					info = reg.test(val) ? '' : 'è¯·è¾“å…¥æ­£ç¡®çš„æµ®ç‚¹æ•°'; break;
+				case '+float':
+					reg = /^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/; 
+					info = reg.test(val) ? '' : 'è¯·è¾“å…¥æ­£ç¡®çš„æ­£æµ®ç‚¹æ•°'; break;
+				case '-float':
+					reg = /^(-(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*)))$/; 
+					info = reg.test(val) ? '' : 'è¯·è¾“å…¥æ­£ç¡®çš„è´Ÿæµ®ç‚¹æ•°'; break;
+				case 'ip':
+					reg = /^(?:(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])$/;
+					info = reg.test(val) ? '' : 'IPåœ°å€æœ‰è¯¯'; break;
+				case 'email': 
+					reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]{2,5}$/;
+					info = reg.test(val) ? '' : 'ç”µå­é‚®ä»¶åœ°å€æœ‰è¯¯'; break;
+				case 'phone': 
+					reg = /^(\(\d{3,4}\)|\d{3,4}-)?\d{7,8}$/;
+					info = reg.test(val) ? '' : 'ç”µè¯å·ç æœ‰è¯¯'; break;
+				case 'mobile':
+					reg = /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/;
+					info = reg.test(val) ? '' : 'æ‰‹æœºå·ç æœ‰è¯¯'; break;
+				default:
+					break;
+			}
+		}
+		return info;
+	}
 }
 
 avalon.config({
@@ -38,11 +109,9 @@ avalon.config({
 	},
 	lmaxRepeatSize: 50
 });
-if(avalon.library == Function) {
-	avalon.library("td", {
-		$init: function(){},
-		$childReady: function(){},
-		$ready: function(){},
-		$dispose: function(){}
-	});
-}
+avalon.library("td", {
+	$init: function(){},
+	$childReady: function(){},
+	$ready: function(){},
+	$dispose: function(){}
+});
