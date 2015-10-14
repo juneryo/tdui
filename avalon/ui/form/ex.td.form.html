@@ -42,6 +42,9 @@
 							<td:switch config="$switch_opt" label="状态" name="status" class="col-xs-12 col-sm-12"></td:switch>
 						</div>
 						<div class="row">
+							<td:datepicker label="出生日期" name="date" must="true" class="col-xs-12 col-sm-6"></td:datepicker>
+						</div>
+						<div class="row">
 							<td:radiogroup config="$radiogroup_opt" label="学历" name="edu" class="col-xs-12 col-sm-12"></td:radiogroup>
 						</div>
 						<div class="row">
@@ -79,6 +82,9 @@
 			&lt;td:switch config="$switch_opt" label="状态" name="status" class="col-xs-12 col-sm-12"&gt;&lt;/td:switch&gt;
 		&lt;/div&gt;
 		&lt;div class="row"&gt;
+			&lt;td:datepicker label="出生日期" name="date" must="true" class="col-xs-12 col-sm-6"&gt;&lt;/td:datepicker&gt;
+		&lt;/div&gt;
+		&lt;div class="row"&gt;
 			&lt;td:radiogroup config="$radiogroup_opt" label="学历" name="edu" class="col-xs-12 col-sm-12"&gt;&lt;/td:radiogroup&gt;
 		&lt;/div&gt;
 		&lt;div class="row"&gt;
@@ -94,8 +100,8 @@
 &lt;/td:form&gt;
 <br/>
 <strong>JS:</strong>
-require(['ui/form/td.form', 'ui/form/text/td.text',
-	'ui/form/spinner/td.spinner', 'ui/form/switch/td.switch', 'ui/form/rate/td.rate',
+require(['ui/form/td.form', 'ui/form/text/td.text', 'ui/form/select/td.select',
+	'ui/form/spinner/td.spinner', 'ui/form/switch/td.switch', 'ui/form/rate/td.rate', 'ui/form/datepicker/td.datepicker',
 	'ui/form/radio/td.radiogroup', 'ui/form/checkbox/td.checkboxgroup', 'ui/form/textarea/td.textarea'], function () {
 	avalon.define({
 		$id: 'test',
@@ -157,7 +163,7 @@ require(['ui/form/td.form', 'ui/form/text/td.text',
 <script type="text/javascript" src="../base/js/td.base.js"></script>
 <script>
 	require(['ui/form/td.form', 'ui/form/text/td.text', 'ui/form/select/td.select',
-		'ui/form/spinner/td.spinner', 'ui/form/switch/td.switch', 'ui/form/rate/td.rate',
+		'ui/form/spinner/td.spinner', 'ui/form/switch/td.switch', 'ui/form/rate/td.rate', 'ui/form/datepicker/td.datepicker',
 		'ui/form/radio/td.radiogroup', 'ui/form/checkbox/td.checkboxgroup', 'ui/form/textarea/td.textarea'], function () {
 		avalon.define({
 			$id: 'test',
