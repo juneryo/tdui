@@ -230,10 +230,10 @@ define(['avalon', 'text!./td.datepicker.html', 'css!./td.datepicker.css'], funct
 					vm.pickMonth = dt.getMonth();
 					vm.pickDate = dt.getDate();
 				}else {
-					vm.value = '';
+					vm.pickDate = '';
 					vm.pickYear = vm.today.getFullYear();
 					vm.pickMonth = vm.today.getMonth();
-					vm.pickDate = '';
+					vm.value = '';
 				}
 			}
 			//观测方法
