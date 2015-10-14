@@ -61,58 +61,19 @@ define(['avalon', 'text!./td.text.html', 'css!./td.text.css'], function(avalon, 
 				vm._trigger(ev, 'clicked');
 			}
 			vm.validValue = function(ev) {
-				vm.isValid = true;
-				var reg = null;
-				switch(vm.valid) {
-					case 'int':
-						reg = /^\-?\d+$/;
-						vm.validInfo = '请输入正确的整数'; break;
-					case '+int':
-						reg = /^\+?[1-9][0-9]*$/;
-						vm.validInfo = '请输入正确的正整数'; break;
-					case '-int':
-						reg = /^\-[1-9][0-9]*$/;
-						vm.validInfo = '请输入正确的负整数'; break;
-					case 'float':
-						reg = /^(-?\d+)(\.\d+)?/; 
-						vm.validInfo = '请输入正确的浮点数'; break;
-					case '+float':
-						reg = /^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/; 
-						vm.validInfo = '请输入正确的正浮点数'; break;
-					case '-float':
-						reg = /^(-(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*)))$/; 
-						vm.validInfo = '请输入正确的负浮点数'; break;
-					case 'ip':
-						reg = /^(?:(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])$/;
-						vm.validInfo = 'IP地址有误'; break;
-					case 'email': 
-						reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]{2,5}$/;
-						vm.validInfo = '电子邮件地址有误'; break;
-					case 'phone': 
-						reg = /^(\(\d{3,4}\)|\d{3,4}-)?\d{7,8}$/;
-						vm.validInfo = '电话号码有误'; break;
-					case 'mobile':
-						reg = /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/;
-						vm.validInfo = '手机号码有误'; break;
-					default:
-						break;
-				}
-				if(reg != null) {
-					vm.isValid = reg.test(vm.value);
-					vm.validInfo = vm.isValid ? '' : vm.validInfo;
-					if(vm.valid.indexOf('int') != -1 || vm.valid.indexOf('float') != -1) {
-						if(vm.max != '' && vm.value > vm.max) {
-							vm.isValid = false; vm.validInfo = '超过最大限制';
-						}
-						if(vm.min != '' && vm.value < vm.min) {
-							vm.isValid = false; vm.validInfo = '低于最小限制';
-						}
-					}
-				}else {
-					if(vm.must === true && vm.value == '') {
+				vm.validInfo = TD.validate(vm.value, vm.valid);
+				vm.isValid = vm.validInfo == '' ? true : false;
+				if(vm.isValid) {
+					if(vm.must === true && vm.value.trim() == '') {
 						vm.isValid = false; vm.validInfo = '该字段为必填字段';
 					}else if(typeof vm.must == 'number' && vm.value.length != vm.must) {
 						vm.isValid = false; vm.validInfo = '该字段长度有误';
+					}else if(vm.valid.indexOf('int') != -1 || vm.valid.indexOf('float') != -1) {
+						if(vm.max != '' && vm.value > vm.max) {
+							vm.isValid = false; vm.validInfo = '超过最大限制';
+						} else if(vm.min != '' && vm.value < vm.min) {
+							vm.isValid = false; vm.validInfo = '低于最小限制';
+						}
 					}
 				}
 			}
