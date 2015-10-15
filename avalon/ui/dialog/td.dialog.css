@@ -1,0 +1,10 @@
+.td_dialog_container {
+	
+}
+
+.td_dialog_show {
+	display: block !important;
+}
+.td_dialog_hide {
+	display: none !important;
+}
