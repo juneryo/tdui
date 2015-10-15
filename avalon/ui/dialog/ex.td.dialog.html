@@ -9,7 +9,7 @@
 	
 	<link rel="stylesheet" href="../base/css/normalize.min.css" />
 	<link rel="stylesheet" href="../base/css/bootstrap.min.css" />
-	
+	<link rel="stylesheet" href="../base/css/material.css">
 	<link rel="stylesheet" href="../base/css/td.base.css">
 	
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -28,10 +28,20 @@
 		<h3>TdDialog&nbsp;<small>弹出框</small></h3>
 		<div class="row base_border padding_top padding_bottom bg_white">
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ms-controller" ms-controller="test">
-				<a href="javascript:void(0)" ms-click="showDialog($event)">弹出框</a>
-				<td:dialog $id="dialog" config="$opt" title="弹出框" size="large">
+				<a href="javascript:void(0)" ms-click="showDialog($event, 1)">大弹出框</a>
+				<td:dialog $id="dialog1" config="$opt" title="弹出框" size="large">
 					<div slot="content">
-						这里是弹出框内容
+						<a href="javascript:void(0)" ms-click="showDialog($event, 2)">普通弹出框</a>
+					</div>
+				</td:dialog>
+				<td:dialog $id="dialog2" title="普通弹出框">
+					<div slot="content">
+						<a href="javascript:void(0)" ms-click="showDialog($event, 3)">小弹出框</a>
+					</div>
+				</td:dialog>
+				<td:dialog $id="dialog3" title="小弹出框" size="small">
+					<div slot="content">
+						这是小弹出框
 					</div>
 				</td:dialog>
 			</div>
@@ -43,9 +53,19 @@
 			</blockquote>
 			<pre>
 <strong>HTML:</strong>
-&lt;td:dialog $id="dialog" config="$opt" title="弹出框" size="large"&gt;
+&lt;td:dialog $id="dialog1" config="$opt" title="弹出框" size="large"&gt;
 	&lt;div slot="content"&gt;
-		这里是弹出框内容
+		&lt;a href="javascript:void(0)" ms-click="showDialog($event, 2)"&gt;普通弹出框&lt;/a&gt;
+	&lt;/div&gt;
+&lt;/td:dialog&gt;
+&lt;td:dialog $id="dialog2" title="普通弹出框"&gt;
+	&lt;div slot="content"&gt;
+		&lt;a href="javascript:void(0)" ms-click="showDialog($event, 3)"&gt;小弹出框&lt;/a&gt;
+	&lt;/div&gt;
+&lt;/td:dialog&gt;
+&lt;td:dialog $id="dialog3" title="小弹出框" size="small"&gt;
+	&lt;div slot="content"&gt;
+		这是小弹出框
 	&lt;/div&gt;
 &lt;/td:dialog&gt;
 <br/>
@@ -53,8 +73,8 @@
 require(['ui/dialog/td.dialog'], function () {
 	var v = avalon.define({
 		$id: 'test',
-		showDialog: function(ev) {
-			avalon.vmodels['dialog'].showDialog();
+		showDialog: function(ev, n) {
+			avalon.vmodels['dialog' + n].showDialog();
 		},
 		$opt: {
 			onshowed: function(ev, vm) {
@@ -90,8 +110,8 @@ require(['ui/dialog/td.dialog'], function () {
 	require(['ui/dialog/td.dialog'], function () {
 		var v = avalon.define({
 			$id: 'test',
-			showDialog: function(ev) {
-				avalon.vmodels['dialog'].showDialog();
+			showDialog: function(ev, n) {
+				avalon.vmodels['dialog' + n].showDialog();
 			},
 			$opt: {
 				onshowed: function(ev, vm) {
