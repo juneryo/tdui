@@ -43,10 +43,43 @@
 			</blockquote>
 			<pre>
 <strong>HTML:</strong>
-
+&lt;td:dialog $id="dialog" config="$opt" title="弹出框" size="large"&gt;
+	&lt;div slot="content"&gt;
+		这里是弹出框内容
+	&lt;/div&gt;
+&lt;/td:dialog&gt;
 <br/>
 <strong>JS:</strong>
-
+require(['ui/dialog/td.dialog'], function () {
+	var v = avalon.define({
+		$id: 'test',
+		showDialog: function(ev) {
+			avalon.vmodels['dialog'].showDialog();
+		},
+		$opt: {
+			onshowed: function(ev, vm) {
+				avalon.log('dialog show');
+			},
+			onhided: function(ev, vm) {
+				avalon.log('dialog hide');
+			},
+			buttons: [{display: '主按钮', type: 'primary', fun: function(ev, vm) {
+					
+			}}, {display: '成功按钮', type: 'success', fun: function(ev, vm) {
+				
+			}}, {display: '信息按钮', type: 'info', fun: function(ev, vm) {
+				
+			}}, {display: '警告按钮', type: 'warning', fun: function(ev, vm) {
+				
+			}}, {display: '危险按钮', type: 'danger', fun: function(ev, vm) {
+				
+			}}, {display: '关闭', fun: function(ev, vm) {
+				vm.hideDialog();
+			}}]
+		}
+	});
+	avalon.scan();
+});
 			</pre>
 		</div>
 	</div>
