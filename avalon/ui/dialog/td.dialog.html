@@ -9,7 +9,7 @@
         {{content|html}}
       </div>
       <div class="modal-footer" ms-if="buttons.length > 0">
-        <button type="button" class="btn btn-default" ms-repeat="buttons"
+        <button type="button" class="btn btn-default waves-effect waves-light" ms-repeat="buttons"
 					ms-class-1="btn-primary: el.type=='primary'" ms-class-2="btn-success: el.type=='success'" 
 					ms-class-3="btn-info: el.type=='info'" ms-class-4="btn-warning: el.type=='warning'" 
 					ms-class-5="btn-danger: el.type=='danger'" ms-click="btnClick($event, el.fun)">{{el.display}}</button>
