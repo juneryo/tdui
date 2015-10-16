@@ -127,6 +127,13 @@
 	border-left: 0px none !important;
 }
 
+.hide {
+	display: none !important;
+}
+.show {
+	display: block !important;
+}
+
 /* loading */
 .loading-mask {
 	position: absolute;
