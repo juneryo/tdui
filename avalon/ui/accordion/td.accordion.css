@@ -1,0 +1,14 @@
+.td_accordion_container {
+	
+}
+.td_accordion_container>div.panel {
+	margin-top: 0px !important;
+	border: solid 1px #ddd;
+	border-bottom: 0px;
+	border-radius: 0px;
+	box-shadow: none !important;
+	/*box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.12) !important;*/
+}
+.td_accordion_container>div.td_accordion_last_panel {
+	border-bottom: solid 1px #ddd;
+}

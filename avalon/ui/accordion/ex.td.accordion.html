@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title>Accordion</title>
+  <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+	<meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	
+	<link rel="stylesheet" href="../base/css/normalize.min.css" />
+	<link rel="stylesheet" href="../base/css/bootstrap.min.css" />
+	
+	<link rel="stylesheet" href="../base/css/td.base.css">
+	
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+    <script src="../base/js/html5.min.js"></script>
+		<script src="../base/js/respond.min.js"></script>
+	<![endif]-->
+	
+	<!--[if (gte IE 10)|!(IE)]>-->
+		<link type="text/css" rel="stylesheet" href="../base/css/waves.css" />
+		<script type="text/javascript" src="../base/js/waves.js"></script>
+	<!--[endif]-->
+</head>
+<body>
+	<div class="container">
+		<h3>TdAccordion&nbsp;<small>折叠面板</small></h3>
+		<div class="row base_border padding_top padding_bottom bg_white">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ms-controller" ms-controller="test">
+				<td:accordion config="$opt" active="1">
+					<div slot="content0">这里是面板0</div>
+					<div slot="content1">这里是面板1</div>
+					<div slot="content2">这里是面板2</div>
+					<div slot="content3">这里是面板3</div>
+				</td:accordion>
+			</div>
+		</div>
+		
+		<div class="row margin_top2">
+			<blockquote>
+				<p>示例代码：</p>
+			</blockquote>
+			<pre>
+<strong>HTML:</strong>
+&lt;td:accordion config="$opt" active="1"&gt;
+	&lt;div slot="content0"&gt;这里是面板0&lt;/div&gt;
+	&lt;div slot="content1"&gt;这里是面板1&lt;/div&gt;
+	&lt;div slot="content2"&gt;这里是面板2&lt;/div&gt;
+	&lt;div slot="content3"&gt;这里是面板3&lt;/div&gt;
+&lt;/td:accordion&gt;
+<br/>
+<strong>JS:</strong>
+require(['ui/accordion/td.accordion'], function () {
+	var v = avalon.define({
+		$id: 'test',
+		$opt: {
+			onchanged: function(ev, vm) {
+				avalon.log('当前面板索引:' + vm.active);
+			},
+			panels: [{
+				title: '面板0', fun: function(ev, vm) {
+					//切换到该标签时触发
+					avalon.log('切换到面板0');
+				}
+			}, {
+				title: '面板1'
+			}, {
+				title: '面板2'
+			}, {
+				title: '面板3', fun: function(ev, vm) {
+					avalon.log('展现面板3');
+				}
+			}]
+		}
+	});
+	avalon.scan();
+});
+			</pre>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="../../avalon.js"></script>
+<script type="text/javascript" src="../base/js/td.base.js"></script>
+<script>
+	require(['ui/accordion/td.accordion'], function () {
+		var v = avalon.define({
+			$id: 'test',
+			$opt: {
+				onchanged: function(ev, vm) {
+					avalon.log('当前面板索引:' + vm.active);
+				},
+				panels: [{
+					title: '面板0', fun: function(ev, vm) {
+						//切换到该标签时触发
+						avalon.log('切换到面板0');
+					}
+				}, {
+					title: '面板1'
+				}, {
+					title: '面板2'
+				}, {
+					title: '面板3', fun: function(ev, vm) {
+						avalon.log('展现面板3');
+					}
+				}]
+			}
+		});
+		avalon.scan();
+	});
+</script>
+</html>

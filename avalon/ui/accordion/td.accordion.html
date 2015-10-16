@@ -1,0 +1,14 @@
+<div class="panel-group td_accordion_container">
+	<div class="panel panel-default" ms-repeat="panels" ms-class="td_accordion_last_panel:$index==(panels.size()-1)">
+		<div class="panel-heading">
+      <h4 class="panel-title">
+        <a href="javascript:void(0)" ms-click="clickPanel($event, $index)">{{el.title}}</a>
+      </h4>
+    </div>
+		<div class="panel-collapse collapse" ms-class="in:active==$index">
+      <div class="panel-body">
+        {{renderContent($index)|html}}
+      </div>
+    </div>
+	</div>
+</div>
