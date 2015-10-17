@@ -1,0 +1,24 @@
+<div class="td_tree_container">
+	<script type="avalon" ms-attr-id="tmpid" style="display:none;">
+		<ul ms-each-el="el.children">
+			<li ms-click="clickParent($event, $index, el)">
+				<span>
+					<i class="td_tree_icon" ms-click="clickNode($event, $index, el, 'oper')" ms-class-1="td_tree_add:el.expand!==true" ms-class-2="td_tree_minus:el.expand===true" ms-if="el.children.length>0"></i>
+					<i class="td_tree_icon" ms-click="clickNode($event, $index, el, 'checkbox')" ms-if="checkbox===true" ms-class-1="td_tree_unchecked:checkbox===true&&el.checked!==true" ms-class-2="td_tree_checked:checkbox===true&&el.checked===true"></i>
+					<a href="javascript:void(0)" ms-click="clickNode($event, $index, el, 'node')">{{el.text}}</a>
+				</span>
+				<div ms-class-1="show:el.expand===true" ms-class-2="hide:el.expand!==true" ms-include="tmpid" ms-visible="el.children.length"></div>
+			</li>
+		</ul>
+	</script>
+	<ul ms-each-el="data">
+		<li ms-click="clickParent($event, $index, el)">
+			<span>
+				<i class="td_tree_icon" ms-click="clickNode($event, $index, el, 'oper')" ms-class-1="td_tree_add:el.expand!==true" ms-class-2="td_tree_minus:el.expand===true" ms-if="el.children.length>0"></i>
+				<i class="td_tree_icon" ms-click="clickNode($event, $index, el, 'checkbox')" ms-if="checkbox===true" ms-class-1="td_tree_unchecked:checkbox===true&&el.checked!==true" ms-class-2="td_tree_checked:checkbox===true&&el.checked===true"></i>
+				<a href="javascript:void(0)" ms-click="clickNode($event, $index, el, 'node')">{{el.text}}</a>
+			</span>
+			<div ms-class-1="show:el.expand===true" ms-class-2="hide:el.expand!==true" ms-include="tmpid" ms-visible="el.children.length"></div>
+		</li>
+	</ul>
+</div>
