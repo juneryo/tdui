@@ -8,6 +8,7 @@ define(['avalon', 'text!./td.tree.html', 'css!./td.tree.css'], function(avalon, 
 		//外部参数
 		data: [],
 		onclicked: null,
+		onchecked: null,
 		onexpanded: null,
 		oncollapsed: null,
 		//内部属性
@@ -35,6 +36,11 @@ define(['avalon', 'text!./td.tree.html', 'css!./td.tree.css'], function(avalon, 
 							vm.onclicked(ev, vm);
 						}
 						break;
+					case 'checked': 
+						if(typeof vm.onchecked == 'function') {
+							vm.onchecked(ev, vm);
+						}
+						break;
 					case 'expanded': 
 						if(typeof vm.onexpanded == 'function') {
 							vm.onexpanded(ev, vm);
@@ -47,6 +53,18 @@ define(['avalon', 'text!./td.tree.html', 'css!./td.tree.css'], function(avalon, 
 						break;
 					default: break;
 				}
+			}
+			vm._getSelected = function(dat) {
+				var val = '';
+				for(var i = 0; i < dat.size(); i ++) {
+					if(dat[i].checked === true) {
+						val += (dat[i].id + ',');
+					}
+					if(dat[i].children != undefined && dat[i].children.length > 0) {
+						val += vm._getSelected(dat[i].children);
+					}
+				}
+				return val;
 			}
 			vm._setCheckbox = function(el, checked) {
 				//通过递归方式处理子checkbox	
@@ -70,6 +88,9 @@ define(['avalon', 'text!./td.tree.html', 'css!./td.tree.css'], function(avalon, 
 						break;
 					case 'checkbox':
 						vm._setCheckbox(el, !el.checked);
+						if(el.checked === true) {
+							vm._trigger(el, 'checked');
+						}
 						break;
 					case 'node':
 						if(el.disabled !== true) {
@@ -97,9 +118,15 @@ define(['avalon', 'text!./td.tree.html', 'css!./td.tree.css'], function(avalon, 
 				}
 			}
 			//对外方法
-			
+			vm.getChecked = function() {
+				var val = '';
+				if(vm.checkbox === true) {
+					val = vm._getSelected(vm.data);
+					val = val.substring(0, val.length - 1);
+				}
+				return val;
+			}
 			//观测方法
-			
 		},
 		$ready: function (vm) {
       vm.isInit = false;

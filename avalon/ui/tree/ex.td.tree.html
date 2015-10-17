@@ -71,7 +71,11 @@ require(['ui/tree/td.tree'], function () {
 		$id: 'test',
 		$opt: {
 			onclicked: function(el, vm) {
-				avalon.log(el);
+				avalon.log('clicked ' + el.text)
+			},
+			onchecked: function(el, vm) {
+				avalon.log('checked ' + el.id);
+				avalon.log(vm.getChecked());
 			},
 			oncollapsed: function(el, vm) {
 				avalon.log('折叠面板' + el.text);
@@ -121,7 +125,11 @@ require(['ui/tree/td.tree'], function () {
 			$id: 'test',
 			$opt: {
 				onclicked: function(el, vm) {
-					avalon.log(el);
+					avalon.log('clicked ' + el.text)
+				},
+				onchecked: function(el, vm) {
+					avalon.log('checked ' + el.id);
+					avalon.log(vm.getChecked());
 				},
 				oncollapsed: function(el, vm) {
 					avalon.log('折叠面板' + el.text);
