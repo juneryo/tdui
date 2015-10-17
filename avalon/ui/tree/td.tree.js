@@ -49,11 +49,13 @@ define(['avalon', 'text!./td.tree.html', 'css!./td.tree.css'], function(avalon, 
 				}
 			}
 			vm._setCheckbox = function(el, checked) {
-				//通过递归方式处理子checkbox
-				el.checked = checked;
-				if(el.children != undefined && el.children.length > 0) {
-					for(var i = 0; i < el.children.length; i ++) {
-						vm._setCheckbox(el.children[i], checked);
+				//通过递归方式处理子checkbox	
+				if(el.disabled === false) {
+					el.checked = checked;
+					if(el.children != undefined && el.children.length > 0) {
+						for(var i = 0; i < el.children.length; i ++) {
+							vm._setCheckbox(el.children[i], checked);
+						}
 					}
 				}
 			}
@@ -70,23 +72,28 @@ define(['avalon', 'text!./td.tree.html', 'css!./td.tree.css'], function(avalon, 
 						vm._setCheckbox(el, !el.checked);
 						break;
 					case 'node':
-						vm._trigger(el, 'clicked');
+						if(el.disabled !== true) {
+							vm._trigger(el, 'clicked');
+						}
 						break;
 					default:
 						break;
 				}
 			}
 			vm.clickParent = function(ev, idx, el) {
-				//通过冒泡方式处理父级checkbox
-				if(vm.checkbox === true && el.children != undefined && el.children.length > 0) {
-					var allChecked = true;
-					for(var i = 0; i < el.children.length; i ++) {
-						if(el.children[i].checked !== true) {
-							allChecked = false; 
-							break;
+				if(el.disabled === true) {
+					ev.cancelBubble = true;
+				}else {
+					//通过冒泡方式处理父级checkbox
+					if(vm.checkbox === true && el.children != undefined && el.children.length > 0) {
+						var flag = false;
+						for(var i = 0; i < el.children.length; i ++) {
+							if(el.children[i].checked === true) {
+								flag = true; break;
+							}
 						}
+						el.checked = flag;
 					}
-					el.checked = allChecked;
 				}
 			}
 			//对外方法

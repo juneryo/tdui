@@ -43,25 +43,29 @@
 <strong>JS:</strong>
 require(['ui/tree/td.tree'], function () {
 	var dat = [
-		{text: "菜单01", expand:true, checked:false, children: [
-			{text: '菜单01-01', expand:false, checked:false, children: []},
-			{text: 2222, expand:true, checked:false, children: [
-				{text: 777, expand:false, checked:false, children: []}
+		{id:'1', text: '菜单01', expand:true, checked:true, disabled:true, children: [
+			{id:'1-1', text: '菜单01-01', expand:false, checked:false, disabled:false, children: []},
+			{id:'1-2', text: '菜单01-02', expand:true, checked:false, disabled:false, children: [
+				{id:'1-2-1', text: '菜单01-02-01', expand:false, checked:false, disabled:false, children: []}
 			]},
-			{text: 3333, expand:true, checked:false, children: [
-				{text: 8888, expand:false, checked:false, children: []},
-				{text: 999, expand:false, checked:false, children: []}
+			{id:'1-3', text: '菜单01-03', expand:true, checked:true, disabled:true, children: [
+				{id:'1-3-1', text: '菜单01-03-01', expand:false, checked:false, disabled:false, children: []},
+				{id:'1-3-2', text: '菜单01-03-02', expand:false, checked:true, disabled:true, children: []}
 			]}
 		]},
-		{text: "菜单02", expand:true, checked:false, children: [
-			{text: 4444, expand:false, checked:false, children: []},
-			{text: 5555, expand:false, checked:false, children: []},
-			{text: 6666, expand:false, checked:false, children: []}
+		{id:'2', text: '菜单02', expand:true, checked:false, disabled:false, children: [
+			{id:'2-1', text: '菜单02-01', expand:false, checked:false, disabled:false, children: []},
+			{id:'2-2', text: '菜单02-02', expand:false, checked:false, disabled:false, children: []},
+			{id:'2-3', text: '菜单02-03', expand:false, checked:false, disabled:false, children: [
+				{id:'2-3-1', text: '菜单02-03-01', expand:false, checked:false, disabled:false, children: []},
+				{id:'2-3-2', text: '菜单02-03-02', expand:false, checked:false, disabled:false, children: [
+					{id:'2-3-2-1', text: '菜单02-03-02-01', expand:false, checked:false, disabled:false, children: []},
+					{id:'2-3-2-2', text: '菜单02-03-02-02', expand:false, checked:false, disabled:false, children: []}
+				]}
+			]}
 		]},
-		{text: "ccc", expand:false, checked:false, children: []},
-		{text: "ddd", expand:false, checked:false, children: []},
-		{text: "eee", expand:false, checked:false, children: []},
-		{text: "fff", expand:false, checked:false, children: []}
+		{id:'3', text: '菜单03', expand:false, checked:false, disabled:false, children: []},
+		{id:'4', text: '菜单04', expand:false, checked:false, disabled:true, children: []}
 	];
 	var v = avalon.define({
 		$id: 'test',
@@ -89,25 +93,29 @@ require(['ui/tree/td.tree'], function () {
 <script>
 	require(['ui/tree/td.tree'], function () {
 		var dat = [
-			{text: "菜单01", expand:true, checked:false, children: [
-				{text: '菜单01-01', expand:false, checked:false, children: []},
-				{text: 2222, expand:true, checked:false, children: [
-					{text: 777, expand:false, checked:false, children: []}
+			{id:'1', text: '菜单01', expand:true, checked:true, disabled:true, children: [
+				{id:'1-1', text: '菜单01-01', expand:false, checked:false, disabled:false, children: []},
+				{id:'1-2', text: '菜单01-02', expand:true, checked:false, disabled:false, children: [
+					{id:'1-2-1', text: '菜单01-02-01', expand:false, checked:false, disabled:false, children: []}
 				]},
-				{text: 3333, expand:true, checked:false, children: [
-					{text: 8888, expand:false, checked:false, children: []},
-					{text: 999, expand:false, checked:false, children: []}
+				{id:'1-3', text: '菜单01-03', expand:true, checked:true, disabled:true, children: [
+					{id:'1-3-1', text: '菜单01-03-01', expand:false, checked:false, disabled:false, children: []},
+					{id:'1-3-2', text: '菜单01-03-02', expand:false, checked:true, disabled:true, children: []}
 				]}
 			]},
-			{text: "菜单02", expand:true, checked:false, children: [
-				{text: 4444, expand:false, checked:false, children: []},
-				{text: 5555, expand:false, checked:false, children: []},
-				{text: 6666, expand:false, checked:false, children: []}
+			{id:'2', text: '菜单02', expand:true, checked:false, disabled:false, children: [
+				{id:'2-1', text: '菜单02-01', expand:false, checked:false, disabled:false, children: []},
+				{id:'2-2', text: '菜单02-02', expand:false, checked:false, disabled:false, children: []},
+				{id:'2-3', text: '菜单02-03', expand:false, checked:false, disabled:false, children: [
+					{id:'2-3-1', text: '菜单02-03-01', expand:false, checked:false, disabled:false, children: []},
+					{id:'2-3-2', text: '菜单02-03-02', expand:false, checked:false, disabled:false, children: [
+						{id:'2-3-2-1', text: '菜单02-03-02-01', expand:false, checked:false, disabled:false, children: []},
+						{id:'2-3-2-2', text: '菜单02-03-02-02', expand:false, checked:false, disabled:false, children: []}
+					]}
+				]}
 			]},
-			{text: "ccc", expand:false, checked:false, children: []},
-			{text: "ddd", expand:false, checked:false, children: []},
-			{text: "eee", expand:false, checked:false, children: []},
-			{text: "fff", expand:false, checked:false, children: []}
+			{id:'3', text: '菜单03', expand:false, checked:false, disabled:false, children: []},
+			{id:'4', text: '菜单04', expand:false, checked:false, disabled:true, children: []}
 		];
 		var v = avalon.define({
 			$id: 'test',

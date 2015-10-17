@@ -61,14 +61,20 @@
 	background-repeat: no-repeat;
 }
 .td_tree_add {
-	background-image:url(img/add.png)
+	background-image:url(img/add.png);
 }
 .td_tree_minus {
-	background-image:url(img/minus.png)
+	background-image:url(img/minus.png);
 }
 .td_tree_checked {
-	background-image:url(img/checked.png)
+	background-image:url(img/checked.png);
 }
 .td_tree_unchecked {
-	background-image:url(img/unchecked.png)
+	background-image:url(img/unchecked.png);
+}
+.td_tree_checked_disabled {
+	background-image:url(img/checked-disabled.png);
+}
+.td_tree_unchecked_disabled {
+	background-image:url(img/unchecked-disabled.png);
 }

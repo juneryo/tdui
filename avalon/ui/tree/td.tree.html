@@ -4,7 +4,12 @@
 			<li ms-click="clickParent($event, $index, el)">
 				<span>
 					<i class="td_tree_icon" ms-click="clickNode($event, $index, el, 'oper')" ms-class-1="td_tree_add:el.expand!==true" ms-class-2="td_tree_minus:el.expand===true" ms-if="el.children.length>0"></i>
-					<i class="td_tree_icon" ms-click="clickNode($event, $index, el, 'checkbox')" ms-if="checkbox===true" ms-class-1="td_tree_unchecked:checkbox===true&&el.checked!==true" ms-class-2="td_tree_checked:checkbox===true&&el.checked===true"></i>
+					<i class="td_tree_icon" ms-click="clickNode($event, $index, el, 'checkbox')" ms-if="checkbox===true" 
+						ms-class-1="td_tree_unchecked:checkbox===true&&el.disabled===false&&el.checked!==true" 
+						ms-class-2="td_tree_checked:checkbox===true&&el.disabled===false&&el.checked===true"
+						ms-class-3="td_tree_unchecked_disabled:checkbox===true&&el.disabled===true&&el.checked!==true"
+						ms-class-4="td_tree_checked_disabled:checkbox===true&&el.disabled===true&&el.checked===true">
+					</i>
 					<a href="javascript:void(0)" ms-click="clickNode($event, $index, el, 'node')">{{el.text}}</a>
 				</span>
 				<div ms-class-1="show:el.expand===true" ms-class-2="hide:el.expand!==true" ms-include="tmpid" ms-visible="el.children.length"></div>
@@ -15,7 +20,12 @@
 		<li ms-click="clickParent($event, $index, el)">
 			<span>
 				<i class="td_tree_icon" ms-click="clickNode($event, $index, el, 'oper')" ms-class-1="td_tree_add:el.expand!==true" ms-class-2="td_tree_minus:el.expand===true" ms-if="el.children.length>0"></i>
-				<i class="td_tree_icon" ms-click="clickNode($event, $index, el, 'checkbox')" ms-if="checkbox===true" ms-class-1="td_tree_unchecked:checkbox===true&&el.checked!==true" ms-class-2="td_tree_checked:checkbox===true&&el.checked===true"></i>
+				<i class="td_tree_icon" ms-click="clickNode($event, $index, el, 'checkbox')" ms-if="checkbox===true" 
+					ms-class-1="td_tree_unchecked:checkbox===true&&el.disabled===false&&el.checked!==true" 
+					ms-class-2="td_tree_checked:checkbox===true&&el.disabled===false&&el.checked===true"
+					ms-class-3="td_tree_unchecked_disabled:checkbox===true&&el.disabled===true&&el.checked!==true"
+					ms-class-4="td_tree_checked_disabled:checkbox===true&&el.disabled===true&&el.checked===true">
+				</i>
 				<a href="javascript:void(0)" ms-click="clickNode($event, $index, el, 'node')">{{el.text}}</a>
 			</span>
 			<div ms-class-1="show:el.expand===true" ms-class-2="hide:el.expand!==true" ms-include="tmpid" ms-visible="el.children.length"></div>
