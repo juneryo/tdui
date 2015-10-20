@@ -1,85 +1,45 @@
 <div class="td_datagrid_container">
-	<div>
-		<nav class="navbar navbar-default">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" ms-click="toggleNav($event)">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="#">&nbsp;{{_title}}</a>
-				</div>
-				<div class="collapse navbar-collapse" ms-visible="isNav">
-					<ul class="nav navbar-nav navbar-right">
-						<li><a href="javascript:void(0)" class="waves-effect waves-light" ms-click="toggleQuery($event)"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;查询</a></li>
-						<li><a href="javascript:void(0)" class="waves-effect waves-light" ms-click="toggleFilter($event)"><span class="glyphicon glyphicon-filter" aria-hidden="true"></span>&nbsp;筛选</a></li>
-						<li class="dropdown" ms-if="_operations.length > 0">
-							<a href="javascript:void(0)" class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" ms-click="toggleOperate($event)">操作<span class="caret"></span></a>
-							<ul class="dropdown-menu" ms-visible="isOperate">
-								<li ms-repeat="_operations">
-									<a href="javascript:void(0)" ms-click="doOperate($event, el.fun)">
-										<span ms-if="el.icon" ms-class="{{el.icon}}" aria-hidden="true"></span>&nbsp;{{el.display}}
-									</a>
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</div>
+	<nav class="navbar navbar-default no_margin">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" ms-click="toggle($event, 'button')">
+					<span class="sr-only"></span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">{{title}}</a>
 			</div>
-		</nav>
-		<div ms-visible="isQuery">
-			<form>
-				<div class="row" ms-repeat="_cols" ms-if-loop="$first || el.row > _cols[$index - 1].row">
-					<div class="form-group" ms-repeat="_cols" ms-if-loop="$outer.el.row == el.row" ms-class="col-xs-{{el.col * 2}} col-sm-{{el.col * 2}} col-md-{{el.col}} col-lg-{{el.col}}">
-						<label class="control-label" ms-attr-for="{{initId}}-{{el.name}}">{{el.display}}：</label>
-						<input class="form-control" type="text" placeholder="" ms-if="el.type != 'select'" ms-attr-id="{{initId}}-{{el.name}}" ms-attr-name="el.name" ms-duplex="el.value" />
-						<select class="form-control" ms-if="el.type == 'select'" ms-attr-id="{{initId}}-{{el.name}}" ms-attr-name="el.name" ms-duplex="el.value">
-							<option value=""></option>
-							<option ms-repeat="el.option" ms-attr-value="$key">{{$val}}</option>
-						</select>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-lg-12">
-						<a href="javascript:void(0)" class="pull-right btn btn-primary btn-raised waves-effect waves-light">&nbsp;&nbsp;查询&nbsp;&nbsp;</a>
-						<a href="javascript:void(0)" class="pull-right margin_right btn btn-default btn-raised waves-effect waves-light">&nbsp;&nbsp;取消&nbsp;&nbsp;</a>
-					</div>
-				</div>
-			</form>
+			<div class="collapse navbar-collapse" ms-visible="showButtons">
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown">
+						<a href="javascript:void(0)" class="dropdown-toggle waves-effect waves-light" ms-click="toggle($event, 'panel')">折叠面板<span class="caret"></span></a>
+						<ul class="dropdown-menu" ms-visible="showPanel">
+							<li><a href="javascript:void(0)" class="waves-effect waves-light" ms-if="content!=''" ms-click="toggle($event, 'query')"><span class="glyphicon glyphicon-search"></span>&nbsp;查询面板</a></li>
+							<li><a href="javascript:void(0)" class="waves-effect waves-light" ms-click="toggle($event, 'filter')"><span class="glyphicon glyphicon-filter"></span>&nbsp;筛选面板</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
 		</div>
+	</nav>
+	<div ms-visible="showQuery">
+		{{content|html}}
 	</div>
 	<div style="overflow:hidden;">
 		<table class="table table-hover td_datagrid relative_pos" ms-css-left="scrollLeft">
 			<thead>
 				<tr>
-					<th width="16">
+					<th ms-visible="checkbox" width="45">
+						<i class="td_datagrid_icon" ms-class-1="td_datagrid_checked: allSelected" ms-class-2="td_datagrid_unchecked: !allSelected" ms-click="clickCheckbox($event, -1)"></i>
 					</th>
-					<th ms-visible="_checkbox" width="45">
-						<div class="checkbox">
-							<label>
-								<input type="checkbox" ms-attr-disabled="oriRowIdx != -1 || isEditing || _singleSelect" ms-duplex-checked="isAllSelected" />
-								<span class="checkbox-material">
-									<span class="check"></span>
-								</span>
-							</label>
-						</div>
-					</th>
-					<th ms-repeat="_cols" ms-attr-width="{{el.width}}" ms-css-width="{{el.width}}">
-						{{el.display}}
-					</th>
+					<th ms-repeat="cols" ms-attr-width="{{el.width}}" ms-css-width="{{el.width}}">{{el.display}}</th>
 					<th width="150">
 					</th>
 					<th>
 					</th>
 				</tr>
-				<tr ms-visible="isFiltered">
-					<th>
+				<tr ms-visible="showFilter">
+					<th ms-visible="checkbox">
 					</th>
-					<th ms-visible="_checkbox">
-					</th>
-					<th class="td_datagrid_filter" ms-repeat="_cols">
+					<th class="td_datagrid_filter" ms-repeat="cols">
 						<input type="text" ms-if="el.type == 'text'" ms-attr-name="{{el.name}}" ms-css-width="{{el.width - 20}}" ms-input="filterRow($index, el.name)" />
 						<select ms-if="el.type == 'select'" ms-attr-name="{{el.name}}" ms-css-width="{{el.width - 20}}" ms-change="filterRow($index, el.name)">
 							<option value=""></option>
@@ -92,56 +52,51 @@
 			</thead>
 		</table>
 	</div>
-	<div style="overflow:auto;" ms-css-height="_h" ms-scroll="scrollTable($event)">
-		<button class="btn btn-fab btn-primary btn-raised waves-effect waves-light" title="继续加载"
-			style="position:absolute;z-index:99;right:20px;;bottom:20px;"
-			ms-click="loadData()">
-			<i class="mdi-navigation-refresh"></i>
-		</button>
+	<div style="overflow:auto;" ms-css-height="height" ms-scroll="scrollTable($event)">
 		<table class="table table-hover td_datagrid margin_bottom2">
 			<tbody>
-				<tr ms-repeat="_rows" ms-click="clickRow($event, $index)" ms-dblclick="editRow($index)" ms-visible="el.show == '1' ? true : false" 
-					ms-class-2="td_datagrid_tredit : el.edit == '1'" >
-					<td class="no_padding" width="16">
-						<div ms-class="td_tr_selected: el.selected == '1'"></div>
+				<tr ms-repeat="rows" ms-class-1="td_datagrid_tr_edit: editIdx==$index" ms-class-2="td_datagrid_tr_selected: el.selected==true||el.selected=='true'"
+					ms-click="clickRow($event, $index)" ms-dblclick="editRow($event, $index)" ms-visible="filterArr[$index]">
+					<td ms-visible="checkbox" width="45" style="padding-top:8px;">
+						<i class="td_datagrid_icon" ms-class-1="td_datagrid_checked: el.selected==true||el.selected=='true'" ms-class-2="td_datagrid_unchecked: el.selected==false||el.selected=='false'" ms-click="clickCheckbox($event, $index)"></i>
 					</td>
-					<td ms-visible="_checkbox" width="45">
-						<div class="checkbox">
-							<label>
-								<input type="checkbox" ms-duplex-checked="el.selected" ms-attr-disabled="oriRowIdx != -1 || isEditing" ms-click="clickCheckbox($event, $index)" />
-								<span class="checkbox-material">
-									<span class="check"></span>
-								</span>
-							</label>
+					<td class="padding_top" ms-repeat="cols" ms-attr-width="{{el.width}}"
+						ms-attr-title="el.type == 'select' ? el.option[$outer.el[el.name]] : $outer.el[el.name]">
+						<span ms-visible="editIdx!=$outer.$index">{{el.type == 'text' ? $outer.el[el.name] : el.option[$outer.el[el.name]]}}</span>
+						<div ms-visible="editIdx==$outer.$index">
+							<input type="text" ms-if="el.type == 'text'" ms-attr-disabled="el.disabled" ms-duplex="$outer.el[el.name]" ms-css-width="{{el.width - 15}}"/>
+							<select ms-if="el.type == 'select'" ms-attr-disabled="el.disabled" ms-duplex="$outer.el[el.name]" ms-css-width="{{el.width - 15}}">
+								<option ms-repeat="el.option" ms-attr-value="{{$key}}">{{$val}}</option>
+							</select>
 						</div>
 					</td>
-					<td class="td_datagrid_filter padding_top" ms-repeat="_cols" ms-attr-width="{{el.width}}"
-						ms-attr-title="el.type == 'select' ? el.option[$outer.el[el.name]] : $outer.el[el.name]">
-						{{$outer.el['edit'] != '1' ? (el.type == 'text' ? $outer.el[el.name] : el.option[$outer.el[el.name]]) : ''}}
-						<input type="text" ms-if="el.type == 'text'" ms-attr-disabled="el.disabled" ms-duplex="$outer.el[el.name]" ms-css-width="{{el.width - 15}}" ms-visible="$outer.el['edit'] == '1'" />
-						<select ms-if="el.type == 'select'" ms-attr-disabled="el.disabled" ms-duplex="$outer.el[el.name]" ms-css-width="{{el.width - 15}}" ms-visible="$outer.el['edit'] == '1'">
-							<option ms-repeat="el.option" ms-attr-value="{{$key}}">{{$val}}</option>
-						</select>
-					</td>
 					<td width="150">
-						<a href="javascript:void(0)" class="btn btn-success btn-raised waves-effect waves-light" title="编辑" ms-visible="el['edit'] == '1'" ms-click="submitEdit($event, $index)"><span class="glyphicon glyphicon-edit"></span></a>
-						<a href="javascript:void(0)" class="btn btn-warning btn-raised waves-effect waves-light" title="删除" ms-visible="el['edit'] == '1'" ms-click="deleteRow($event, $index)"><span class="glyphicon glyphicon-remove"></span></a>
-						<a href="javascript:void(0)" class="btn btn-default btn-raised waves-effect waves-light" title="取消" ms-visible="el['edit'] == '1'" ms-click="editCancel()"><span class="glyphicon glyphicon-minus"></span></a>
+						<div ms-visible="editIdx==$index">
+							<a href="javascript:void(0)" class="btn btn-success btn-raised waves-effect waves-light" title="编辑" ms-click="submitEdit($event, $index)"><span class="glyphicon glyphicon-edit"></span></a>
+							<a href="javascript:void(0)" class="btn btn-default btn-raised waves-effect waves-light" title="取消" ms-click="cancelEdit($event, $index)"><span class="glyphicon glyphicon-minus"></span></a>
+						</div>
 					</td>
 					<td>
 					</td>
 				</tr>
+				<tr>
+					<td class="padding_top" style="text-align:center;cursor:pointer;" ms-attr-colspan="cols.size() + 3" ms-click="loadData(null)">继续加载数据</td>
+				</tr>
 			</tbody>
 		</table>
 	</div>
-	<div class="padding_left2 padding_right2">
-		<span>当前加载<strong>{{curPage}}</strong>页&nbsp;共加载<strong>{{_rows.length}}</strong>条记录</span>&nbsp;
-		<a href="javascript:void(0)" class="pull-right" ms-click="reloadData()">重新加载</a>
-		<div class="alert alert-warning alert-dismissible margin_top" role="alert" ms-if="errCod != ''">
-			<button type="button" class="close" data-dismiss="alert" aria-label="Close" ms-click="clearErr()"><span aria-hidden="true">&times;</span></button>
-			<strong>{{errCod}}</strong> {{errMsg}}
-		</div>
+	
+	<div class="padding_left">
+		<span>当前加载<strong>{{page}}</strong>页&nbsp;共加载<strong>{{rows.length}}</strong>条记录</span>&nbsp;<strong style="color:red;">{{loadInfo}}</strong>
 	</div>
+	
+	<div class="td_datagrid_actions" ms-mouseenter="toggle($event, 'action', 'in')" ms-mouseleave="toggle($event, 'action', 'out')" ms-each="actions">
+		<a class="btn btn-default waves-effect waves-light btn-lg" href="javascript:void(0)" ms-click="clickAction($event, el.fun)"
+			ms-class-1="btn-primary: el.type=='primary'" ms-class-2="btn-success: el.type=='success'" ms-class-3="btn-info: el.type=='info'"
+			ms-class-4="btn-warning: el.type=='warning'" ms-class-5="btn-danger: el.type=='danger'"
+			ms-visible="($index==actions.size() - 1) ? true : showAction" ms-attr-title="el.title"><span ms-attr-class="el.icon"></span></a>
+	</div>
+	
 	<div class="loading-mask" ms-visible="isLoading">
 		<div class="loading-container">
 			<div class="loading-speeding-wheel"></div><strong>数据加载中,请稍后…</strong>

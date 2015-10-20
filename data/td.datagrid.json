@@ -1,7 +1,7 @@
 {"rows": [
-	{"id": "001", "name": "Eclair11111111111111111111111111111111111111",   "price": "$0.87", "category": "A1", "show": "1", "selected": "", "edit": ""},
-	{"id": "002", "name": "YuJun",    "price": "$0.57", "category": "A2", "show": "1", "selected": "", "edit": ""},
-	{"id": "003", "name": "YingYing", "price": "$1.11", "category": "A3", "show": "1", "selected": "", "edit": ""},
-	{"id": "004", "name": "HaHa",     "price": "$0.89", "category": "A2", "show": "1", "selected": "", "edit": ""},
-	{"id": "005", "name": "Eclair",   "price": "$0.77", "category": "A3", "show": "1", "selected": "", "edit": ""}
+	{"id": "001", "name": "Eclair11111111111111111111111111111111111111", "price": "$0.87", "category": "A1", "selected": "true"},
+	{"id": "002", "name": "YuJun",    "price": "$0.57", "category": "A2", "selected": "false"},
+	{"id": "003", "name": "YingYing", "price": "$1.11", "category": "A3", "selected": "false"},
+	{"id": "004", "name": "HaHa",     "price": "$0.89", "category": "A2", "selected": "false"},
+	{"id": "005", "name": "Eclair",   "price": "$0.77", "category": "A3", "selected": "false"}
 ], "total": "5", "rspcod" : "200", "rspmsg": ""}

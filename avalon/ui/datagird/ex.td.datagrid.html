@@ -9,7 +9,7 @@
 	
 	<link rel="stylesheet" href="../base/css/normalize.min.css" />
 	<link rel="stylesheet" href="../base/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="../base/css/material.css">
+	
 	<link rel="stylesheet" href="../base/css/td.base.css">
 	
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -28,7 +28,11 @@
 		<h3>TdDataGrid&nbsp;<small>数据表格</small></h3>
 		<div class="row base_border padding_top padding_bottom bg_white">
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ms-controller" ms-controller="test">
-				 <td:datagrid config="$opt"></td:datagrid>
+				 <td:datagrid $id="dg" config="$opt" title="测试数据表格" checkbox="true" single-select="false" editable="true" auto="true" height="300" >
+					<div slot="content">
+					这里是查询条件
+					</div>
+				 </td:datagrid>
 			</div>
 		</div>
 		
@@ -37,33 +41,48 @@
 				<p>示例代码：</p>
 			</blockquote>
 			<pre>
-	var cols = [
-		{name: 'id', display: '编号', width: 100, type: 'text', value: '', row: 1, col: 3, disabled: true}, 
-		{name: 'name', display: '名称', width: 150, type: 'text', value: '', row: 1, col: 3}, 
-		{name: 'price', display: '价格', width: 120, type: 'text', value: '', row: 1, col: 3},
-		{name: 'category', display: '类别', width: 150, type: 'select', value: '', option: {
-			'A1': '游戏', 'A2' : '电影', 'A3' : '音乐'
-		}, row: 1, col: 3}
-	];
-	require(["ui/datagird/td.datagrid"], function () {
-		avalon.define({
-			$id: 'test',
-			$opt: {
-				_title: '测试数据表格',
-				_h: 300,              //表体高度(可选)
-				_loadUrl: '/tdui/data/td.datagrid.json',
-				_cols: cols,
-				_checkbox: true,      //是否显示checkbox(默认true)
-				_singleSelect: false, //是否单选(默认false)
-				_operations: [{display: '新增', icon: 'glyphicon glyphicon-plus', fun: function(ev, vm) {
-					alert('新增');
-				}}, {display: '删除', icon: 'glyphicon glyphicon-remove', fun: function(ev, vm) {
-					alert('删除');
-				}}]
-			}
-		});
-		avalon.scan();
+<strong>HTML:</strong>
+&lt;td:datagrid $id="dg" config="$opt" title="测试数据表格" checkbox="true" single-select="false" editable="true" auto="true" height="300" &gt;
+	&lt;div slot="content"&gt;
+	这里是查询条件
+	&lt;/div&gt;
+&lt;/td:datagrid&gt;
+<br/>
+<strong>JS:</strong>
+var cols = [
+	{name: 'id', display: '编号', width: 100, type: 'text', disabled: true}, 
+	{name: 'name', display: '名称', width: 150, type: 'text'}, 
+	{name: 'price', display: '价格', width: 120, type: 'text'},
+	{name: 'category', display: '类别', width: 150, type: 'select', option: {
+		'A1': '游戏', 'A2' : '电影', 'A3' : '音乐'
+	}}
+];
+var rows = [
+	{"id": "001", "name": "Eclair11111111111111111111111111111111111111",   "price": "$0.87", "category": "A1", "selected": "false"},
+	{"id": "002", "name": "YuJun",    "price": "$0.57", "category": "A2", "selected": "false"},
+	{"id": "003", "name": "YingYing", "price": "$1.11", "category": "A3", "selected": "false"},
+	{"id": "004", "name": "HaHa",     "price": "$0.89", "category": "A2", "selected": "false"},
+	{"id": "005", "name": "Eclair",   "price": "$0.77", "category": "A3", "selected": "false"}
+]
+require(["ui/datagird/td.datagrid"], function () {
+	avalon.define({
+		$id: 'test',
+		$opt: {
+			loadUrl: '../../../data/td.datagrid.json',
+			loadParam: {
+				p1: 1, p2: 2
+			},
+			cols: cols,
+			//rows: rows,
+			actions: [{title: '新增', icon: 'glyphicon glyphicon-plus', fun: function(ev, vm) {
+				alert('add')
+			}}, {title: '删除', icon: 'glyphicon glyphicon-remove', fun: function(ev, vm) {
+				avalon.log(vm.getSelectedIdx());
+			}}]
+		}
 	});
+	avalon.scan();
+});
 			</pre>
 		</div>
 	</div>
@@ -72,27 +91,34 @@
 <script type="text/javascript" src="../base/js/td.base.js"></script>
 <script>
 	var cols = [
-		{name: 'id', display: '编号', width: 100, type: 'text', value: '', row: 1, col: 3, disabled: true}, 
-		{name: 'name', display: '名称', width: 150, type: 'text', value: '', row: 1, col: 3}, 
-		{name: 'price', display: '价格', width: 120, type: 'text', value: '', row: 1, col: 3},
-		{name: 'category', display: '类别', width: 150, type: 'select', value: '', option: {
+		{name: 'id', display: '编号', width: 100, type: 'text', disabled: true}, 
+		{name: 'name', display: '名称', width: 150, type: 'text'}, 
+		{name: 'price', display: '价格', width: 120, type: 'text'},
+		{name: 'category', display: '类别', width: 150, type: 'select', option: {
 			'A1': '游戏', 'A2' : '电影', 'A3' : '音乐'
-		}, row: 1, col: 3}
+		}}
 	];
+	var rows = [
+		{"id": "001", "name": "Eclair11111111111111111111111111111111111111",   "price": "$0.87", "category": "A1", "selected": "false"},
+		{"id": "002", "name": "YuJun",    "price": "$0.57", "category": "A2", "selected": "false"},
+		{"id": "003", "name": "YingYing", "price": "$1.11", "category": "A3", "selected": "false"},
+		{"id": "004", "name": "HaHa",     "price": "$0.89", "category": "A2", "selected": "false"},
+		{"id": "005", "name": "Eclair",   "price": "$0.77", "category": "A3", "selected": "false"}
+	]
 	require(["ui/datagird/td.datagrid"], function () {
 		avalon.define({
 			$id: 'test',
 			$opt: {
-				_title: '测试数据表格',
-				_h: 300,              //表体高度(可选)
-				_loadUrl: 'http://127.0.0.1:8080/tdui/data/td.datagrid.json',
-				_cols: cols,
-				_checkbox: true,      //是否显示checkbox(默认true)
-				_singleSelect: false, //是否单选(默认false)
-				_operations: [{display: '新增', icon: 'glyphicon glyphicon-plus', fun: function(ev, vm) {
-					alert('新增');
-				}}, {display: '删除', icon: 'glyphicon glyphicon-remove', fun: function(ev, vm) {
-					alert('删除');
+				loadUrl: '../../../data/td.datagrid.json',
+				loadParam: {
+					p1: 1, p2: 2
+				},
+				cols: cols,
+				//rows: rows,
+				actions: [{title: '新增', icon: 'glyphicon glyphicon-plus', fun: function(ev, vm) {
+					alert('add')
+				}}, {title: '删除', icon: 'glyphicon glyphicon-remove', fun: function(ev, vm) {
+					avalon.log(vm.getSelectedIdx());
 				}}]
 			}
 		});
