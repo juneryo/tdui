@@ -2,16 +2,22 @@ define(['avalon', 'text!./td.navbar.html', 'css!./td.navbar.css'], function(aval
 	var _interface = function () {
 	};
 	avalon.component("td:navbar", {
-		//外部参数
+		//外部属性
 		title: '',
+		operation: '操作',
+		href: 'javascript:void(0)',
+		//外部参数
 		operations: [],      //自定义下拉操作列表
 		buttons: [],
-		isOperate: false,
-		isNav: false,
+		ontitleclicked: null,
+		//view参数
+		showOperations: false,
+		showButtons: false,
 		//view接口
-		toggleOperate: _interface,
-		toggleNav: _interface,
+		toggleOperations: _interface,
+		toggleButtons: _interface,
 		doOperate: _interface,
+		clickTitle: _interface,
 		//默认配置
 		$template: template,
 		$construct: function (hooks, vmOpts, elemOpts) {
@@ -22,14 +28,29 @@ define(['avalon', 'text!./td.navbar.html', 'css!./td.navbar.css'], function(aval
 			elem.innerHTML = elem.textContent = '';
 		},
 		$init: function(vm, elem) {
+			//内部方法
+			vm._trigger = function(ev, type) {
+				switch (type) {
+					case 'titleclicked': 
+						if(typeof vm.ontitleclicked == 'function') {
+							vm.ontitleclicked(ev, vm);
+						}
+						break;
+					default: break;
+				}
+			}
+			//view接口
+			vm.clickTitle = function(ev) {
+				vm._trigger(ev, 'titleclicked');
+			}
 			//切换自定义操作面板
-			vm.toggleOperate = function(ev) {
-				vm.isOperate = !vm.isOperate;
+			vm.toggleOperations = function(ev) {
+				vm.showOperations = !vm.showOperations;
 				ev.cancelBubble = true;
 			}
 			//切换导航条
-			vm.toggleNav = function(ev) {
-				vm.isNav = !vm.isNav;
+			vm.toggleButtons = function(ev) {
+				vm.showButtons = !vm.showButtons;
 				ev.cancelBubble = true;
 			}
 			//触发自定义操作
@@ -38,7 +59,7 @@ define(['avalon', 'text!./td.navbar.html', 'css!./td.navbar.css'], function(aval
 			}
 		},
 		$ready: function (vm) {
-      avalon.log("构建完成");
+      
     }
 	});
 	
