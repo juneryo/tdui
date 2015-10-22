@@ -6,7 +6,8 @@ define(['avalon', 'text!./td.navbar.html', 'css!./td.navbar.css'], function(aval
 		title: '',
 		operation: '操作',
 		href: 'javascript:void(0)',
-		nomargin: false,
+		margin: 20,
+		padding: 0,
 		//外部参数
 		operations: [],      //自定义下拉操作列表
 		buttons: [],
