@@ -6,6 +6,7 @@ define(['avalon', 'text!./td.navbar.html', 'css!./td.navbar.css'], function(aval
 		title: '',
 		operation: '操作',
 		href: 'javascript:void(0)',
+		nomargin: false,
 		//外部参数
 		operations: [],      //自定义下拉操作列表
 		buttons: [],
@@ -55,7 +56,9 @@ define(['avalon', 'text!./td.navbar.html', 'css!./td.navbar.css'], function(aval
 			}
 			//触发自定义操作
 			vm.doOperate = function(ev, fun) {
-				fun(ev, vm);
+				if(typeof fun == 'function') {
+					fun(ev, vm);
+				}
 			}
 		},
 		$ready: function (vm) {
