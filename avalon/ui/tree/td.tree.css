@@ -28,7 +28,7 @@
 	width: 32px;
 	height: 20px;
 }
-.td_tree_container li span {
+.td_tree_container li>span {
 	display: inline-block;
 	padding-left: 12px;
 	cursor: pointer;
@@ -39,8 +39,11 @@
   cursor: pointer;
 	text-decoration: none;
 }
+.td_tree_container>ul {
+	padding-left: 0px;
+}
 .td_tree_container>ul>li::before, .td_tree_container>ul>li::after {
-  border: 1;
+  border: 0;
 }
 .td_tree_container li:last-child::before {
   height: 12px;
