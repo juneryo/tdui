@@ -63,6 +63,12 @@
 .no_margin {
 	margin: 0 !important;
 }
+.padding_all {
+	padding: 10px !important;
+}
+.padding_all2 {
+	padding: 20px !important;
+}
 .padding_top {
 	padding-top: 10px !important;
 }
@@ -87,7 +93,12 @@
 .padding_right2 {
 	padding-right: 20px !important;
 }
-
+.margin_all {
+	margin: 10px !important;
+}
+.margin_all2 {
+	margin: 20px !important;
+}
 .margin_top {
 	margin-top: 10px !important;
 }
