@@ -4,6 +4,7 @@ define(['avalon', 'text!./td.accordion.html', 'css!./td.accordion.css'], functio
 	avalon.component("td:accordion", {
 		//外部属性
 		active: 0,
+		padding: 15,
 		//外部参数
 		panels: [],
 		onchanged: null,

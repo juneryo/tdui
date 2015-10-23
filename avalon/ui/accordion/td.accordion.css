@@ -1,6 +1,12 @@
 .td_accordion_container {
 	
 }
+.td_accordion_container>.panel>.panel-heading{
+	cursor: pointer;
+}
+.td_accordion_container>.panel>.panel-heading>h4>a:hover{
+	text-decoration: none;
+}
 .td_accordion_container>div.panel {
 	margin-top: 0px !important;
 	border: solid 1px #ddd;
