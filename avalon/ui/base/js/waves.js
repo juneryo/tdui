@@ -7,6 +7,7 @@
  * https://github.com/fians/Waves/blob/master/LICENSE
  */
 (function(window) {
+	try {
     'use strict';
     var Waves = Waves || {};
     var $$ = document.querySelectorAll.bind(document);
@@ -270,4 +271,5 @@
     document.addEventListener('DOMContentLoaded', function() {
         Waves.displayEffect();
     }, false);
+	} catch(e) {}
 })(window);
