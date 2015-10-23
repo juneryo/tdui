@@ -6,8 +6,11 @@ define(['avalon', 'text!./td.panel.html', 'css!./td.panel.css'], function(avalon
 		title: '',
 		//外部参数
 		buttons: [],
+		//view参数
+		showButtons: false,
 		//view接口
 		btnClick: _interface,
+		toggleButtons: _interface,
 		//slot
 		content: '',
 		footer: '',
@@ -26,6 +29,11 @@ define(['avalon', 'text!./td.panel.html', 'css!./td.panel.css'], function(avalon
 				if(typeof fun == 'function') {
 					fun(ev, vm);
 				}
+			}
+			//切换导航条
+			vm.toggleButtons = function(ev) {
+				vm.showButtons = !vm.showButtons;
+				ev.cancelBubble = true;
 			}
 			//对外方法
 			vm.setTitle = function(title) {

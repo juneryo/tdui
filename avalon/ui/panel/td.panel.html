@@ -3,23 +3,21 @@
 		<h3 class="panel-title">{{title}}</h3>
 	</div>
 	<div class="panel-body td_panel_btns" ms-if="buttons.size() > 0">
-		<nav class="navbar navbar-default">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-				</div>
-				<div class="collapse navbar-collapse">
-					<ul class="nav navbar-nav">
-						<li ms-repeat="buttons"><a class="waves-effect waves-light" href="javascript:void(0)" ms-click="btnClick($event, el.fun)"><span ms-if="el.icon" ms-class="{{el.icon}}"></span>{{el.display}}</a></li>
-					</ul>
-				</div>
+		<div class="navbar navbar-default">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" ms-click="toggleButtons($event)">
+					<span class="sr-only"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
 			</div>
-		</nav>
+			<div class="collapse navbar-collapse" ms-visible="showButtons">
+				<ul class="nav navbar-nav" style="margin:5px -15px;">
+					<li ms-repeat="buttons"><a class="waves-effect waves-light" href="javascript:void(0)" ms-click="btnClick($event, el.fun)"><span ms-if="el.icon" ms-class="{{el.icon}}"></span>{{el.display}}</a></li>
+				</ul>
+			</div>
+		</div>
 	</div>
 	<div class="panel-body">
 		{{content|html}}
