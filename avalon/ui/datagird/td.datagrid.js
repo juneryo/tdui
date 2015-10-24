@@ -158,10 +158,10 @@ define(['avalon', '../base/js/mmRequest', 'text!./td.datagrid.html', 'css!./td.d
 					success: function(data, status, xhr) {
 						if(data.rspcod == '200') {
 							successCallback(data, status, xhr);
-							vm.isLoading = false;
 						}else {
 							vm.loadInfo = data.rspmsg;
 						}
+						vm.isLoading = false;
 					},
 					error: function(data) {
 						vm.loadInfo = data.status + '[' + data.statusText + ']';
