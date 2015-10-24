@@ -60,7 +60,7 @@ require(["ui/button/td.button"], function () {
 	avalon.define({
 		$id: 'test',
 		$opt: {
-			click: function(ev, vm) {
+			onclicked: function(ev, vm) {
 				alert('default');
 			},
 			actions: [{display: '操作1', fun: function(ev, vm) {
@@ -70,7 +70,7 @@ require(["ui/button/td.button"], function () {
 			}}]
 		},
 		$opt1: {
-			click: function(ev, vm) {
+			onclicked: function(ev, vm) {
 				alert('primary');
 			},
 			actions: [{display: '操作1', fun: function(ev, vm) {
@@ -82,22 +82,22 @@ require(["ui/button/td.button"], function () {
 			}}]
 		},
 		$opt2: {
-			click: function(ev, vm) {
+			onclicked: function(ev, vm) {
 				alert('success');
 			}
 		},
 		$opt3: {
-			click: function(ev, vm) {
+			onclicked: function(ev, vm) {
 				alert('info');
 			}
 		},
 		$opt4: {
-			click: function(ev, vm) {
+			onclicked: function(ev, vm) {
 				alert('warning');
 			}
 		},
 		$opt5: {
-			click: function(ev, vm) {
+			onclicked: function(ev, vm) {
 				alert('danger');
 			}
 		}
@@ -115,7 +115,7 @@ require(["ui/button/td.button"], function () {
 		avalon.define({
 			$id: 'test',
 			$opt: {
-				click: function(ev, vm) {
+				onclicked: function(ev, vm) {
 					alert('default');
 				},
 				actions: [{display: '操作1', fun: function(ev, vm) {
@@ -125,7 +125,7 @@ require(["ui/button/td.button"], function () {
 				}}]
 			},
 			$opt1: {
-				click: function(ev, vm) {
+				onclicked: function(ev, vm) {
 					alert('primary');
 				},
 				actions: [{display: '操作1', fun: function(ev, vm) {
@@ -137,22 +137,22 @@ require(["ui/button/td.button"], function () {
 				}}]
 			},
 			$opt2: {
-				click: function(ev, vm) {
+				onclicked: function(ev, vm) {
 					alert('success');
 				}
 			},
 			$opt3: {
-				click: function(ev, vm) {
+				onclicked: function(ev, vm) {
 					alert('info');
 				}
 			},
 			$opt4: {
-				click: function(ev, vm) {
+				onclicked: function(ev, vm) {
 					alert('warning');
 				}
 			},
 			$opt5: {
-				click: function(ev, vm) {
+				onclicked: function(ev, vm) {
 					alert('danger');
 				}
 			}

@@ -10,7 +10,7 @@ define(['avalon', 'text!./td.button.html'], function(avalon, template) {
 		pull: '',
 		disabled: false,
 		isAction: false,
-		click: null,
+		onclicked: null,
 		actions: [],
 		//view接口
 		toggleAction: _interface,
@@ -32,8 +32,8 @@ define(['avalon', 'text!./td.button.html'], function(avalon, template) {
 				}
 			}
 			vm.doClick = function(ev) {
-				if(typeof vm.click == 'function' && !vm.disabled) {
-					vm.click(ev, vm);
+				if(typeof vm.onclicked == 'function' && !vm.disabled) {
+					vm.onclicked(ev, vm);
 				}
 			}
 			vm.doAction = function(ev, fun) {
