@@ -44,7 +44,7 @@ define(['avalon', 'text!./td.button.html'], function(avalon, template) {
 			}
 		},
 		$ready: function (vm) {
-      avalon.log("构建完成");
+      
     }
 	});
 	
