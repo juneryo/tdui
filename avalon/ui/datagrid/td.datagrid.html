@@ -10,7 +10,7 @@
 			<div class="collapse navbar-collapse" ms-visible="showButtons">
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown">
-						<a href="javascript:void(0)" class="dropdown-toggle waves-effect waves-light" ms-click="toggle($event, 'panel')">折叠面板<span class="caret"></span></a>
+						<a href="javascript:void(0)" class="dropdown-toggle waves-effect waves-light" ms-click="toggle($event, 'panel')">面板<span class="caret"></span></a>
 						<ul class="dropdown-menu" ms-visible="showPanel">
 							<li><a href="javascript:void(0)" class="waves-effect waves-light" ms-if="content!=''" ms-click="toggle($event, 'query')"><span class="glyphicon glyphicon-search"></span>&nbsp;查询面板</a></li>
 							<li><a href="javascript:void(0)" class="waves-effect waves-light" ms-click="toggle($event, 'filter')"><span class="glyphicon glyphicon-filter"></span>&nbsp;筛选面板</a></li>
@@ -27,14 +27,14 @@
 		<table class="table table-hover td_datagrid relative_pos" ms-css-left="scrollLeft">
 			<thead>
 				<tr>
-					<th ms-visible="checkbox" width="45">
+					<th width="45" ms-visible="checkbox">
 						<i class="td_datagrid_icon" ms-class-1="td_datagrid_checked: allSelected" ms-class-2="td_datagrid_unchecked: !allSelected" ms-click="clickCheckbox($event, -1)"></i>
 					</th>
 					<th ms-repeat="cols" ms-attr-width="{{el.width}}" ms-css-width="{{el.width}}">{{el.display}}</th>
 					<th width="150">
 					</th>
-					<th>
-					</th>
+					<th></th>
+					<th ms-visible="!checkbox"></th>
 				</tr>
 				<tr ms-visible="showFilter">
 					<th ms-visible="checkbox">
@@ -46,8 +46,8 @@
 							<option ms-repeat="el.option" ms-attr-value="{{$key}}">{{$val}}</option>
 						</select>
 					</th>
-					<th>
-					</th>
+					<th></th>
+					<th ms-visible="!checkbox"></th>
 				</tr>
 			</thead>
 		</table>
@@ -57,7 +57,7 @@
 			<tbody>
 				<tr ms-repeat="rows" ms-class-1="td_datagrid_tr_edit: editIdx==$index" ms-class-2="td_datagrid_tr_selected: el.selected==true||el.selected=='true'"
 					ms-click="clickRow($event, $index)" ms-dblclick="editRow($event, $index)" ms-visible="filterArr[$index]">
-					<td ms-visible="checkbox" width="45" style="padding-top:8px;">
+					<td width="45" style="padding-top:8px;" ms-visible="checkbox">
 						<i class="td_datagrid_icon" ms-class-1="td_datagrid_checked: el.selected==true||el.selected=='true'" ms-class-2="td_datagrid_unchecked: el.selected==false||el.selected=='false'" ms-click="clickCheckbox($event, $index)"></i>
 					</td>
 					<td class="padding_top" ms-repeat="cols" ms-attr-width="{{el.width}}"
@@ -76,8 +76,8 @@
 							<a href="javascript:void(0)" class="btn btn-default btn-raised waves-effect waves-light" title="取消" ms-click="cancelEdit($event, $index)"><span class="glyphicon glyphicon-minus"></span></a>
 						</div>
 					</td>
-					<td>
-					</td>
+					<td></td>
+					<td ms-visible="!checkbox"></td>
 				</tr>
 				<tr>
 					<td class="padding_top" style="text-align:center;cursor:pointer;" ms-attr-colspan="cols.size() + 3" ms-click="loadData(null)">继续加载数据</td>

@@ -24,7 +24,7 @@ define(['avalon', '../base/js/mmRequest', 'text!./td.datagrid.html', 'css!./td.d
 		//内部属性
 		rowFilters: [],      //行过滤条件
 		filterArr: [],
-		selected: 0,         //选中行数
+		selected: 0,         //共选中行数
 		lastSelected: -1,    //最后一次选中行
 		editIdx: -1,         //编辑行
 		editData: {},
@@ -63,6 +63,7 @@ define(['avalon', '../base/js/mmRequest', 'text!./td.datagrid.html', 'css!./td.d
 			for(var i=0; i<hooks.cols.length; i++) {
 				hooks.rowFilters.push('');
 			}
+			hooks.singleSelect = !hooks.checkbox ? true : hooks.singleSelect;
 			//默认添加重新加载action
 			hooks.actions.push({
 				title: '刷新', icon: 'glyphicon glyphicon-refresh', type: 'primary', fun: function(ev, vm) {
@@ -113,6 +114,7 @@ define(['avalon', '../base/js/mmRequest', 'text!./td.datagrid.html', 'css!./td.d
 					if(vm.selected == 0) {
 						vm.allSelected = false;
 					}
+					vm.lastSelected = -1;
 				}else {
 					vm.rows[idx].selected = true;
 					vm.allSelected = true;
@@ -122,7 +124,7 @@ define(['avalon', '../base/js/mmRequest', 'text!./td.datagrid.html', 'css!./td.d
 						vm.selected ++;
 					}
 					vm.lastSelected = idx;
-					vm._trigger(ev, 'rowselected');
+					vm._trigger(vm.rows[idx], 'rowselected');
 				}
 			}
 			vm._dealLoadSelected = function(rows) {
@@ -130,8 +132,12 @@ define(['avalon', '../base/js/mmRequest', 'text!./td.datagrid.html', 'css!./td.d
 					vm.rows.push(rows[i]);
 					if(rows[i].selected == 'true' || rows[i].selected == true) {
 						vm.allSelected = true;
-						vm.selected ++;
-						vm.lastSelectedIdx = vm.rows.size();
+						if(vm.singleSelect === true && vm.lastSelected >= 0) {
+							vm.rows[vm.lastSelected].selected = false;
+						}else {
+							vm.selected ++;
+						}
+						vm.lastSelected = vm.rows.size() - 1;
 					}
 				}
 			}
@@ -158,10 +164,10 @@ define(['avalon', '../base/js/mmRequest', 'text!./td.datagrid.html', 'css!./td.d
 					success: function(data, status, xhr) {
 						if(data.rspcod == '200') {
 							successCallback(data, status, xhr);
+							vm.isLoading = false;
 						}else {
 							vm.loadInfo = data.rspmsg;
 						}
-						vm.isLoading = false;
 					},
 					error: function(data) {
 						vm.loadInfo = data.status + '[' + data.statusText + ']';
@@ -225,7 +231,7 @@ define(['avalon', '../base/js/mmRequest', 'text!./td.datagrid.html', 'css!./td.d
 			}
 			vm.clickRow = function(ev, idx) {
 				vm._dealSelected(ev, idx);
-				vm._trigger(ev, 'rowclicked');
+				vm._trigger(vm.rows[idx], 'rowclicked');
 			}
 			vm.editRow = function(ev, idx) {
 				if(vm.editable === true) {
@@ -234,7 +240,7 @@ define(['avalon', '../base/js/mmRequest', 'text!./td.datagrid.html', 'css!./td.d
 						vm.editData = vm.rows[idx];
 					}
 				}
-				vm._trigger(ev, 'rowdbclicked');
+				vm._trigger(vm.rows[idx], 'rowdbclicked');
 			}
 			vm.cancelEdit = function(ev, idx) {
 				vm.editIdx = -1;
@@ -284,7 +290,7 @@ define(['avalon', '../base/js/mmRequest', 'text!./td.datagrid.html', 'css!./td.d
 							}
 						}
 						vm.rows.removeAll();
-						vm.lastSelectIdx = -1;
+						vm.lastSelected = -1;
 						vm.selected = 0;
 						vm.allSelected = false;
 						vm._dealLoadSelected(dat.rows);
@@ -305,7 +311,7 @@ define(['avalon', '../base/js/mmRequest', 'text!./td.datagrid.html', 'css!./td.d
 					}
 				}else {
 					for(var i = 0; i < vm.rows.size(); i ++) {
-						if(vm.rows[i].selected === true) {
+						if(vm.rows[i].selected === true || vm.rows[i].selected === 'true') {
 							arr.push(i);
 						}
 					}
@@ -329,6 +335,9 @@ define(['avalon', '../base/js/mmRequest', 'text!./td.datagrid.html', 'css!./td.d
 			}
 		},
 		$ready: function (vm) {
+			for(var i=0; i<vm.rows.size(); i++) {
+				vm.filterArr.push(true);
+			}
 			//默认加载数据
 			if(vm.auto === true) {
 				vm.reloadData();
