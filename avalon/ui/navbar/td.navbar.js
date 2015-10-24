@@ -6,12 +6,14 @@ define(['avalon', 'text!./td.navbar.html', 'css!./td.navbar.css'], function(aval
 		title: '',
 		operation: '操作',
 		href: 'javascript:void(0)',
+		form: false,
 		margin: 20,
 		padding: 0,
 		//外部参数
 		operations: [],      //自定义下拉操作列表
 		buttons: [],
 		ontitleclicked: null,
+		onsubmited: null,
 		//view参数
 		showOperations: false,
 		showButtons: false,
@@ -19,6 +21,7 @@ define(['avalon', 'text!./td.navbar.html', 'css!./td.navbar.css'], function(aval
 		toggleOperations: _interface,
 		toggleButtons: _interface,
 		doOperate: _interface,
+		doSubmit: _interface,
 		clickTitle: _interface,
 		//默认配置
 		$template: template,
@@ -38,12 +41,22 @@ define(['avalon', 'text!./td.navbar.html', 'css!./td.navbar.css'], function(aval
 							vm.ontitleclicked(ev, vm);
 						}
 						break;
+					case 'submited': 
+						if(typeof vm.onsubmited == 'function') {
+							vm.onsubmited(ev, vm);
+						}
+						break;
 					default: break;
 				}
 			}
 			//view接口
 			vm.clickTitle = function(ev) {
 				vm._trigger(ev, 'titleclicked');
+			}
+			vm.doSubmit = function(ev) {
+				if(ev.keyCode==13) {
+					vm._trigger(ev, 'submited');
+				}
 			}
 			//切换自定义操作面板
 			vm.toggleOperations = function(ev) {

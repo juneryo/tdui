@@ -28,7 +28,7 @@
 		<h3>TdNavbar&nbsp;<small>导航栏</small></h3>
 		<div class="row base_border padding_top padding_bottom bg_white">
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ms-controller" ms-controller="test">
-				 <td:navbar config="$opt" title="导航"></td:navbar>
+				 <td:navbar config="$opt" title="导航" form="true"></td:navbar>
 			</div>
 		</div>
 		
@@ -70,6 +70,9 @@ require(["ui/navbar/td.navbar"], function () {
 		avalon.define({
 			$id: 'test',
 			$opt: {
+				onsubmited: function(ev, vm) {
+					avalon.log('submit');
+				},
 				buttons: [{
 					display: '查询', icon: 'glyphicon glyphicon-search', fun: function(ev, vm) {
 						alert('查询');
