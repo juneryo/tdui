@@ -1,19 +1,26 @@
-define(['avalon', 'text!./td.tree.html', 'css!./td.tree.css'], function(avalon, template) {
+define(['avalon', '../base/js/mmRequest', 'text!./td.tree.html', 'css!./td.tree.css'], function(avalon, req, template) {
 	var _interface = function () {
 	};
 	avalon.component("td:tree", {
 		//外部属性
 		active: '',
+		root: true,
 		checkbox: false,
 		//外部参数
+		url: '',
+		param: {},
 		data: [],
+		onloaded: null,
 		onclicked: null,
 		onchecked: null,
 		onexpanded: null,
 		oncollapsed: null,
 		//内部属性
-		tmpid: '',
+		tmpid: '',		
 		isInit: true,
+		//view属性
+		isLoading: false,
+		loadInfo: '',
 		//view接口
 		clickNode: _interface,
 		clickParent: _interface,
@@ -31,6 +38,11 @@ define(['avalon', 'text!./td.tree.html', 'css!./td.tree.css'], function(avalon, 
 			//内部方法
 			vm._trigger = function(ev, type) {
 				switch (type) {
+					case 'loaded':
+						if(typeof vm.onloaded == 'function') {
+							vm.onloaded(ev, vm);
+						}
+						break;
 					case 'clicked': 
 						if(typeof vm.onclicked == 'function') {
 							vm.onclicked(ev, vm);
@@ -54,10 +66,34 @@ define(['avalon', 'text!./td.tree.html', 'css!./td.tree.css'], function(avalon, 
 					default: break;
 				}
 			}
+			vm._ajax = function() {
+				vm.isLoading = true;
+				vm.loadInfo = '数据加载中...';
+				req.ajax({
+					type: 'POST',
+					url: vm.url,
+					data: vm.param,
+					headers: {},
+					success: function(data, status, xhr) {
+						if(data.rspcod == '200') {
+							vm.loadInfo = '';
+							vm.data.pushArray(data.data);
+						}else {
+							vm.loadInfo = data.rspmsg;
+						}
+						vm.isLoading = false;
+						vm._trigger(data, 'loaded');
+					},
+					error: function(data) {
+						vm.loadInfo = data.status + '[' + data.statusText + ']';
+						vm.isLoading = false;
+					}
+				});
+			}
 			vm._getSelected = function(dat) {
 				var val = '';
 				for(var i = 0; i < dat.size(); i ++) {
-					if(dat[i].checked === true) {
+					if(dat[i].checked === true || dat[i].checked === 'true') {
 						val += (dat[i].id + ',');
 					}
 					if(dat[i].children != undefined && dat[i].children.length > 0) {
@@ -68,7 +104,7 @@ define(['avalon', 'text!./td.tree.html', 'css!./td.tree.css'], function(avalon, 
 			}
 			vm._setCheckbox = function(el, checked) {
 				//通过递归方式处理子checkbox	
-				if(el.disabled === false) {
+				if(el.disabled === false || el.disabled === 'false') {
 					el.checked = checked;
 					if(el.children != undefined && el.children.length > 0) {
 						for(var i = 0; i < el.children.length; i ++) {
@@ -82,18 +118,23 @@ define(['avalon', 'text!./td.tree.html', 'css!./td.tree.css'], function(avalon, 
 				switch(type) {
 					case 'oper':
 						if(el.children != undefined && el.children.length > 0) {
-							el.expand = !el.expand;
-							el.expand ? vm._trigger(el, 'expanded') : vm._trigger(el, 'collapsed');
+							if(el.expand ===true || el.expand==='true') {
+								el.expand = false;
+								vm._trigger(el, 'collapsed')
+							}else {
+								el.expand = true;
+								vm._trigger(el, 'expanded')
+							}
 						}
 						break;
 					case 'checkbox':
-						vm._setCheckbox(el, !el.checked);
-						if(el.checked === true) {
+						vm._setCheckbox(el, (el.checked===true||el.checked==='true'?false:true));
+						if(el.checked === true || el.checked === 'true') {
 							vm._trigger(el, 'checked');
 						}
 						break;
 					case 'node':
-						if(el.disabled !== true) {
+						if(el.disabled === false || el.disabled === 'false') {
 							vm._trigger(el, 'clicked');
 						}
 						break;
@@ -102,14 +143,14 @@ define(['avalon', 'text!./td.tree.html', 'css!./td.tree.css'], function(avalon, 
 				}
 			}
 			vm.clickParent = function(ev, idx, el) {
-				if(el.disabled === true) {
+				if(el.disabled === true || el.disabled === 'true') {
 					ev.cancelBubble = true;
 				}else {
 					//通过冒泡方式处理父级checkbox
 					if(vm.checkbox === true && el.children != undefined && el.children.length > 0) {
 						var flag = false;
 						for(var i = 0; i < el.children.length; i ++) {
-							if(el.children[i].checked === true) {
+							if(el.children[i].checked === true || el.children[i].checked === 'true') {
 								flag = true; break;
 							}
 						}
@@ -129,6 +170,9 @@ define(['avalon', 'text!./td.tree.html', 'css!./td.tree.css'], function(avalon, 
 			//观测方法
 		},
 		$ready: function (vm) {
+			if(vm.url != '') {
+				vm._ajax();
+			}
       vm.isInit = false;
     }
 	});

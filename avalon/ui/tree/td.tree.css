@@ -39,10 +39,10 @@
   cursor: pointer;
 	text-decoration: none;
 }
-.td_tree_container>ul {
+.td_tree_container>ul.td_tree_noroot {
 	padding-left: 0px;
 }
-.td_tree_container>ul>li::before, .td_tree_container>ul>li::after {
+.td_tree_container>ul.td_tree_noroot>li::before, .td_tree_container>ul.td_tree_noroot>li::after {
   border: 0;
 }
 .td_tree_container li:last-child::before {
@@ -53,8 +53,10 @@
 	border: 1px solid #94a0b4;
 	background: #eee;
 }
-
-.td_tree_container li i.td_tree_icon {
+.td_tree_loadinfo {
+	font-size: 16px;
+}
+.td_tree_container i.td_tree_icon {
 	display: inline-block;
 	margin-top: 2px;
 	width: 18px;
@@ -62,6 +64,9 @@
 	line-height: 18px;
 	vertical-align: text-top;
 	background-repeat: no-repeat;
+}
+.td_tree_loading {
+	background-image:url(img/loading.gif);
 }
 .td_tree_add {
 	background-image:url(img/add.png);
