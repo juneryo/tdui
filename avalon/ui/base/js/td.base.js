@@ -36,22 +36,22 @@ String.prototype.rtrim=function(){
 String.prototype.toDate = function() {
 	var str = this;
 	var dt = null;
-	if(str.indexOf('-') != -1) {
-		dt = new Date(str.replace(/-/g, '/'));
-	}else if(str.indexOf('/') != -1) {
-		dt = new Date(str);
-	}else if(str.length == 8) {
-		dt = new Date(str.substr(0, 4) + '/' + str.substr(4, 2) + '/' + str.substr(6, 2));
-	}else if(str.length >= 14) {
-		dt = new Date(str.substr(0, 4) + '/' + str.substr(4, 2) + '/' + str.substr(6, 2) + ' ' + str.substr(8, 2) + ':' + str.substr(10, 2) + ':' + str.substr(12, 2));
-	}else {
-		dt = new Date();
-	}
+	try{
+		if(str.indexOf('-') != -1) {
+			dt = new Date(str.replace(/-/g, '/'));
+		}else if(str.indexOf('/') != -1) {
+			dt = new Date(str);
+		}else if(str.length == 8) {
+			dt = new Date(str.substr(0, 4) + '/' + str.substr(4, 2) + '/' + str.substr(6, 2));
+		}else if(str.length >= 14 && str.length <= 17) {
+			dt = new Date(str.substr(0, 4) + '/' + str.substr(4, 2) + '/' + str.substr(6, 2) + ' ' + str.substr(8, 2) + ':' + str.substr(10, 2) + ':' + str.substr(12, 2));
+		}
+	}catch(e) {}
 	return dt;
 }
 
 TD = {
-	version: '0.1beta',
+	version: '0.0.1beta',
 	util: {
 		//生成UUID(id前缀)
 		genId: function(prefix) {
