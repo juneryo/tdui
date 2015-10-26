@@ -9,7 +9,7 @@ define(['avalon', 'text!./td.text.html', 'css!./td.text.css'], function(avalon, 
 		valid: '',
 		max: '',
 		min: '',
-		maxlen: -1,   //最大长度
+		maxlen: 999,   //最大长度
 		width: '100%',
 		must: false,  //也可为数字 代表必须的长度(会将覆盖length)
 		disabled: false,
