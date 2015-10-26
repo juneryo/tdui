@@ -10,9 +10,8 @@ define(['avalon', '../base/js/mmRequest', 'text!./td.form.html', 'css!./td.form.
 		submit: true,  //是否存在submit按钮
 		reset: true,   //是否存在reset按钮
 		//外部参数
-		submitCallback: null,
-		resetCallback: null,
-		errorCallback: null,
+		onoksubmited: null,
+		onerrsubmited: null,
 		onsubmited: null,
 		onreseted: null,
 		onloaded: null,
@@ -56,26 +55,14 @@ define(['avalon', '../base/js/mmRequest', 'text!./td.form.html', 'css!./td.form.
 							vm.onreseted(ev, vm);
 						}
 						break;
-					default: break;
-				}
-			}
-			vm._callback = function(ev, type, data) {
-				switch (type) {
-					case 'submit': 
-						if(vm.submit === true && typeof vm.submitCallback == 'function') {
-							vm.submitCallback(ev, vm);
+					case 'ok':
+						if(typeof vm.onoksubmited == 'function') {
+							vm.onoksubmited(ev, vm);
 						}
-						break;
-					case 'reset':
-						if(vm.reset===true && typeof vm.resetCallback == 'function') {
-							vm.resetCallback(ev, vm);
+					case 'err':
+						if(typeof vm.onerrsubmited == 'function') {
+							vm.onerrsubmited(ev, vm);
 						}
-						break;
-					case 'error':
-						if(typeof vm.errorCallback == 'function') {
-							vm.errorCallback(ev, vm, data);
-						}
-						break;
 					default: break;
 				}
 			}
@@ -93,7 +80,7 @@ define(['avalon', '../base/js/mmRequest', 'text!./td.form.html', 'css!./td.form.
 						},
 						error: function(d) {
 							vm.isLoading = false;
-							vm._callback(ev, 'error', d);
+							vm._trigger(d, 'err');
 						}
 					});
 				}
@@ -108,15 +95,16 @@ define(['avalon', '../base/js/mmRequest', 'text!./td.form.html', 'css!./td.form.
 					}
 				}
 				if(vm.submitUrl != '') {
-					vm._ajax(vm.submitUrl, vm.getData(), function(d) {
-						vm._callback(ev, 'submit', d);
+					var dat = vm.getData();
+					vm._ajax(vm.submitUrl, dat, function(d) {
+						vm.oriData = dat;
+						vm._trigger(d, 'ok');
 					});
 				}
 			}
 			vm.doReset = function(ev) {
-				vm._trigger(ev, 'reseted');
 				vm.setData(vm.oriData);
-				vm._callback(ev, 'reset', null);
+				vm._trigger(ev, 'reseted');
 			}
 			
 			//对外方法
@@ -124,8 +112,8 @@ define(['avalon', '../base/js/mmRequest', 'text!./td.form.html', 'css!./td.form.
 				var data = {};
 				for(k in vm.$refs) {
 					var comp = vm.$refs[k];
-					if(comp.name != undefined && comp.value != undefined) {
-						data[comp.name] = comp.value;
+					if(comp.name != undefined && comp.getValue() != undefined) {
+						data[comp.name] = comp.getValue();
 					}
 				}
 				return data;
@@ -146,8 +134,6 @@ define(['avalon', '../base/js/mmRequest', 'text!./td.form.html', 'css!./td.form.
 				vm._ajax(vm.loadUrl, vm.loadParam, function(d) {
 					if(d.rspcod == '200') {
 						vm.setData(d.data);
-					}else {
-						alert('数据加载失败');
 					}
 					vm._trigger(d, 'loaded');
 				});
