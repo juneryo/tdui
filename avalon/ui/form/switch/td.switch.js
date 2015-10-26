@@ -50,11 +50,11 @@ define(['avalon', 'text!./td.switch.html', 'css!./td.switch.css'], function(aval
 			//对外方法
 			vm.getData = function() {
 				var data = new Object();
-				data[vm.name] = vm.on;
+				data[vm.name] = vm.getValue();
 				return data;
 			}
 			vm.getValue = function() {
-				return vm.on;
+				return (vm.on === true || vm.on.toString()) == '1' ? '1' : '0';
 			}
 			vm.setValue = function(val) {
 				var v = (val === true || val.toString() === '1') ? true : false;
