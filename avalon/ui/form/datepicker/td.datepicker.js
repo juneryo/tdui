@@ -239,7 +239,6 @@ define(['avalon', 'text!./td.datepicker.html', 'css!./td.datepicker.css'], funct
 			//观测方法
 			vm.$watch('pickDate', function(newVal, oldVal) {
 				if(!vm.isInit) {
-					avalon.log(newVal + ':' + oldVal);
 					var dt = new Date(vm.pickYear + '/' + (parseInt(vm.pickMonth) + 1) + '/' + newVal);
 					vm.value = dt.format(vm.displayFormat);
 				}
