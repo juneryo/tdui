@@ -6,7 +6,7 @@ define(['avalon', 'text!./td.textarea.html', 'css!./td.textarea.css'], function(
 		label: '',
 		value: '',
 		name: 'textarea',
-		maxlen: -1,   //最大长度
+		maxlen: 999,   //最大长度
 		width: '100%',
 		must: false,
 		html: false,
