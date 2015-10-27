@@ -58,18 +58,12 @@ define(['avalon', '../base/js/mmRequest', 'text!./td.datagrid.html', 'css!./td.d
 		$construct: function (hooks, vmOpts, elemOpts) {
 			var options = avalon.mix(hooks, vmOpts, elemOpts);
 			hooks.editable = false;  //1.5.4有bug 屏蔽编辑
-			
+			//单选设置
+			hooks.singleSelect = !hooks.checkbox ? true : hooks.singleSelect;
 			//初始化过滤数组
 			for(var i=0; i<hooks.cols.length; i++) {
 				hooks.rowFilters.push('');
 			}
-			hooks.singleSelect = !hooks.checkbox ? true : hooks.singleSelect;
-			//默认添加重新加载action
-			hooks.actions.push({
-				title: '刷新', icon: 'glyphicon glyphicon-refresh', type: 'primary', fun: function(ev, vm) {
-					vm.reloadData();
-				}
-			});
 			return options; //返回VM的定义对象
 		},
 		$dispose: function (vm, elem) {
