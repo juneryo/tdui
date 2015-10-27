@@ -4,7 +4,7 @@
 .td_tab_container>ul.nav {
 	background-color: transparent;
 	border-bottom: 0px none;
-	border-bottom: solid 2px #fff !important;
+	border-bottom: solid 2px #ddd !important;
 }
 .td_tab_container>ul>li {
 	margin-bottom: -2px;
