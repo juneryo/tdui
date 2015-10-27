@@ -2,33 +2,12 @@
 	position: relative;
 	cursor: pointer;
 }
-
-.td_spinner_container .td_spinner_oper {
-	position: absolute;
+.td_spinner_container .td_spinner_btn{
+	text-align: center;
+	width: 50%;
+	float: left;
 	cursor: pointer;
-	right: 0px;
-	bottom: 5px;
-	font-size: 12px;
 }
-
-.td_spinner_container .td_spinner_oper .td_spinner_up {
-	position: relative;
-	bottom: 8px;
-	left: 10px;
-}
-.td_spinner_container .td_spinner_oper .td_spinner_up:active {
-	bottom: 9px;
-}
-
-.td_spinner_container .td_spinner_oper .td_spinner_down {
-	position: relative;
-	left: -2px;
-	top: 2px;
-}
-.td_spinner_container .td_spinner_oper .td_spinner_down:active {
-	top: 3px;
-}
-
 
 
 

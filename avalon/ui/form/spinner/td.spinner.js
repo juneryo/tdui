@@ -9,15 +9,18 @@ define(['avalon', 'text!./td.spinner.html', 'css!./td.spinner.css'], function(av
 		value: '',
 		max: '',
 		min: '',
+		interval: 1,  //每次增减量
 		//外部参数
 		onupclicked: null,
 		ondownclicked: null,
 		onchanged: null,
+		onclicked: null,
+		//view属性
+		showBtns: false,
 		//view接口
 		clickUp: _interface,
 		clickDown: _interface,
-		checkKeydown: _interface,
-		checkInput: _interface,
+		toggleBtns: _interface,
 		
 		$template: template,
 		$construct: function (hooks, vmOpts, elemOpts) {	
@@ -31,6 +34,11 @@ define(['avalon', 'text!./td.spinner.html', 'css!./td.spinner.css'], function(av
 			//内部方法
 			vm._trigger = function(ev, type) {
 				switch (type) {
+					case 'clicked':
+						if(typeof vm.onclicked == 'function') {
+							vm.onclicked(ev, vm);
+						}
+						break;
 					case 'changed':
 						if(typeof vm.onchanged == 'function') {
 							vm.onchanged(ev, vm);
@@ -52,7 +60,7 @@ define(['avalon', 'text!./td.spinner.html', 'css!./td.spinner.css'], function(av
 			//接口方法
 			vm.clickUp = function(ev) {
 				if(!vm.disabled) {
-					var val = (vm.value === '' ? (vm.min == '' ? 0 : vm.min) : (parseInt(vm.value) + 1));
+					var val = (vm.value === '' ? (vm.min == '' ? 0 : vm.min) : (parseInt(vm.value) + vm.interval));
 					if(vm.max != '' && parseInt(vm.max) < val) {
 						val = vm.max;
 					}
@@ -66,7 +74,7 @@ define(['avalon', 'text!./td.spinner.html', 'css!./td.spinner.css'], function(av
 			}
 			vm.clickDown = function(ev) {
 				if(!vm.disabled) {
-					var val = (vm.value === '' ? 0 : (parseInt(vm.value) - 1));
+					var val = (vm.value === '' ? 0 : (parseInt(vm.value) - vm.interval));
 					if(vm.min != '' && parseInt(vm.min) > val) {
 						val = vm.min;
 					}
@@ -78,33 +86,12 @@ define(['avalon', 'text!./td.spinner.html', 'css!./td.spinner.css'], function(av
 					}
 				}
 			}
-			vm.checkKeydown = function(ev) {
-				if(ev.keyCode == 8) {
-					//支持退格
-				}else if((ev.keyCode >= 96 && ev.keyCode <= 105) || (ev.keyCode >= 48 && ev.keyCode <= 57)) {
-					//支持数字输入
-					var c = '';
-					if(ev.keyCode >=96) {
-						c = (ev.keyCode - 96).toString();
-					}else {
-						c = (ev.keyCode - 48).toString();
-					}
-					var nextVal = parseInt(vm.value + c);
-					if((vm.max != '' && nextVal > vm.max) || (vm.min != '' && nextVal < vm.min)) {
-						ev.preventDefault();
-					}
-				}else {
-					ev.preventDefault();
+			vm.toggleBtns = function(ev) {
+				if(!vm.disabled) {
+					vm.showBtns = !vm.showBtns;
+					vm._trigger(ev, 'clicked');
 				}
 			}
-			vm.checkInput = function(ev) {
-				//配合keydown触发changed事件
-				vm._trigger(ev, 'changed')
-			}
-			//vm.$watch('value', function(newVal, oldVal) {
-				//通过vm设置value, 此处会执行2次？
-				//vm._trigger({}, 'changed');
-			//});
 			
 			//对外方法
 			vm.getData = function() {
@@ -119,7 +106,6 @@ define(['avalon', 'text!./td.spinner.html', 'css!./td.spinner.css'], function(av
 				if(vm.value != val) {
 					vm.value = val;
 					vm._trigger(null, 'changed');
-					//需添加校验
 				}
 			}
 		},
