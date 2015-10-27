@@ -11,34 +11,28 @@ table.td_datagrid>thead>tr>th {
 	border-top: 0px none;
 	border-bottom: 0px none;
 }
-
-table.td_datagrid>thead>tr>th .btn {
-	margin-top: 0px;
-	margin-bottom: 0px;
-}
-table.td_datagrid>thead>tr>th.td_datagrid_filter>input[type="text"],
-table.td_datagrid>tbody>tr>td.td_datagrid_filter>input[type="text"],
-table.td_datagrid>thead>tr>th.td_datagrid_filter>select,
-table.td_datagrid>tbody>tr>td.td_datagrid_filter>select {
+table.td_datagrid>thead>tr>th>input[type="text"],
+table.td_datagrid>tbody>tr>td>div>input[type="text"],
+table.td_datagrid>thead>tr>th>select,
+table.td_datagrid>tbody>tr>td>div>select {
 	background-color: transparent;
+	height: 22px;
+	line-height: 22px;
 	outline: 0 none;
 	padding: 0;
-	box-shadow: none;
 	border-radius: 0;
 	border: 0px none;
-	border-bottom: solid 1px #ccc;
+	border-bottom: solid 1px #ddd;
 	-webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
-  transition: all .3s; 
-	border-color: lightgray !important;
 }
-table.td_datagrid>thead>tr>th.td_datagrid_filter>input[type="text"]:focus,
-table.td_datagrid>tbody>tr>td.td_datagrid_filter>input[type="text"]:focus,
-table.td_datagrid>thead>tr>th.td_datagrid_filter>select:focus,
-table.td_datagrid>tbody>tr>td.td_datagrid_filter>select:focus {
+table.td_datagrid>thead>tr>th>input[type="text"]:focus,
+table.td_datagrid>tbody>tr>td>div>input[type="text"]:focus,
+table.td_datagrid>thead>tr>th>select:focus,
+table.td_datagrid>tbody>tr>td>div>select:focus {
+	transition: all .3s; 
 	border-bottom: solid 1px #009688;
-	box-shadow: 0 2px 0 0 #009688; 
 }
 
 table.td_datagrid>thead>tr>th,
@@ -56,7 +50,7 @@ table.td_datagrid>thead>tr>th {
 	cursor: pointer;
 }
 
-table.td_datagrid>tbody>tr>td>.btn {
+table.td_datagrid>tbody>tr>td>div>.btn {
 	padding: 4px 12px;
 	margin: 0px;
 }

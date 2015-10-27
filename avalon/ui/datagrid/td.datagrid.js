@@ -8,7 +8,7 @@ define(['avalon', '../base/js/mmRequest', 'text!./td.datagrid.html', 'css!./td.d
 		auto: false,         //是否自动加载数据
 		checkbox: true,      //是否显示checkbox
 		singleSelect: false,
-		editable: true,
+		editable: false,
 		limit: 10,           //页大小
 		//外部参数
 		loadUrl: '',         //加载数据地址
@@ -57,7 +57,7 @@ define(['avalon', '../base/js/mmRequest', 'text!./td.datagrid.html', 'css!./td.d
 		$template: template,
 		$construct: function (hooks, vmOpts, elemOpts) {
 			var options = avalon.mix(hooks, vmOpts, elemOpts);
-			hooks.editable = false;  //1.5.4有bug 屏蔽编辑
+			//hooks.editable = false;  //1.5.4有bug 屏蔽编辑
 			//单选设置
 			hooks.singleSelect = !hooks.checkbox ? true : hooks.singleSelect;
 			//初始化过滤数组
