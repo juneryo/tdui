@@ -10,6 +10,9 @@
 	try {
     'use strict';
     var Waves = Waves || {};
+		if(document.querySelectorAll.bind == undefined) {
+			return;
+		}
     var $$ = document.querySelectorAll.bind(document);
     // Find exact position of element
     function isWindow(obj) {
@@ -214,7 +217,7 @@
             if (!(target instanceof SVGElement) && target.className.indexOf('waves-effect') !== -1) {
                 element = target;
                 break;
-            } else if (target.classList.contains('waves-effect')) {
+            } else if (target.classList != undefined && target.classList.contains('waves-effect')) {
                 element = target;
                 break;
             }
