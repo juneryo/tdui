@@ -2,26 +2,22 @@
 	position: relative;
 	cursor: pointer;
 }
-
 .td_select_container .td_select_trigger {
 	margin-top: -27px;
 	margin-right: 2px;
 	cursor: pointer;
 }
-
 .td_select_container .td_select_list {
 	width:100%;
+	max-height: 200px; 
+	_height:expression(this.scrollHeight > 200 ? "200px" : "auto"); 
+	overflow-y:auto; 
 }
-
 .td_select_container .td_select_selected {
 	margin-top:-22px;
 	margin-right:5px;
 }
-
 .td_select_disabled {
 	cursor: default;
 	cursor: not-allowed;
 }
-
-
-
