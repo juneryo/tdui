@@ -12,6 +12,7 @@ define(['avalon', 'text!./td.datepicker.html', 'css!./td.datepicker.css'], funct
 		max: '',
 		min: '',
 		//外部参数
+		onclicked: null,
 		onchanged: null,
 		onpicked: null,	
 		//内部属性
@@ -68,6 +69,11 @@ define(['avalon', 'text!./td.datepicker.html', 'css!./td.datepicker.css'], funct
 			//内部方法
 			vm._trigger = function(ev, type) {
 				switch (type) {
+					case 'clicked':
+						if(typeof vm.onclicked == 'function') {
+							vm.onclicked(ev, vm);
+						}
+						break;
 					case 'changed':
 						if(typeof vm.onchanged == 'function') {
 							vm.onchanged(ev, vm);
@@ -139,6 +145,7 @@ define(['avalon', 'text!./td.datepicker.html', 'css!./td.datepicker.css'], funct
 			vm.togglePicker = function(ev) {
 				if(!vm.disabled) {
 					vm.isShow = !vm.isShow;
+					vm._trigger(ev, 'clicked');
 				}
 			}
 			vm.changeMonth = function(ev, oper) {
