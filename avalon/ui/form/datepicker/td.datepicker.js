@@ -227,7 +227,8 @@ define(['avalon', 'text!./td.datepicker.html', 'css!./td.datepicker.css'], funct
 				return data;
 			}
 			vm.getValue = function() {
-				return vm.value.toDate().format(vm.valueFormat);
+				var d = vm.value.toDate();
+				return d == null ? '' : d.format(vm.valueFormat);
 			}
 			vm.setValue = function(val) {
 				if(val != '') {
