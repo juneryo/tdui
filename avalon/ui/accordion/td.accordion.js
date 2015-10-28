@@ -55,6 +55,9 @@ define(['avalon', 'text!./td.accordion.html', 'css!./td.accordion.css'], functio
 			vm.setActive = function(idx) {
 				vm.active = idx;
 			}
+			vm.getActive = function() {
+				return vm.active;
+			}
 			//观测方法
 			vm.$watch('active', function(newVal, oldVal) {
 				vm._trigger({newVal: newVal, oldVal: oldVal}, 'changed');
