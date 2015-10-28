@@ -4,6 +4,7 @@ define(['avalon', 'text!./td.tab.html', 'css!./td.tab.css'], function(avalon, te
 	avalon.component("td:tab", {
 		//外部属性
 		active: 0,
+		padding: 15,
 		//外部参数
 		tabs: [],
 		onchanged: null,
@@ -53,6 +54,9 @@ define(['avalon', 'text!./td.tab.html', 'css!./td.tab.css'], function(avalon, te
 			//对外方法
 			vm.setActive = function(idx) {
 				vm.active = idx;
+			}
+			vm.getActive = function() {
+				return vm.active;
 			}
 			//观测方法
 			vm.$watch('active', function(newVal, oldVal) {
