@@ -63,7 +63,6 @@ define(['avalon', 'text!./td.navbar.html', 'css!./td.navbar.css'], function(aval
 				vm.showOperations = !vm.showOperations;
 				ev.cancelBubble = true;
 			}
-			//切换导航条
 			vm.toggleButtons = function(ev) {
 				vm.showButtons = !vm.showButtons;
 				ev.cancelBubble = true;
@@ -73,6 +72,19 @@ define(['avalon', 'text!./td.navbar.html', 'css!./td.navbar.css'], function(aval
 				if(typeof fun == 'function') {
 					fun(ev, vm);
 				}
+			}
+			//对外方法
+			vm.setTitle = function(title) {
+				vm.title = title;
+			}
+			vm.getTitle = function() {
+				return vm.title;
+			}
+			vm.setOperation = function(oper) {
+				vm.operation = oper;
+			}
+			vm.getOperation = function() {
+				return vm.operation;
 			}
 		},
 		$ready: function (vm) {
