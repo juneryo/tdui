@@ -1,6 +1,9 @@
 .td_dialog_container {
 	
 }
+.td_dialog_container>.modal-content>.modal-header{
+	padding: 15px 15px 0;
+}
 .td_dialog_show {
 	display: block !important;
 }

@@ -5,6 +5,7 @@ define(['avalon', 'text!./td.dialog.html', 'css!./td.dialog.css'], function(aval
 		//外部属性
 		title: '',
 		size: 'normal',  //large, small
+		padding: 15,
 		show: false,
 		//外部参数
 		buttons: [],
@@ -55,6 +56,9 @@ define(['avalon', 'text!./td.dialog.html', 'css!./td.dialog.css'], function(aval
 			//对外方法
 			vm.setTitle = function(title) {
 				vm.title = title;
+			}
+			vm.getTitle = function() {
+				return vm.title;
 			}
 			vm.showDialog = function() {
 				vm.show = true;
