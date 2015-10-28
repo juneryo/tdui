@@ -39,6 +39,9 @@ define(['avalon', 'text!./td.panel.html', 'css!./td.panel.css'], function(avalon
 			vm.setTitle = function(title) {
 				vm.title = title;
 			}
+			vm.getTitle = function() {
+				return vm.title;
+			}
 		},
 		$ready: function (vm) {
       
