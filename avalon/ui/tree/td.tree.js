@@ -3,7 +3,6 @@ define(['avalon', '../base/js/mmRequest', 'text!./td.tree.html', 'css!./td.tree.
 	};
 	avalon.component("td:tree", {
 		//外部属性
-		active: '',
 		root: true,
 		checkbox: false,
 		//外部参数
@@ -166,6 +165,11 @@ define(['avalon', '../base/js/mmRequest', 'text!./td.tree.html', 'css!./td.tree.
 					val = val.substring(0, val.length - 1);
 				}
 				return val;
+			}
+			vm.reloadData = function() {
+				if(vm.url != '') {
+					vm._ajax();
+				}
 			}
 			//观测方法
 		},
