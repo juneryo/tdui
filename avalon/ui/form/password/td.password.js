@@ -5,10 +5,12 @@ define(['avalon', 'text!./td.password.html', 'css!./td.password.css'], function(
 		//外部属性
 		disabled: false,
 		keypad: true,
+		order: true,  //键盘是否有序
 		label: '',
 		name: 'password',
 		value: '',
 		maxlen: 999,
+		minlen: 0,
 		must: false,
 		//外部参数
 		onchanged: null,
@@ -19,9 +21,10 @@ define(['avalon', 'text!./td.password.html', 'css!./td.password.css'], function(
 		activePad: 0,
 		showKeypad: false,
 		showSymbol: 1,
-		smallLetters: ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'],
-		bigLetters: ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'],
-		numbers: ['0','1','2','3','4','5','6','7','8','9'],
+		showLetter: 1,
+		smallLetters: ['q','w','e','r','t','y','u','i','o','p','a','s','d','f','g','h','j','k','l','z','x','c','v','b','n','m'],
+		bigLetters: ['Q','W','E','R','T','Y','U','I','O','P','A','S','D','F','G','H','J','K','L','Z','X','C','V','B','N','M'],
+		numbers: ['1','2','3','4','5','6','7','8','9', '0'],
 		symbols1: ['~','`','!','@','#','$','%','^','&','*','(',')','_','-','+','='],
 		symbols2: ['{','[','}',']','|','\\',':',';','"','\'','<',',','>','.','?','/'],
 		//view接口
@@ -62,11 +65,13 @@ define(['avalon', 'text!./td.password.html', 'css!./td.password.css'], function(
 					if(vm.keypad === true) {
 						vm.showKeypad = !vm.showKeypad;
 						if(vm.showKeypad === true) {
-							vm.smallLetters.sort(function(){return Math.random() > 0.5 ? -1 : 1});
-							vm.bigLetters.sort(function(){return Math.random() > 0.5 ? -1 : 1});
-							vm.numbers.sort(function(){return Math.random() > 0.5 ? -1 : 1});
-							vm.symbols1.sort(function(){return Math.random() > 0.5 ? -1 : 1});
-							vm.symbols2.sort(function(){return Math.random() > 0.5 ? -1 : 1});
+							if(vm.order === false) {
+								vm.smallLetters.sort(function(){return Math.random() > 0.5 ? -1 : 1});
+								vm.bigLetters.sort(function(){return Math.random() > 0.5 ? -1 : 1});
+								vm.numbers.sort(function(){return Math.random() > 0.5 ? -1 : 1});
+								vm.symbols1.sort(function(){return Math.random() > 0.5 ? -1 : 1});
+								vm.symbols2.sort(function(){return Math.random() > 0.5 ? -1 : 1});
+							}
 						}
 					}
 					vm._trigger(ev, 'clicked');
@@ -90,6 +95,12 @@ define(['avalon', 'text!./td.password.html', 'css!./td.password.css'], function(
 					case 'prev':
 						vm.showSymbol = 1;
 						break;
+					case 'up':
+						vm.showLetter = 2;
+						break;
+					case 'low':
+						vm.showLetter = 1;
+						break;
 					default:
 						vm.value += c;
 						vm.validValue(ev);
@@ -99,9 +110,10 @@ define(['avalon', 'text!./td.password.html', 'css!./td.password.css'], function(
 			}
 			vm.checkKeydown = function(ev) {
 				if(vm.keypad === true) {
-					if(ev.keyCode.toString() != '8') {
-						ev.cancelBubble = true;
-						ev.preventDefault();
+					//退格则全部删除
+					if(ev.keyCode.toString() == '8') {
+						vm.value = '';
+						vm._trigger(ev, 'changed');
 					}
 				}
 			}
@@ -110,8 +122,10 @@ define(['avalon', 'text!./td.password.html', 'css!./td.password.css'], function(
 				vm.validValue(ev);
 			}
 			vm.validValue = function(ev) {
-				if(vm.isValid && vm.must === true && vm.value.trim() == '') {
+				if(vm.must === true && vm.value.trim() == '') {
 					vm.isValid = false; vm.validInfo = '请输入密码';
+				}else if(vm.value.trim().length < vm.minlen) {
+					vm.isValid = false; vm.validInfo = '密码长度至少' + vm.minlen + '位';
 				}else {
 					vm.isValid = true; vm.validInfo = '';
 				}
