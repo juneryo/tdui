@@ -145,6 +145,35 @@
 	display: block !important;
 }
 
+blockquote.primary {
+	border-left: 5px solid #009688 !important;
+}
+blockquote.primary p {
+	color: #009688 !important;
+}
+blockquote.primary footer {
+	color: #000 !important;
+}
+blockquote.info {
+	border-left: 5px solid #1b809e !important;
+}
+blockquote.info p {
+	color: #1b809e !important;
+}
+blockquote.info footer {
+	color: #000 !important;
+}
+blockquote.warning {
+	border-left: 5px solid #aa6708 !important;
+}
+blockquote.warning p {
+	color: #aa6708 !important;
+}
+blockquote.warning footer {
+	color: #000 !important;
+}
+
+
 /* loading */
 .loading-mask {
 	position: absolute;
