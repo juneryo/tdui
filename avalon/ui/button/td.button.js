@@ -42,6 +42,12 @@ define(['avalon', 'text!./td.button.html'], function(avalon, template) {
 				}
 				vm.isAction = !vm.isAction;
 			}
+			//对外方法
+			vm.click = function() {
+				if(!vm.disabled) {
+					elem.getElementsByTagName('a')[0].click();
+				}
+			}
 		},
 		$ready: function (vm) {
       
