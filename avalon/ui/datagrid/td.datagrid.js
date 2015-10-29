@@ -327,6 +327,19 @@ define(['avalon', '../base/js/mmRequest', 'text!./td.datagrid.html', 'css!./td.d
 				}
 				return arr;
 			}
+			vm.removeSelectedRow = function() {
+				var arr = vm.getSelectedIdx();
+				//从大到小排序
+				arr.sort(function(a, b){
+					return parseInt(b) - parseInt(a);
+				});
+				for(var i = 0; i < arr.length; i ++) {
+					vm.rows.removeAt(arr[i]);
+					vm.filterArr.removeAt(arr[i]);
+				}
+				vm.allSelected = false;
+				return arr.length;
+			}
 		},
 		$ready: function (vm) {
 			for(var i=0; i<vm.rows.size(); i++) {
