@@ -263,7 +263,7 @@ define(['avalon', '../base/js/mmRequest', 'text!./td.datagrid.html', 'css!./td.d
 								}
 							}
 							vm._dealLoadSelected(dat.rows);
-							vm.page ++;
+							vm.page = Math.ceil(vm.rows.size() / vm.limit);
 							vm.loadInfo = '';
 						}else {
 							vm.loadInfo = '无更多记录';
