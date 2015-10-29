@@ -4,8 +4,7 @@ define(['avalon', '../base/js/mmRequest', 'text!./td.form.html', 'css!./td.form.
 	avalon.component("td:form", {
 		//外部属性
 		title: '',
-		submit: true,  //是否存在submit按钮
-		reset: true,   //是否存在reset按钮
+		buttons: true,  //是否存在submit、reset按钮
 		//外部参数
 		submitUrl: '',
 		loadUrl: '',
