@@ -53,12 +53,8 @@
 	border: 1px solid #94a0b4;
 	background: #eee;
 }
-<<<<<<< HEAD
-.td_tree_loadinfo {
-=======
 .td_tree_container .td_tree_loadinfo {
 	color: red;
->>>>>>> gh-pages
 	font-size: 16px;
 }
 .td_tree_container i.td_tree_icon {
