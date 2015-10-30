@@ -135,17 +135,30 @@ define(['avalon', '../base/js/mmRequest', 'text!./td.form.html', 'css!./td.form.
 			vm.reset = function() {
 				vm.doReset({});
 			}
+			vm.reload = function() {
+				if(vm.loadUrl != '') {
+					vm._ajax(vm.loadUrl, vm.loadParam, function(d) {
+						if(d.rspcod == '200') {
+							vm.setData(d.data);
+						}
+						vm._trigger(d, 'loaded');
+					});
+				}
+			}
+			vm.getElements = function() {
+				var arr = [];
+				for(k in vm.$refs) {
+					var comp = vm.$refs[k];
+					if(comp.name != undefined && typeof comp.setValue == 'function') {
+						arr.push(comp);
+					}
+				}
+				return arr;
+			}
 		},
 		$ready: function (vm) {
 			vm.oriData = vm.getData();
-      if(vm.loadUrl != '') {
-				vm._ajax(vm.loadUrl, vm.loadParam, function(d) {
-					if(d.rspcod == '200') {
-						vm.setData(d.data);
-					}
-					vm._trigger(d, 'loaded');
-				});
-			}
+      vm.reload();
     }
 	});
 	
