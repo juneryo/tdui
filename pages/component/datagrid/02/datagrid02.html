@@ -1,0 +1,76 @@
+<div ms-controller="datagrid02">
+	<td:tab config="$tab_opt" active="0">
+		<div slot="content0">
+			<blockquote>
+				<p>高级数据表格</p>
+				<footer>带复选框和事件信息的<cite title="高级数据表格">数据表格</cite></footer>
+			</blockquote>
+			<pre>事件信息：{{info}}</pre>
+			<td:datagrid config="$datagrid_opt" title="高级数据表格" editable="true" auto="true" height="300">
+				<div slot="content">
+					<blockquote>
+						<p>查询条件</p>
+						<footer>可放置表单元素进行查询</footer>
+					</blockquote>
+				</div>
+			</td:datagrid>
+		</div>
+		<div slot="content1">
+			<pre ms-skip>
+&lt;td:datagrid config="$datagrid_opt" title="高级数据表格" editable="true" auto="true" height="300"&gt;
+	&lt;div slot="content"&gt;
+		&lt;blockquote&gt;
+			&lt;p&gt;查询条件&lt;/p&gt;
+			&lt;footer&gt;可放置表单元素进行查询&lt;/footer&gt;
+		&lt;/blockquote&gt;
+	&lt;/div&gt;
+&lt;/td:datagrid&gt;
+			</pre>
+		</div>
+		<div slot="content2">
+			<pre ms-skip>
+var vdatagrid = avalon.define({
+	$id: 'datagrid02',
+	info: '',
+	$datagrid_opt: {
+		loadUrl: 'data/td.datagrid.json',
+		loadParam: {
+			//...
+		},
+		cols: [
+			{name: 'id', display: '编号', width: 100, type: 'text', disabled: true}, 
+			{name: 'name', display: '名称', width: 150, type: 'text'}, 
+			{name: 'price', display: '价格', width: 120, type: 'text'},
+			{name: 'category', display: '类别', width: 150, type: 'select', option: {
+				'A1': '游戏', 'A2' : '电影', 'A3' : '音乐'
+			}}
+		],
+		onloaded: function(dat, vm) {
+			vdatagrid.info = '加载数据 ' + dat;
+		},
+		onreloaded: function(dat, vm) {
+			vdatagrid.info = '重新加载数据 ' + dat;
+		},
+		onrowclicked: function(row, vm) {
+			vdatagrid.info = '点击行 ' + row;
+		},
+		onrowdbclicked: function(row, vm) {
+			vdatagrid.info = '双击行 ' + row;
+		},
+		onrowselected: function(row, vm) {
+			vdatagrid.info = '已选中行索引 ' + vm.getSelectedIdx();
+		},
+		actions: [{title: '新增', icon: 'glyphicon glyphicon-plus', fun: function(ev, vm) {
+			vdatagrid.info = '点击新增';
+		}}, {title: '删除', icon: 'glyphicon glyphicon-remove', fun: function(ev, vm) {
+			vdatagrid.info = '点击删除[已选中行：' + vm.getSelectedIdx() + ']';
+			vm.removeSelectedRow();
+		}},{title: '刷新', icon: 'glyphicon glyphicon-refresh', type: 'primary', fun: function(ev, vm) {
+			vm.reloadData();
+		}}]
+	}
+});
+			</pre>
+		</div>
+	</td:tab>
+</div>

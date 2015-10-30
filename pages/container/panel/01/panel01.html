@@ -1,0 +1,42 @@
+<div ms-controller="panel01">
+	<td:tab config="$tab_opt" active="0">
+		<div slot="content0">
+			<td:panel config="$panel_opt" title="基础面板">
+				<div slot="content">
+					<blockquote>
+						<p>基础面板</p>
+						<footer>展现最简单的<cite title="基础面板">面板</cite></footer>
+					</blockquote>
+				</div>
+				<div slot="footer">
+					面板底部
+				</div>
+			</td:panel>
+		</div>
+		<div slot="content1">
+			<pre ms-skip>
+&lt;td:panel config="$panel_opt" title="基础面板"&gt;
+	&lt;div slot="content"&gt;
+		&lt;blockquote&gt;
+			&lt;p&gt;基础面板&lt;/p&gt;
+			&lt;footer&gt;展现最简单的&lt;cite title="面板"&gt;面板&lt;/cite&gt;&lt;/footer&gt;
+		&lt;/blockquote&gt;
+	&lt;/div&gt;
+	&lt;div slot="footer"&gt;
+		面板底部
+	&lt;/div&gt;
+&lt;/td:panel&gt;			
+			</pre>
+		</div>
+		<div slot="content2">
+			<pre ms-skip>
+var vpanel = avalon.define({
+	$id: 'panel01',
+	$panel_opt: {
+		
+	}
+});
+			</pre>
+		</div>
+	</td:tab>
+</div>

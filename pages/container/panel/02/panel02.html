@@ -1,0 +1,61 @@
+<div ms-controller="panel02">
+	<td:tab config="$tab_opt" active="0">
+		<div slot="content0">
+			<td:panel config="$panel_opt" title="高级面板">
+				<div slot="content">
+					<blockquote>
+						<p>高级面板</p>
+						<footer>嵌套其他UI及带工具栏按钮的<cite title="高级面板">面板</cite></footer>
+					</blockquote>
+				
+					<td:tab config="$panel_tab_opt">
+						<div slot="content0">标签0</div>
+						<div slot="content1">标签1</div>
+						<div slot="content2">标签2</div>
+					</td:tab>
+				</div>
+				<div slot="footer">
+					{{panel_info}}
+				</div>
+			</td:panel>
+		</div>
+		<div slot="content1">
+			<pre ms-skip>
+&lt;td:panel config="$panel_opt" title="高级面板"&gt;
+	&lt;div slot="content"&gt;
+		&lt;blockquote&gt;
+			&lt;p&gt;高级面板&lt;/p&gt;
+			&lt;footer&gt;嵌套其他UI及带工具栏按钮的&lt;cite title="高级面板"&gt;面板&lt;/cite&gt;&lt;/footer&gt;
+		&lt;/blockquote&gt;
+		&lt;td:tab config="$panel_tab_opt"&gt;
+			&lt;div slot="content0"&gt;标签0&lt;/div&gt;
+			&lt;div slot="content1"&gt;标签1&lt;/div&gt;
+			&lt;div slot="content2"&gt;标签2&lt;/div&gt;
+		&lt;/td:tab&gt;
+	&lt;/div&gt;
+	&lt;div slot="footer"&gt;
+		{{panel_info}}
+	&lt;/div&gt;
+&lt;/td:panel&gt;		
+			</pre>
+		</div>
+		<div slot="content2">
+			<pre ms-skip>
+var vpanel = avalon.define({
+	$id: 'panel02',
+	panel_info: '当前时间：' + new Date().format('yyyy-MM-dd hh:mm:ss.S'),
+	$panel_opt: {
+		buttons: [{
+			display: '更新时间', icon: 'glyphicon glyphicon-question-sign', fun: function(ev, vm) {
+				vpanel.panel_info = '更新时间：' + new Date().format('yyyy-MM-dd hh:mm:ss.S');
+			}
+		}]
+	},
+	$panel_tab_opt: {
+		tabs: [{title: '标签0'}, {title: '标签1'}, {title: '标签2'}]
+	}
+});
+			</pre>
+		</div>
+	</td:tab>
+</div>

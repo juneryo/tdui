@@ -1,0 +1,11 @@
+{"rspcod": "200", "rspmsg": "查询成功", "data": {
+	"name": "yujun",
+	"age": "30",
+	"sex": "1",
+	"date": "19850208",
+	"status": "1",
+	"edu": "2",
+	"favo": "1,2,3,4",
+	"credit": "5",
+	"comment": "i am yj"
+}}

@@ -1,0 +1,65 @@
+<div ms-controller="accordion02">
+	<td:tab config="$tab_opt" active="0">
+		<div slot="content0">
+			<td:accordion config="$accordion_opt" title="高级面板">
+				<div slot="content0">
+					<blockquote>
+						<p>高级折叠面板</p>
+						<footer>嵌套其他UI及相关事件的<cite title="高级折叠面板">折叠面板</cite></footer>
+					</blockquote>
+				</div>
+				<div slot="content1">
+					<td:tab config="$accordion_tab_opt">
+						<div slot="content0">标签0</div>
+						<div slot="content1">标签1</div>
+						<div slot="content2">标签2</div>
+					</td:tab>
+				</div>
+				<div slot="content2">
+					已切换面板次数：{{count}}
+				</div>
+			</td:accordion>
+		</div>
+		<div slot="content1">
+			<pre ms-skip>
+&lt;td:accordion config="$accordion_opt" title="高级面板"&gt;
+	&lt;div slot="content0"&gt;
+		&lt;blockquote&gt;
+			&lt;p&gt;高级折叠面板&lt;/p&gt;
+			&lt;footer&gt;嵌套其他UI及相关事件的&lt;cite title="高级折叠面板"&gt;折叠面板&lt;/cite&gt;&lt;/footer&gt;
+		&lt;/blockquote&gt;
+	&lt;/div&gt;
+	&lt;div slot="content1"&gt;
+		&lt;td:tab config="$accordion_tab_opt"&gt;
+			&lt;div slot="content0"&gt;标签0&lt;/div&gt;
+			&lt;div slot="content1"&gt;标签1&lt;/div&gt;
+			&lt;div slot="content2"&gt;标签2&lt;/div&gt;
+		&lt;/td:tab&gt;
+	&lt;/div&gt;
+	&lt;div slot="content2"&gt;
+		已切换面板次数：{{count}}
+	&lt;/div&gt;
+&lt;/td:accordion&gt;
+			</pre>
+		</div>
+		<div slot="content2">
+			<pre ms-skip>
+var vaccordion = avalon.define({
+	$id: 'accordion02',
+	count: 0,
+	$accordion_opt: {
+		onchanged: function(obj, vm) {
+			vaccordion.count ++;
+		},
+		panels: [{title: 'UI简介'}, {title: '其他UI'}, {title: '事件信息', fun: function(obj, vm) {
+			avalon.log('当前点击：' + vm.active);
+		}}]
+	},
+	$accordion_tab_opt: {
+		tabs: [{title: '标签0'}, {title: '标签1'}, {title: '标签2'}]
+	}
+});
+			</pre>
+		</div>
+	</td:tab>
+</div>

@@ -1,0 +1,43 @@
+<div ms-controller="tree02">
+	<td:tab config="$tab_opt" active="0">
+		<div slot="content0">
+			<blockquote>
+				<p>高级树</p>
+				<footer>带复选框及事件处理的<cite title="高级树">树</cite></footer>
+			</blockquote>
+			<pre>事件信息：{{info}}</pre>
+			<td:tree config="$tree_opt" root="false" checkbox="true"></td:tree>
+		</div>
+		<div slot="content1">
+			<pre ms-skip>
+&lt;td:tree config="$tree_opt" root="false" checkbox="true"&gt;&lt;/td:tree&gt;
+			</pre>
+		</div>
+		<div slot="content2">
+			<pre ms-skip>
+	var vtree = avalon.define({
+		$id: 'tree02',
+		info: '',
+		$tree_opt: {
+			url: 'data/td.tree.json',
+			onloaded: function(dat, vm) {
+				vtree.info = '数据加载完成' + dat;
+			},
+			onclicked: function(el, vm) {
+				vtree.info = '点击' + el.text;
+			},
+			onchecked: function(el, vm) {
+				vtree.info = '当前选中' + el.id + '['+ el.text + ']&nbsp;&nbsp;共选中' + vm.getChecked();
+			},
+			oncollapsed: function(el, vm) {
+				vtree.info = '折叠' + el.text;
+			},
+			onexpanded: function(el, vm) {
+				vtree.info = '展开' + el.text;
+			}
+		}
+	});
+			</pre>
+		</div>
+	</td:tab>
+</div>

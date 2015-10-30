@@ -1,0 +1,40 @@
+<div ms-controller="button02">
+	<td:tab config="$tab_opt" active="0">
+		<div slot="content0">
+			<blockquote>
+				<p>高级按钮</p>
+				<footer>带有其他操作项的<cite title="高级按钮">按钮</cite></footer>
+			</blockquote>
+			<td:button config="$opt" value="禁用default action按钮" disabled="true"></td:button>
+			<td:button config="$opt" value="带徽章primary action按钮" badge="7" type="primary"></td:button>
+		</div>
+		<div slot="content1">
+			<pre ms-skip>
+&lt;td:button config="$opt" value="禁用default action按钮" disabled="true"&gt;&lt;/td:button&gt;
+&lt;td:button config="$opt" value="带徽章primary action按钮" badge="7" type="primary"&gt;&lt;/td:button&gt;	
+			</pre>
+		</div>
+		<div slot="content2">
+			<pre ms-skip>
+var vbutton = avalon.define({
+	$id: 'button02',
+	$opt: {
+		onclicked: function(ev, vm) {
+			alert('default');
+		},
+		actions: [{display: '操作1', fun: function(ev, vm) {
+			alert('primary操作1');
+		}},{display: '操作2', fun: function(ev, vm) {
+			alert('primary操作2');
+		}}, {
+			type: 'split'
+		}, {
+			display: '操作3', fun: function(ev, vm) {
+			alert('primary操作3');
+		}}]
+	}
+});
+			</pre>
+		</div>
+	</td:tab>
+</div>

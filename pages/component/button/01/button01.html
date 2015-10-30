@@ -1,0 +1,63 @@
+<div ms-controller="button01">
+	<td:tab config="$tab_opt" active="0">
+		<div slot="content0">
+			<blockquote>
+				<p>基础按钮</p>
+				<footer>展现最简单的<cite title="基础按钮">按钮</cite></footer>
+			</blockquote>
+			<td:button config="$opt"  value="禁用default按钮" disabled="true"></td:button>
+			<td:button config="$opt1" value="带徽章primary按钮" badge="5" type="primary"></td:button>
+			<td:button config="$opt2" value="大success按钮" type="success" size="large"></td:button>
+			<td:button config="$opt3" value="普通info按钮" type="info"></td:button>
+			<td:button config="$opt4" value="小warning按钮" badge="5" type="warning" size="small"></td:button>
+			<td:button config="$opt5" value="超小禁用danger按钮" type="danger" size="xsmall" disabled="true"></td:button>
+		</div>
+		<div slot="content1">
+			<pre ms-skip>
+&lt;td:button config="$opt"  value="禁用default按钮" disabled="true"&gt;&lt;/td:button&gt;
+&lt;td:button config="$opt1" value="带徽章primary按钮" badge="5" type="primary"&gt;&lt;/td:button&gt;
+&lt;td:button config="$opt2" value="大success按钮" type="success" size="large"&gt;&lt;/td:button&gt;
+&lt;td:button config="$opt3" value="普通info按钮" type="info"&gt;&lt;/td:button&gt;
+&lt;td:button config="$opt4" value="小warning按钮" badge="5" type="warning" size="small"&gt;&lt;/td:button&gt;
+&lt;td:button config="$opt5" value="超小禁用danger按钮" type="danger" size="xsmall" disabled="true"&gt;&lt;/td:button&gt;		
+			</pre>
+		</div>
+		<div slot="content2">
+			<pre ms-skip>
+var vbutton = avalon.define({
+	$id: 'button01',
+	$opt: {
+		onclicked: function(ev, vm) {
+			alert('default');
+		}
+	},
+	$opt1: {
+		onclicked: function(ev, vm) {
+			alert('primary');
+		}
+	},
+	$opt2: {
+		onclicked: function(ev, vm) {
+			alert('success');
+		}
+	},
+	$opt3: {
+		onclicked: function(ev, vm) {
+			alert('info');
+		}
+	},
+	$opt4: {
+		onclicked: function(ev, vm) {
+			alert('warning');
+		}
+	},
+	$opt5: {
+		onclicked: function(ev, vm) {
+			alert('danger');
+		}
+	}
+});
+			</pre>
+		</div>
+	</td:tab>
+</div>

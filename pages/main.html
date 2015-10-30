@@ -1,0 +1,100 @@
+<div class="row main" ms-controller="main">
+	<div class="col-xs-12 col-sm-12">
+		<h2 style="margin-top:0px;">简介</h2>
+		<hr/>
+		<p>TDUI提供&nbsp;<strong>容器类</strong>、<strong>表单类</strong>、<strong>组件类</strong>&nbsp;等近20种UI，预计后续还会继续增加。</p>
+		<p>后续会提供各种页面模板供参考。</p>
+		
+		<strong>容器类：</strong>
+		<ul class="list-inline">
+			<li>面板</li>
+			<li>折叠面板</li>
+			<li>标签页</li>
+			<li>弹出框</li>
+		</ul>
+		<strong>表单类：</strong>
+		<ul class="list-inline">
+			<li>表单</li>
+			<li>文本框</li>
+			<li>密码框</li>
+			<li>升降框</li>
+			<li>下拉框</li>
+			<li>多行文本框</li>
+			<li>日历</li>
+			<li>单选组</li>
+			<li>多选组</li>
+			<li>开关</li>
+			<li>评分</li>
+		</ul>
+		<strong>组件类：</strong>
+		<ul class="list-inline">
+			<li>按钮</li>
+			<li>导航条</li>
+			<li>树</li>
+			<li>数据表格</li>
+		</ul>
+		<br/>
+		
+		<h2>依赖</h2>
+		<hr/>
+		<dl>
+			<dt>bootstrap&nbsp;及&nbsp;bootstrap-material-design</dt>
+			<dd>样式依赖于&nbsp;<a href="http://v3.bootcss.com/" target="_blank">bootstrap v3.3.5</a>&nbsp;以及&nbsp;<a href="http://fezvrasta.github.io/bootstrap-material-design/" target="_blank">bootstrap-material-design v0.3.0</a>&nbsp;，渲染material风格的UI。同样，也支持原始bootstrap风格。</dd>
+		</dl>
+		<dl>
+			<dt>avalon</dt>
+			<dd>控制依赖于简单易用的mvvm框架&nbsp;<a href="http://avalonjs.github.io/" target="_blank">avalon v1.5.x</a>&nbsp;，构建专属的td标签库。</dd>
+		</dl>
+		<br/>
+		
+		<h2>如何使用</h2>
+		<hr/>
+		<p>TDUI通过使用avalon构建私有td标签库，因此请先了解<a href="http://www.avalon.org.cn/?tag=avalon%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B" target="_blank">如何使用&nbsp;avalon</a>。</p>
+		<p>以&nbsp;<strong>panel</strong>&nbsp;标签为例：</p>
+		<pre>
+&lt;td:panel $id="test_panel" config="$opt" title="标题"&gt;
+  &lt;div slot="content"&gt;
+    //其他html片段
+  &lt;div/&gt;
+&lt;/td:panel&gt;
+
+var vpanel = avalon.define({
+  $id: 'test',
+  $opt: {
+    buttons: [{
+      display: '按钮', fun: function(ev, vm) {
+        vm.setTitle('xxx');
+      }
+    }]
+  }
+});
+		</pre>
+		<dl>
+			<dt>UI组件的<mark>标签属性</mark>：<dt>
+			<dd>直接配置在标签中的<code>title</code>为<mark>标签属性</mark>，主要配置一些简单类型的参数。</dd>
+		</dl>
+		<dl>
+			<dt>UI组件的<mark>配置参数</mark>：<dt>
+			<dd>标签中的<code>config</code>对应的<code>$opt</code>对象为<mark>模型配置</mark>对象，对象的属性为该标签的<mark>配置参数</mark>，用于配置方法、对象等不方便直接配置于标签中的参数。</dd>
+		</dl>
+		<dl>
+			<dt>UI组件的<mark>插入片段(slot)</mark>：<dt>
+			<dd>容器类的UI组件都会有相应的<mark>插入片段(slot)</mark>，可将其他UI组件及html代码插入到指定位置。</dd>
+		</dl>
+		<dl>
+			<dt>UI组件的<mark>唯一标识</mark>：<dt>
+			<dd><code>$id</code>是avalon为每个组件设置的<mark>唯一标识</mark>，默认为随机生成，也可以手工进行配置。</dd>
+		</dl>
+		<dl>
+			<dt>UI组件的<mark>vmodel</mark>：<dt>
+			<dd>手工配置<code>$id</code>后，可以通过<code>avalon.vmodels['id值']</code>来获取组件的<mark>vmodel</mark>。</dd>
+			<dd>同样的，组件中某些事件处理方法中的参数<code>vm</code>也是指该组件的<mark>vmodel</mark>。比如上述例子中的<code>fun: function(ev, vm){...}</code>。</dd>
+			<dd>可以直接通过<mark>vmodel</mark>，调用组件属性或使用组件中提供的方法，请详见各组件API。</dd>
+		</dl>
+		<br/>
+		
+		<h2>浏览器支持</h2>
+		<hr/>
+		<p>目标支持至IE8，但由于当前avalon处于过度版，私有标签库对IE渲染的支持有限，因此当前对IE的支持为IE8以上。</p>
+	</div>
+</div>

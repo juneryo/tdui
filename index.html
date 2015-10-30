@@ -1,63 +1,64 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-	<title>index</title>
+	<title>TDUI</title>
   <meta charset="utf-8">
+
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+	<meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT">
+	
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
 	<meta name="renderer" content="webkit">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	
 	<link rel="stylesheet" href="avalon/ui/base/css/normalize.min.css" />
 	<link rel="stylesheet" href="avalon/ui/base/css/bootstrap.min.css" />
-	
+	<link rel="stylesheet" rel="stylesheet" href="avalon/ui/base/css/material.css" />
+	<link rel="stylesheet" rel="stylesheet" href="avalon/ui/base/css/waves.css" />
 	<link rel="stylesheet" href="avalon/ui/base/css/td.base.css">
-	
-	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<link rel="stylesheet" href="index.css">
 	<!--[if lt IE 9]>
     <script src="avalon/ui/base/js/html5.min.js"></script>
 		<script src="avalon/ui/base/js/respond.min.js"></script>
 	<![endif]-->
-	
-	<!--[if (gte IE 10)|!(IE)]>-->
-		<link type="text/css" rel="stylesheet" href="avalon/ui/base/css/waves.css" />
-		<script type="text/javascript" src="avalon/ui/base/js/waves.js"></script>
-	<!--[endif]-->
 </head>
-<body>
-
-<div class="container">
-	<h3>Index&nbsp;<small>首页</small></h3>
-	<div class="row base_border padding_top padding_bottom bg_white">
-		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ms-controller" ms-controller="index">
-			<td:panel $id="idx-panel" config="$panel_opt" title="面板">
-				<div slot="content">
-					
-				</div>
-				<div slot="footer">
-					<td:button $id="idx-btn" config="$button_opt" type="primary" value="测试"></td:button>
-				</div>
-			</td:panel>
+<body class="ms-controller" ms-controller="index">
+	<div class="index_header">
+		<div class="index_navbar">
+			<a href="#!" class="index_title waves-effect waves-light">TDUI</a>
+			<span class="index_toggle glyphicon glyphicon-list" ms-click="toggleMenu($event)"></span>
 		</div>
 	</div>
-</div>
-
+	<div class="index_brand" ms-css-left="left">
+		<a href="https://github.com/juneryo/tdui" target="_blank">
+			<img width="120" height="120" src="./index_brand.png" />
+		</a>
+	</div>
+	<div class="index_sliderbar" ms-css-left="left">
+		<div class="index_menu">
+			<td:accordion config="$index_accordion_opt" active="0" padding="0">
+				<div slot="content0" class="margin_top">
+					<td:tree config="$index_tree_1" root="false"></td:tree>
+				</div>
+				<div slot="content1" class="margin_top">
+					<td:tree config="$index_tree_2" root="false"></td:tree>
+				</div>
+				<div slot="content2" class="margin_top">
+					<td:tree config="$index_tree_3" root="false"></td:tree>
+				</div>
+				<div slot="content3" class="margin_top">
+					<p class="padding_left">暂无模板</p>
+				</div>
+			</td:accordion>
+		</div>
+	</div>
+	<div class="container index_body">
+		<div class="well" ms-view="index_view"></div>
+	</div>
 </body>
 <script type="text/javascript" src="avalon/avalon.js"></script>
+<script type="text/javascript" src="avalon/ui/base/js/waves.js"></script>
 <script type="text/javascript" src="avalon/ui/base/js/td.base.js"></script>
-<script>
-	require(['ui/panel/td.panel', 'ui/button/td.button'], function () {
-		avalon.define({
-			$id: 'index',
-			$panel_opt: {
-				
-			},
-			$button_opt: {
-				actions: [{display: '设置面板标题', fun: function(ev, vm) {
-					avalon.vmodels['idx-panel'].setTitle('新标题');
-				}}]
-			}
-		});
-		avalon.scan();
-	});
-</script>
+<script type="text/javascript" src="index.js"></script>
 </html>

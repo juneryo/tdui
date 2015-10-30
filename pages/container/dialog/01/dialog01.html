@@ -1,0 +1,42 @@
+<div ms-controller="dialog01">
+	<td:tab config="$tab_opt" active="0">
+		<div slot="content0">
+			<td:button config="$button_opt" type="primary" value="弹出框"></td:button>
+			<td:dialog $id="base_dialog" config="$dialog_opt" title="基础弹出框">
+				<div slot="content">
+					<blockquote>
+						<p>基础弹出框</p>
+						<footer>展现最简单的<cite title="基础弹出框">弹出框</cite></footer>
+					</blockquote>
+				</div>
+			</td:dialog>
+		</div>
+		<div slot="content1">
+			<pre ms-skip>
+&lt;td:dialog $id="base_dialog" config="$dialog_opt" title="基础弹出框"&gt;
+	&lt;div slot="content" class="padding_top2"&gt;
+		&lt;blockquote&gt;
+			&lt;p&gt;基础弹出框&lt;/p&gt;
+			&lt;footer&gt;展现最简单的&lt;cite title="基础弹出框"&gt;弹出框&lt;/cite&gt;&lt;/footer&gt;
+		&lt;/blockquote&gt;
+	&lt;/div&gt;
+&lt;/td:dialog&gt;		
+			</pre>
+		</div>
+		<div slot="content2">
+			<pre ms-skip>
+var vdialog = avalon.define({
+	$id: 'dialog01',
+	$button_opt: {
+		onclicked: function() {
+			avalon.vmodels['base_dialog'].showDialog();
+		}
+	},
+	$dialog_opt: {
+		
+	}
+});
+			</pre>
+		</div>
+	</td:tab>
+</div>
