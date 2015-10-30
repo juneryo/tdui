@@ -24,7 +24,13 @@ require(['ui/base/js/mmRouter/mmState', 'ui/accordion/td.accordion', 'ui/tree/td
 	var dat2 = [
 		{id:'1', text: '表单元素', expand:true, checked:true, disabled:true, icon:'glyphicon glyphicon-tag', children: [
 			{id:'1-1', text: '示例01', expand:false, checked:false, disabled:false, href:'#!/element/01', children: []},
-			{id:'1-2', text: '示例02', expand:false, checked:false, disabled:false, href:'#!/element/02', children: []}
+			{id:'1-2', text: '示例02', expand:false, checked:false, disabled:false, href:'#!/element/02', children: []},
+			{id:'1-3', text: 'API[text]', expand:false, checked:false, disabled:false, href:'#!/element/api-text', children: []},
+			{id:'1-4', text: 'API[password]', expand:false, checked:false, disabled:false, href:'#!/element/api-password', children: []},
+			{id:'1-5', text: 'API[select]', expand:false, checked:false, disabled:false, href:'#!/element/api-select', children: []},
+			{id:'1-6', text: 'API[textarea]', expand:false, checked:false, disabled:false, href:'#!/element/api-textarea', children: []},
+			{id:'1-7', text: 'API[checkboxgroup]', expand:false, checked:false, disabled:false, href:'#!/element/api-checkboxgroup', children: []},
+			{id:'1-8', text: 'API[radiogroup]', expand:false, checked:false, disabled:false, href:'#!/element/api-radiogroup', children: []}
 		]},
 		{id:'2', text: '表单', expand:true, checked:false, disabled:false, icon:'glyphicon glyphicon-list-alt', children: [
 			{id:'2-1', text: '示例01', expand:false, checked:false, disabled:false, href:'#!/form/01', children: []},
@@ -100,7 +106,7 @@ require(['ui/base/js/mmRouter/mmState', 'ui/accordion/td.accordion', 'ui/tree/td
 				var url = '/' + tmp[1] + '/' + tmp[2];
 				var tmpUrl = 'pages/' + type +'/' + tmp[1] + '/' + tmp[2] + '/'  + tmp[1] + tmp[2] + '.html';
 				var ctrlUrl = ['../pages/' + type + '/' + tmp[1] + '/' + tmp[2] + '/'  + tmp[1] + tmp[2]];
-				if(tmp[2] == 'api') {
+				if(tmp[2].indexOf('api') != -1) {
 					avalon.state(tmp[1], {
 						controller: 'index',
 						url: url,
