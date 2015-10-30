@@ -1,0 +1,104 @@
+.td_datagrid_container {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+table.td_datagrid {
+	table-layout: fixed;
+	margin-bottom:0px;
+}
+table.td_datagrid>thead>tr>th {
+	border-top: 0px none;
+	border-bottom: 0px none;
+}
+table.td_datagrid>thead>tr>th>input[type="text"],
+table.td_datagrid>tbody>tr>td>div>input[type="text"],
+table.td_datagrid>thead>tr>th>select,
+table.td_datagrid>tbody>tr>td>div>select {
+	background-color: transparent;
+	height: 22px;
+	line-height: 22px;
+	outline: 0 none;
+	padding: 0;
+	border-radius: 0;
+	border: 0px none;
+	border-bottom: solid 1px #ddd;
+	-webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+table.td_datagrid>thead>tr>th>input[type="text"]:focus,
+table.td_datagrid>tbody>tr>td>div>input[type="text"]:focus,
+table.td_datagrid>thead>tr>th>select:focus,
+table.td_datagrid>tbody>tr>td>div>select:focus {
+	transition: all .3s; 
+	border-bottom: solid 1px #009688;
+}
+
+table.td_datagrid>thead>tr>th,
+table.td_datagrid>tbody>tr>td {
+	transition: all .3s;
+	padding: 5px;
+	padding-left: 8px;
+	height: 42px;
+	cursor: default;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+}
+table.td_datagrid>thead>tr>th {
+	cursor: pointer;
+}
+
+table.td_datagrid>tbody>tr>td>div>.btn {
+	padding: 4px 12px;
+	margin: 0px;
+}
+table.td_datagrid>thead>tr>td>input[type="button"] {
+	height: 25px;
+	line-height: 25px;
+}
+
+table.td_datagrid>thead {
+	border-bottom: solid 1px #ddd;
+}
+table.td_datagrid>tbody>tr.td_datagrid_tr_edit {
+	background-color: #80cbc4;
+	box-shadow: 5px 5px 5px #888888;
+}
+table.td_datagrid>tbody>tr.td_datagrid_tr_edit>td {
+	-webkit-box-shadow: 5px 5px 5px #888888;
+}
+
+table.td_datagrid tr.td_datagrid_tr_selected td {
+	border-bottom: solid 1px #009688;
+}
+
+.td_datagrid_container .td_datagrid_actions {
+	position: absolute;
+	right: 10px;
+	bottom: 25px;
+	width: 55px;
+}
+.td_datagrid_container .td_datagrid_actions>a {
+	margin-top: 5px;
+	margin-bottom: 0px;
+	border-radius: 25px;
+	padding: 8px 12px;
+}
+
+.td_datagrid_container i.td_datagrid_icon {
+	display: inline-block;
+	margin-top: 2px;
+	width: 18px;
+	height: 18px;
+	line-height: 18px;
+	vertical-align: text-top;
+	background-repeat: no-repeat;
+}
+.td_datagrid_container .td_datagrid_checked {
+	background-image:url(img/checked.png);
+}
+.td_datagrid_container .td_datagrid_unchecked {
+	background-image:url(img/unchecked.png);
+}

@@ -1,0 +1,19 @@
+<div class="modal fade" ms-click="hideDialog()" ms-class-1="in:show" ms-class-2="td_dialog_show:show" ms-class-3="td_dialog_hide:!show">
+  <div class="modal-dialog td_dialog_container" ms-click="clickDialog($event)" ms-class-1="modal-lg: size=='large'" ms-class-2="modal-sm: size=='small'">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" ms-click="hideDialog()"><span>&times;</span></button>
+        <h4 class="modal-title">{{title}}</h4>
+      </div>
+      <div class="modal-body" ms-css-padding="padding">
+        {{content|html}}
+      </div>
+      <div class="modal-footer" ms-if="buttons.length > 0">
+        <button type="button" class="btn btn-default waves-effect waves-light" ms-repeat="buttons"
+					ms-class-1="btn-primary: el.type=='primary'" ms-class-2="btn-success: el.type=='success'" 
+					ms-class-3="btn-info: el.type=='info'" ms-class-4="btn-warning: el.type=='warning'" 
+					ms-class-5="btn-danger: el.type=='danger'" ms-click="btnClick($event, el.fun)">{{el.display}}</button>
+      </div>
+    </div>
+  </div>
+</div>

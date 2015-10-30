@@ -1,0 +1,96 @@
+<div ms-controller="element02">
+	<td:tab config="$tab_opt" active="0">
+		<div slot="content0">
+			<blockquote>
+				<p>扩展表单元素</p>
+				<footer>展现其他特色<cite title="扩展表单元素">表单元素</cite></footer>
+			</blockquote>
+			<pre>
+升降框事件信息：{{spinner_info}}
+日历事件信息：{{datepicker_info}}
+开关事件信息：{{switch_info}}
+评分事件信息：{{rate_info}}
+			</pre>
+			<div class="row">
+				<td:spinner config="$spinner_opt" label="年龄" name="age" value="21" max="99" min="1" class="col-xs-12 col-sm-6"></td:spinner>
+				<td:datepicker config="$datepicker_opt" label="日期" name="date" display-format="yyyy-MM-dd" max="20151231" min="20100101" value="20151010" class="col-xs-12 col-sm-6"></td:datepicker>
+			</div>
+			<div class="row">
+				<td:switch config="$switch_opt" label="状态" name="status" on="true" class="col-xs-12 col-sm-12"></td:switch>
+			</div>
+			<div class="row">
+				<td:rate config="$rate_opt" label="评分" name="rate" half="true" num="5" value="3.5" class="col-xs-12 col-sm-12"></td:rate>
+			</div>
+		</div>
+		<div slot="content1">
+			<pre ms-skip>
+&lt;div class="row"&gt;
+	&lt;td:spinner config="$spinner_opt" label="年龄" name="age" value="21" max="99" min="1" class="col-xs-12 col-sm-6"&gt;&lt;/td:spinner&gt;
+	&lt;td:datepicker config="$datepicker_opt" label="日期" name="date" display-format="yyyy-MM-dd" max="20151231" min="20100101" value="20151010" class="col-xs-12 col-sm-6"&gt;&lt;/td:datepicker&gt;
+&lt;/div&gt;
+&lt;div class="row"&gt;
+	&lt;td:switch config="$switch_opt" label="状态" name="status" on="true" class="col-xs-12 col-sm-12"&gt;&lt;/td:switch&gt;
+&lt;/div&gt;
+&lt;div class="row"&gt;
+	&lt;td:rate config="$rate_opt" label="评分" name="rate" half="true" num="5" value="3.5" class="col-xs-12 col-sm-12"&gt;&lt;/td:rate&gt;
+&lt;/div&gt;		
+			</pre>
+		</div>
+		<div slot="content2">
+			<pre ms-skip>
+var velement = avalon.define({
+	$id: 'element02',
+	spinner_info: '',
+	datepicker_info: '',
+	switch_info: '',
+	rate_info: '',
+	$spinner_opt: {
+		onclicked: function(ev, vm) {
+			velement.spinner_info = '点击事件';
+		},
+		onchanged: function(ev, vm) {
+			velement.spinner_info = '改变事件[' + vm.getValue() + ']';
+		},
+		onupclicked: function(ev, vm) {
+			velement.spinner_info = '点击升事件 会触发改变事件';
+		},
+		ondownclicked: function(ev, vm) {
+			velement.spinner_info = '点击降事件 会触发改变事件';
+		}
+	},
+	$datepicker_opt: {
+		onclicked: function(ev, vm) {
+			velement.datepicker_info = '点击事件';
+		},
+		onpicked: function(ev, vm) {
+			velement.datepicker_info = '选中事件[' + vm.getValue() + ']';
+		},
+		onchanged: function(ev, vm) {
+			velement.datepicker_info = '改变事件[' + vm.getValue() + '] 选择时会触发选中事件';
+		}
+	},
+	$switch_opt: {
+		display: {
+			on: '可用',
+			off: '禁用'
+		},
+		onclicked: function(ev, vm) {
+			velement.switch_info = '点击事件 会触发改变事件';
+		},
+		onchanged: function(ev, vm) {
+			velement.switch_info = '改变事件[' + (vm.on == true ? 'on]' : 'off]');
+		}
+	},
+	$rate_opt: {
+		onclicked: function(ev, vm) {
+			velement.rate_info = '点击事件[' + vm.getValue() + '] 会触发改变事件';
+		},
+		onchanged: function(ev, vm) {
+			velement.rate_info = '改变事件[' + vm.getValue() + ']';
+		}
+	}
+});
+			</pre>
+		</div>
+	</td:tab>
+</div>

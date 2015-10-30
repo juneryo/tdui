@@ -1,0 +1,40 @@
+<div ms-controller="datagrid01">
+	<td:tab config="$tab_opt" active="0">
+		<div slot="content0">
+			<blockquote>
+				<p>基础数据表格</p>
+				<footer>展现最简单的<cite title="基础数据表格">数据表格</cite></footer>
+			</blockquote>
+			<td:datagrid config="$datagrid_opt" title="基础数据表格" checkbox="false"></td:datagrid>
+		</div>
+		<div slot="content1">
+			<pre ms-skip>
+&lt;td:datagrid config="$datagrid_opt" title="基础数据表格" checkbox="false"&gt;&lt;/td:datagrid&gt;
+			</pre>
+		</div>
+		<div slot="content2">
+			<pre ms-skip>
+var vdatagrid = avalon.define({
+	$id: 'datagrid01',
+	$datagrid_opt: {
+		cols: [
+			{name: 'id', display: '编号', width: 100, type: 'text', disabled: true}, 
+			{name: 'name', display: '名称', width: 150, type: 'text'}, 
+			{name: 'price', display: '价格', width: 120, type: 'text'},
+			{name: 'category', display: '类别', width: 150, type: 'select', option: {
+				'A1': '游戏', 'A2' : '电影', 'A3' : '音乐'
+			}}
+		],
+		rows: [
+			{"id": "001", "name": "Eclair",   "price": "$0.87", "category": "A1", "selected": "false"},
+			{"id": "002", "name": "YuJun",    "price": "$0.57", "category": "A2", "selected": "false"},
+			{"id": "003", "name": "YingYing", "price": "$1.11", "category": "A3", "selected": "false"},
+			{"id": "004", "name": "HaHa",     "price": "$0.89", "category": "A2", "selected": "false"},
+			{"id": "005", "name": "Eclair",   "price": "$0.77", "category": "A3", "selected": "false"}
+		]
+	}
+});
+			</pre>
+		</div>
+	</td:tab>
+</div>

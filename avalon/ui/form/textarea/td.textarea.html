@@ -1,0 +1,7 @@
+<div class="form-group td_textarea_container" ms-class-1="td_textarea_disabled: disabled" ms-class-2="has-error: !isValid">
+	<label class="control-label" ms-if="label != ''">{{label}}：</label>
+	<textarea class="form-control" 
+		ms-attr-maxLength="maxlen" ms-attr-disabled="disabled" ms-attr-name="name" ms-duplex="value" 
+		ms-css-width="width" ms-input="validValue($event)" ms-paste="validValue($event)" ms-click="doClick($event)"></textarea>
+	<span class="td_textarea_valid_info" ms-if="!isValid && validInfo != ''">{{validInfo}}</span>
+</div>

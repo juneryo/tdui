@@ -1,0 +1,79 @@
+<div ms-controller="dialog02">
+	<td:tab config="$tab_opt" active="0">
+		<div slot="content0">
+			<td:button config="$button_opt" type="primary" value="大弹出框"></td:button>
+			<td:dialog $id="large_dialog" config="$lg_dialog_opt" title="高级弹出框" size="large">
+				<div slot="content">
+					<blockquote>
+						<p>高级弹出框</p>
+						<footer>嵌套其他UI及事件处理的<cite title="高级弹出框">大弹出框</cite></footer>
+					</blockquote>
+					<td:button config="$button1_opt" type="info" value="普通弹出框"></td:button>
+				</div>
+			</td:dialog>
+			<td:dialog $id="normal_dialog" title="普通弹出框">
+				<div slot="content">
+					这是普通大小弹出框
+				</div>
+			</td:dialog>
+			<td:dialog $id="small_dialog" title="确认" size="small">
+				<div slot="content">
+					这是小弹出框
+				</div>
+			</td:dialog>
+		</div>
+		<div slot="content1">
+			<pre ms-skip>
+&lt;td:dialog $id="large_dialog" config="$lg_dialog_opt" title="高级弹出框" size="large"&gt;
+	&lt;div slot="content"&gt;
+		&lt;blockquote&gt;
+			&lt;p&gt;高级弹出框&lt;/p&gt;
+			&lt;footer&gt;嵌套其他UI及事件处理的&lt;cite title="高级弹出框"&gt;大弹出框&lt;/cite&gt;&lt;/footer&gt;
+		&lt;/blockquote&gt;
+		&lt;td:button config="$button1_opt" type="info" value="普通弹出框"&gt;&lt;/td:button&gt;
+	&lt;/div&gt;
+&lt;/td:dialog&gt;
+&lt;td:dialog $id="normal_dialog" title="普通弹出框"&gt;
+	&lt;div slot="content"&gt;
+		这是普通大小弹出框
+	&lt;/div&gt;
+&lt;/td:dialog&gt;
+&lt;td:dialog $id="small_dialog" title="确认" size="small"&gt;
+	&lt;div slot="content"&gt;
+		这是小弹出框
+	&lt;/div&gt;
+&lt;/td:dialog&gt;	
+			</pre>
+		</div>
+		<div slot="content2">
+			<pre ms-skip>
+var vdialog = avalon.define({
+	$id: 'dialog02',
+	$button_opt: {
+		onclicked: function() {
+			avalon.vmodels['large_dialog'].showDialog();
+		}
+	},
+	$button1_opt: {
+		onclicked: function() {
+			avalon.vmodels['normal_dialog'].showDialog();
+		}
+	},
+	$lg_dialog_opt: {
+		onshowed: function(obj, vm) {
+			avalon.log('dialog show');
+		},
+		onhided: function(obj, vm) {
+			avalon.log('dialog hide');
+		},
+		buttons: [{display: '确定', type: 'primary', fun: function(ev, vm) {
+			avalon.vmodels['small_dialog'].showDialog();
+		}}, {display: '关闭', fun: function(ev, vm) {
+			vm.hideDialog();
+		}}]
+	}
+});
+			</pre>
+		</div>
+	</td:tab>
+</div>

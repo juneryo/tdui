@@ -1,0 +1,26 @@
+<div ms-controller="navbar01">
+	<td:tab config="$tab_opt" active="0">
+		<div slot="content0">
+			<blockquote>
+				<p>基础导航条</p>
+				<footer>展现最简单的<cite title="基础导航条">导航条</cite></footer>
+			</blockquote>
+			<td:navbar config="$navbar_opt" title="导航"></td:navbar>
+		</div>
+		<div slot="content1">
+			<pre ms-skip>
+&lt;td:navbar config="$navbar_opt" title="导航"&gt;&lt;/td:navbar&gt;
+			</pre>
+		</div>
+		<div slot="content2">
+			<pre ms-skip>
+var vnavbar = avalon.define({
+	$id: 'navbar01',
+	$navbar_opt: {
+	
+	}
+});
+			</pre>
+		</div>
+	</td:tab>
+</div>

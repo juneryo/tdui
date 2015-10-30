@@ -1,0 +1,15 @@
+<div class="form-group td_spinner_container">
+	<label class="control-label" ms-if="label != ''">{{label}}：</label>
+	<input class="form-control" type="text" placeholder="" readOnly
+		ms-attr-name="name" ms-attr-value="value" ms-click="toggleBtns($event)" />
+	<ul class="dropdown-menu" ms-visible="showBtns">
+		<li>
+			<div class="td_spinner_btn" style="border-right:solid 1px #ddd" ms-click="clickUp($event)">
+				<span class="td_spinner_up">▲</span>
+			</div>
+			<div class="td_spinner_btn" ms-click="clickDown($event)">
+				<span class="td_spinner_down">▼</span>
+			</div>
+		</li>
+	</ul>
+</div>

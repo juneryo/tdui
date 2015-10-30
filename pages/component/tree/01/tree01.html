@@ -1,0 +1,50 @@
+<div ms-controller="tree01">
+	<td:tab config="$tab_opt" active="0">
+		<div slot="content0">
+			<blockquote>
+				<p>基础树</p>
+				<footer>展现最简单的<cite title="基础树">树</cite></footer>
+			</blockquote>
+			<td:tree config="$tree_opt"></td:tree>
+		</div>
+		<div slot="content1">
+			<pre ms-skip>
+&lt;td:tree config="$tree_opt"&gt;&lt;/td:tree&gt;
+			</pre>
+		</div>
+		<div slot="content2">
+			<pre ms-skip>
+var vtree = avalon.define({
+	$id: 'tree01',
+	$tree_opt: {
+		data: [
+			{id:'1', text: '菜单01', expand:true, disabled:false, children: [
+				{id:'1-1', text: '菜单01-01', expand:false, checked:false, disabled:false, children: []},
+				{id:'1-2', text: '菜单01-02', expand:true, checked:false, disabled:false, children: [
+					{id:'1-2-1', text: '菜单01-02-01', expand:false, checked:false, disabled:false, children: []}
+				]},
+				{id:'1-3', text: '菜单01-03', expand:true, disabled:false, children: [
+					{id:'1-3-1', text: '菜单01-03-01', expand:false, checked:false, disabled:false, children: []},
+					{id:'1-3-2', text: '菜单01-03-02', expand:false, disabled:false, children: []}
+				]}
+			]},
+			{id:'2', text: '菜单02', expand:true, checked:false, disabled:false, children: [
+				{id:'2-1', text: '菜单02-01', expand:false, checked:false, disabled:false, children: []},
+				{id:'2-2', text: '菜单02-02', expand:false, checked:false, disabled:false, children: []},
+				{id:'2-3', text: '菜单02-03', expand:false, checked:false, disabled:false, children: [
+					{id:'2-3-1', text: '菜单02-03-01', expand:false, checked:false, disabled:false, children: []},
+					{id:'2-3-2', text: '菜单02-03-02', expand:false, checked:false, disabled:false, children: [
+						{id:'2-3-2-1', text: '菜单02-03-02-01', expand:false, checked:false, disabled:false, children: []},
+						{id:'2-3-2-2', text: '菜单02-03-02-02', expand:false, checked:false, disabled:false, children: []}
+					]}
+				]}
+			]},
+			{id:'3', text: '菜单03', expand:false, checked:false, disabled:false, children: []},
+			{id:'4', text: '菜单04', expand:false, checked:false, disabled:false, children: []}
+		]
+	}
+});
+			</pre>
+		</div>
+	</td:tab>
+</div>

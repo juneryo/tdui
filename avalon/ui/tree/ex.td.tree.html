@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title>Tree</title>
+  <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+	<meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	
+	<link rel="stylesheet" href="../base/css/normalize.min.css" />
+	<link rel="stylesheet" href="../base/css/bootstrap.min.css" />
+	
+	<link rel="stylesheet" href="../base/css/td.base.css">
+	
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+    <script src="../base/js/html5.min.js"></script>
+		<script src="../base/js/respond.min.js"></script>
+	<![endif]-->
+	
+	<!--[if (gte IE 10)|!(IE)]>-->
+		<link type="text/css" rel="stylesheet" href="../base/css/waves.css" />
+		<script type="text/javascript" src="../base/js/waves.js"></script>
+	<!--[endif]-->
+</head>
+<body>
+	<div class="container">
+		<h3>TdTree&nbsp;<small>树</small></h3>
+		<div class="row base_border padding_top padding_bottom bg_white">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ms-controller" ms-controller="test">
+				<td:tree config="$opt" checkbox="true"></td:tree>
+			</div>
+		</div>
+		
+		<div class="row margin_top2">
+			<blockquote>
+				<p>示例代码：</p>
+			</blockquote>
+			<pre>
+<strong>HTML:</strong>
+&lt;td:tree config="$opt" checkbox="true"&gt;&lt;/td:tree&gt;
+<br/>
+<strong>JS:</strong>
+require(['ui/tree/td.tree'], function () {
+	var dat = [
+		{id:'1', text: '菜单01', expand:true, checked:true, disabled:true, children: [
+			{id:'1-1', text: '菜单01-01', expand:false, checked:false, disabled:false, children: []},
+			{id:'1-2', text: '菜单01-02', expand:true, checked:false, disabled:false, children: [
+				{id:'1-2-1', text: '菜单01-02-01', expand:false, checked:false, disabled:false, children: []}
+			]},
+			{id:'1-3', text: '菜单01-03', expand:true, checked:true, disabled:true, children: [
+				{id:'1-3-1', text: '菜单01-03-01', expand:false, checked:false, disabled:false, children: []},
+				{id:'1-3-2', text: '菜单01-03-02', expand:false, checked:true, disabled:true, children: []}
+			]}
+		]},
+		{id:'2', text: '菜单02', expand:true, checked:false, disabled:false, children: [
+			{id:'2-1', text: '菜单02-01', expand:false, checked:false, disabled:false, children: []},
+			{id:'2-2', text: '菜单02-02', expand:false, checked:false, disabled:false, children: []},
+			{id:'2-3', text: '菜单02-03', expand:false, checked:false, disabled:false, children: [
+				{id:'2-3-1', text: '菜单02-03-01', expand:false, checked:false, disabled:false, children: []},
+				{id:'2-3-2', text: '菜单02-03-02', expand:false, checked:false, disabled:false, children: [
+					{id:'2-3-2-1', text: '菜单02-03-02-01', expand:false, checked:false, disabled:false, children: []},
+					{id:'2-3-2-2', text: '菜单02-03-02-02', expand:false, checked:false, disabled:false, children: []}
+				]}
+			]}
+		]},
+		{id:'3', text: '菜单03', expand:false, checked:false, disabled:false, children: []},
+		{id:'4', text: '菜单04', expand:false, checked:false, disabled:true, children: []}
+	];
+	var v = avalon.define({
+		$id: 'test',
+		$opt: {
+			onclicked: function(el, vm) {
+				avalon.log('clicked ' + el.text)
+			},
+			onchecked: function(el, vm) {
+				avalon.log('checked ' + el.id);
+				avalon.log(vm.getChecked());
+			},
+			oncollapsed: function(el, vm) {
+				avalon.log('折叠面板' + el.text);
+			},
+			onexpanded: function(el, vm) {
+				avalon.log('展开面板' + el.text);
+			},
+			data: dat
+		}
+	});
+	avalon.scan();
+});
+			</pre>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="../../avalon.js"></script>
+<script type="text/javascript" src="../base/js/td.base.js"></script>
+<script>
+	require(['ui/tree/td.tree'], function () {
+		var dat = [
+			{id:'1', text: '菜单01', expand:true, checked:true, disabled:true, children: [
+				{id:'1-1', text: '菜单01-01', expand:false, checked:false, disabled:false, children: []},
+				{id:'1-2', text: '菜单01-02', expand:true, checked:false, disabled:false, children: [
+					{id:'1-2-1', text: '菜单01-02-01', expand:false, checked:false, disabled:false, children: []}
+				]},
+				{id:'1-3', text: '菜单01-03', expand:true, checked:true, disabled:true, children: [
+					{id:'1-3-1', text: '菜单01-03-01', expand:false, checked:false, disabled:false, children: []},
+					{id:'1-3-2', text: '菜单01-03-02', expand:false, checked:true, disabled:true, children: []}
+				]}
+			]},
+			{id:'2', text: '菜单02', expand:true, checked:false, disabled:false, children: [
+				{id:'2-1', text: '菜单02-01', expand:false, checked:false, disabled:false, children: []},
+				{id:'2-2', text: '菜单02-02', expand:false, checked:false, disabled:false, children: []},
+				{id:'2-3', text: '菜单02-03', expand:false, checked:false, disabled:false, children: [
+					{id:'2-3-1', text: '菜单02-03-01', expand:false, checked:false, disabled:false, children: []},
+					{id:'2-3-2', text: '菜单02-03-02', expand:false, checked:false, disabled:false, children: [
+						{id:'2-3-2-1', text: '菜单02-03-02-01', expand:false, checked:false, disabled:false, children: []},
+						{id:'2-3-2-2', text: '菜单02-03-02-02', expand:false, checked:false, disabled:false, children: []}
+					]}
+				]}
+			]},
+			{id:'3', text: '菜单03', expand:false, checked:false, disabled:false, children: []},
+			{id:'4', text: '菜单04', expand:false, checked:false, disabled:true, children: []}
+		];
+		var v = avalon.define({
+			$id: 'test',
+			$opt: {
+				onclicked: function(el, vm) {
+					avalon.log('clicked ' + el.text)
+				},
+				onchecked: function(el, vm) {
+					avalon.log('checked ' + el.id);
+					avalon.log(vm.getChecked());
+				},
+				oncollapsed: function(el, vm) {
+					avalon.log('折叠面板' + el.text);
+				},
+				onexpanded: function(el, vm) {
+					avalon.log('展开面板' + el.text);
+				},
+				data: dat
+			}
+		});
+		avalon.scan();
+	});
+</script>
+</html>

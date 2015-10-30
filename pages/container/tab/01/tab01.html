@@ -1,0 +1,42 @@
+<div ms-controller="tab01">
+	<td:tab config="$tab_opt" active="0">
+		<div slot="content0">
+			<td:tab config="$tab_tab_opt">
+				<div slot="content0">
+					<blockquote>
+						<p>基础标签页</p>
+						<footer>展现最简单的<cite title="基础标签页">标签页</cite></footer>
+					</blockquote>
+				</div>
+				<div slot="content1">
+					标签页属于容器类UI
+				</div>
+			</td:tab>
+		</div>
+		<div slot="content1">
+			<pre ms-skip>
+&lt;td:tab config="$tab_tab_opt"&gt;
+	&lt;div slot="content0"&gt;
+		&lt;blockquote&gt;
+			&lt;p&gt;基础标签页&lt;/p&gt;
+			&lt;footer&gt;展现最简单的&lt;cite title="基础标签页"&gt;标签页&lt;/cite&gt;&lt;/footer&gt;
+		&lt;/blockquote&gt;
+	&lt;/div&gt;
+	&lt;div slot="content1"&gt;
+		标签页属于容器类UI
+	&lt;/div&gt;
+&lt;/td:tab&gt;
+			</pre>
+		</div>
+		<div slot="content2">
+			<pre ms-skip>
+var vtab = avalon.define({
+	$id: 'tab01',
+	$tab_tab_opt: {
+		tabs: [{title: 'UI简介'}, {title: 'UI所属'}]
+	}
+});
+			</pre>
+		</div>
+	</td:tab>
+</div>

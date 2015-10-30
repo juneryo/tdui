@@ -1,0 +1,134 @@
+<div ms-controller="form01">
+	<td:tab config="$tab_opt" active="0">
+		<div slot="content0">
+			<blockquote>
+				<p>表单</p>
+				<footer>展现表单及表单元素</footer>
+			</blockquote>
+			<pre>
+表单事件信息：{{form_info}}
+			</pre>
+			<td:form config="$form_opt" title="用户注册">
+				<div slot="content">
+					<div class="row">
+						<td:text label="姓名" name="name" must="true" class="col-xs-12 col-sm-12"></td:text>
+					</div>
+					<div class="row">
+						<td:spinner label="年龄" name="age" min="1" max="100" class="col-xs-12 col-sm-6"></td:spinner>
+					</div>
+					<div class="row">
+						<td:select config="$select_opt" label="性别" name="sex" class="col-xs-12 col-sm-6"></td:select>
+					</div>
+					<div class="row">
+						<td:switch config="$switch_opt" label="状态" name="status" class="col-xs-12 col-sm-12"></td:switch>
+					</div>
+					<div class="row">
+						<td:datepicker label="出生日期" name="date" must="true" class="col-xs-12 col-sm-6"></td:datepicker>
+					</div>
+					<div class="row">
+						<td:radiogroup config="$radiogroup_opt" label="学历" name="edu" class="col-xs-12 col-sm-12"></td:radiogroup>
+					</div>
+					<div class="row">
+						<td:checkboxgroup config="$checkboxgroup_opt" label="爱好" name="favo" class="col-xs-12 col-sm-12"></td:checkboxgroup>
+					</div>
+					<div class="row">
+						<td:rate label="信用" name="credit" half="true" num="5" value="2.5" class="col-xs-12 col-sm-12"></td:rate>
+					</div>
+					<div class="row">
+						<td:textarea label="备注" name="comment" class="col-xs-12 col-sm-12"></td:textarea>
+					</div>
+				</div>
+			</td:form>
+		</div>
+		<div slot="content1">
+			<pre ms-skip>
+&lt;td:form config="$form_opt" title="用户注册"&gt;
+	&lt;div slot="content"&gt;
+		&lt;div class="row"&gt;
+			&lt;td:text label="姓名" name="name" must="true" class="col-xs-12 col-sm-12"&gt;&lt;/td:text&gt;
+		&lt;/div&gt;
+		&lt;div class="row"&gt;
+			&lt;td:spinner label="年龄" name="age" min="1" max="100" class="col-xs-12 col-sm-6"&gt;&lt;/td:spinner&gt;
+		&lt;/div&gt;
+		&lt;div class="row"&gt;
+			&lt;td:select config="$select_opt" label="性别" name="sex" class="col-xs-12 col-sm-6"&gt;&lt;/td:select&gt;
+		&lt;/div&gt;
+		&lt;div class="row"&gt;
+			&lt;td:switch config="$switch_opt" label="状态" name="status" class="col-xs-12 col-sm-12"&gt;&lt;/td:switch&gt;
+		&lt;/div&gt;
+		&lt;div class="row"&gt;
+			&lt;td:datepicker label="出生日期" name="date" must="true" class="col-xs-12 col-sm-6"&gt;&lt;/td:datepicker&gt;
+		&lt;/div&gt;
+		&lt;div class="row"&gt;
+			&lt;td:radiogroup config="$radiogroup_opt" label="学历" name="edu" class="col-xs-12 col-sm-12"&gt;&lt;/td:radiogroup&gt;
+		&lt;/div&gt;
+		&lt;div class="row"&gt;
+			&lt;td:checkboxgroup config="$checkboxgroup_opt" label="爱好" name="favo" class="col-xs-12 col-sm-12"&gt;&lt;/td:checkboxgroup&gt;
+		&lt;/div&gt;
+		&lt;div class="row"&gt;
+			&lt;td:rate label="信用" name="credit" half="true" num="5" value="2.5" class="col-xs-12 col-sm-12"&gt;&lt;/td:rate&gt;
+		&lt;/div&gt;
+		&lt;div class="row"&gt;
+			&lt;td:textarea label="备注" name="comment" class="col-xs-12 col-sm-12"&gt;&lt;/td:textarea&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/td:form&gt;	
+			</pre>
+		</div>
+		<div slot="content2">
+			<pre ms-skip>
+var vform = avalon.define({
+	$id: 'form01',
+	form_info: '',
+	$form_opt: {
+		submitUrl: 'data/td.form.submit.json',
+		loadUrl: 'data/td.form.load.json',
+		loadParam: {p1: 1, p2:2},
+		onloaded: function(dat, vm) {
+			vform.form_info = '加载数据事件' + dat;
+		},
+		onsubmited: function(ev, vm) {
+			vform.form_info = '点击提交按钮事件';
+		},
+		onoksubmited: function(dat, vm) {
+			vform.form_info = '提交成功事件[' + dat.rspcod + ':' + dat.rspmsg + ']';
+			alert('[' + dat.rspcod + ':' + dat.rspmsg + ']');
+		},
+		onreseted: function(dat, vm) {
+			vform.form_info = '重置事件';
+		}
+	},
+	$select_opt: {
+		data: {
+			'1': '男',
+			'2': '女',
+			'3': '其他'
+		},
+	},
+	$switch_opt: {
+		display: {
+			on: '已婚',
+			off: '未婚'
+		}
+	},
+	$radiogroup_opt: {
+		radios: [
+			{label:'大专', checked:true,  disabled:false, value:'1'},
+			{label:'本科', checked:false, disabled:false, value:'2'},
+			{label:'硕士', checked:false, disabled:false, value:'3'},
+			{label:'博士', checked:false, disabled:false, value:'4'}
+		]
+	},
+	$checkboxgroup_opt: {
+		checkboxes:[
+			{label:'电影', checked:false, disabled:false, value:'1'},
+			{label:'音乐', checked:false, disabled:false, value:'2'},
+			{label:'游戏', checked:false, disabled:false, value:'3'},
+			{label:'旅游', checked:false, disabled:false, value:'4'}
+		]
+	}
+});
+			</pre>
+		</div>
+	</td:tab>
+</div>

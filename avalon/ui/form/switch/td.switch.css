@@ -1,0 +1,53 @@
+.td_switch_container {
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.td_switch_disabled {
+	cursor: default;
+	cursor: not-allowed;
+}
+
+.td_switch_container .td_switch {
+	position: relative;
+	width: 55px;
+	height: 22px;
+	line-height: 22px;
+	border-radius: 8px;
+	display: inline-block;
+}
+
+.td_switch_container .td_switch_on {
+	background-color: #009688;
+}
+
+.td_switch_container .td_switch_off {
+	background-color: #eee;
+	background: linear-gradient(rgba(0, 0, 0, 0.07), rgba(255, 255, 255, 0.1)) repeat scroll 0 0%, #d0d0d0 none repeat scroll 0 0;
+  box-shadow: 0 0.08em 0.15em -0.1em rgba(0, 0, 0, 0.5) inset, 0 0.05em 0.08em -0.01em rgba(255, 255, 255, 0.7), 0 0 0 0 rgba(68, 204, 102, 0.7) inset;
+}
+
+.td_switch_container .td_switch .td_switch_btn {
+	position: absolute;
+	width: 28px;
+	height: 26px;
+	top: -2px;
+	border: solid 1px #ddd;
+	border-radius: 11px;
+	background-color: #f5f5f5;
+	background: rgba(0, 0, 0, 0) linear-gradient(#f5f5f5 10%, #eeeeee) repeat scroll 0 0;
+}
+
+.td_switch_container .td_switch_display {
+	position: relative;
+	display: inline-block;
+	top: -5px;
+	font-size: 18px;
+	height: 18px;
+	line-height: 18px;
+}
+
+.td_switch_container .td_switch_display_disabled {
+	color: gray;
+}

@@ -1,0 +1,62 @@
+<div ms-controller="tab02">
+	<td:tab config="$tab_opt" active="0">
+		<div slot="content0">
+			<td:tab config="$tab_tab_opt" active="1">
+				<div slot="content0">
+					<blockquote>
+						<p>高级标签页</p>
+						<footer>展现嵌套其他UI及事件处理的<cite title="高级标签页">标签页</cite></footer>
+					</blockquote>
+				</div>
+				<div slot="content1">
+					<td:panel title="嵌套于标签页中的面板">
+						<div slot="content">
+							这里是面板
+						</div>
+					</td:panel>
+				</div>
+				<div slot="content2">
+					已切换标签次数：{{count}}
+				</div>
+			</td:tab>
+		</div>
+		<div slot="content1">
+			<pre ms-skip>
+&lt;td:tab config="$tab_tab_opt" active="1"&gt;
+	&lt;div slot="content0"&gt;
+		&lt;blockquote&gt;
+			&lt;p&gt;高级标签页&lt;/p&gt;
+			&lt;footer&gt;展现嵌套其他UI及事件处理的&lt;cite title="高级标签页"&gt;标签页&lt;/cite&gt;&lt;/footer&gt;
+		&lt;/blockquote&gt;
+	&lt;/div&gt;
+	&lt;div slot="content1"&gt;
+		&lt;td:panel title="嵌套于标签页中的面板"&gt;
+			&lt;div slot="content"&gt;
+				这里是面板
+			&lt;/div&gt;
+		&lt;/td:panel&gt;
+	&lt;/div&gt;
+	&lt;div slot="content2"&gt;
+		已切换标签次数：{{count}}
+	&lt;/div&gt;
+&lt;/td:tab&gt;
+			</pre>
+		</div>
+		<div slot="content2">
+			<pre ms-skip>
+var vtab = avalon.define({
+	$id: 'tab02',
+	count: 0,
+	$tab_tab_opt: {
+		onchanged: function(ev, vm) {
+			vtab.count ++;
+		},
+		tabs: [{title: 'UI简介'}, {title: '其他UI'}, {title: '事件信息', fun: function(ev, vm) {
+			avalon.log('切换到事件信息标签' + vm.active);
+		}}]
+	}
+});
+			</pre>
+		</div>
+	</td:tab>
+</div>

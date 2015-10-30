@@ -1,0 +1,20 @@
+.td_tab_container {
+	
+}
+.td_tab_container>ul.nav {
+	background-color: transparent;
+	border-bottom: 0px none;
+	border-bottom: solid 2px #ddd !important;
+}
+.td_tab_container>ul>li {
+	margin-bottom: -2px;
+}
+.td_tab_container>ul.nav>li>a {
+	color: #aaa !important;
+	/*transition: all .3s;*/
+	border: 0px none;
+}
+.td_tab_container>ul.nav>li.active>a {
+	color: #000 !important;
+	border-bottom: solid 2px #009688 !important;
+}

@@ -1,0 +1,13 @@
+.td_spinner_container {
+	position: relative;
+	cursor: pointer;
+}
+.td_spinner_container .td_spinner_btn{
+	text-align: center;
+	width: 50%;
+	float: left;
+	cursor: pointer;
+}
+
+
+

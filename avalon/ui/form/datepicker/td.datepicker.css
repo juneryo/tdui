@@ -1,0 +1,42 @@
+.td_datepicker_container {
+	position: relative;
+	cursor: pointer;
+}
+
+.td_datepicker_container .td_datepicker_valid_info {
+	color: #a94442;
+	line-height: 30px;
+}
+
+.td_datepicker_container .td_datepicker_trigger {
+	margin-top: -27px;
+	margin-right: 2px;
+	cursor: pointer;
+}
+
+.td_datepicker_container div.dropdown-menu {
+	width: 250px;
+	padding: 0px;
+}
+
+.td_datepicker_container table.td_datepicker_picker {
+	width:100%;
+	text-align:center;
+}
+
+.td_datepicker_container table.td_datepicker_picker td.td_datepicker_picked {
+	background-color: #08c;
+	color: #fff;
+}
+
+.td_datepicker_container table.td_datepicker_picker td.td_datepicker_today{
+	background-color: #eee;
+}
+
+.td_datepicker_disabled {
+	cursor: default;
+	cursor: not-allowed;
+}
+
+
+
