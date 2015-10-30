@@ -5,31 +5,27 @@ define(['avalon', '../../base/js/mmRequest', 'text!./td.select.html', 'css!./td.
 		//外部属性
 		label: '',
 		name: 'select',
-<<<<<<< HEAD
-		url: '',
 		disabled: false,
 		muti: false,
-		//外部参数
-=======
-		disabled: false,
-		muti: false,
+		must: false,
 		//外部参数
 		url: '',
 		param: {},
->>>>>>> gh-pages
 		data: {},
 		selected: [],
+		onloaded: null,
+		onselected: null,
+		onchanged: null,
 		//内部属性
 		value: '',
 		selectedValue: '',
 		//view属性
-		text: '',
-<<<<<<< HEAD
-=======
-		loadInfo: '',
 		isLoading: false,
->>>>>>> gh-pages
 		isShow: false,
+		isValid: true,
+		validInfo: '',
+		text: '',
+		loadInfo: '',
 		//view接口
 		isSelected: _interface,
 		toggleList: _interface,
@@ -65,6 +61,7 @@ define(['avalon', '../../base/js/mmRequest', 'text!./td.select.html', 'css!./td.
 						}
 						break;
 					case 'changed':
+						vm.validValue(null);
 						if(typeof vm.onchanged == 'function') {
 							vm.onchanged(ev, vm);
 						}
@@ -89,6 +86,16 @@ define(['avalon', '../../base/js/mmRequest', 'text!./td.select.html', 'css!./td.
 				vm.text = text == '' ? '' : text.substring(0, text.length - 1);
 			}
 			//接口方法
+			vm.validValue = function(ev) {
+				if(vm.must === true) {
+					vm.validInfo = '';
+					vm.isValid = true;
+					if(vm.getValue() == '') {
+						vm.isValid = false;
+						vm.validInfo = '请选择项目';
+					}
+				}
+			}
 			vm.isSelected = function(key) {
 				var flag = false;
 				for(var i = 0; i < vm.selected.size(); i ++) {
@@ -149,31 +156,8 @@ define(['avalon', '../../base/js/mmRequest', 'text!./td.select.html', 'css!./td.
 					vm.selected.removeAll();
 					vm.selected.pushArray(arr);
 					vm._buildSelected();
-					vm._trigger(null, 'changed');
+					vm._trigger({}, 'changed');
 				}
-<<<<<<< HEAD
-			}
-		},
-		$ready: function (vm) {
-      if(vm.url != '') {
-				req.ajax({
-					type: 'POST',
-					url: vm.url,
-					data: {},
-					headers: {},
-					success: function(data, status, xhr) {
-						if(data.rspcod == '200') {
-							vm.data = data.data;
-							vm._buildSelected();
-							vm._trigger(data.data, 'loaded');
-						}
-					},
-					error: function(data) {
-						avalon.log(data);
-					}
-				});
-			}
-=======
 			},
 			vm.reload = function() {
 				if(vm.url != '') {
@@ -192,6 +176,7 @@ define(['avalon', '../../base/js/mmRequest', 'text!./td.select.html', 'css!./td.
 							}else {
 								vm.loadInfo = data.rspmsg;
 							}
+							vm.validValue(null);
 							vm.isLoading = false;
 						},
 						error: function(data) {
@@ -200,11 +185,11 @@ define(['avalon', '../../base/js/mmRequest', 'text!./td.select.html', 'css!./td.
 						}
 					});
 				}
+				vm.validValue(null);
 			}
 		},
 		$ready: function (vm) {
       vm.reload();
->>>>>>> gh-pages
     }
 	});
 	

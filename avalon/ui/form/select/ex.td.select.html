@@ -28,7 +28,7 @@
 		<h3>TdSelect&nbsp;<small>下拉框</small></h3>
 		<div class="row base_border padding_top bg_white">
 			<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 ms-controller" ms-controller="test">
-				 <td:select config="$opt" label="国家" name="contry" disabled="false" muti="true"></td:select>
+				 <td:select config="$opt" label="国家" name="contry" disabled="false" muti="true" must="true"></td:select>
 			</div>
 		</div>
 		
@@ -99,7 +99,7 @@ require(['ui/form/select/td.select'], function () {
 					'england': '英格兰',
 					'france': '法国'
 				},
-				selected: ['china', 'japan'],
+				//selected: ['china', 'japan'],
 				onselected: function(ev, vm) {
 					avalon.log('选中[' + vm.selectedValue + ':' + vm.data[vm.selectedValue] + ']');
 				},
