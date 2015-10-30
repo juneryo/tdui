@@ -7,6 +7,7 @@ define(['avalon', 'text!./td.checkboxgroup.html', 'css!./td.checkbox.css'], func
 		name: 'checkboxgroup',
 		//外部参数
 		checkboxes: [], 
+		onchanged: null,
 		//view接口
 		clickCheckbox: _interface,
 		
@@ -71,6 +72,9 @@ define(['avalon', 'text!./td.checkboxgroup.html', 'css!./td.checkbox.css'], func
 					case 'changed':
 						if(typeof box.onchanged == 'function') {
 							box.onchanged(ev, vm, box);
+						}
+						if(typeof vm.onchanged == 'function') {
+							vm.onchanged(ev, vm);
 						}
 						break;
 					default: break;

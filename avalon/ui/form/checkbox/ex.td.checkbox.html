@@ -96,6 +96,9 @@ require(['ui/form/checkbox/td.checkbox', 'ui/form/checkbox/td.checkboxgroup'], f
 				}
 			},
 			$group_opt: {
+				onchanged: function(ev, vm) {
+					avalon.log('on changed:' + vm.getValue());
+				},
 				checkboxes:[
 					{label:'升职', checked:true , disabled:false, value:'1', onchecked: function(ev, vm, box) {
 						avalon.log(vm.getData());
