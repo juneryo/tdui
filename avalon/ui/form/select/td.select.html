@@ -4,6 +4,10 @@
 		ms-attr-disabled="disabled" ms-attr-name="name" ms-attr-value="text" ms-click="toggleList($event)" />
 	<i class="pull-right td_select_trigger">▼</i>
 	<ul class="dropdown-menu td_select_list" ms-if="data != null" ms-visible="isShow">
+<<<<<<< HEAD
+=======
+		<i class="td_select_icon td_select_loading" ms-if="isLoading"></i><span class="td_select_loadinfo">{{loadInfo}}</span>
+>>>>>>> gh-pages
 		<li ms-repeat="data">
 			<a href="javascript:void(0)" ms-attr-name="$key" ms-click="selectOne($event, $key)">{{$val}}</a>
 			<span class="pull-right td_select_selected" ms-if="isSelected($key)">✔</span>

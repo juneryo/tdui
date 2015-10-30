@@ -2,6 +2,13 @@
 	position: relative;
 	cursor: pointer;
 }
+<<<<<<< HEAD
+=======
+.td_select_disabled {
+	cursor: default;
+	cursor: not-allowed;
+}
+>>>>>>> gh-pages
 .td_select_container .td_select_trigger {
 	margin-top: -27px;
 	margin-right: 2px;
@@ -17,7 +24,25 @@
 	margin-top:-22px;
 	margin-right:5px;
 }
+<<<<<<< HEAD
 .td_select_disabled {
 	cursor: default;
 	cursor: not-allowed;
+=======
+.td_select_container i.td_select_icon {
+	display: inline-block;
+	margin-top: 2px;
+	width: 18px;
+	height: 18px;
+	line-height: 18px;
+	vertical-align: text-top;
+	background-repeat: no-repeat;
+}
+.td_select_container i.td_select_loading {
+	background-image:url(img/loading.gif);
+}
+.td_select_container .td_select_loadinfo {
+	color: red;
+	font-size: 16px;
+>>>>>>> gh-pages
 }

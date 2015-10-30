@@ -5,10 +5,18 @@ define(['avalon', '../../base/js/mmRequest', 'text!./td.select.html', 'css!./td.
 		//外部属性
 		label: '',
 		name: 'select',
+<<<<<<< HEAD
 		url: '',
 		disabled: false,
 		muti: false,
 		//外部参数
+=======
+		disabled: false,
+		muti: false,
+		//外部参数
+		url: '',
+		param: {},
+>>>>>>> gh-pages
 		data: {},
 		selected: [],
 		//内部属性
@@ -16,6 +24,11 @@ define(['avalon', '../../base/js/mmRequest', 'text!./td.select.html', 'css!./td.
 		selectedValue: '',
 		//view属性
 		text: '',
+<<<<<<< HEAD
+=======
+		loadInfo: '',
+		isLoading: false,
+>>>>>>> gh-pages
 		isShow: false,
 		//view接口
 		isSelected: _interface,
@@ -138,6 +151,7 @@ define(['avalon', '../../base/js/mmRequest', 'text!./td.select.html', 'css!./td.
 					vm._buildSelected();
 					vm._trigger(null, 'changed');
 				}
+<<<<<<< HEAD
 			}
 		},
 		$ready: function (vm) {
@@ -159,6 +173,38 @@ define(['avalon', '../../base/js/mmRequest', 'text!./td.select.html', 'css!./td.
 					}
 				});
 			}
+=======
+			},
+			vm.reload = function() {
+				if(vm.url != '') {
+					vm.loadInfo = '';
+					vm.isLoading = true;
+					req.ajax({
+						type: 'POST',
+						url: vm.url,
+						data: vm.param,
+						headers: {},
+						success: function(data, status, xhr) {
+							if(data.rspcod == '200') {
+								vm.data = data.data;
+								vm._buildSelected();
+								vm._trigger(data.data, 'loaded');
+							}else {
+								vm.loadInfo = data.rspmsg;
+							}
+							vm.isLoading = false;
+						},
+						error: function(data) {
+							vm.loadInfo = data.status + '[' + data.statusText + ']';
+							vm.isLoading = false;
+						}
+					});
+				}
+			}
+		},
+		$ready: function (vm) {
+      vm.reload();
+>>>>>>> gh-pages
     }
 	});
 	
