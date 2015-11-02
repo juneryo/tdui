@@ -129,7 +129,7 @@ define(['avalon', 'text!./td.spinner.html', 'css!./td.spinner.css'], function(av
 			vm.setValue = function(val) {
 				if(vm.value != val) {
 					vm.value = val;
-					vm._trigger(null, 'changed');
+					vm._trigger({}, 'changed');
 				}
 			}
 		},
