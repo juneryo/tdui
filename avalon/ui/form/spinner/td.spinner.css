@@ -2,12 +2,17 @@
 	position: relative;
 	cursor: pointer;
 }
+.td_spinner_disabled {
+	cursor: default;
+	cursor: not-allowed;
+}
+.td_spinner_container .td_spinner_valid_info {
+	color: #a94442;
+	line-height: 30px;
+}
 .td_spinner_container .td_spinner_btn{
 	text-align: center;
 	width: 50%;
 	float: left;
 	cursor: pointer;
 }
-
-
-

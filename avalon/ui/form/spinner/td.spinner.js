@@ -4,6 +4,7 @@ define(['avalon', 'text!./td.spinner.html', 'css!./td.spinner.css'], function(av
 	avalon.component("td:spinner", {
 		//外部属性
 		disabled: false,
+		must: false,
 		label: '',
 		name: 'spinner',
 		value: '',
@@ -16,11 +17,15 @@ define(['avalon', 'text!./td.spinner.html', 'css!./td.spinner.css'], function(av
 		onchanged: null,
 		onclicked: null,
 		//view属性
+		validInfo: '',
+		isValid: true,
 		showBtns: false,
 		//view接口
 		clickUp: _interface,
 		clickDown: _interface,
 		toggleBtns: _interface,
+		validValue: _interface,
+		checkKeydown: _interface,
 		
 		$template: template,
 		$construct: function (hooks, vmOpts, elemOpts) {	
@@ -40,6 +45,7 @@ define(['avalon', 'text!./td.spinner.html', 'css!./td.spinner.css'], function(av
 						}
 						break;
 					case 'changed':
+						vm.validValue();
 						if(typeof vm.onchanged == 'function') {
 							vm.onchanged(ev, vm);
 						}
@@ -92,6 +98,24 @@ define(['avalon', 'text!./td.spinner.html', 'css!./td.spinner.css'], function(av
 					vm._trigger(ev, 'clicked');
 				}
 			}
+			vm.checkKeydown = function(ev) {
+				if(!vm.disabled) {
+					//退格则全部删除
+					if(ev.keyCode.toString() == '8') {
+						vm.setValue('');
+					}
+				}
+			}
+			vm.validValue = function() {
+				if(vm.must === true) {
+					vm.validInfo = '';
+					vm.isValid = true;
+					if(vm.getValue() == '') {
+						vm.isValid = false;
+						vm.validInfo = '该字段为必填字段';
+					}
+				}
+			}
 			
 			//对外方法
 			vm.getData = function() {
@@ -110,7 +134,7 @@ define(['avalon', 'text!./td.spinner.html', 'css!./td.spinner.css'], function(av
 			}
 		},
 		$ready: function (vm) {
-			
+			vm.validValue();
     }
 	});
 	
