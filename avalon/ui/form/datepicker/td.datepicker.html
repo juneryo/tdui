@@ -1,7 +1,7 @@
 <div class="form-group td_datepicker_container" ms-class-1="td_datepicker_disabled: disabled" ms-class-2="has-error: !isValid">
 	<label class="control-label" ms-if="label != ''">{{label}}：</label>
 	<input class="form-control" type="text" placeholder="" readOnly 
-		ms-attr-disabled="disabled" ms-attr-name="name" ms-duplex="value" ms-click="togglePicker($event)" />
+		ms-attr-disabled="disabled" ms-attr-name="name" ms-duplex="value" ms-click="togglePicker($event)" ms-keydown="checkKeydown($event)" />
 	<i class="pull-right td_datepicker_trigger"></i>
 	<span class="td_datepicker_valid_info" ms-if="!isValid && validInfo != ''">{{validInfo}}</span>
 	<div class="dropdown-menu" ms-visible="isShow">
