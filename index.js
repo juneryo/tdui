@@ -23,14 +23,16 @@ require(['ui/base/js/mmRouter/mmState', 'ui/accordion/td.accordion', 'ui/tree/td
 	];
 	var dat2 = [
 		{id:'1', text: '表单元素', expand:true, checked:true, disabled:true, icon:'glyphicon glyphicon-tag', children: [
-			{id:'1-1', text: '示例01', expand:false, checked:false, disabled:false, href:'#!/element/01', children: []},
-			{id:'1-2', text: '示例02', expand:false, checked:false, disabled:false, href:'#!/element/02', children: []},
-			{id:'1-3', text: 'API[text]', expand:false, checked:false, disabled:false, href:'#!/element/api-text', children: []},
-			{id:'1-4', text: 'API[password]', expand:false, checked:false, disabled:false, href:'#!/element/api-password', children: []},
-			{id:'1-5', text: 'API[select]', expand:false, checked:false, disabled:false, href:'#!/element/api-select', children: []},
-			{id:'1-6', text: 'API[textarea]', expand:false, checked:false, disabled:false, href:'#!/element/api-textarea', children: []},
-			{id:'1-7', text: 'API[checkboxgroup]', expand:false, checked:false, disabled:false, href:'#!/element/api-checkboxgroup', children: []},
-			{id:'1-8', text: 'API[radiogroup]', expand:false, checked:false, disabled:false, href:'#!/element/api-radiogroup', children: []}
+			{id:'1-01', text: '示例01', expand:false, checked:false, disabled:false, href:'#!/element/01', children: []},
+			{id:'1-02', text: '示例02', expand:false, checked:false, disabled:false, href:'#!/element/02', children: []},
+			{id:'1-03', text: 'API[text]', expand:false, checked:false, disabled:false, href:'#!/element/api-text', children: []},
+			{id:'1-04', text: 'API[password]', expand:false, checked:false, disabled:false, href:'#!/element/api-password', children: []},
+			{id:'1-05', text: 'API[select]', expand:false, checked:false, disabled:false, href:'#!/element/api-select', children: []},
+			{id:'1-06', text: 'API[textarea]', expand:false, checked:false, disabled:false, href:'#!/element/api-textarea', children: []},
+			{id:'1-07', text: 'API[checkboxgroup]', expand:false, checked:false, disabled:false, href:'#!/element/api-checkboxgroup', children: []},
+			{id:'1-08', text: 'API[radiogroup]', expand:false, checked:false, disabled:false, href:'#!/element/api-radiogroup', children: []},
+			{id:'1-09', text: 'API[spinner]', expand:false, checked:false, disabled:false, href:'#!/element/api-spinner', children: []},
+			{id:'1-10', text: 'API[datepicker]', expand:false, checked:false, disabled:false, href:'#!/element/api-datepicker', children: []}
 		]},
 		{id:'2', text: '表单', expand:true, checked:false, disabled:false, icon:'glyphicon glyphicon-list-alt', children: [
 			{id:'2-1', text: '示例01', expand:false, checked:false, disabled:false, href:'#!/form/01', children: []},

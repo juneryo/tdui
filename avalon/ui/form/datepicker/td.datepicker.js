@@ -5,6 +5,7 @@ define(['avalon', 'text!./td.datepicker.html', 'css!./td.datepicker.css'], funct
 		//外部属性
 		label: '',
 		name: 'datepicker',
+		value: '',
 		displayFormat: 'yyyy-MM-dd',
 		valueFormat: 'yyyyMMdd',
 		disabled: false,
@@ -43,6 +44,7 @@ define(['avalon', 'text!./td.datepicker.html', 'css!./td.datepicker.css'], funct
 		showMonthPicker: _interface,
 		showYearPicker: _interface,
 		doPick: _interface,
+		checkKeydown: _interface,
 		
 		$template: template,
 		// hooks : 定义component中的属性
@@ -148,6 +150,14 @@ define(['avalon', 'text!./td.datepicker.html', 'css!./td.datepicker.css'], funct
 					vm._trigger(ev, 'clicked');
 				}
 			}
+			vm.checkKeydown = function(ev) {
+				if(!vm.disabled) {
+					//退格则全部删除
+					if(ev.keyCode.toString() == '8') {
+						vm.setValue('');
+					}
+				}
+			}
 			vm.changeMonth = function(ev, oper) {
 				if(oper == '+') {
 					if(vm.pickMonth == '11') {
@@ -246,7 +256,7 @@ define(['avalon', 'text!./td.datepicker.html', 'css!./td.datepicker.css'], funct
 			}
 			//观测方法
 			vm.$watch('pickDate', function(newVal, oldVal) {
-				if(!vm.isInit) {
+				if(!vm.isInit && newVal != '') {
 					var dt = new Date(vm.pickYear + '/' + (parseInt(vm.pickMonth) + 1) + '/' + newVal);
 					vm.value = dt.format(vm.displayFormat);
 				}

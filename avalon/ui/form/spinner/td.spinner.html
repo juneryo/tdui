@@ -1,7 +1,8 @@
-<div class="form-group td_spinner_container">
+<div class="form-group td_spinner_container" ms-class-1="td_spinner_disabled: disabled" ms-class-2="has-error: !isValid">
 	<label class="control-label" ms-if="label != ''">{{label}}：</label>
 	<input class="form-control" type="text" placeholder="" readOnly
-		ms-attr-name="name" ms-attr-value="value" ms-click="toggleBtns($event)" />
+		ms-attr-name="name" ms-attr-value="value" ms-click="toggleBtns($event)" ms-keydown="checkKeydown($event)" />
+	<span class="td_spinner_valid_info" ms-if="!isValid && validInfo != ''">{{validInfo}}</span>
 	<ul class="dropdown-menu" ms-visible="showBtns">
 		<li>
 			<div class="td_spinner_btn" style="border-right:solid 1px #ddd" ms-click="clickUp($event)">
