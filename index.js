@@ -32,7 +32,8 @@ require(['ui/base/js/mmRouter/mmState', 'ui/accordion/td.accordion', 'ui/tree/td
 			{id:'1-07', text: 'API[checkboxgroup]', expand:false, checked:false, disabled:false, href:'#!/element/api-checkboxgroup', children: []},
 			{id:'1-08', text: 'API[radiogroup]', expand:false, checked:false, disabled:false, href:'#!/element/api-radiogroup', children: []},
 			{id:'1-09', text: 'API[spinner]', expand:false, checked:false, disabled:false, href:'#!/element/api-spinner', children: []},
-			{id:'1-10', text: 'API[datepicker]', expand:false, checked:false, disabled:false, href:'#!/element/api-datepicker', children: []}
+			{id:'1-10', text: 'API[datepicker]', expand:false, checked:false, disabled:false, href:'#!/element/api-datepicker', children: []},
+			{id:'1-11', text: 'API[switch]', expand:false, checked:false, disabled:false, href:'#!/element/api-switch', children: []}
 		]},
 		{id:'2', text: '表单', expand:true, checked:false, disabled:false, icon:'glyphicon glyphicon-list-alt', children: [
 			{id:'2-1', text: '示例01', expand:false, checked:false, disabled:false, href:'#!/form/01', children: []},
