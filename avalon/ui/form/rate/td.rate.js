@@ -11,7 +11,7 @@ define(['avalon', 'text!./td.rate.html', 'css!./td.rate.css'], function(avalon, 
 		disabled: false,
 		//外部属性
 		onclicked: null,
-		
+		onchanged: null,
 		//view属性
 		stars: [],
 		tmpStars: [],
