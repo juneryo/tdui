@@ -1,4 +1,4 @@
-define(['css!./main.css'], function () {
+define([], function () {
 	var vmain = avalon.define({
 		$id: 'main'
 	});
