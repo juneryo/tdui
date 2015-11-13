@@ -327,8 +327,7 @@ define(['avalon', '../base/js/mmRequest', 'text!./td.datagrid.html', 'css!./td.d
 				}
 				return arr;
 			}
-			vm.removeSelectedRow = function() {
-				var arr = vm.getSelectedIdx();
+			vm.removeRow = function(arr) {
 				//从大到小排序
 				arr.sort(function(a, b){
 					return parseInt(b) - parseInt(a);
@@ -339,6 +338,34 @@ define(['avalon', '../base/js/mmRequest', 'text!./td.datagrid.html', 'css!./td.d
 				}
 				vm.allSelected = false;
 				return arr.length;
+			}
+			vm.removeSelectedRow = function() {
+				var arr = vm.getSelectedIdx();
+				return vm.removeRow(arr);
+			}
+			vm.modifyRow = function(idx, data) {
+				if(data) {
+					var row = vm.rows[idx];
+					for(k in data) {
+						if(row[k] != undefined) {
+							row[k] = data[k];
+						}
+					}
+				}
+			}
+			vm.modifySelectRow = function(data) {
+				var arr = vm.getSelectedIdx();
+				if(arr.length > 0) {
+					vm.modifyRow(arr[0], data);
+				}
+			}
+			vm.addRow = function(arr) {
+				if(arr && arr.length > 0) {
+					for(var i = 0; i < arr.length; i ++) {
+						vm.filterArr.push(true);
+					}
+					vm._dealLoadSelected(arr);
+				}
 			}
 		},
 		$ready: function (vm) {
