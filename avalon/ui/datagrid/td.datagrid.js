@@ -340,6 +340,30 @@ define(['avalon', '../base/js/mmRequest', 'text!./td.datagrid.html', 'css!./td.d
 				vm.allSelected = false;
 				return arr.length;
 			}
+			vm.modifyRow = function(idx, data) {
+				if(data) {
+					var row = vm.rows[idx];
+					for(k in data) {
+						if(row[k] != undefined) {
+							row[k] = data[k];
+						}
+					}
+				}
+			}
+			vm.modifySelectRow = function(data) {
+				var arr = vm.getSelectedIdx();
+				if(arr.length > 0) {
+					vm.modifyRow(arr[0], data);
+				}
+			}
+			vm.addRows = function(arr) {
+				if(arr && arr.length > 0) {
+					for(var i = 0; i < arr.length; i ++) {
+						vm.filterArr.push(true);
+					}
+					vm._dealLoadSelected(arr);
+				}
+			}
 		},
 		$ready: function (vm) {
 			for(var i=0; i<vm.rows.size(); i++) {

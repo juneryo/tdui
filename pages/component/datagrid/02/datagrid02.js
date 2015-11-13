@@ -34,7 +34,11 @@ define(['ui/datagrid/td.datagrid'], function () {
 				vdatagrid.info = '已选中行索引 ' + vm.getSelectedIdx();
 			},
 			actions: [{title: '新增', icon: 'glyphicon glyphicon-plus', fun: function(ev, vm) {
-				vdatagrid.info = '点击新增';
+				vdatagrid.info = '新增游戏999 GAME $999 A1';
+				vm.addRows([{id:'999', name:'GAME', price:'$999', category:'A1', selected:false}]);
+			}}, {title: '修改', icon: 'glyphicon glyphicon-pencil', fun: function(ev, vm) {
+				vdatagrid.info = '修改选中行名称为NEW';
+				vm.modifySelectRow({name: 'NEW'});
 			}}, {title: '删除', icon: 'glyphicon glyphicon-remove', fun: function(ev, vm) {
 				vdatagrid.info = '点击删除[已选中行：' + vm.getSelectedIdx() + ']';
 				vm.removeSelectedRow();
