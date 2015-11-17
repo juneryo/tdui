@@ -1,4 +1,4 @@
-require(['ui/base/js/mmRouter/mmState', 'ui/accordion/td.accordion', 'ui/tree/td.tree', 'ui/tab/td.tab'], function () {
+require(['mmState', 'ui/accordion/td.accordion', 'ui/tree/td.tree', 'ui/tab/td.tab'], function () {
 	var dat1 = [
 		{id:'1', text: '面板', expand:true, checked:true, disabled:true, icon:'glyphicon glyphicon-th-large', children: [
 			{id:'1-1', text: '示例01', expand:false, checked:false, disabled:false, href:'#!/panel/01', children: []},

@@ -1,4 +1,4 @@
-define(['avalon', '../../base/js/mmRequest', 'text!./td.select.html', 'css!./td.select.css'], function(avalon, req, template) {
+define(['avalon', 'mmRequest', 'text!./td.select.html', 'css!./td.select.css'], function(avalon, req, template) {
 	var _interface = function () {
 	};
 	avalon.component("td:select", {
