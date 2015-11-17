@@ -104,11 +104,11 @@ TD = {
 
 avalon.config({
 	paths: {
-		mmRequest: 'avalon/ui/base/js/mmRequest.js',
-		mmPromise: 'avalon/ui/base/js/mmPromise.js',
-		mmHistory: 'avalon/ui/base/js/mmRouter/mmHistory.js',
-		mmRouter: 'avalon/ui/base/js/mmRouter/mmRouter.js',
-		mmState: 'avalon/ui/base/js/mmRouter/mmState.js'
+		mmRequest: 'ui/base/js/mmRequest.js',
+		mmPromise: 'ui/base/js/mmPromise.js',
+		mmHistory: 'ui/base/js/mmRouter/mmHistory.js',
+		mmRouter: 'ui/base/js/mmRouter/mmRouter.js',
+		mmState: 'ui/base/js/mmRouter/mmState.js'
 	},
 	maxRepeatSize: 50
 });
