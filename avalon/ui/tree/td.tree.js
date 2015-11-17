@@ -1,4 +1,4 @@
-define(['avalon', '../base/js/mmRequest', 'text!./td.tree.html', 'css!./td.tree.css'], function(avalon, req, template) {
+define(['avalon', 'mmRequest', 'text!./td.tree.html', 'css!./td.tree.css'], function(avalon, req, template) {
 	var _interface = function () {
 	};
 	avalon.component("td:tree", {

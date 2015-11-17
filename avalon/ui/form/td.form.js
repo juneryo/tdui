@@ -1,4 +1,4 @@
-define(['avalon', '../base/js/mmRequest', 'text!./td.form.html', 'css!./td.form.css'], function(avalon, req, template) {
+define(['avalon', 'mmRequest', 'text!./td.form.html', 'css!./td.form.css'], function(avalon, req, template) {
 	var _interface = function () {
 	};
 	avalon.component("td:form", {

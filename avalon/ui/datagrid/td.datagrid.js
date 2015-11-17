@@ -1,4 +1,4 @@
-define(['avalon', '../base/js/mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css'], function(avalon, req, template) {
+define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css'], function(avalon, req, template) {
 	var _interface = function () {
 	};
 	avalon.component("td:datagrid", {
