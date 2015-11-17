@@ -108,7 +108,27 @@ avalon.config({
 		mmPromise: 'ui/base/js/mmPromise.js',
 		mmHistory: 'ui/base/js/mmRouter/mmHistory.js',
 		mmRouter: 'ui/base/js/mmRouter/mmRouter.js',
-		mmState: 'ui/base/js/mmRouter/mmState.js'
+		mmState: 'ui/base/js/mmRouter/mmState.js',
+		//TDUI path
+		tdAccordion: 'ui/accordion/td.accordion.js',
+		tdButton: 'ui/button/td.button.js',
+		tdDatagrid: 'ui/datagrid/td.datagrid.js',
+		tdDialog: 'ui/dialog/td.dialog.js',
+		tdForm: 'ui/form/td.form.js',
+		tdNavbar: 'ui/navbar/td.navbar.js',
+		tdPanel: 'ui/panel/td.panel.js',
+		tdTab: 'ui/tab/td.tab.js',
+		tdTree: 'ui/tree/td.tree.js',
+		tdCheckboxgroup: 'ui/form/checkbox/td.checkboxgroup.js',
+		tdDatepicker: 'ui/form/datepicker/td.datepicker.js',
+		tdPassword: 'ui/form/password/td.password.js',
+		tdRadiogroup: 'ui/form/radio/td.radiogroup.js',
+		tdRate: 'ui/form/rate/td.rate.js',
+		tdSelect: 'ui/form/select/td.select.js',
+		tdSpinner: 'ui/form/spinner/td.spinner.js',
+		tdSwitch: 'ui/form/switch/td.switch.js',
+		tdText: 'ui/form/text/td.text.js',
+		tdTextarea: 'ui/form/textarea/td.textarea.js'
 	},
 	maxRepeatSize: 50
 });
