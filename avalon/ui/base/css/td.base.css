@@ -37,6 +37,10 @@
 	visibility:hidden;
 }
 
+input::-ms-clear{
+	display:none;
+}
+
 .relative_pos {
 	position: relative;
 }
