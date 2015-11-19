@@ -52,7 +52,7 @@
 			</thead>
 		</table>
 	</div>
-	<div style="overflow:auto;" ms-css-height="height" ms-scroll="scrollTable($event)">
+	<div style="overflow:auto;" ms-css-height="height" ms-scroll="scrollTable($event)" ms-on-mousewheel="wheelTable($event)">
 		<table class="table table-hover td_datagrid margin_bottom2">
 			<tbody>
 				<tr ms-repeat="rows" ms-class-1="td_datagrid_tr_edit: editIdx==$index" ms-class-2="td_datagrid_tr_selected: el.selected==true||el.selected=='true'"
@@ -64,8 +64,8 @@
 						ms-attr-title="el.type == 'select' ? el.option[$outer.el[el.name]] : $outer.el[el.name]">
 						<span ms-visible="editIdx!=$outer.$index">{{el.type == 'text' ? $outer.el[el.name] : el.option[$outer.el[el.name]]}}</span>
 						<div ms-visible="editIdx==$outer.$index">
-							<input type="text" ms-if="el.type == 'text'" ms-attr-disabled="el.disabled" ms-duplex="$outer.el[el.name]" ms-css-width="{{el.width - 15}}"/>
-							<select ms-if="el.type == 'select'" ms-attr-disabled="el.disabled" ms-duplex="$outer.el[el.name]" ms-css-width="{{el.width - 15}}">
+							<input type="text" ms-if="el.type == 'text'" ms-attr-disabled="el.disabled" ms-attr-value="$outer.el[el.name]" ms-keyup="changeCell($event, $outer.$index, $index, el.name)" ms-css-width="{{el.width - 15}}"/>
+							<select ms-if="el.type == 'select'" ms-attr-disabled="el.disabled" ms-css-width="{{el.width - 15}}" ms-change="changeCell($event, $outer.$index, $index, el.name)" ms-duplex="$outer.el[el.name]">
 								<option ms-repeat="el.option" ms-attr-value="{{$key}}">{{$val}}</option>
 							</select>
 						</div>

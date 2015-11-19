@@ -27,7 +27,9 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 		selected: 0,         //共选中行数
 		lastSelected: -1,    //最后一次选中行
 		editIdx: -1,         //编辑行
-		editData: {},
+		isBottom: false,
+		//editData: {},
+		$tmpData: {},
 		//view属性
 		isLoading: false,
 		showButtons: false,
@@ -51,6 +53,8 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 		loadData: _interface,
 		cancelEdit: _interface,
 		submitEdit: _interface,
+		changeCell: _interface,
+		checkSelected: _interface,
 		//slot
 		content: '',
 		//默认配置
@@ -189,9 +193,15 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 			}
 			vm.scrollTable = function(ev) {
 				vm.scrollLeft = -ev.target.scrollLeft;
-				//if(ev.target.scrollHeight - ev.target.scrollTop == vm.height) {
-				//	vm.loadData();
-				//}
+				if(ev.target.scrollHeight - ev.target.scrollTop == vm.height) {
+					vm.isBottom = true;
+				}
+			}
+			vm.wheelTable = function(ev) {
+				if(vm.isBottom) {
+					vm.loadData();
+					vm.isBottom = false;
+				}
 			}
 			//过滤行 idx:列索引 name:列模型name
 			vm.filterRow = function(idx, name) {
@@ -208,6 +218,13 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 					}
 					vm.filterArr.set(i, result)
 				}
+			}
+			vm.changeCell = function(ev, rowIdx, colIdx, name) {
+				if(rowIdx != vm.$tmpData['idx']) {
+					vm.$tmpData = {};
+				}
+				vm.$tmpData['_idx'] = rowIdx;
+				vm.$tmpData[name] = ev.target.value;
 			}
 			vm.clickCheckbox = function(ev, idx) {
 				if(idx == -1) {
@@ -231,18 +248,23 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 				if(vm.editable === true) {
 					if(idx != vm.editIdx) {
 						vm.editIdx = idx;
-						vm.editData = vm.rows[idx];
 					}
 				}
 				vm._trigger(vm.rows[idx], 'rowdbclicked');
 			}
 			vm.cancelEdit = function(ev, idx) {
 				vm.editIdx = -1;
-				vm.rows[idx] = vm.editData;
 				ev.cancelBubble = true;
 			}
 			vm.submitEdit = function(ev, idx) {
-				vm.editData = vm.rows[idx];
+				if(idx == vm.$tmpData['_idx']) {
+					var obj = vm.rows[idx];
+					for(var k in vm.$tmpData) {
+						if(obj[k] != undefined) {
+							obj[k] = vm.$tmpData[k];
+						}
+					}
+				}
 				ev.cancelBubble = true;
 			}
 			vm.clickAction = function(ev, fun) {
