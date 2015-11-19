@@ -198,10 +198,10 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 				}
 			}
 			vm.wheelTable = function(ev) {
-				if(vm.isBottom) {
+				if(vm.isBottom && ev.wheelDelta == -120) {
 					vm.loadData();
-					vm.isBottom = false;
 				}
+				vm.isBottom = false;
 			}
 			//过滤行 idx:列索引 name:列模型name
 			vm.filterRow = function(idx, name) {
