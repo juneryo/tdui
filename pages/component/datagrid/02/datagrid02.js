@@ -13,7 +13,9 @@ define(['ui/datagrid/td.datagrid'], function () {
 			cols: [
 				{name: 'id', display: '编号', width: 100, type: 'text', disabled: true}, 
 				{name: 'name', display: '名称', width: 150, type: 'text'}, 
-				{name: 'price', display: '价格', width: 120, type: 'text'},
+				{name: 'price', display: '价格', width: 120, type: 'text', render: function(val) {
+					return '<b style="color:red;">' + val + '</b>';
+				}},
 				{name: 'category', display: '类别', width: 150, type: 'select', option: {
 					'A1': '游戏', 'A2' : '电影', 'A3' : '音乐'
 				}}
