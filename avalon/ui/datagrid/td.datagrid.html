@@ -9,11 +9,14 @@
 			</div>
 			<div class="collapse navbar-collapse" ms-visible="showButtons">
 				<ul class="nav navbar-nav navbar-right">
-					<li class="dropdown">
-						<a href="javascript:void(0)" class="dropdown-toggle waves-effect waves-light" ms-click="toggle($event, 'panel')">面板<span class="caret"></span></a>
-						<ul class="dropdown-menu" ms-visible="showPanel">
-							<li><a href="javascript:void(0)" class="waves-effect waves-light" ms-if="content!=''" ms-click="toggle($event, 'query')"><span class="glyphicon glyphicon-search"></span>&nbsp;查询面板</a></li>
-							<li><a href="javascript:void(0)" class="waves-effect waves-light" ms-click="toggle($event, 'filter')"><span class="glyphicon glyphicon-filter"></span>&nbsp;筛选面板</a></li>
+					<li><a href="javascript:void(0)" class="waves-effect waves-light" ms-click="toggle($event, 'filter')"><span class="glyphicon glyphicon-filter"></span>&nbsp;筛选</a></li>
+					<li><a href="javascript:void(0)" class="waves-effect waves-light" ms-if="content!=''" ms-click="toggle($event, 'query')"><span class="glyphicon glyphicon-search"></span>&nbsp;查询</a></li>
+					<li class="dropdown" ms-if="buttons.length>0">
+						<a href="javascript:void(0)" class="dropdown-toggle waves-effect waves-light" ms-click="toggle($event, 'panel')">其他操作<span class="caret"></span></a>
+						<ul class="dropdown-menu" ms-if="buttons.length>0" ms-visible="showPanel">
+							<li ms-repeat="buttons">
+								<a href="javascript:void(0)" class="waves-effect waves-light" ms-click="clickAction($event, el.fun)"><span ms-if="el.icon" ms-attr-class="el.icon"></span>{{el.display}}</a>
+							</li>
 						</ul>
 					</li>
 				</ul>

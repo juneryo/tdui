@@ -6,12 +6,17 @@
 				<footer>带复选框和事件信息的<cite title="高级数据表格">数据表格</cite></footer>
 			</blockquote>
 			<pre>事件信息：{{info}}</pre>
-			<td:datagrid config="$datagrid_opt" title="高级数据表格" editable="true" auto="true" height="300">
+			<td:datagrid $id="datagrid02_datagrid" config="$datagrid_opt" title="高级数据表格" editable="true" auto="true" height="300">
 				<div slot="content">
-					<blockquote>
-						<p>查询条件</p>
-						<footer>可放置表单元素进行查询</footer>
-					</blockquote>
+					<td:form config="$form_opt" btn-size="small" btn-pos="right">
+						<div slot="content">
+							<div class="row">
+								<td:text label="名称" name="name" class="col-xs-12 col-sm-6 col-md-3"></td:text>
+								<td:text label="价格" name="price" class="col-xs-12 col-sm-6 col-md-3"></td:text>
+								<td:select label="类别" name="category" config="$select_opt" class="col-xs-12 col-sm-6 col-md-3"></td:select>
+							</div>
+						</div>
+					</td:form>
 				</div>
 			</td:datagrid>
 		</div>
@@ -19,10 +24,15 @@
 			<pre ms-skip>
 &lt;td:datagrid config="$datagrid_opt" title="高级数据表格" editable="true" auto="true" height="300"&gt;
 	&lt;div slot="content"&gt;
-		&lt;blockquote&gt;
-			&lt;p&gt;查询条件&lt;/p&gt;
-			&lt;footer&gt;可放置表单元素进行查询&lt;/footer&gt;
-		&lt;/blockquote&gt;
+		&lt;td:form config="$form_opt" btn-size="small" btn-pos="right"&gt;
+			&lt;div slot="content"&gt;
+				&lt;div class="row"&gt;
+					&lt;td:text label="名称" name="name" class="col-xs-12 col-sm-6 col-md-3"&gt;&lt;/td:text&gt;
+					&lt;td:text label="价格" name="price" class="col-xs-12 col-sm-6 col-md-3"&gt;&lt;/td:text&gt;
+					&lt;td:select label="类别" name="category" config="$select_opt" class="col-xs-12 col-sm-6 col-md-3"&gt;&lt;/td:select&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+		&lt;/td:form&gt;
 	&lt;/div&gt;
 &lt;/td:datagrid&gt;
 			</pre>
@@ -32,6 +42,16 @@
 var vdatagrid = avalon.define({
 	$id: 'datagrid02',
 	info: '',
+	$form_opt: {
+		onsubmited: function(ev, vm) {
+			avalon.vmodels['datagrid02_datagrid'].reloadData(vm.getData());
+		}
+	},
+	$select_opt: {
+		data: {
+			'': '全部', 'A1': '游戏', 'A2' : '电影', 'A3' : '音乐'
+		}
+	},
 	$datagrid_opt: {
 		loadUrl: 'data/td.datagrid.json',
 		loadParam: {
@@ -62,6 +82,11 @@ var vdatagrid = avalon.define({
 		onrowselected: function(row, vm) {
 			vdatagrid.info = '已选中行索引 ' + vm.getSelectedIdx();
 		},
+		buttons: [{
+			display: '保存', icon: 'glyphicon glyphicon-save', fun: function(ev, vm) {
+				alert('save');
+			}
+		}],
 		actions: [{title: '新增', icon: 'glyphicon glyphicon-plus', fun: function(ev, vm) {
 			vdatagrid.info = '新增游戏999 GAME $999 A1';
 			vm.addRow([{id:'999', name:'GAME', price:'$999', category:'A1', selected:false}]);

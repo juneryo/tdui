@@ -15,6 +15,7 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 		loadParam: {},
 		cols: [],            //列模型
 		rows: [],            //行数据
+		buttons: [],
 		actions: [],         //自定义操作列表
 		onloaded: null,
 		onreloaded: null,
