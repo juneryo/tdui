@@ -1,9 +1,19 @@
-define(['ui/datagrid/td.datagrid'], function () {
+define(['ui/datagrid/td.datagrid', 'tdForm', 'tdText', 'tdSelect'], function () {
 	var vdatagrid = avalon.define({
 		$id: 'datagrid02',
 		info: '',
 		$tab_opt: {
 			tabs: [{title: 'UI界面'}, {title: 'HTML代码'}, {title: 'JS代码'}]
+		},
+		$form_opt: {
+			onsubmited: function(ev, vm) {
+				avalon.vmodels['datagrid02_datagrid'].reloadData(vm.getData());
+			}
+		},
+		$select_opt: {
+			data: {
+				'': '全部', 'A1': '游戏', 'A2' : '电影', 'A3' : '音乐'
+			}
 		},
 		$datagrid_opt: {
 			loadUrl: 'data/td.datagrid.json',
@@ -35,6 +45,11 @@ define(['ui/datagrid/td.datagrid'], function () {
 			onrowselected: function(row, vm) {
 				vdatagrid.info = '已选中行索引 ' + vm.getSelectedIdx();
 			},
+			buttons: [{
+				display: '保存', icon: 'glyphicon glyphicon-save', fun: function(ev, vm) {
+					alert('save');
+				}
+			}],
 			actions: [{title: '新增', icon: 'glyphicon glyphicon-plus', fun: function(ev, vm) {
 				vdatagrid.info = '新增游戏999 GAME $999 A1';
 				vm.addRow([{id:'999', name:'GAME', price:'$999', category:'A1', selected:false}]);
@@ -49,7 +64,7 @@ define(['ui/datagrid/td.datagrid'], function () {
 			}}]
 		}
 	});
-	
+	avalon.log(vdatagrid)
 	return avalon.controller(function($ctrl) {
 		$ctrl.$onRendered = function() {
 			
