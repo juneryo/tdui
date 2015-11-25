@@ -5,6 +5,7 @@ define(['avalon', 'mmRequest', 'text!./td.form.html', 'css!./td.form.css'], func
 		//外部属性
 		title: '',
 		buttons: true,  //是否存在submit、reset按钮
+		border: false,
 		btnSize: 'normal',
 		btnPos: 'left',
 		//外部参数
