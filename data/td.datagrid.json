@@ -4,4 +4,4 @@
 	{"id": "003", "name": "YingYing", "price": "$1.11", "category": "A3", "selected": "false"},
 	{"id": "004", "name": "HaHa",     "price": "$0.89", "category": "A2", "selected": "false"},
 	{"id": "005", "name": "Eclair",   "price": "$0.77", "category": "A3", "selected": "false"}
-], "total": "5", "rspcod" : "200", "rspmsg": ""}
+], "total": "5", "rspcod" : "200", "rspmsg": "数据加载成功"}
