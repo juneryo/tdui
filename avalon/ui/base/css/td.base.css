@@ -45,6 +45,13 @@ input::-ms-clear{
 	position: relative;
 }
 
+.opacity {
+	filter: alpha(opacity=50) !important;
+	-moz-opacity: 0.5 !important;
+	-khtml-opacity: 0.5 !important;
+	opacity: 0.5 !important;
+}
+
 .hidden_overflow: {
 	overflow: hidden;
 }
@@ -176,7 +183,6 @@ blockquote.warning p {
 blockquote.warning footer {
 	color: #000 !important;
 }
-
 
 /* loading */
 .loading-mask {
