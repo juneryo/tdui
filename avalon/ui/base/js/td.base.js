@@ -138,3 +138,73 @@ avalon.library("td", {
 	$ready: function(){},
 	$dispose: function(){}
 });
+
+//重写alert, confirm
+(function() {
+	var mask = document.createElement('div');
+	mask.id = '_td_mask';
+	mask.className = 'modal fade in bg_white opacity';
+	document.body.appendChild(mask);
+
+	var confirmObj =  document.createElement('div');
+	confirmObj.id = '_td_confirm';
+	confirmObj.className = 'modal';
+	confirmObj.innerHTML = '<div class="modal-dialog modal-sm"><div class="modal-content">' + 
+		'<div class="modal-header">' + 
+			'<h4 class="modal-title">确认</h4>' + 
+		'</div>' +
+		'<div class="modal-body"></div>' +
+		'<div class="modal-footer">' +
+			'<button type="button" class="btn btn-default waves-effect waves-light">取消</button>' + 
+			'<button type="button" class="btn btn-primary waves-effect waves-light">确定</button>' + 
+		'</div>' +
+	'</div></div>';
+	document.body.appendChild(confirmObj);
+	
+	var alertObj = document.createElement('div');
+	alertObj.id = '_td_alert';
+	alertObj.className = 'modal';
+	alertObj.innerHTML = '<div class="modal-dialog modal-sm"><div class="modal-content">' + 
+		'<div class="modal-header">' + 
+			'<button type="button" class="close" onclick="alert.close()"><span>&times;</span></button>' +
+			'<h4 class="modal-title">提示</h4>' + 
+		'</div>' +
+		'<div class="modal-body"></div>' +
+		'<div class="modal-footer">' +
+			'<button type="button" class="btn btn-primary waves-effect waves-light" onclick="alert.close()">确定</button>' + 
+		'</div>' +
+	'</div></div>';
+	document.body.appendChild(alertObj);
+})();
+
+alert = window.alert = function(html) {
+	document.getElementById('_td_mask').style.display = 'block';
+	var obj = document.getElementById('_td_alert');
+	obj.getElementsByClassName('modal-body')[0].innerHTML = html;
+	obj.style.display = 'block';
+}
+alert.close = function() {
+	document.getElementById('_td_mask').style.display = 'none';
+	document.getElementById('_td_alert').style.display = 'none';
+}
+
+confirm = window.confirm = function(html, yCallback, nCallback) {
+	var mask = document.getElementById('_td_mask');
+	mask.style.display = 'block';
+	var obj = document.getElementById('_td_confirm');
+	obj.getElementsByClassName('modal-body')[0].innerHTML = html;
+	obj.style.display = 'block';
+	var btns = obj.getElementsByTagName('button');
+	var yBtn = btns[btns.length - 1];
+	var nBtn = btns[btns.length - 2];
+	yBtn.onclick=function() {
+		obj.style.display = 'none';
+		mask.style.display = 'none';
+		if(typeof yCallback == 'function') yCallback();
+  };
+	nBtn.onclick=function() {
+		obj.style.display = 'none';
+		mask.style.display = 'none';
+		if(typeof nCallback == 'function') nCallback();
+  };
+}
