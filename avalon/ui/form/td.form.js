@@ -8,6 +8,7 @@ define(['avalon', 'mmRequest', 'text!./td.form.html', 'css!./td.form.css'], func
 		border: false,
 		btnSize: 'normal',
 		btnPos: 'left',
+		submitMode: 'ajax',
 		//外部参数
 		submitUrl: '',
 		loadUrl: '',
@@ -100,11 +101,15 @@ define(['avalon', 'mmRequest', 'text!./td.form.html', 'css!./td.form.css'], func
 			vm.doSubmit = function(ev) {
 				vm._trigger(ev, 'submited');
 				if(vm._checkValid() && vm.submitUrl != '') {
-					var dat = vm.getData();
-					vm._ajax(vm.submitUrl, dat, function(d) {
-						vm.oriData = dat;
-						vm._trigger(d, 'ok');
-					});
+					if(vm.submitMode=='ajax') {
+						var dat = vm.getData();
+						vm._ajax(vm.submitUrl, dat, function(d) {
+							vm.oriData = dat;
+							vm._trigger(d, 'ok');
+						});
+					}else {
+						elem.getElementsByTagName('form')[0].submit();
+					}
 				}
 			}
 			vm.doReset = function(ev) {
