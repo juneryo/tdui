@@ -1,7 +1,18 @@
 .td_form_container {
 	position: relative;
 }
-
-.td_form_container .td_form_title {
-	margin-top: 10px;
+.td_form_container>.td_form_title {
+	margin: 0px;
+}
+.td_form_border {
+	border: solid 1px #ddd;
+}
+.td_form_container .td_form_background {
+	background: rgba(248, 248, 248, 0.9) none repeat scroll 0 0 !important;
+}
+.td_form_container .td_form_border_bottom {
+	border-bottom: solid 1px #ddd !important;
+}
+.td_form_container .td_form_border_top {
+	border-top: solid 1px #ddd !important;
 }

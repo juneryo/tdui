@@ -1,10 +1,12 @@
-<form class="td_form_container padding_top">
-	<h3 class="td_form_title" ms-if="title!=''">{{title}}<hr/></h3>
+<form class="td_form_container" ms-class-1="td_form_border: border===true" ms-class-2="padding_top: border!==true">
+	<h4 class="td_form_title padding_top2 padding_bottom2 margin_bottom2 td_form_border_bottom" ms-class-1="padding_left2: border===true" ms-class-2="td_form_background: border===true" ms-if="title!=''">{{title}}</h4>
+	<div ms-class-1="padding_left2: border===true" ms-class-2="padding_right2: border===true" ms-class-3="padding_bottom: border===true">
 	{{content|html}}
-	<div class="form-group" ms-if="buttons===true">
-		<a ms-if="btnPos=='right'" class="btn btn-default btn-primary waves-effect waves-light" ms-class-1="btn-sm: btnSize=='small'" style="visibility:hidden;">&nbsp;</a>
-		<a class="btn btn-default btn-primary waves-effect waves-light" href="javascript:void(0)" ms-class-1="btn-sm: btnSize=='small'" ms-class-2="pull-right: btnPos=='right'" ms-class-3="margin_left: btnPos=='right'" ms-click="doSubmit($event)">&nbsp;提&nbsp;&nbsp;交&nbsp;</a>
-		<a class="btn btn-default waves-effect waves-light" href="javascript:void(0)" ms-class-1="btn-sm: btnSize=='small'" ms-class-2="pull-right: btnPos=='right'" ms-class-3="margin_left: btnPos=='left'" ms-click="doReset($event)">&nbsp;重&nbsp;&nbsp;置&nbsp;</a>
+	</div>
+	<div class="form-group no_margin padding_top padding_bottom" ms-class-1="padding_left2: border===true" ms-class-2="padding_right2: border===true" ms-class-3="td_form_background: border===true" ms-class-4="td_form_border_top:border===true" ms-if="buttons===true">
+		<a ms-if="btnPos=='right'" class="btn btn-default btn-primary waves-effect waves-light no_margin" ms-class-1="btn-sm: btnSize=='small'" style="visibility:hidden;">&nbsp;</a>
+		<a class="btn btn-default btn-primary waves-effect waves-light no_margin" href="javascript:void(0)" ms-class-1="btn-sm: btnSize=='small'" ms-class-2="pull-right: btnPos=='right'" ms-class-3="margin_left: btnPos=='right'" ms-click="doSubmit($event)">&nbsp;提&nbsp;&nbsp;交&nbsp;</a>
+		<a class="btn btn-default waves-effect waves-light no_margin" href="javascript:void(0)" ms-class-1="btn-sm: btnSize=='small'" ms-class-2="pull-right: btnPos=='right'" ms-class-3="margin_left: btnPos=='left'" ms-click="doReset($event)">&nbsp;重&nbsp;&nbsp;置&nbsp;</a>
 	</div>
 	<div class="loading-mask" ms-visible="isLoading">
 		<div class="loading-container">
