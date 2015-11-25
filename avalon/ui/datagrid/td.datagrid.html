@@ -90,7 +90,7 @@
 	</div>
 	
 	<div class="padding_left">
-		<span>当前加载<strong>{{page}}</strong>页&nbsp;共加载<strong>{{rows.length}}</strong>条记录</span>&nbsp;<strong style="color:red;">{{loadInfo}}</strong>
+		<span>当前加载<strong>{{page}}</strong>页&nbsp;共加载<strong>{{rows.length}}</strong>条记录</span>&nbsp;&nbsp;{{loadInfo | html}}
 	</div>
 	
 	<div class="td_datagrid_actions" ms-mouseenter="toggle($event, 'action', 'in')" ms-mouseleave="toggle($event, 'action', 'out')" ms-each="actions">

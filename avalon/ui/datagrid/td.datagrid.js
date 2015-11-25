@@ -13,6 +13,8 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 		//外部参数
 		loadUrl: '',         //加载数据地址
 		loadParam: {},
+		deleteUrl: '',
+		key: [],
 		cols: [],            //列模型
 		rows: [],            //行数据
 		buttons: [],
@@ -140,6 +142,17 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 					}
 				}
 			}
+			vm._dealRemove = function(arr) {
+				//从大到小排序
+				arr.sort(function(a, b){
+					return parseInt(b) - parseInt(a);
+				});
+				for(var i = 0; i < arr.length; i ++) {
+					vm.rows.removeAt(arr[i]);
+					vm.filterArr.removeAt(arr[i]);
+				}
+				vm.allSelected = false;
+			}
 			vm._ajax = function(url, param, successCallback, failCallback) {
 				vm.isLoading = true;
 				var p = {
@@ -163,13 +176,14 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 					success: function(data, status, xhr) {
 						if(data.rspcod == '200') {
 							successCallback(data, status, xhr);
+							vm.loadInfo = '<strong style="color:blue">' + data.rspmsg + '</strong>';
 							vm.isLoading = false;
 						}else {
-							vm.loadInfo = data.rspmsg;
+							vm.loadInfo = '<strong style="color:red">' + data.rspmsg + '</strong>';
 						}
 					},
 					error: function(data) {
-						vm.loadInfo = data.status + '[' + data.statusText + ']';
+						vm.loadInfo = '<strong style="color:red;">' + data.status + '[' + data.statusText + ']</strong>';
 						vm.isLoading = false;
 					}
 				});
@@ -289,7 +303,7 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 							vm.page = Math.ceil(vm.rows.size() / vm.limit);
 							vm.loadInfo = '';
 						}else {
-							vm.loadInfo = '无更多记录';
+							vm.loadInfo = '<strong style="color:red;">无更多记录</strong>';
 						}
 						vm._trigger(dat, 'loaded');
 					});
@@ -312,7 +326,7 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 						vm.allSelected = false;
 						vm._dealLoadSelected(dat.rows);
 						if(vm.rows.size == 0) {
-							vm.loadInfo = '未查询到记录';
+							vm.loadInfo = '<strong style="color:red;">未查询到记录</strong>';
 						}else {
 							vm.loadInfo = '';
 						}
@@ -351,15 +365,23 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 				return arr;
 			}
 			vm.removeRow = function(arr) {
-				//从大到小排序
-				arr.sort(function(a, b){
-					return parseInt(b) - parseInt(a);
-				});
-				for(var i = 0; i < arr.length; i ++) {
-					vm.rows.removeAt(arr[i]);
-					vm.filterArr.removeAt(arr[i]);
+				if(vm.deleteUrl != '' && vm.key.length > 0) {
+					var vals = [];
+					for(var i = 0; i < arr.length; i ++) {
+						var v = '';
+						for(var j = 0; j < vm.key.length; j ++) {
+							var r = vm.rows[arr[i]];
+							v += r[vm.key[j]];
+						}
+						vals.push(v);
+					}
+					vm._ajax(vm.deleteUrl, {deleteKey: vals.toString()}, function(data, status, xhr) {
+						vm._dealRemove(arr);
+					});
+				}else {
+					vm._dealRemove(arr);
+					vm.loadInfo = '<strong style="color:blue">已删除' + arr.length + '条数据</strong>';
 				}
-				vm.allSelected = false;
 				return arr.length;
 			}
 			vm.removeSelectedRow = function() {
