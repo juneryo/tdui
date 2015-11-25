@@ -20,6 +20,8 @@ define(['ui/datagrid/td.datagrid', 'tdForm', 'tdText', 'tdSelect'], function () 
 			loadParam: {
 				//...
 			},
+			deleteUrl: 'data/td.datagrid.delete.json',
+			key: ['id', 'name'],
 			cols: [
 				{name: 'id', display: '编号', width: 100, type: 'text', disabled: true}, 
 				{name: 'name', display: '名称', width: 150, type: 'text'}, 
