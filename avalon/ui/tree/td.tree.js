@@ -171,6 +171,10 @@ define(['avalon', 'mmRequest', 'text!./td.tree.html', 'css!./td.tree.css'], func
 					vm._ajax();
 				}
 			}
+			vm.setData = function(dat) {
+				vm.data.removeAll();
+				vm.data.pushArray(dat);
+			}
 			//观测方法
 		},
 		$ready: function (vm) {
