@@ -8,6 +8,7 @@ define(['avalon', 'mmRequest', 'text!./td.select.html', 'css!./td.select.css'], 
 		disabled: false,
 		muti: false,
 		must: false,
+		auto: true,
 		//外部参数
 		url: '',
 		param: {},
@@ -159,8 +160,16 @@ define(['avalon', 'mmRequest', 'text!./td.select.html', 'css!./td.select.css'], 
 					vm._trigger({}, 'changed');
 				}
 			},
-			vm.reload = function() {
+			vm.removeData = function() {
+				vm.data = {};
+				vm.selected.removeAll();
+				vm._buildSelected();
+			}
+			vm.reloadData = function(p) {
 				if(vm.url != '') {
+					if(p && typeof p == 'object') {
+						vm.param = p;
+					}
 					vm.loadInfo = '';
 					vm.isLoading = true;
 					req.ajax({
@@ -171,6 +180,7 @@ define(['avalon', 'mmRequest', 'text!./td.select.html', 'css!./td.select.css'], 
 						success: function(data, status, xhr) {
 							if(data.rspcod == '200') {
 								vm.data = data.data;
+								vm.selected.removeAll();
 								vm._buildSelected();
 								vm._trigger(data.data, 'loaded');
 							}else {
@@ -189,7 +199,9 @@ define(['avalon', 'mmRequest', 'text!./td.select.html', 'css!./td.select.css'], 
 			}
 		},
 		$ready: function (vm) {
-      vm.reload();
+			if(vm.auto === true) {
+				vm.reloadData();
+			}
     }
 	});
 	
