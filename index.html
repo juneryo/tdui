@@ -12,16 +12,17 @@
 	<meta name="renderer" content="webkit">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	
-	<link rel="stylesheet" href="avalon/ui/base/css/normalize.min.css" />
-	<link rel="stylesheet" href="avalon/ui/base/css/bootstrap.min.css" />
-	<link rel="stylesheet" rel="stylesheet" href="avalon/ui/base/css/material.css" />
-	<link rel="stylesheet" rel="stylesheet" href="avalon/ui/base/css/waves.css" />
-	<link rel="stylesheet" href="avalon/ui/base/css/td.base.css">
+	<link rel="stylesheet" href="ui/base/css/normalize.min.css" />
+	<link rel="stylesheet" href="ui/base/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="ui/base/css/material.css" />
+	<link rel="stylesheet" href="ui/base/css/waves.css" />
+	<link rel="stylesheet" href="ui/base/css/td.base.css">
 	<link rel="stylesheet" href="index.css">
 	<!--[if lt IE 9]>
-    <script src="avalon/ui/base/js/html5.min.js"></script>
+		<script src="avalon/ui/base/js/html5.min.js"></script>
 		<script src="avalon/ui/base/js/respond.min.js"></script>
 	<![endif]-->
+	<script type="text/javascript" src="avalon.js"></script>
 </head>
 <body class="ms-controller" ms-controller="index">
 	<div class="index_header">
@@ -48,7 +49,7 @@
 					<td:tree config="$index_tree_3" root="false"></td:tree>
 				</div>
 				<div slot="content3" class="margin_top">
-					<p class="padding_left">暂无模板</p>
+					<td:tree config="$index_tree_4" root="false"></td:tree>
 				</div>
 			</td:accordion>
 		</div>
@@ -57,8 +58,7 @@
 		<div class="well" ms-view="index_view"></div>
 	</div>
 </body>
-<script type="text/javascript" src="avalon/avalon.js"></script>
-<script type="text/javascript" src="avalon/ui/base/js/waves.js"></script>
-<script type="text/javascript" src="avalon/ui/base/js/td.base.js"></script>
+<script type="text/javascript" src="ui/base/js/waves.js"></script>
+<script type="text/javascript" src="ui/base/js/td.base.js"></script>
 <script type="text/javascript" src="index.js"></script>
 </html>

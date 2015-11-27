@@ -63,6 +63,11 @@ require(['mmState', 'tdAccordion', 'tdTree', 'tdTab'], function () {
 			{id:'4-3', text: 'API', expand:false, checked:false, disabled:false, href:'#!/datagrid/api', children: []}
 		]}
 	];
+	var dat4 = [
+		{id:'1', text: '增删改查', expand:true, checked:true, disabled:true, icon:'glyphicon glyphicon-stop', children: [
+			{id:'1-1', text: '示例01', expand:false, checked:false, disabled:false, href:'#!/crud/01', children: []}
+		]}
+	];
 	
 	var vidx = avalon.define({
 		$id: 'index',
@@ -86,6 +91,9 @@ require(['mmState', 'tdAccordion', 'tdTree', 'tdTab'], function () {
 		},
 		$index_tree_3: {
 			data: dat3
+		},
+		$index_tree_4: {
+			data: dat4
 		}
 	});
 	
@@ -95,7 +103,7 @@ require(['mmState', 'tdAccordion', 'tdTree', 'tdTab'], function () {
 		views: {
 			'index_view': {
 				templateUrl: 'pages/main.html',
-				controllerUrl: ['../pages/main'],
+				controllerUrl: ['pages/main'],
 				ignoreChange: function (changeType) {
 					if (changeType) return true;
 				}
@@ -109,7 +117,7 @@ require(['mmState', 'tdAccordion', 'tdTree', 'tdTab'], function () {
 				var tmp = arr[i].href.split('/');
 				var url = '/' + tmp[1] + '/' + tmp[2];
 				var tmpUrl = 'pages/' + type +'/' + tmp[1] + '/' + tmp[2] + '/'  + tmp[1] + tmp[2] + '.html';
-				var ctrlUrl = ['../pages/' + type + '/' + tmp[1] + '/' + tmp[2] + '/'  + tmp[1] + tmp[2]];
+				var ctrlUrl = ['pages/' + type + '/' + tmp[1] + '/' + tmp[2] + '/'  + tmp[1] + tmp[2]];
 				if(tmp[2].indexOf('api') != -1) {
 					avalon.state(tmp[1], {
 						controller: 'index',
@@ -148,16 +156,29 @@ require(['mmState', 'tdAccordion', 'tdTree', 'tdTab'], function () {
 	buildState(dat1, 'container');
 	buildState(dat2, 'form');
 	buildState(dat3, 'component');
-	
+	buildState(dat4, 'template');
 	avalon.state.config({
-		onError: function() {
-			//avalon.log(arguments);
+		onError: function(obj, state) {
+			avalon.log('###onError###');
 		},
+		onBeforeUnload: function(from, to) {
+			avalon.log('###onBeforeUnload###');
+		},
+		onAbort: function(from, to) {
+			avalon.log('###onAbort###');
+		},
+		onUnload: function(from, to) {
+			avalon.log('###onAbort###');
+		}, 
+		onBegin: function(from, to) {
+			avalon.log('###onBegin###');
+		}, 
 		onLoad: function() {
 			//vidx.page = mmState.currentState.stateName.split(".")[1];
+			avalon.log('###onLoad###');
 		},
 		onViewEnter: function(newNode, oldNode) {
-			//avalon.log(newNode);
+			avalon.log('###onViewEnter###');
 		}
 	});
 
