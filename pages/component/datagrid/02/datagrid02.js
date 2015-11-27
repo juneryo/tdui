@@ -20,6 +20,7 @@ define(['ui/datagrid/td.datagrid', 'tdForm', 'tdText', 'tdSelect'], function () 
 			loadParam: {
 				//...
 			},
+			updateUrl: 'data/td.datagrid.update.json',
 			deleteUrl: 'data/td.datagrid.delete.json',
 			key: ['id', 'name'],
 			cols: [

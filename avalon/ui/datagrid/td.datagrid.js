@@ -14,6 +14,7 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 		loadUrl: '',         //加载数据地址
 		loadParam: {},
 		deleteUrl: '',
+		updateUrl: '',
 		key: [],
 		cols: [],            //列模型
 		rows: [],            //行数据
@@ -236,7 +237,7 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 				}
 			}
 			vm.changeCell = function(ev, rowIdx, colIdx, name) {
-				if(rowIdx != vm.$tmpData['idx']) {
+				if(rowIdx != vm.$tmpData['_idx']) {
 					vm.$tmpData = {};
 				}
 				vm.$tmpData['_idx'] = rowIdx;
@@ -274,10 +275,30 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 			}
 			vm.submitEdit = function(ev, idx) {
 				if(idx == vm.$tmpData['_idx']) {
-					var obj = vm.rows[idx];
-					for(var k in vm.$tmpData) {
-						if(obj[k] != undefined) {
-							obj[k] = vm.$tmpData[k];
+					var row = vm.rows[idx];
+					if(vm.updateUrl != '') {
+						var p = {};
+						for(var k in row) {
+							if(k=='$events') continue;
+							p[k] = (vm.$tmpData[k] == undefined ? row[k] : vm.$tmpData[k]);
+						}
+						vm.$tmpData = p;
+						vm._ajax(vm.updateUrl, vm.$tmpData, function(dat, status, xhr) {
+							if(dat.rspcod == '200') {
+								for(var k in vm.$tmpData) {
+									if(row[k] != undefined) {
+										row[k] = vm.$tmpData[k];
+									}
+								}
+								vm.cancelEdit(ev, idx);
+							}
+							vm.loadInfo = dat.rspmsg;
+						});
+					}else {
+						for(var k in vm.$tmpData) {
+							if(row[k] != undefined) {
+								row[k] = vm.$tmpData[k];
+							}
 						}
 					}
 				}
