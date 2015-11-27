@@ -1,0 +1,12 @@
+{"rows": [
+	{"agt_id": "001", "agt_name": "合作商01", "agt_prov": "湖北省", "agt_city": "武汉市", "agt_area":"江岸区", "agt_status":"1", "selected": "false"},
+	{"agt_id": "002", "agt_name": "合作商02", "agt_prov": "湖北省", "agt_city": "武汉市", "agt_area":"江岸区", "agt_status":"0", "selected": "false"},
+	{"agt_id": "003", "agt_name": "合作商03", "agt_prov": "湖北省", "agt_city": "武汉市", "agt_area":"江岸区", "agt_status":"1", "selected": "false"},
+	{"agt_id": "004", "agt_name": "合作商04", "agt_prov": "湖北省", "agt_city": "武汉市", "agt_area":"江岸区", "agt_status":"0", "selected": "false"},
+	{"agt_id": "005", "agt_name": "合作商05", "agt_prov": "湖北省", "agt_city": "武汉市", "agt_area":"江岸区", "agt_status":"1", "selected": "false"},
+	{"agt_id": "006", "agt_name": "合作商06", "agt_prov": "湖北省", "agt_city": "武汉市", "agt_area":"江岸区", "agt_status":"0", "selected": "false"},
+	{"agt_id": "007", "agt_name": "合作商07", "agt_prov": "湖北省", "agt_city": "武汉市", "agt_area":"江岸区", "agt_status":"1", "selected": "false"},
+	{"agt_id": "008", "agt_name": "合作商08", "agt_prov": "湖北省", "agt_city": "武汉市", "agt_area":"江岸区", "agt_status":"0", "selected": "false"},
+	{"agt_id": "009", "agt_name": "合作商09", "agt_prov": "湖北省", "agt_city": "武汉市", "agt_area":"江岸区", "agt_status":"1", "selected": "false"},
+	{"agt_id": "010", "agt_name": "合作商10", "agt_prov": "湖北省", "agt_city": "武汉市", "agt_area":"江岸区", "agt_status":"0", "selected": "false"}
+], "total": "10", "rspcod" : "200", "rspmsg": "数据加载成功"}

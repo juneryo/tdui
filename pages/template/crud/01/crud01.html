@@ -1,0 +1,20 @@
+<div ms-controller="agtManage">
+	<td:datagrid $id="agtManage_datagrid" config="$datagrid_opt" title="合作商管理" editable="true" auto="true" height="400">
+		<div slot="content">
+			<td:form config="$qry_form_opt" btn-size="small" btn-pos="right">
+				<div slot="content">
+					<div class="row">
+						<td:text label="合作商名称" name="agt_name" class="col-xs-12 col-sm-6 col-md-3"></td:text>
+						<td:text label="上级合作商" name="parent_id" class="col-xs-12 col-sm-6 col-md-3"></td:text>
+						<td:select label="合作商状态" name="agt_status" config="$agt_status_opt" class="col-xs-12 col-sm-6 col-md-3"></td:select>
+					</div>
+					<div class="row">
+						<td:select label="合作省份" name="agt_prov" config="$agt_prov_opt" class="col-xs-12 col-sm-6 col-md-3"></td:select>
+						<td:select label="合作城市" name="agt_city" auto="false" $id="agt_manage_city" config="$agt_city_opt" class="col-xs-12 col-sm-6 col-md-3"></td:select>
+						<td:select label="合作区域" name="agt_area" auto="false" $id="agt_manage_area" config="$agt_area_opt" class="col-xs-12 col-sm-6 col-md-3"></td:select>
+					</div>
+				</div>
+			</td:form>
+		</div>
+	</td:datagrid>
+</div>
