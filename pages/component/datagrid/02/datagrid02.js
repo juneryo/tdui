@@ -27,6 +27,9 @@ define(['ui/datagrid/td.datagrid', 'tdForm', 'tdText', 'tdSelect'], function () 
 				{name: 'name', display: '名称', width: 150, type: 'text'}, 
 				{name: 'price', display: '价格', width: 120, type: 'text', render: function(val) {
 					return '<b style="color:red;">' + val + '</b>';
+				}, fun: function(ev, vm, row, col, val) {
+					avalon.log(vm.getRow([row]));
+					alert('行' + row + ',列' + col + ',值' + val);
 				}},
 				{name: 'category', display: '类别', width: 150, type: 'select', option: {
 					'A1': '游戏', 'A2' : '电影', 'A3' : '音乐'

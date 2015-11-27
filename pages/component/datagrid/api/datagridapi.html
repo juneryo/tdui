@@ -130,6 +130,13 @@
 						<td><strong>方法参数：</strong><br>val(内容)<br/>返回渲染后内容</td>
 					</tr>
 					<tr>
+						<td><strong>fun</strong></td>
+						<td>点击单元格事件</td>
+						<td>方法</td>
+						<td>可选</td>
+						<td><strong>方法参数：</strong><br>ev(事件对象)<br>vm(表格vmodel)<br>row(行索引)<br>col(列索引)<br>val(单元格值)</td>
+					</tr>
+					<tr>
 						<td><strong>disabled</strong></td>
 						<td>列禁止编辑</td>
 						<td>布尔</td>
@@ -418,6 +425,12 @@
 			<td>添加行</td>
 			<td>行数据对象数组</td>
 			<td>无</td>
+		</tr>
+		<tr>
+			<td><strong>getRow</strong></td>
+			<td>获取指定行</td>
+			<td>行索引数组</td>
+			<td>对象数组</td>
 		</tr>
 	</tbody>
 </table>

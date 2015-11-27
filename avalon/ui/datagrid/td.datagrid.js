@@ -53,6 +53,7 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 		clickRow: _interface,
 		editRow: _interface,
 		clickAction: _interface,
+		clickCell: _interface,
 		loadData: _interface,
 		cancelEdit: _interface,
 		submitEdit: _interface,
@@ -214,7 +215,7 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 			}
 			vm.wheelTable = function(ev) {
 				if(vm.isBottom && ev.wheelDelta == -120) {
-					vm.loadData();
+					//vm.loadData();
 				}
 				vm.isBottom = false;
 			}
@@ -287,6 +288,11 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 					fun(ev, vm);
 				}
 			}
+			vm.clickCell = function(ev, fun, row, col, val) {
+				if(typeof fun == 'function') {
+					fun(ev, vm, row, col, val);
+				}
+			}
 			//对外方法
 			//追加数据
 			vm.loadData = function(p) {
@@ -300,10 +306,8 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 								}
 							}
 							vm._dealLoadSelected(dat.rows);
-							vm.page = Math.ceil(vm.rows.size() / vm.limit);
-							vm.loadInfo = '';
-						}else {
-							vm.loadInfo = '<strong style="color:red;">无更多记录</strong>';
+							//vm.page = Math.ceil(vm.rows.size() / vm.limit);
+							vm.page ++;
 						}
 						vm._trigger(dat, 'loaded');
 					});
@@ -361,6 +365,13 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 							arr.push(vm.rows[i]);
 						}
 					}
+				}
+				return arr;
+			}
+			vm.getRow = function(idxArr) {
+				var arr = [];
+				for(var i = 0; i < idxArr.length; i ++) {
+					arr.push(vm.rows[idxArr[i]]);
 				}
 				return arr;
 			}
