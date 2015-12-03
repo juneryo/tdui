@@ -184,6 +184,12 @@ blockquote.warning footer {
 	color: #000 !important;
 }
 
+.td_hint {
+  z-index: 1000;
+  position: fixed;
+  width: 100%;
+  bottom: -20px;
+}
 /* loading */
 .loading-mask {
 	position: absolute;
@@ -235,9 +241,3 @@ blockquote.warning footer {
 @-moz-keyframes loading-spin {
 	100%{ -moz-transform: rotate(360deg); transform: rotate(360deg); }
 }
-
-
-
-
-
-
