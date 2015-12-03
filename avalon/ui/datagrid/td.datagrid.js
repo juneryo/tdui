@@ -351,7 +351,7 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 					vm.page = 1;
 					vm._ajax(vm.loadUrl, p, function(dat, status, xhr) {
 						if(dat.rspcod == '200') {
-							if(vm.filterArr.size() < dat.rows.length) {
+							if(dat.rows && vm.filterArr.size() < dat.rows.length) {
 								var n = dat.rows.length - vm.filterArr.size();
 								for(var i = 0; i < n; i ++) {
 									vm.filterArr.push(true);
@@ -361,8 +361,8 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 							vm.lastSelected = -1;
 							vm.selected = 0;
 							vm.allSelected = false;
-							vm._dealLoadSelected(dat.rows);
-							if(vm.rows.size == 0) {
+							vm._dealLoadSelected(dat.rows ? dat.rows : []);
+							if(vm.rows.size() == 0) {
 								vm.loadInfo = '<strong style="color:red;">未查询到记录</strong>';
 							}else {
 								vm.loadInfo = '';
