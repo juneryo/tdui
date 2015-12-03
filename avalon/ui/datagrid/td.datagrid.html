@@ -82,24 +82,24 @@
 					<td></td>
 					<td ms-visible="!checkbox"></td>
 				</tr>
-				<tr ms-if="loadUrl != ''">
+				<tr ms-if="loadUrl != ''" ms-visible="isTotal">
 					<td class="padding_top" style="text-align:center;cursor:pointer;" ms-attr-colspan="cols.size() + 3" ms-click="loadData(null)">继续加载数据</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
-	
+
 	<div class="padding_left">
-		<span>当前加载<strong>{{page}}</strong>页&nbsp;共加载<strong>{{rows.length}}</strong>条记录</span>&nbsp;&nbsp;{{loadInfo | html}}
+		<span>已加载<strong>{{page}}</strong>页&nbsp;<strong>{{rows.length}}</strong>条记录</span>&nbsp;共<strong>{{total}}</strong>条记录&nbsp;&nbsp;{{loadInfo | html}}
 	</div>
-	
+
 	<div class="td_datagrid_actions" ms-mouseenter="toggle($event, 'action', 'in')" ms-mouseleave="toggle($event, 'action', 'out')" ms-each="actions">
 		<a class="btn btn-default waves-effect waves-light btn-lg" href="javascript:void(0)" ms-click="clickAction($event, el.fun)"
 			ms-class-1="btn-primary: el.type=='primary'" ms-class-2="btn-success: el.type=='success'" ms-class-3="btn-info: el.type=='info'"
 			ms-class-4="btn-warning: el.type=='warning'" ms-class-5="btn-danger: el.type=='danger'"
 			ms-visible="($index==actions.size() - 1) ? true : showAction" ms-attr-title="el.title"><span ms-attr-class="el.icon"></span></a>
 	</div>
-	
+
 	<div class="loading-mask" ms-visible="isLoading">
 		<div class="loading-container">
 			<div class="loading-speeding-wheel"></div><strong>数据加载中,请稍后…</strong>
