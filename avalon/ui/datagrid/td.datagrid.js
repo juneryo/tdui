@@ -368,6 +368,7 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 								vm.loadInfo = '';
 							}
 							vm.total = dat.total;
+							vm.page ++;
 							vm._trigger(dat, 'reloaded');
 						}
 					});
