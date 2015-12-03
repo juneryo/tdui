@@ -362,10 +362,16 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 							vm.selected = 0;
 							vm.allSelected = false;
 							vm._dealLoadSelected(dat.rows ? dat.rows : []);
-							if(vm.rows.size() == 0) {
-								vm.loadInfo = '<strong style="color:red;">未查询到记录</strong>';
+							if(dat.total == vm.rows.size()) {
+								vm.isTotal = true;
+								vm.loadInfo = '<strong style="color:blue">无更多记录</strong>';
 							}else {
-								vm.loadInfo = '';
+								vm.isTotal = false;
+								if(vm.rows.size() == 0) {
+									vm.loadInfo = '<strong style="color:red;">未查询到记录</strong>';
+								}else {
+									vm.loadInfo = '<strong style="color:blue">数据加载成功</strong>';
+								}
 							}
 							vm.total = dat.total;
 							vm.page ++;
