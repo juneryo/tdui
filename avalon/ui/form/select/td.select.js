@@ -203,7 +203,7 @@ define(['avalon', 'mmRequest', 'text!./td.select.html', 'css!./td.select.css'], 
 			}
 		},
 		$ready: function (vm) {
-			if(vm.auto === true) {
+			if(vm.auto === true && vm.url != '') {
 				vm.reloadData();
 			}else {
 				if(vm.url == '') {
