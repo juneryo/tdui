@@ -47,7 +47,7 @@ define(['tdDatagrid', 'tdForm', 'tdText', 'tdSelect'], function () {
 				{name: 'agt_prov', display: '合作省份', width: 100, type: 'text'},
 				{name: 'agt_city', display: '合作城市', width: 100, type: 'text'},
 				{name: 'agt_area', display: '合作区域', width: 100, type: 'text'},
-				{name: 'agt_status', display: '状态', width: 70, type: 'select', option: {'0': '禁用', '1': '正常'}, render: function(v) {
+				{name: 'agt_status', display: '状态', width: 70, type: 'select', option: {'0': '禁用', '1': '正常'}, render: function(v, r) {
 					var val = '';
 					switch(v) {
 						case '禁用': val = '<span style="color:red;">禁用</span>'; break;
@@ -55,7 +55,7 @@ define(['tdDatagrid', 'tdForm', 'tdText', 'tdSelect'], function () {
 					}
 					return val
 				}},
-				{name: 'detail', display: '详情', width: 70, type: 'text', disabled: 'true', render: function(v) {
+				{name: 'detail', display: '详情', width: 70, type: 'text', disabled: 'true', render: function(v, r) {
 					return '<a href="javascript:void(0)">详情</a>';
 				}, fun: function(ev, vm, row, col, val) {
 					avalon.log(vm.getRow([row]));

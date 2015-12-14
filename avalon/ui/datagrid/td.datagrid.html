@@ -65,7 +65,7 @@
 					</td>
 					<td class="padding_top" ms-repeat="cols" ms-attr-width="{{el.width}}"
 						ms-attr-title="el.type == 'select' ? el.option[$outer.el[el.name]] : $outer.el[el.name]">
-						<span ms-visible="editIdx!=$outer.$index" ms-click="clickCell($event, el.fun, $outer.$index, $index, $outer.el[el.name])">{{el.type == 'text' ? (el.render ? el.render($outer.el[el.name]) : $outer.el[el.name]) : (el.render ? el.render(el.option[$outer.el[el.name]]) : el.option[$outer.el[el.name]]) | html}}</span>
+						<span ms-visible="editIdx!=$outer.$index" ms-click="clickCell($event, el.fun, $outer.$index, $index, $outer.el[el.name])">{{el.type == 'text' ? (el.render ? el.render($outer.el[el.name], $outer.el) : $outer.el[el.name]) : (el.render ? el.render(el.option[$outer.el[el.name]], $outer.el) : el.option[$outer.el[el.name]]) | html}}</span>
 						<div ms-visible="editIdx==$outer.$index">
 							<input type="text" ms-if="el.type == 'text'" ms-attr-disabled="el.disabled" ms-attr-value="$outer.el[el.name]" ms-keyup="changeCell($event, $outer.$index, $index, el.name)" ms-css-width="{{el.width - 15}}"/>
 							<select ms-if="el.type == 'select'" ms-attr-disabled="el.disabled" ms-css-width="{{el.width - 15}}" ms-change="changeCell($event, $outer.$index, $index, el.name)" ms-duplex="$outer.el[el.name]">
