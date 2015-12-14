@@ -163,14 +163,15 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 					page: vm.page,
 					limit: vm.limit
 				};
-				if(param != undefined) {
-					for(var k in param) {
-						p[k] = param[k];
-					}
-				}else {
+				if(param == undefined || param == null) {
 					for(var k in vm.loadParam) {
 						p[k] = vm.loadParam[k];
 					}
+				}else {
+					for(var k in param) {
+						p[k] = param[k];
+					}
+					vm.loadParam = param;
 				}
 				req.ajax({
 					type: 'POST',
