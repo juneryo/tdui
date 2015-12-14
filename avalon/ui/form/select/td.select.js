@@ -20,6 +20,7 @@ define(['avalon', 'mmRequest', 'text!./td.select.html', 'css!./td.select.css'], 
 		//内部属性
 		value: '',
 		selectedValue: '',
+		keys: [],
 		//view属性
 		isLoading: false,
 		isShow: false,
@@ -162,6 +163,7 @@ define(['avalon', 'mmRequest', 'text!./td.select.html', 'css!./td.select.css'], 
 			},
 			vm.removeData = function() {
 				vm.data = {};
+				vm.keys.removeAll();
 				vm.selected.removeAll();
 				vm._buildSelected();
 			}
@@ -177,20 +179,22 @@ define(['avalon', 'mmRequest', 'text!./td.select.html', 'css!./td.select.css'], 
 						url: vm.url,
 						data: vm.param,
 						headers: {},
-						success: function(data, status, xhr) {
-							if(data.rspcod == '200') {
-								vm.data = data.data;
+						success: function(dat, status, xhr) {
+							if(dat.rspcod == '200') {
+								vm.data = dat.data;
+								vm.keys.pushArray(Object.keys(dat.data))
+								vm.keys.sort();
 								vm.selected.removeAll();
 								vm._buildSelected();
-								vm._trigger(data.data, 'loaded');
+								vm._trigger(dat.data, 'loaded');
 							}else {
-								vm.loadInfo = data.rspmsg;
+								vm.loadInfo = dat.rspmsg;
 							}
 							vm.validValue(null);
 							vm.isLoading = false;
 						},
-						error: function(data) {
-							vm.loadInfo = data.status + '[' + data.statusText + ']';
+						error: function(dat) {
+							vm.loadInfo = dat.status + '[' + dat.statusText + ']';
 							vm.isLoading = false;
 						}
 					});
@@ -201,6 +205,11 @@ define(['avalon', 'mmRequest', 'text!./td.select.html', 'css!./td.select.css'], 
 		$ready: function (vm) {
 			if(vm.auto === true) {
 				vm.reloadData();
+			}else {
+				if(vm.url == '') {
+					vm.keys.pushArray(Object.keys(vm.data));
+					vm.keys.sort();
+				}
 			}
     }
 	});
