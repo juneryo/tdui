@@ -35,6 +35,7 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 		isBottom: false,
 		//editData: {},
 		$tmpData: {},
+		_bindFun: null,
 		//view属性
 		isLoading: false,
 		isTotal: false,
@@ -80,6 +81,7 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 			return options; //返回VM的定义对象
 		},
 		$dispose: function (vm, elem) {
+			avalon.unbind(document, 'click', vm._bindFun);
 			elem.innerHTML = elem.textContent = '';
 		},
 		$init: function(vm, elem) {
@@ -204,6 +206,9 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 					case 'button':
 						vm.showButtons = !vm.showButtons; break;
 					case 'panel':
+						if(vm.showPanel == false) {
+							ev.cancelBubble = true;
+						}
 						vm.showPanel = !vm.showPanel; break;
 					case 'filter':
 						vm.showFilter = !vm.showFilter; break;
@@ -315,6 +320,8 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 				if(typeof fun == 'function') {
 					fun(ev, vm);
 				}
+				vm.showPanel = false;
+				ev.cancelBubble = true;
 			}
 			vm.clickCell = function(ev, fun, row, col, val) {
 				if(typeof fun == 'function') {
@@ -475,6 +482,13 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 					vm._dealLoadSelected(arr);
 				}
 			}
+			//绑定事件
+			vm._bindFun = function() {
+				if(vm.showPanel == true) {
+					vm.showPanel = false;
+				}
+			}
+			avalon.bind(document, 'click', vm._bindFun, false);
 		},
 		$ready: function (vm) {
 			for(var i=0; i<vm.rows.size(); i++) {

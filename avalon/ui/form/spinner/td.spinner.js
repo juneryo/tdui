@@ -16,6 +16,8 @@ define(['avalon', 'text!./td.spinner.html', 'css!./td.spinner.css'], function(av
 		ondownclicked: null,
 		onchanged: null,
 		onclicked: null,
+		//内部属性
+		_bindFun: null,
 		//view属性
 		validInfo: '',
 		isValid: true,
@@ -33,6 +35,7 @@ define(['avalon', 'text!./td.spinner.html', 'css!./td.spinner.css'], function(av
 			return options;
 		},
 		$dispose: function (vm, elem) {
+			avalon.unbind(document, 'click', vm._bindFun);
 			elem.innerHTML = elem.textContent = '';
 		},
 		$init: function(vm, elem) {
@@ -77,6 +80,7 @@ define(['avalon', 'text!./td.spinner.html', 'css!./td.spinner.css'], function(av
 						vm._trigger(ev, 'changed');
 					}
 				}
+				ev.cancelBubble = true;
 			}
 			vm.clickDown = function(ev) {
 				if(!vm.disabled) {
@@ -91,12 +95,14 @@ define(['avalon', 'text!./td.spinner.html', 'css!./td.spinner.css'], function(av
 						vm._trigger(ev, 'changed');
 					}
 				}
+				ev.cancelBubble = true;
 			}
 			vm.toggleBtns = function(ev) {
 				if(!vm.disabled) {
 					vm.showBtns = !vm.showBtns;
 					vm._trigger(ev, 'clicked');
 				}
+				ev.cancelBubble = true;
 			}
 			vm.checkKeydown = function(ev) {
 				if(!vm.disabled) {
@@ -116,7 +122,6 @@ define(['avalon', 'text!./td.spinner.html', 'css!./td.spinner.css'], function(av
 					}
 				}
 			}
-			
 			//对外方法
 			vm.getData = function() {
 				var data = new Object();
@@ -132,6 +137,13 @@ define(['avalon', 'text!./td.spinner.html', 'css!./td.spinner.css'], function(av
 					vm._trigger({}, 'changed');
 				}
 			}
+			//绑定事件
+			vm._bindFun = function() {
+				if(vm.showBtns == true) {
+					vm.showBtns = false;
+				}
+			}
+			avalon.bind(document, 'click', vm._bindFun, false);
 		},
 		$ready: function (vm) {
 			vm.validValue();

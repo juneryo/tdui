@@ -4,7 +4,7 @@
 		ms-attr-disabled="disabled" ms-attr-name="name" ms-duplex="value" ms-click="togglePicker($event)" ms-keydown="checkKeydown($event)" />
 	<i class="pull-right td_datepicker_trigger"></i>
 	<span class="td_datepicker_valid_info" ms-if="!isValid && validInfo != ''">{{validInfo}}</span>
-	<div class="dropdown-menu" ms-visible="isShow">
+	<div class="dropdown-menu" ms-visible="isShow" ms-click="clickPicker($event)">
 		<table class="table td_datepicker_picker" ms-visible="showDate">
 			<tr>
 				<td ms-click="changeMonth($event, '-')">◄</td>

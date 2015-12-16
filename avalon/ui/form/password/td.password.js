@@ -27,7 +27,10 @@ define(['avalon', 'text!./td.password.html', 'css!./td.password.css'], function(
 		numbers: ['1','2','3','4','5','6','7','8','9', '0'],
 		symbols1: ['~','`','!','@','#','$','%','^','&','*','(',')','_','-','+','='],
 		symbols2: ['{','[','}',']','|','\\',':',';','"','\'','<',',','>','.','?','/'],
+		//内部属性
+		_bindFun: null,
 		//view接口
+		clickPad: _interface,
 		toggleKeypad: _interface,
 		switchTab: _interface,
 		clickKey: _interface,
@@ -40,6 +43,7 @@ define(['avalon', 'text!./td.password.html', 'css!./td.password.css'], function(
 			return options;
 		},
 		$dispose: function (vm, elem) {
+			avalon.unbind(document, 'click', vm._bindFun);
 			elem.innerHTML = elem.textContent = '';
 		},
 		$init: function(vm, elem) {
@@ -60,6 +64,9 @@ define(['avalon', 'text!./td.password.html', 'css!./td.password.css'], function(
 				}
 			}
 			//接口方法
+			vm.clickPad = function(ev) {
+				ev.cancelBubble = true;
+			}
 			vm.toggleKeypad = function(ev) {
 				if(!vm.disabled) {
 					if(vm.keypad === true) {
@@ -76,6 +83,7 @@ define(['avalon', 'text!./td.password.html', 'css!./td.password.css'], function(
 					}
 					vm._trigger(ev, 'clicked');
 				}
+				ev.cancelBubble = true;
 			}
 			vm.switchTab = function(ev, idx) {
 				vm.activePad = idx;
@@ -145,6 +153,13 @@ define(['avalon', 'text!./td.password.html', 'css!./td.password.css'], function(
 					vm._trigger(null, 'changed');
 				}
 			}
+			//绑定事件
+			vm._bindFun = function() {
+				if(vm.showKeypad == true) {
+					vm.showKeypad = false;
+				}
+			}
+			avalon.bind(document, 'click', vm._bindFun, false);
 		},
 		$ready: function (vm) {
 			vm.validValue(null);

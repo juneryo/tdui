@@ -21,6 +21,7 @@ define(['avalon', 'mmRequest', 'text!./td.select.html', 'css!./td.select.css'], 
 		value: '',
 		selectedValue: '',
 		keys: [],
+		_bindFun: null,
 		//view属性
 		isLoading: false,
 		isShow: false,
@@ -51,6 +52,7 @@ define(['avalon', 'mmRequest', 'text!./td.select.html', 'css!./td.select.css'], 
 			return options;
 		},
 		$dispose: function (vm, elem) {
+			avalon.unbind(document, 'click', vm._bindFun);
 			elem.innerHTML = elem.textContent = '';
 		},
 		$init: function(vm, elem) {
@@ -111,6 +113,7 @@ define(['avalon', 'mmRequest', 'text!./td.select.html', 'css!./td.select.css'], 
 				if(!vm.disabled) {
 					vm.isShow = !vm.isShow;
 				}
+				ev.cancelBubble = true;
 			}
 			vm.selectOne = function(ev, key) {
 				var selected = false;
@@ -142,6 +145,9 @@ define(['avalon', 'mmRequest', 'text!./td.select.html', 'css!./td.select.css'], 
 					vm._trigger(ev, 'selected');
 				}
 				vm._trigger(ev, 'changed');
+				if(vm.muti) {
+					ev.cancelBubble = true;
+				}
 			}
 			//对外方法
 			vm.getData = function() {
@@ -201,6 +207,13 @@ define(['avalon', 'mmRequest', 'text!./td.select.html', 'css!./td.select.css'], 
 				}
 				vm.validValue(null);
 			}
+			//绑定事件
+			vm._bindFun = function() {
+				if(vm.isShow == true) {
+					vm.isShow = false;
+				}
+			}
+			avalon.bind(document, 'click', vm._bindFun, false);
 		},
 		$ready: function (vm) {
 			if(vm.auto === true && vm.url != '') {

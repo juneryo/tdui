@@ -19,6 +19,7 @@ define(['avalon', 'text!./td.datepicker.html', 'css!./td.datepicker.css'], funct
 		//内部属性
 		isInit: true,
 		isValid: true,
+		_bindFun: null,
 		//view属性
 		value: '',
 		validInfo: '',
@@ -37,6 +38,7 @@ define(['avalon', 'text!./td.datepicker.html', 'css!./td.datepicker.css'], funct
 		monthArr: [['一月', '二月', '三月'], ['四月', '五月', '六月'], ['七月', '八月', '九月'], ['十月', '十一月', '十二月']],
 		yearArr: [],
 		//view接口
+		clickPicker: _interface,
 		togglePicker: _interface,
 		changeMonth: _interface,
 		changeYear: _interface,
@@ -65,6 +67,7 @@ define(['avalon', 'text!./td.datepicker.html', 'css!./td.datepicker.css'], funct
 			return options;
 		},
 		$dispose: function (vm, elem) {
+			avalon.unbind(document, 'click', vm._bindFun);
 			elem.innerHTML = elem.textContent = '';
 		},
 		$init: function(vm, elem) {
@@ -142,13 +145,16 @@ define(['avalon', 'text!./td.datepicker.html', 'css!./td.datepicker.css'], funct
 					}
 				}
 			}
-
 			//接口方法
+			vm.clickPicker = function(ev) {
+				ev.cancelBubble = true;
+			}
 			vm.togglePicker = function(ev) {
 				if(!vm.disabled) {
 					vm.isShow = !vm.isShow;
 					vm._trigger(ev, 'clicked');
 				}
+				ev.cancelBubble = true;
 			}
 			vm.checkKeydown = function(ev) {
 				if(!vm.disabled) {
@@ -283,6 +289,13 @@ define(['avalon', 'text!./td.datepicker.html', 'css!./td.datepicker.css'], funct
 					vm.validValue();
 				}
 			});
+			//绑定事件
+			vm._bindFun = function() {
+				if(vm.isShow == true) {
+					vm.isShow = false;
+				}
+			}
+			avalon.bind(document, 'click', vm._bindFun, false);
 		},
 		$ready: function (vm) {
 			vm._buildDateArr(vm.today.getFullYear(), vm.today.getMonth() + 1, vm.today.getDate());
