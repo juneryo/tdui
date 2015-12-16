@@ -20,6 +20,7 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 		rows: [],            //行数据
 		buttons: [],
 		actions: [],         //自定义操作列表
+		render: null,
 		onloaded: null,
 		onreloaded: null,
 		onrowclicked: null,
@@ -47,6 +48,7 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 		page: 1,             //当前页
 		total: 0,            //全部记录数
 		loadInfo: '',
+		renderInfo: '',
 		//view接口
 		toggle: _interface,
 		scrollTable: _interface,
@@ -178,16 +180,19 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 					url: url,
 					data: p,
 					headers: {},
-					success: function(data, status, xhr) {
-						if(data.rspcod == '200') {
-							successCallback(data, status, xhr);
+					success: function(dat, status, xhr) {
+						if(dat.rspcod == '200') {
+							successCallback(dat, status, xhr);
+							if(typeof vm.render == 'function') {
+								vm.renderInfo = vm.render(vm, dat);
+							}
 						}else {
-							vm.loadInfo = '<strong style="color:red">' + data.rspmsg + '</strong>';
+							vm.loadInfo = '<strong style="color:red">' + dat.rspmsg + '</strong>';
 						}
 						vm.isLoading = false;
 					},
-					error: function(data) {
-						vm.loadInfo = '<strong style="color:red;">' + data.status + '[' + data.statusText + ']</strong>';
+					error: function(dat) {
+						vm.loadInfo = '<strong style="color:red;">' + dat.status + '[' + dat.statusText + ']</strong>';
 						vm.isLoading = false;
 					}
 				});

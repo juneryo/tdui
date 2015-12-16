@@ -42,7 +42,7 @@ define(['tdDatagrid', 'tdForm', 'tdText', 'tdSelect'], function () {
 			deleteUrl: 'data/td.datagrid.delete.json',
 			key: ['agt_id'],
 			cols: [
-				{name: 'agt_id', display: '合作商ID', width: 100, type: 'text', disabled: true}, 
+				{name: 'agt_id', display: '合作商ID', width: 100, type: 'text', disabled: true},
 				{name: 'agt_name', display: '合作商名称', width: 150, type: 'text'},
 				{name: 'agt_prov', display: '合作省份', width: 100, type: 'text'},
 				{name: 'agt_city', display: '合作城市', width: 100, type: 'text'},
@@ -62,6 +62,9 @@ define(['tdDatagrid', 'tdForm', 'tdText', 'tdSelect'], function () {
 					alert('行' + row + ',列' + col);
 				}}
 			],
+			render: function(vm, dat) {
+				return '<b>渲染结果&nbsp;&nbsp;响应码：' + dat.rspcod + '&nbsp;&nbsp;响应信息：' + dat.rspmsg + '</b>';
+			},
 			buttons: [{
 				display: '保存', icon: 'glyphicon glyphicon-save', fun: function(ev, vm) {
 					alert('save');
@@ -84,13 +87,13 @@ define(['tdDatagrid', 'tdForm', 'tdText', 'tdSelect'], function () {
 	});
 	return avalon.controller(function($ctrl) {
 		$ctrl.$onRendered = function() {
-			
+
 		}
 		$ctrl.$onEnter = function() {
-			
+
 		}
 		$ctrl.$onBeforeUnload = function() {
-			
+
 		}
 		$ctrl.$vmodels = [vAgtManage];
 	});

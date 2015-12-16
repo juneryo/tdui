@@ -89,7 +89,10 @@
 		</table>
 	</div>
 
-	<div class="padding_left">
+	<div ms-visible="renderInfo != ''" class="padding_left padding_top">
+		{{renderInfo | html}}
+	</div>
+	<div class="padding_left padding_top">
 		<span>已加载<strong>{{page-1}}</strong>页&nbsp;<strong>{{rows.length}}</strong>条记录</span>&nbsp;共<strong>{{total}}</strong>条记录&nbsp;&nbsp;{{loadInfo | html}}
 	</div>
 
