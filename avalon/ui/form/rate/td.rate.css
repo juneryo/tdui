@@ -3,30 +3,20 @@
 	display: inline-block;
 	cursor: pointer;
 }
-
 .td_rate_container .td_rate {
 	position: relative;
 	display: inline-block;
 	height: 24px;
 	width: 24px;
 }
-
 .td_rate_container .td_rate_checked {
 	background-image: url(img/checked.png);
 }
-
 .td_rate_container .td_rate_unchecked {
 	background-repeat: no-repeat;
 	background-image: url(img/unchecked.png);
 }
-
 .td_rate_container .td_rate_halfchecked {
 	background-repeat: no-repeat;
 	background-image: url(img/halfchecked.png);
-}
-
-.td_rate_disabled {
-	color: #ccc;
-	cursor: default;
-	cursor: not-allowed;
 }

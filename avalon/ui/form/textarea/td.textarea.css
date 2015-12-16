@@ -1,16 +1,4 @@
 .td_textarea_container {
 	position: relative;
+	cursor: pointer;
 }
-
-.td_textarea_disabled {
-	cursor: default;
-	cursor: not-allowed;
-}
-
-.td_textarea_container .td_textarea_valid_info {
-	color: #a94442;
-	line-height: 30px;
-}
-
-
-

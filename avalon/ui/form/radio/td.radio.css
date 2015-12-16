@@ -4,13 +4,11 @@
 	cursor: pointer;
 	display: inline-block;
 }
-
 .td_radiogroup_container {
 	position: relative;
 	cursor: pointer;
 	display: inline-block;
 }
-
 .td_radio_container .td_radio {
 	position: relative;
 	display: inline-block;
@@ -24,25 +22,15 @@
 	font-size: 18px;
 	bottom: 3px;
 }
-
 .td_radio_container .td_checked {
 	background-image: url(img/checked.png);
 }
-
 .td_radio_container .td_unchecked {
 	background-image: url(img/unchecked.png);
 }
-
-.td_radio_disabled {
-	color: gray;
-	cursor: default;
-	cursor: not-allowed;
-}
-
 .td_radio_checked_disabled {
 	background-image: url(img/checked.png);
 }
-
 .td_radio_unchecked_disabled {
 	background-image: url(img/unchecked.png);
 }

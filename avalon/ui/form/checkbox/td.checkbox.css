@@ -4,13 +4,11 @@
 	cursor: pointer;
 	display: inline-block;
 }
-
 .td_checkboxgroup_container {
 	position: relative;
 	cursor: pointer;
 	display: inline-block;
 }
-
 .td_checkbox_container .td_checkbox {
 	position: relative;
 	display: inline-block;
@@ -24,25 +22,15 @@
 	font-size: 18px;
 	bottom: 3px;
 }
-
 .td_checkbox_container .td_checked {
 	background-image: url(img/checked.png);
 }
-
 .td_checkbox_container .td_unchecked {
 	background-image: url(img/unchecked.png);
 }
-
-.td_checkbox_disabled {
-	color: gray;
-	cursor: default;
-	cursor: not-allowed;
-}
-
 .td_checkbox_checked_disabled {
 	background-image: url(img/checked-disabled.png);
 }
-
 .td_checkbox_unchecked_disabled {
 	background-image: url(img/unchecked-disabled.png);
 }

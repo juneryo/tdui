@@ -1,7 +1,7 @@
-<div class="form-group td_text_container" ms-class-1="td_text_disabled: disabled" ms-class-2="has-error: !isValid">
+<div class="form-group td_text_container" ms-class-1="td_valid_disabled: disabled" ms-class-2="has-error: !isValid">
 	<label class="control-label" ms-if="label != ''">{{label}}：</label>
 	<input class="form-control" type="text" placeholder="" 
 		ms-attr-maxLength="maxlen" ms-attr-disabled="disabled" ms-attr-name="name" ms-duplex="value" 
 		ms-css-width="width" ms-input="validValue($event)" ms-paste="validValue($event)" ms-click="doClick($event)" />
-	<span class="td_text_valid_info" ms-if="!isValid && validInfo != ''">{{validInfo}}</span>
+	<span class="td_valid_err" ms-if="!isValid && validInfo != ''">{{validInfo}}</span>
 </div>
