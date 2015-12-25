@@ -58,7 +58,7 @@
 			<tbody>
 				<tr ms-repeat-r="cells" ms-class-1="td_datagrid_tr_edit: editIdx==$index" ms-class-2="td_datagrid_tr_selected: r[0]==1"
 					ms-click="clickRow($event, $index)" ms-dblclick="editRow($event, $index)" ms-visible="filterArr[$index]">
-					<td class="padding_top" ms-repeat-c="r" ms-attr-width="{{$index==0? 45 : cols[$index-1].width}}" ms-attr-title="cols[$index-1].type == 'select' ? cols[$index-1].option[c] : c" ms-visible="$index>0||($index==0&&checkbox===true)">
+					<td class="padding_top" ms-repeat-c="r" ms-attr-width="{{$index==0? 45 : cols[$index-1].width}}" ms-attr-title="$index==0 ? '' : (cols[$index-1].type == 'select' ? cols[$index-1].option[c] : c)" ms-visible="$index>0||($index==0&&checkbox===true)">
 						<i ms-if="$index==0" class="td_datagrid_icon" ms-class-1="td_datagrid_checked: c==1" ms-class-2="td_datagrid_unchecked: c==0" ms-click="clickCheckbox($event, $outer.$index)"></i>
 						<span ms-if="$index>0" ms-visible="editIdx!=$outer.$index" ms-click="clickCell($event, cols[$index-1].fun, $outer.$index, $index-1, c)">
 							{{cols[$index-1].type == 'text' ? (cols[$index-1].render ? cols[$index-1].render(c, $outer.$index) : c) : (cols[$index-1].render ? cols[$index-1].render(cols[$index-1].option[c], $outer.$index) : cols[$index-1].option[c]) | html}}
