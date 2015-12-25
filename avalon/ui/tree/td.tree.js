@@ -14,6 +14,8 @@ define(['avalon', 'mmRequest', 'text!./td.tree.html', 'css!./td.tree.css'], func
 		onchecked: null,
 		onexpanded: null,
 		oncollapsed: null,
+		setData: null,
+		
 		//内部属性
 		tmpid: '',		
 		isInit: true,
@@ -23,6 +25,12 @@ define(['avalon', 'mmRequest', 'text!./td.tree.html', 'css!./td.tree.css'], func
 		//view接口
 		clickNode: _interface,
 		clickParent: _interface,
+		_trigger: _interface,
+		_ajax: _interface,
+		_getSelected: _interface,
+		_setCheckbox: _interface,
+		getChecked: _interface,
+		reloadData: _interface,
 		//默认配置
 		$template: template,
 		$construct: function (hooks, vmOpts, elemOpts) {
@@ -143,6 +151,7 @@ define(['avalon', 'mmRequest', 'text!./td.tree.html', 'css!./td.tree.css'], func
 			}
 			vm.clickParent = function(ev, idx, el) {
 				if(el.disabled === true || el.disabled === 'true') {
+					ev.stopPropagation();
 					ev.cancelBubble = true;
 				}else {
 					//通过冒泡方式处理父级checkbox

@@ -146,12 +146,6 @@ avalon.config({
 	},
 	maxRepeatSize: 50
 });
-avalon.library("td", {
-	$init: function(){},
-	$childReady: function(){},
-	$ready: function(){},
-	$dispose: function(){}
-});
 
 //重写alert, confirm
 (function() {
@@ -228,13 +222,13 @@ avalon.library("td", {
 	document.body.appendChild(alertObj);
 })();
 
-alert = window.alert = function(html) {
+window.alert = function(html) {
 	document.getElementById('_td_mask').style.display = 'block';
 	var obj = document.getElementById('_td_alert');
 	obj.getElementsByClassName('modal-body')[0].innerHTML = html;
 	obj.style.display = 'block';
 }
-alert.close = function(e) {
+window.alert.close = function(e) {
 	document.getElementById('_td_mask').style.display = 'none';
 	document.getElementById('_td_alert').style.display = 'none';
 }

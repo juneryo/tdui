@@ -13,7 +13,9 @@ define(['avalon', 'text!./td.accordion.html', 'css!./td.accordion.css'], functio
 		//view接口
 		renderContent: _interface,
 		clickPanel: _interface,
-		
+		_trigger: _interface,
+		setActive: _interface,
+		getActive: _interface,
 		
 		//默认配置
 		$template: template,
@@ -73,7 +75,7 @@ define(['avalon', 'text!./td.accordion.html', 'css!./td.accordion.css'], functio
 			}
     }
 	});
-	
+
 	var widget = avalon.components["td:accordion"];
   widget.regionals = {};
 });

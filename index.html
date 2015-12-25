@@ -15,6 +15,7 @@
 	<link rel="stylesheet" href="avalon/ui/base/css/normalize.min.css" />
 	<link rel="stylesheet" href="avalon/ui/base/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="avalon/ui/base/css/material.css" />
+	<link rel="stylesheet" href="avalon/ui/base/css/animate.min.css" />
 	<link rel="stylesheet" href="avalon/ui/base/css/waves.css" />
 	<link rel="stylesheet" href="avalon/ui/base/css/td.base.css">
 	<link rel="stylesheet" href="index.css">
@@ -23,6 +24,15 @@
 		<script src="avalon/ui/base/js/respond.min.js"></script>
 	<![endif]-->
 	<script type="text/javascript" src="avalon/avalon.js"></script>
+	<script>
+    //这个东西必须跟挨着avalon库,并且放到head标签中
+		avalon.library("td", {
+			$init: function(){},
+			$childReady: function(){},
+			$ready: function(){},
+			$dispose: function(){}
+		});
+	</script>
 </head>
 <body class="ms-controller" ms-controller="index">
 	<div class="index_header">

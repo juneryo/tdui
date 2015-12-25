@@ -15,6 +15,11 @@ define(['avalon', 'text!./td.dialog.html', 'css!./td.dialog.css'], function(aval
 		btnClick: _interface,
 		clickDialog: _interface,
 		hideDialog: _interface,
+		_trigger: _interface,
+		setTitle: _interface,
+		getTitle: _interface,
+		showDialog: _interface,
+		hideDialog: _interface,
 		//slot
 		content: '',
 		//默认配置
@@ -51,6 +56,7 @@ define(['avalon', 'text!./td.dialog.html', 'css!./td.dialog.css'], function(aval
 			}
 			vm.clickDialog = function(ev) {
 				//阻止冒泡(避免点击弹出框时 弹出框关闭)
+				ev.stopPropagation();
 				ev.cancelBubble = true;
 			}
 			//对外方法

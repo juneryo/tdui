@@ -13,7 +13,9 @@ define(['avalon', 'text!./td.tab.html', 'css!./td.tab.css'], function(avalon, te
 		//view接口
 		renderContent: _interface,
 		clickTab: _interface,
-		
+		_trigger: _interface,
+		setActive: _interface,
+		getActive: _interface,
 		
 		//默认配置
 		$template: template,

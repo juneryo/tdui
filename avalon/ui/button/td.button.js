@@ -18,6 +18,7 @@ define(['avalon', 'text!./td.button.html'], function(avalon, template) {
 		toggleAction: _interface,
 		doClick: _interface,
 		doAction: _interface,
+		click: _interface,
 		//默认配置
 		$template: template,
 		$construct: function (hooks, vmOpts, elemOpts) {
@@ -30,16 +31,18 @@ define(['avalon', 'text!./td.button.html'], function(avalon, template) {
 		},
 		$init: function(vm, elem) {
 			vm.toggleAction = function(ev) {
-				if(!vm.disabled) {
+				if(vm.disabled === false) {
 					vm.isAction = !vm.isAction;
 				}
+				ev.stopPropagation();
 				ev.cancelBubble = true;
 			}
 			vm.doClick = function(ev) {
-				if(typeof vm.onclicked == 'function' && !vm.disabled) {
+				if(typeof vm.onclicked == 'function' && vm.disabled === false) {
 					vm.onclicked(ev, vm);
 				}
 				vm.isAction = false;
+				ev.stopPropagation();
 				ev.cancelBubble = true;
 			}
 			vm.doAction = function(ev, fun) {
@@ -47,11 +50,12 @@ define(['avalon', 'text!./td.button.html'], function(avalon, template) {
 					fun(ev, vm);
 				}
 				vm.isAction = false;
+				ev.stopPropagation();
 				ev.cancelBubble = true;
 			}
 			//对外方法
 			vm.click = function() {
-				if(!vm.disabled) {
+				if(vm.disabled === false) {
 					elem.getElementsByTagName('a')[0].click();
 				}
 			}

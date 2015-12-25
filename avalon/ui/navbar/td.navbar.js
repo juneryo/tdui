@@ -27,6 +27,11 @@ define(['avalon', 'text!./td.navbar.html', 'css!./td.navbar.css'], function(aval
 		clickTitle: _interface,
 		clickInput: _interface,
 		clickBtn: _interface,
+		_trigger: _interface,
+		setTitle: _interface,
+		getTitle: _interface,
+		setOperation: _interface,
+		getOperation: _interface,
 		//默认配置
 		$template: template,
 		$construct: function (hooks, vmOpts, elemOpts) {
@@ -65,6 +70,7 @@ define(['avalon', 'text!./td.navbar.html', 'css!./td.navbar.css'], function(aval
 			}
 			vm.clickInput = function(ev) {
 				vm.showOperations = false;
+				ev.stopPropagation();
 				ev.cancelBubble = true;
 			}
 			vm.clickBtn = function(ev, fun) {
@@ -77,10 +83,12 @@ define(['avalon', 'text!./td.navbar.html', 'css!./td.navbar.css'], function(aval
 			//切换自定义操作面板
 			vm.toggleOperations = function(ev) {
 				vm.showOperations = !vm.showOperations;
+				ev.stopPropagation();
 				ev.cancelBubble = true;
 			}
 			vm.toggleButtons = function(ev) {
 				vm.showButtons = !vm.showButtons;
+				ev.stopPropagation();
 				ev.cancelBubble = true;
 			}
 			//触发自定义操作
@@ -89,6 +97,7 @@ define(['avalon', 'text!./td.navbar.html', 'css!./td.navbar.css'], function(aval
 					fun(ev, vm);
 				}
 				vm.showOperations = false;
+				ev.stopPropagation();
 				ev.cancelBubble = true;
 			}
 			//对外方法

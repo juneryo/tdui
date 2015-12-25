@@ -11,6 +11,8 @@ define(['avalon', 'text!./td.panel.html', 'css!./td.panel.css'], function(avalon
 		//view接口
 		btnClick: _interface,
 		toggleButtons: _interface,
+		setTitle: _interface,
+		getTitle: _interface,
 		//slot
 		content: '',
 		footer: '',
@@ -33,6 +35,7 @@ define(['avalon', 'text!./td.panel.html', 'css!./td.panel.css'], function(avalon
 			//切换导航条
 			vm.toggleButtons = function(ev) {
 				vm.showButtons = !vm.showButtons;
+				ev.stopPropagation();
 				ev.cancelBubble = true;
 			}
 			//对外方法

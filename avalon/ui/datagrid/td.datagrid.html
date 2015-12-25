@@ -88,8 +88,11 @@
 	<div ms-visible="renderInfo != ''" class="padding_left padding_top">
 		{{renderInfo | html}}
 	</div>
-	<div class="padding_left padding_top">
+	<div class="padding_left padding_top" ms-if="loadUrl!=''">
 		<span>已加载<strong>{{page-1}}</strong>页<strong>{{cells.size()}}</strong>条记录&nbsp;&nbsp;共<strong>{{total}}</strong>条记录&nbsp;&nbsp;{{loadInfo | html}}
+	</div>
+	<div class="padding_left padding_top" ms-if="loadUrl==''">
+		<span>共<strong>{{total}}</strong>条记录&nbsp;&nbsp;{{loadInfo | html}}
 	</div>
 	<div class="td_datagrid_actions" ms-mouseenter="toggle($event, 'action', 'in')" ms-mouseleave="toggle($event, 'action', 'out')" ms-each="actions">
 		<a class="btn btn-default waves-effect waves-light btn-lg" href="javascript:void(0)" ms-click="clickAction($event, el.fun)"
