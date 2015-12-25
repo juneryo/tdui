@@ -29,12 +29,13 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 		//内部属性
 		rowFilters: [],      //行过滤条件
 		filterArr: [],
+		cells: [],
 		selected: 0,         //共选中行数
 		lastSelected: -1,    //最后一次选中行
 		editIdx: -1,         //编辑行
 		isBottom: false,
-		//editData: {},
 		$tmpData: {},
+		$keyIdx: [],
 		_bindFun: null,
 		//view属性
 		isLoading: false,
@@ -63,7 +64,6 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 		loadData: _interface,
 		cancelEdit: _interface,
 		submitEdit: _interface,
-		changeCell: _interface,
 		checkSelected: _interface,
 		//slot
 		content: '',
@@ -71,13 +71,23 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 		$template: template,
 		$construct: function (hooks, vmOpts, elemOpts) {
 			var options = avalon.mix(hooks, vmOpts, elemOpts);
-			//hooks.editable = false;  //1.5.4有bug 屏蔽编辑
 			//单选设置
 			hooks.singleSelect = !hooks.checkbox ? true : hooks.singleSelect;
 			//初始化过滤数组
 			for(var i=0; i<hooks.cols.length; i++) {
 				hooks.rowFilters.push('');
 			}
+			//初始化key索引
+			for(var i=0; i<hooks.key.length; i++) {
+				var k = hooks.key[i];
+				for(var j=0; j<hooks.cols.length; j++) {
+					var col = hooks.cols[j];
+					if(k == col.name) {
+						hooks.$keyIdx.push(j); break;
+					}
+				}
+			}
+			avalon.log(hooks.$keyIdx);
 			return options; //返回VM的定义对象
 		},
 		$dispose: function (vm, elem) {
@@ -116,38 +126,61 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 					default: break;
 				}
 			}
+			vm._clearCells = function() {
+				vm.lastSelected = -1;
+				vm.selected = 0;
+				vm.allSelected = false;
+				vm.cells.removeAll();
+			}
+			vm._buildCells = function(rows) {
+				for(var i = 0; i < rows.length; i ++) {
+					var row = rows[i], r = [0];
+					if(rows[i].selected == 'true' || rows[i].selected == true) { 
+						r[0] = 1;
+					}
+					for(var j = 0; j < vm.cols.length; j ++) {
+						var col = vm.cols[j];
+						r.push(row[col.name]);
+					}
+					vm.cells.push(r);
+					if(rows[i].selected == 'true' || rows[i].selected == true) { 
+						r[0] = 1;
+						vm.allSelected = true;
+						if(vm.singleSelect === true && vm.lastSelected >= 0) {
+							vm.cells[vm.lastSelected].set(0, 0);
+						}else {
+							vm.selected ++;
+						}
+						vm.lastSelected = vm.cells.size() - 1;
+					}
+				}
+			}
+			vm._buildRowObj = function(idx) {
+				var r = vm.cells[idx], obj = {};
+				for(var i = 0; i < vm.cols.length; i ++) {
+					var col = vm.cols[i];
+					obj[col.name] = r[i + 1]; //第一个元素为selected
+				}
+				return obj;
+			}
 			vm._dealSelected = function(ev, idx) {
-				if(vm.rows[idx].selected == true || vm.rows[idx].selected == 'true') {
-					vm.rows[idx].selected = false;
+				if(vm.cells[idx][0] == 1) {
+					vm.cells[idx].set(0, 0);
 					vm.selected --;
 					if(vm.selected == 0) {
 						vm.allSelected = false;
 					}
 					vm.lastSelected = -1;
 				}else {
-					vm.rows[idx].selected = true;
+					vm.cells[idx].set(0, 1);
 					vm.allSelected = true;
 					if(vm.singleSelect === true && vm.lastSelected >= 0) {
-						vm.rows[vm.lastSelected].selected = false;
+						vm.cells[vm.lastSelected].set(0, 0);
 					}else {
 						vm.selected ++;
 					}
 					vm.lastSelected = idx;
-					vm._trigger(vm.rows[idx], 'rowselected');
-				}
-			}
-			vm._dealLoadSelected = function(rows) {
-				for(var i = 0; i < rows.length; i ++) {
-					vm.rows.push(rows[i]);
-					if(rows[i].selected == 'true' || rows[i].selected == true) {
-						vm.allSelected = true;
-						if(vm.singleSelect === true && vm.lastSelected >= 0) {
-							vm.rows[vm.lastSelected].selected = false;
-						}else {
-							vm.selected ++;
-						}
-						vm.lastSelected = vm.rows.size() - 1;
-					}
+					vm._trigger(vm._buildRowObj(idx), 'rowselected');
 				}
 			}
 			vm._dealRemove = function(arr) {
@@ -156,7 +189,7 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 					return parseInt(b) - parseInt(a);
 				});
 				for(var i = 0; i < arr.length; i ++) {
-					vm.rows.removeAt(arr[i]);
+					vm.cells.removeAt(arr[i]);
 					vm.filterArr.removeAt(arr[i]);
 				}
 				vm.allSelected = false;
@@ -199,7 +232,6 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 					}
 				});
 			}
-
 			//view接口
 			vm.toggle = function(ev, type, act) {
 				switch(type) {
@@ -235,10 +267,10 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 			//过滤行 idx:列索引 name:列模型name
 			vm.filterRow = function(idx, name) {
 				vm.rowFilters.set(idx, this.value);
-				for(var i = 0; i < vm.rows.size(); i ++) {
+				for(var i = 0; i < vm.cells.size(); i ++) {
 					var result = false;
 					for(var j = 0; j < vm.cols.length; j ++) {
-						if(vm.rowFilters[j] == undefined || vm.rowFilters[j] == '' || vm.rows[i][vm.cols[j].name].indexOf(vm.rowFilters[j]) >= 0) {
+						if(vm.rowFilters[j] == undefined || vm.rowFilters[j] == '' || vm.cells[i][j + 1].indexOf(vm.rowFilters[j]) >= 0) {
 							result = true;
 						}else {
 							result = false;
@@ -248,21 +280,14 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 					vm.filterArr.set(i, result)
 				}
 			}
-			vm.changeCell = function(ev, rowIdx, colIdx, name) {
-				if(rowIdx != vm.$tmpData['_idx']) {
-					vm.$tmpData = {};
-				}
-				vm.$tmpData['_idx'] = rowIdx;
-				vm.$tmpData[name] = ev.target.value;
-			}
 			vm.clickCheckbox = function(ev, idx) {
 				if(idx == -1) {
 					if(vm.singleSelect !== true) {
 						vm.allSelected = !vm.allSelected;
-						for(var i = 0; i < vm.rows.size(); i ++) {
-							vm.rows[i].selected = vm.allSelected;
+						for(var i = 0; i < vm.cells.size(); i ++) {
+							vm.cells[i].set(0, vm.allSelected ? 1 : 0);
 						}
-						vm.selected = vm.allSelected ? vm.rows.size() : 0;
+						vm.selected = vm.allSelected ? vm.cells.size() : 0;
 					}
 				}else {
 					vm._dealSelected(ev, idx);
@@ -271,48 +296,35 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 			}
 			vm.clickRow = function(ev, idx) {
 				vm._dealSelected(ev, idx);
-				vm._trigger(vm.rows[idx], 'rowclicked');
+				vm._trigger(vm._buildRowObj(idx), 'rowclicked');
 			}
 			vm.editRow = function(ev, idx) {
+				var rowObj = vm._buildRowObj(idx);
 				if(vm.editable === true) {
 					if(idx != vm.editIdx) {
 						vm.editIdx = idx;
 					}
+					vm.$tmpData = rowObj;
 				}
-				vm._trigger(vm.rows[idx], 'rowdbclicked');
+				vm._trigger(rowObj, 'rowdbclicked');
 			}
 			vm.cancelEdit = function(ev, idx) {
 				vm.editIdx = -1;
+				vm.modifyRow(idx, vm.$tmpData);
 				ev.cancelBubble = true;
 			}
 			vm.submitEdit = function(ev, idx) {
-				if(idx == vm.$tmpData['_idx']) {
-					var row = vm.rows[idx];
-					if(vm.updateUrl != '') {
-						var p = {};
-						for(var k in row) {
-							if(k=='$events') continue;
-							p[k] = (vm.$tmpData[k] == undefined ? row[k] : vm.$tmpData[k]);
+				var rowObj = vm._buildRowObj(idx);
+				if(vm.updateUrl != '') {
+					vm._ajax(vm.updateUrl, rowObj, function(dat, status, xhr) {
+						if(dat.rspcod == '200') {
+							vm.$tmpData = rowObj;
+							vm.cancelEdit(ev, idx);
+							vm.loadInfo = '<strong style="color:blue;">' + dat.rspmsg + '</strong>';
 						}
-						vm.$tmpData = p;
-						vm._ajax(vm.updateUrl, vm.$tmpData, function(dat, status, xhr) {
-							if(dat.rspcod == '200') {
-								for(var k in vm.$tmpData) {
-									if(row[k] != undefined) {
-										row[k] = vm.$tmpData[k];
-									}
-								}
-								vm.cancelEdit(ev, idx);
-								vm.loadInfo = '<strong style="color:blue;">' + dat.rspmsg + '</strong>';
-							}
-						});
-					}else {
-						for(var k in vm.$tmpData) {
-							if(row[k] != undefined) {
-								row[k] = vm.$tmpData[k];
-							}
-						}
-					}
+					});
+				}else {
+					vm.$tmpData = rowObj;
 				}
 				ev.cancelBubble = true;
 			}
@@ -335,17 +347,16 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 					vm._ajax(vm.loadUrl, p, function(dat, status, xhr) {
 						if(dat.rspcod == '200') {
 							if(dat.rows && dat.rows.length > 0) {
-								if(vm.filterArr.size() < vm.rows.size() + dat.rows.length) {
-									var n = vm.rows.size() + dat.rows.length - vm.filterArr.size();
+								if(vm.filterArr.size() < vm.cells.size() + dat.rows.length) {
+									var n = vm.cells.size() + dat.rows.length - vm.filterArr.size();
 									for(var i = 0; i < n; i ++) {
 										vm.filterArr.push(true);
 									}
 								}
-								vm._dealLoadSelected(dat.rows);
-								//vm.page = Math.ceil(vm.rows.size() / vm.limit);
+								vm._buildCells(dat.rows ? dat.rows : []);
 								vm.page ++;
 							}
-							if(dat.total == vm.rows.size()) {
+							if(dat.total == vm.cells.size()) {
 								vm.isTotal = true;
 								vm.loadInfo = '<strong style="color:blue">无更多记录</strong>';
 							}else {
@@ -370,17 +381,14 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 									vm.filterArr.push(true);
 								}
 							}
-							vm.rows.removeAll();
-							vm.lastSelected = -1;
-							vm.selected = 0;
-							vm.allSelected = false;
-							vm._dealLoadSelected(dat.rows ? dat.rows : []);
-							if(dat.total == vm.rows.size()) {
+							vm._clearCells();
+							vm._buildCells(dat.rows ? dat.rows : []);
+							if(dat.total == vm.cells.size()) {
 								vm.isTotal = true;
 								vm.loadInfo = '<strong style="color:blue">无更多记录</strong>';
 							}else {
 								vm.isTotal = false;
-								if(vm.rows.size() == 0) {
+								if(vm.cells.size() == 0) {
 									vm.loadInfo = '<strong style="color:red;">未查询到记录</strong>';
 								}else {
 									vm.loadInfo = '<strong style="color:blue">数据加载成功</strong>';
@@ -400,8 +408,8 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 						arr.push(vm.lastSelected);
 					}
 				}else {
-					for(var i = 0; i < vm.rows.size(); i ++) {
-						if(vm.rows[i].selected === true || vm.rows[i].selected === 'true') {
+					for(var i = 0; i < vm.cells.size(); i ++) {
+						if(vm.cells[i][0] == 1) {
 							arr.push(i);
 						}
 					}
@@ -409,24 +417,16 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 				return arr;
 			}
 			vm.getSelectedRow = function() {
-				var arr = [];
-				if(vm.singleSelect === true) {
-					if(vm.lastSelected != -1) {
-						arr.push(vm.rows[vm.lastSelected]);
-					}
-				}else {
-					for(var i = 0; i < vm.rows.size(); i ++) {
-						if(vm.rows[i].selected === true) {
-							arr.push(vm.rows[i]);
-						}
-					}
+				var arr = [], arrIdx = vm.getSelectedIdx();
+				for(var i = 0; i < arrIdx.length; i ++) {
+					arr.push(vm._buildRowObj(arrIdx[i]));
 				}
 				return arr;
 			}
 			vm.getRow = function(idxArr) {
 				var arr = [];
 				for(var i = 0; i < idxArr.length; i ++) {
-					arr.push(vm.rows[idxArr[i]]);
+					arr.push(vm._buildRowObj(idxArr[i]));
 				}
 				return arr;
 			}
@@ -434,10 +434,9 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 				if(vm.deleteUrl != '' && vm.key.length > 0) {
 					var vals = [];
 					for(var i = 0; i < arr.length; i ++) {
-						var v = '';
-						for(var j = 0; j < vm.key.length; j ++) {
-							var r = vm.rows[arr[i]];
-							v += r[vm.key[j]];
+						var v = '', r = vm.cells[arr[i]];
+						for(var j = 0; j < vm.$keyIdx.length; j ++) {
+							v += r[j + 1];
 						}
 						vals.push(v);
 					}
@@ -460,18 +459,19 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 			}
 			vm.modifyRow = function(idx, data) {
 				if(data) {
-					var row = vm.rows[idx];
-					for(k in data) {
-						if(row[k] != undefined) {
-							row[k] = data[k];
+					var r = vm.cells[idx];
+					for(var i=0; i<vm.cols.length; i++) {
+						var col = vm.cols[i];
+						if(data[col.name] != undefined) {
+							r.set(i + 1, data[col.name])
 						}
 					}
 				}
 			}
 			vm.modifySelectRow = function(data) {
 				var arr = vm.getSelectedIdx();
-				if(arr.length > 0) {
-					vm.modifyRow(arr[0], data);
+				for(var i = 0; i < arr.length; i ++) {
+					vm.modifyRow(arr[i], data);
 				}
 			}
 			vm.addRow = function(arr) {
@@ -479,7 +479,8 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 					for(var i = 0; i < arr.length; i ++) {
 						vm.filterArr.push(true);
 					}
-					vm._dealLoadSelected(arr);
+					vm._buildCells(arr);
+					vm.total = parseInt(vm.total) + parseInt(arr.length);
 				}
 			}
 			//绑定事件
@@ -491,10 +492,13 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 			avalon.bind(document, 'click', vm._bindFun, false);
 		},
 		$ready: function (vm) {
-			for(var i=0; i<vm.rows.size(); i++) {
-				vm.filterArr.push(true);
-			}
 			//默认加载数据
+			if(vm.rows.length > 0) {
+				vm._buildCells(vm.rows);
+				for(var i=0; i<vm.cells.size(); i++) {
+					vm.filterArr.push(true);
+				}
+			}
 			if(vm.auto === true) {
 				vm.reloadData();
 			}

@@ -23,9 +23,7 @@
 			</div>
 		</div>
 	</nav>
-	<div ms-visible="showQuery">
-		{{content|html}}
-	</div>
+	<div ms-visible="showQuery">{{content|html}}</div>
 	<div style="overflow:hidden;">
 		<table class="table table-hover td_datagrid relative_pos" ms-css-left="scrollLeft">
 			<thead>
@@ -58,18 +56,17 @@
 	<div style="overflow:auto;" ms-css-height="height" ms-scroll="scrollTable($event)" ms-on-mousewheel="wheelTable($event)">
 		<table class="table table-hover td_datagrid margin_bottom2">
 			<tbody>
-				<tr ms-repeat="rows" ms-class-1="td_datagrid_tr_edit: editIdx==$index" ms-class-2="td_datagrid_tr_selected: el.selected==true||el.selected=='true'"
+				<tr ms-repeat-r="cells" ms-class-1="td_datagrid_tr_edit: editIdx==$index" ms-class-2="td_datagrid_tr_selected: r[0]==1"
 					ms-click="clickRow($event, $index)" ms-dblclick="editRow($event, $index)" ms-visible="filterArr[$index]">
-					<td width="45" style="padding-top:8px;" ms-visible="checkbox">
-						<i class="td_datagrid_icon" ms-class-1="td_datagrid_checked: el.selected==true||el.selected=='true'" ms-class-2="td_datagrid_unchecked: el.selected==false||el.selected=='false'" ms-click="clickCheckbox($event, $index)"></i>
-					</td>
-					<td class="padding_top" ms-repeat="cols" ms-attr-width="{{el.width}}"
-						ms-attr-title="el.type == 'select' ? el.option[$outer.el[el.name]] : $outer.el[el.name]">
-						<span ms-visible="editIdx!=$outer.$index" ms-click="clickCell($event, el.fun, $outer.$index, $index, $outer.el[el.name])">{{el.type == 'text' ? (el.render ? el.render($outer.el[el.name], $outer.el) : $outer.el[el.name]) : (el.render ? el.render(el.option[$outer.el[el.name]], $outer.el) : el.option[$outer.el[el.name]]) | html}}</span>
-						<div ms-visible="editIdx==$outer.$index">
-							<input type="text" ms-if="el.type == 'text'" ms-attr-disabled="el.disabled" ms-attr-value="$outer.el[el.name]" ms-keyup="changeCell($event, $outer.$index, $index, el.name)" ms-css-width="{{el.width - 15}}"/>
-							<select ms-if="el.type == 'select'" ms-attr-disabled="el.disabled" ms-css-width="{{el.width - 15}}" ms-change="changeCell($event, $outer.$index, $index, el.name)" ms-duplex="$outer.el[el.name]">
-								<option ms-repeat="el.option" ms-attr-value="{{$key}}">{{$val}}</option>
+					<td class="padding_top" ms-repeat-c="r" ms-attr-width="{{$index==0? 45 : cols[$index-1].width}}" ms-attr-title="cols[$index-1].type == 'select' ? cols[$index-1].option[c] : c" ms-visible="$index>0||($index==0&&checkbox===true)">
+						<i ms-if="$index==0" class="td_datagrid_icon" ms-class-1="td_datagrid_checked: c==1" ms-class-2="td_datagrid_unchecked: c==0" ms-click="clickCheckbox($event, $outer.$index)"></i>
+						<span ms-if="$index>0" ms-visible="editIdx!=$outer.$index" ms-click="clickCell($event, cols[$index-1].fun, $outer.$index, $index-1, c)">
+							{{cols[$index-1].type == 'text' ? (cols[$index-1].render ? cols[$index-1].render(c, $outer.$index) : c) : (cols[$index-1].render ? cols[$index-1].render(cols[$index-1].option[c], $outer.$index) : cols[$index-1].option[c]) | html}}
+						</span>
+						<div ms-if="$index>0&&editable===true" ms-visible="editIdx==$outer.$index">
+							<input type="text" ms-if="cols[$index-1].type == 'text'" ms-attr-disabled="cols[$index-1].disabled" ms-duplex="c" ms-css-width="{{cols[$index-1].width - 15}}"/>
+							<select ms-if="cols[$index-1].type == 'select'" ms-attr-disabled="cols[$index-1].disabled" ms-css-width="{{cols[$index-1].width - 15}}" ms-duplex="c">
+								<option ms-repeat="cols[$index-1].option" ms-attr-value="{{$key}}">{{$val}}</option>
 							</select>
 						</div>
 					</td>
@@ -88,21 +85,18 @@
 			</tbody>
 		</table>
 	</div>
-
 	<div ms-visible="renderInfo != ''" class="padding_left padding_top">
 		{{renderInfo | html}}
 	</div>
 	<div class="padding_left padding_top">
 		<span>已加载<strong>{{page-1}}</strong>页&nbsp;<strong>{{rows.length}}</strong>条记录</span>&nbsp;共<strong>{{total}}</strong>条记录&nbsp;&nbsp;{{loadInfo | html}}
 	</div>
-
 	<div class="td_datagrid_actions" ms-mouseenter="toggle($event, 'action', 'in')" ms-mouseleave="toggle($event, 'action', 'out')" ms-each="actions">
 		<a class="btn btn-default waves-effect waves-light btn-lg" href="javascript:void(0)" ms-click="clickAction($event, el.fun)"
 			ms-class-1="btn-primary: el.type=='primary'" ms-class-2="btn-success: el.type=='success'" ms-class-3="btn-info: el.type=='info'"
 			ms-class-4="btn-warning: el.type=='warning'" ms-class-5="btn-danger: el.type=='danger'"
 			ms-visible="($index==actions.size() - 1) ? true : showAction" ms-attr-title="el.title"><span ms-attr-class="el.icon"></span></a>
 	</div>
-
 	<div class="loading-mask" ms-visible="isLoading">
 		<div class="loading-container">
 			<div class="loading-speeding-wheel"></div><strong>数据加载中,请稍后…</strong>
