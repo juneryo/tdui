@@ -6,32 +6,32 @@ define(['ui/button/td.button'], function () {
 		},
 		$opt: {
 			onclicked: function(ev, vm) {
-				alert('default');
+				TD.alert('default');
 			}
 		},
 		$opt1: {
 			onclicked: function(ev, vm) {
-				alert('primary');
+				TD.alert('primary');
 			}
 		},
 		$opt2: {
 			onclicked: function(ev, vm) {
-				alert('success');
+				TD.alert('success');
 			}
 		},
 		$opt3: {
 			onclicked: function(ev, vm) {
-				alert('info');
+				TD.alert('info');
 			}
 		},
 		$opt4: {
 			onclicked: function(ev, vm) {
-				alert('warning');
+				TD.alert('warning');
 			}
 		},
 		$opt5: {
 			onclicked: function(ev, vm) {
-				alert('danger');
+				TD.alert('danger');
 			}
 		}
 	});

@@ -3,15 +3,12 @@
 <head>
 	<title>TDUI</title>
   <meta charset="utf-8">
-
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
 	<meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT">
-	
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
 	<meta name="renderer" content="webkit">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-	
 	<link rel="stylesheet" href="avalon/ui/base/css/normalize.min.css" />
 	<link rel="stylesheet" href="avalon/ui/base/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="avalon/ui/base/css/material.css" />
@@ -47,28 +44,26 @@
 		</a>
 	</div>
 	<div class="index_sliderbar" ms-css-left="left">
-		<div class="index_menu">
-			<td:accordion config="$index_accordion_opt" active="0" padding="0">
-				<div slot="content0" class="margin_top">
-					<td:tree config="$index_tree_1" root="false"></td:tree>
-				</div>
-				<div slot="content1" class="margin_top">
-					<td:tree config="$index_tree_2" root="false"></td:tree>
-				</div>
-				<div slot="content2" class="margin_top">
-					<td:tree config="$index_tree_3" root="false"></td:tree>
-				</div>
-				<div slot="content3" class="margin_top">
-					<td:tree config="$index_tree_4" root="false"></td:tree>
-				</div>
-			</td:accordion>
-		</div>
+		<td:accordion config="$index_accordion_opt" active="0" padding="0">
+			<div slot="content0" class="margin_top">
+				<td:tree config="$index_tree_1" root="false"></td:tree>
+			</div>
+			<div slot="content1" class="margin_top">
+				<td:tree config="$index_tree_2" root="false"></td:tree>
+			</div>
+			<div slot="content2" class="margin_top">
+				<td:tree config="$index_tree_3" root="false"></td:tree>
+			</div>
+			<div slot="content3" class="margin_top">
+				<td:tree config="$index_tree_4" root="false"></td:tree>
+			</div>
+		</td:accordion>
 	</div>
 	<div class="container index_body">
 		<div class="well" ms-view="index_view"></div>
 	</div>
 </body>
-<script type="text/javascript" src="avalon/ui/base/js/waves.js"></script>
-<script type="text/javascript" src="avalon/ui/base/js/td.base.js"></script>
+<script type="text/javascript" src="ui/base/js/waves.js"></script>
+<script type="text/javascript" src="ui/base/js/td.base.js"></script>
 <script type="text/javascript" src="index.js"></script>
 </html>

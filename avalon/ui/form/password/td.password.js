@@ -36,7 +36,11 @@ define(['avalon', 'text!./td.password.html', 'css!./td.password.css'], function(
 		clickKey: _interface,
 		checkKeydown: _interface,
 		doInput: _interface,
-		
+		_trigger: _interface,
+		validValue: _interface,
+		getData: _interface,
+		getValue: _interface,
+		setValue: _interface,
 		$template: template,
 		$construct: function (hooks, vmOpts, elemOpts) {	
 			var options = avalon.mix(hooks, vmOpts, elemOpts);
@@ -65,6 +69,7 @@ define(['avalon', 'text!./td.password.html', 'css!./td.password.css'], function(
 			}
 			//接口方法
 			vm.clickPad = function(ev) {
+				ev.stopPropagation();
 				ev.cancelBubble = true;
 			}
 			vm.toggleKeypad = function(ev) {
@@ -83,6 +88,7 @@ define(['avalon', 'text!./td.password.html', 'css!./td.password.css'], function(
 					}
 					vm._trigger(ev, 'clicked');
 				}
+				ev.stopPropagation();
 				ev.cancelBubble = true;
 			}
 			vm.switchTab = function(ev, idx) {

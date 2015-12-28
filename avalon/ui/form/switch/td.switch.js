@@ -13,7 +13,10 @@ define(['avalon', 'text!./td.switch.html', 'css!./td.switch.css'], function(aval
 		onchanged: null,
 		//view接口
 		clickSwitch: _interface,
-		
+		_trigger: _interface,
+		getData: _interface,
+		getValue: _interface,
+		setValue: _interface,
 		$template: template,
 		$construct: function (hooks, vmOpts, elemOpts) {	
 			var options = avalon.mix(hooks, vmOpts, elemOpts);

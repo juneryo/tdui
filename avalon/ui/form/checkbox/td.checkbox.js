@@ -11,7 +11,7 @@ define(['avalon', 'text!./td.checkbox.html', 'css!./td.checkbox.css'], function(
 		onchanged: null,
 		//view接口
 		clickCheckbox: _interface,
-		
+		_trigger: _interface,
 		$template: template,
 		$construct: function (hooks, vmOpts, elemOpts) {	
 			var options = avalon.mix(hooks, vmOpts, elemOpts);

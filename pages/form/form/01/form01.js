@@ -19,7 +19,7 @@ define(['ui/form/td.form', 'ui/form/text/td.text', 'ui/form/select/td.select',
 			},
 			onoksubmited: function(dat, vm) {
 				vform.form_info = '提交成功事件[' + dat.rspcod + ':' + dat.rspmsg + ']';
-				alert('[' + dat.rspcod + ':' + dat.rspmsg + ']');
+				TD.alert('[' + dat.rspcod + ':' + dat.rspmsg + ']');
 			},
 			onreseted: function(dat, vm) {
 				vform.form_info = '重置事件';
@@ -30,7 +30,7 @@ define(['ui/form/td.form', 'ui/form/text/td.text', 'ui/form/select/td.select',
 				'1': '男',
 				'2': '女',
 				'3': '其他'
-			},
+			}
 		},
 		$switch_opt: {
 			display: {

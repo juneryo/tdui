@@ -10,7 +10,10 @@ define(['avalon', 'text!./td.radiogroup.html', 'css!./td.radio.css'], function(a
 		onchanged: null,
 		//view接口
 		clickRadio: _interface,
-		
+		_trigger: _interface,
+		getData: _interface,
+		getValue: _interface,
+		setValue: _interface,
 		$computed:{
 			value:{
 				set: function(val) {

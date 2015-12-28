@@ -25,9 +25,17 @@ define(['avalon', 'mmRequest', 'text!./td.form.html', 'css!./td.form.css'], func
 		//view接口
 		doSubmit: _interface,
 		doReset: _interface,
+		_trigger: _interface,
+		_ajax: _interface,
+		_checkValid: _interface,
+		getData: _interface,
+		setData: _interface,
+		submit: _interface,
+		reset: _interface,
+		reload: _interface,
+		getElements: _interface,
 		//slot
 		content: '',
-		
 		$template: template,
 		// hooks : 定义component中的属性
 		//vmOpts : 引用component时的js配置$opt 
@@ -145,7 +153,13 @@ define(['avalon', 'mmRequest', 'text!./td.form.html', 'css!./td.form.css'], func
 			}
 			vm.reload = function() {
 				if(vm.loadUrl != '') {
-					vm._ajax(vm.loadUrl, vm.loadParam, function(d) {
+					var p = {};
+					for(var k in vm.loadParam) {
+						if(vm.loadParam.hasOwnProperty(k)) {
+							p[k] = vm.loadParam[k];
+						}
+					}
+					vm._ajax(vm.loadUrl, p, function(d) {
 						if(d.rspcod == '200') {
 							vm.setData(d.data);
 						}

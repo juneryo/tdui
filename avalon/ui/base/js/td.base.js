@@ -23,21 +23,6 @@ Date.prototype.format = function(fmt) {
   fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
   return fmt;
 }
-
-if (!document.getElementsByClassName) {
-	document.getElementsByClassName = function (cls) {
-		var ret = [];
-		var els = document.getElementsByTagName('*');
-		for (var i = 0; i < els.length; i++) {
-			if (els[i].className === cls || els[i].className.indexOf(cls + ' ') >= 0
-				|| els[i].className.indexOf(' ' + cls + ' ') >= 0 || els[i].className.indexOf(' ' + cls) >= 0) {
-				ret.push(els[i]);
-			}
-		}
-		return ret;
-	}
-}
-
 String.prototype.trim=function(){
 	return this.replace(/(^\s*)|(\s*$)/g, '');
 }
@@ -62,58 +47,6 @@ String.prototype.toDate = function() {
 		}
 	}catch(e) {}
 	return dt;
-}
-
-TD = {
-	version: '0.0.1beta',
-	util: {
-		//生成UUID(id前缀)
-		genId: function(prefix) {
-			prefix = prefix.toUpperCase() || 'ID'
-			return String(Math.random() + Math.random()).replace(/\d\.\d{4}/, prefix);
-		}
-	},
-	validate: function(val, valids) {
-		var info = '', reg = null, flag = true, validArr = valids.split(',');
-		for(var i = 0; i < validArr.length; i ++) {
-			var valid = validArr[i];
-			switch(valid) {
-				case 'int':
-					reg = /^\-?\d+$/;
-					info = reg.test(val) ? '' : '请输入正确的整数'; break;
-				case '+int':
-					reg = /^\+?[1-9][0-9]*$/;
-					info = reg.test(val) ? '' : '请输入正确的正整数'; break;
-				case '-int':
-					reg = /^\-[1-9][0-9]*$/;
-					info = reg.test(val) ? '' : '请输入正确的负整数'; break;
-				case 'float':
-					reg = /^(-?\d+)(\.\d+)?/;
-					info = reg.test(val) ? '' : '请输入正确的浮点数'; break;
-				case '+float':
-					reg = /^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/;
-					info = reg.test(val) ? '' : '请输入正确的正浮点数'; break;
-				case '-float':
-					reg = /^(-(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*)))$/;
-					info = reg.test(val) ? '' : '请输入正确的负浮点数'; break;
-				case 'ip':
-					reg = /^(?:(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])$/;
-					info = reg.test(val) ? '' : 'IP地址有误'; break;
-				case 'email':
-					reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]{2,5}$/;
-					info = reg.test(val) ? '' : '电子邮件地址有误'; break;
-				case 'phone':
-					reg = /^(\(\d{3,4}\)|\d{3,4}-)?\d{7,8}$/;
-					info = reg.test(val) ? '' : '电话号码有误'; break;
-				case 'mobile':
-					reg = /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/;
-					info = reg.test(val) ? '' : '手机号码有误'; break;
-				default:
-					break;
-			}
-		}
-		return info;
-	}
 }
 
 avalon.config({
@@ -152,7 +85,7 @@ avalon.config({
   var hintObj = document.createElement('div');
   hintObj.id = '_td_hint';
   hintObj.className = 'alert alert-warning td_hint';
-  hintObj.innerHTML = '<button type="button" class="close" onclick="hint.close(event)"><span>&times;</span></button><strong></strong>';
+  hintObj.innerHTML = '<button type="button" class="close" onclick="TD.close(event, \'hint\')"><span>&times;</span></button><strong></strong>';
   hintObj.style.display = 'none';
   hintObj.onmouseenter = function() {
     if(_hintTime) {
@@ -203,12 +136,12 @@ avalon.config({
 	alertObj.className = 'modal';
 	alertObj.innerHTML = '<div class="modal-dialog modal-sm"><div class="modal-content">' +
 		'<div class="modal-header">' +
-			'<button type="button" class="close" onclick="alert.close(event)"><span>&times;</span></button>' +
+			'<button type="button" class="close" onclick="TD.close(event, \'alert\')"><span>&times;</span></button>' +
 			'<h4 class="modal-title">提示</h4>' +
 		'</div>' +
-		'<div class="modal-body"></div>' +
+		'<div id="_td_alert_body" class="modal-body"></div>' +
 		'<div class="modal-footer">' +
-			'<button type="button" class="btn btn-primary waves-effect waves-light" onclick="alert.close(event)">确定</button>' +
+			'<button type="button" class="btn btn-primary waves-effect waves-light" onclick="TD.close(event, \'alert\')">确定</button>' +
 		'</div>' +
 	'</div></div>';
 	alertObj.onclick = function(e) {
@@ -222,61 +155,124 @@ avalon.config({
 	document.body.appendChild(alertObj);
 })();
 
-window.alert = function(html) {
-	document.getElementById('_td_mask').style.display = 'block';
-	var obj = document.getElementById('_td_alert');
-	obj.getElementsByClassName('modal-body')[0].innerHTML = html;
-	obj.style.display = 'block';
-}
-window.alert.close = function(e) {
-	document.getElementById('_td_mask').style.display = 'none';
-	document.getElementById('_td_alert').style.display = 'none';
-}
-
-confirm = window.confirm = function(html, yCallback, nCallback) {
-	var mask = document.getElementById('_td_mask');
-	mask.style.display = 'block';
-	var obj = document.getElementById('_td_confirm');
-	obj.getElementsByClassName('modal-body')[0].innerHTML = html;
-	obj.style.display = 'block';
-	var btns = obj.getElementsByTagName('button');
-	var yBtn = btns[btns.length - 1];
-	var nBtn = btns[btns.length - 2];
-	yBtn.onclick=function(e) {
-		obj.style.display = 'none';
-		mask.style.display = 'none';
-		if(typeof yCallback == 'function') yCallback();
-  };
-	nBtn.onclick=function(e) {
-		obj.style.display = 'none';
-		mask.style.display = 'none';
-		if(typeof nCallback == 'function') nCallback();
-  };
-}
-
 var _hintTime = null;
-hint = window.hint = function(html, type) {
-  if(_hintTime) {
-    clearTimeout(_hintTime);
-    _hintTime = null;
-  }
-  var hint = document.getElementById('_td_hint');
-  if(type == 'success' || type == 'info' || type == 'warning' || type == 'danger') {
-    hint.className = hint.className.replace(hint.className.split(' ')[1], 'alert-' + type);
-  }
-  hint.getElementsByTagName('strong')[0].innerHTML = html;
-  hint.style.display = "block";
-  _hintTime = setTimeout('hint.close()', 4000);
-}
-hint.close = function(e) {
-  var hint = document.getElementById('_td_hint');
-  hint.getElementsByTagName('strong')[0].innerHTML = '';
-  hint.style.display = "none";
-  hint.className = hint.className.replace(hint.className.split(' ')[1], 'alert-warning');
-	var ev = e ? e : window.event;
-	if(ev.stopPropagation){
-		ev.stopPropagation();    
-	}else {
-		ev.cancelBubble = true;
+var TD = {
+	version: '0.0.1beta',
+	util: {
+		//生成UUID(id前缀)
+		genId: function(prefix) {
+			prefix = prefix.toUpperCase() || 'ID'
+			return String(Math.random() + Math.random()).replace(/\d\.\d{4}/, prefix);
+		}
+	},
+	hint: function(html, type) {
+		if(_hintTime) {
+			clearTimeout(_hintTime);
+			_hintTime = null;
+		}
+		var hint = document.getElementById('_td_hint');
+		if(type == 'success' || type == 'info' || type == 'warning' || type == 'danger') {
+			hint.className = hint.className.replace(hint.className.split(' ')[1], 'alert-' + type);
+		}
+		hint.getElementsByTagName('strong')[0].innerHTML = html;
+		hint.style.display = "block";
+		_hintTime = setTimeout(function() {
+			TD.getElementsByClassName('close', hint)[0].click();
+		}, 4000);
+	},
+	alert: function(html) {
+		document.getElementById('_td_mask').style.display = 'block';
+		document.getElementById('_td_alert_body').innerHTML = html;
+		document.getElementById('_td_alert').style.display = 'block';
+	},
+	confirm: function(html, yCallback, nCallback) {
+		var mask = document.getElementById('_td_mask');
+		mask.style.display = 'block';
+		var obj = document.getElementById('_td_confirm');
+		TD.getElementsByClassName('modal-body', obj)[0].innerHTML = html;
+		obj.style.display = 'block';
+		var btns = obj.getElementsByTagName('button');
+		var yBtn = btns[btns.length - 1];
+		var nBtn = btns[btns.length - 2];
+		yBtn.onclick=function(e) {
+			obj.style.display = 'none';
+			mask.style.display = 'none';
+			if(typeof yCallback == 'function') yCallback();
+		};
+		nBtn.onclick=function(e) {
+			obj.style.display = 'none';
+			mask.style.display = 'none';
+			if(typeof nCallback == 'function') nCallback();
+		};
+	},
+	close: function(e, typ) {
+		switch (typ) {
+			case 'hint':
+				var hint = document.getElementById('_td_hint');
+				hint.getElementsByTagName('strong')[0].innerHTML = '';
+				hint.style.display = "none";
+				hint.className = hint.className.replace(hint.className.split(' ')[1], 'alert-warning');
+				break;
+			case 'alert':
+				document.getElementById('_td_mask').style.display = 'none';
+				document.getElementById('_td_alert').style.display = 'none';
+				break;
+		}
+	},
+	getElementsByClassName: function(cls , par) {
+		if(!document.getElementsByClassName) {
+			var all = (par || document).getElementsByTagName('*');
+			var result = [];
+			for(var i=0; i<all.length; i++){
+				var el = all[i];
+				if(el.nodeType == 1 && el.className && el.className.indexOf(cls) > -1){
+					result.push(el);
+				}
+			}
+			return result;
+		}else {
+			return (par || document).getElementsByClassName(cls);
+		}
+	},
+	validate: function(val, valids) {
+		var info = '', reg = null, flag = true, validArr = valids.split(',');
+		for(var i = 0; i < validArr.length; i ++) {
+			var valid = validArr[i];
+			switch(valid) {
+				case 'int':
+					reg = /^\-?\d+$/;
+					info = reg.test(val) ? '' : '请输入正确的整数'; break;
+				case '+int':
+					reg = /^\+?[1-9][0-9]*$/;
+					info = reg.test(val) ? '' : '请输入正确的正整数'; break;
+				case '-int':
+					reg = /^\-[1-9][0-9]*$/;
+					info = reg.test(val) ? '' : '请输入正确的负整数'; break;
+				case 'float':
+					reg = /^(-?\d+)(\.\d+)?/;
+					info = reg.test(val) ? '' : '请输入正确的浮点数'; break;
+				case '+float':
+					reg = /^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/;
+					info = reg.test(val) ? '' : '请输入正确的正浮点数'; break;
+				case '-float':
+					reg = /^(-(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*)))$/;
+					info = reg.test(val) ? '' : '请输入正确的负浮点数'; break;
+				case 'ip':
+					reg = /^(?:(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])$/;
+					info = reg.test(val) ? '' : 'IP地址有误'; break;
+				case 'email':
+					reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]{2,5}$/;
+					info = reg.test(val) ? '' : '电子邮件地址有误'; break;
+				case 'phone':
+					reg = /^(\(\d{3,4}\)|\d{3,4}-)?\d{7,8}$/;
+					info = reg.test(val) ? '' : '电话号码有误'; break;
+				case 'mobile':
+					reg = /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/;
+					info = reg.test(val) ? '' : '手机号码有误'; break;
+				default:
+					break;
+			}
+		}
+		return info;
 	}
 }

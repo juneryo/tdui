@@ -11,7 +11,7 @@ define(['avalon', 'text!./td.radio.html', 'css!./td.radio.css'], function(avalon
 		onchanged: null,
 		//view接口
 		clickRadio: _interface,
-		
+		_trigger: _interface,
 		$template: template,
 		$construct: function (hooks, vmOpts, elemOpts) {
 			var options = avalon.mix(hooks, vmOpts, elemOpts);

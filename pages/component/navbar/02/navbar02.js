@@ -6,22 +6,22 @@ define(['ui/navbar/td.navbar'], function () {
 		},
 		$navbar_opt: {
 			onsubmited: function(ev, vm) {
-				alert(ev.target.value);
+				TD.alert(ev.target.value);
 			},
 			ontitleclicked: function(ev, vm) {
-				alert(vm.title);
+				TD.alert(vm.title);
 			},
 			buttons: [{
 				display: '查询', icon: 'glyphicon glyphicon-search', fun: function(ev, vm) {
-					alert('查询');
+					TD.alert('查询');
 			}},{
 				display: '保存', icon: 'glyphicon glyphicon-save', fun: function(ev, vm) {
-					alert('保存');
+					TD.alert('保存');
 			}}],
 			operations: [{display: '新增', icon: 'glyphicon glyphicon-plus', fun: function(ev, vm) {
-				alert('新增');
+				TD.alert('新增');
 			}}, {display: '删除', icon: 'glyphicon glyphicon-remove', fun: function(ev, vm) {
-				alert('删除');
+				TD.alert('删除');
 			}}]
 		}
 	});

@@ -30,7 +30,7 @@ define(['ui/datagrid/td.datagrid', 'tdForm', 'tdText', 'tdSelect'], function () 
 					return '<b style="color:red;">' + val + '</b>';
 				}, fun: function(ev, vm, row, col, val) {
 					avalon.log(vm.getRow([row]));
-					alert('行' + row + ',列' + col + ',值' + val);
+					TD.alert('行' + row + ',列' + col + ',值' + val);
 				}},
 				{name: 'category', display: '类别', width: 150, type: 'select', option: {
 					'A1': '游戏', 'A2' : '电影', 'A3' : '音乐'
@@ -53,7 +53,7 @@ define(['ui/datagrid/td.datagrid', 'tdForm', 'tdText', 'tdSelect'], function () 
 			},
 			buttons: [{
 				display: '保存', icon: 'glyphicon glyphicon-save', fun: function(ev, vm) {
-					alert('save');
+					TD.alert('save');
 				}
 			}],
 			actions: [{title: '新增', icon: 'glyphicon glyphicon-plus', fun: function(ev, vm) {

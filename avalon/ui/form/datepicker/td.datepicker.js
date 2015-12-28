@@ -47,7 +47,15 @@ define(['avalon', 'text!./td.datepicker.html', 'css!./td.datepicker.css'], funct
 		showYearPicker: _interface,
 		doPick: _interface,
 		checkKeydown: _interface,
-		
+		_trigger: _interface,
+		_buildDateArr: _interface,
+		_buildYearArr: _interface,
+		_setPickMonth: _interface,
+		showDatePicker: _interface,
+		validValue: _interface,
+		getData: _interface,
+		getValue: _interface,
+		setValue: _interface,
 		$template: template,
 		// hooks : 定义component中的属性
 		//vmOpts : 引用component时的js配置$opt 
@@ -147,6 +155,7 @@ define(['avalon', 'text!./td.datepicker.html', 'css!./td.datepicker.css'], funct
 			}
 			//接口方法
 			vm.clickPicker = function(ev) {
+				ev.stopPropagation();
 				ev.cancelBubble = true;
 			}
 			vm.togglePicker = function(ev) {
@@ -154,6 +163,7 @@ define(['avalon', 'text!./td.datepicker.html', 'css!./td.datepicker.css'], funct
 					vm.isShow = !vm.isShow;
 					vm._trigger(ev, 'clicked');
 				}
+				ev.stopPropagation();
 				ev.cancelBubble = true;
 			}
 			vm.checkKeydown = function(ev) {

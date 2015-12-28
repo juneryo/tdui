@@ -104,7 +104,6 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 					}
 				}
 			}
-			avalon.log(hooks.$keyIdx);
 			return options; //返回VM的定义对象
 		},
 		$dispose: function (vm, elem) {
@@ -219,7 +218,9 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 				};
 				if(param == undefined || param == null) {
 					for(var k in vm.loadParam) {
-						p[k] = vm.loadParam[k];
+						if(vm.loadParam.hasOwnProperty(k)) {
+							p[k] = vm.loadParam[k];
+						}
 					}
 				}else {
 					for(var k in param) {
@@ -256,6 +257,7 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 						vm.showButtons = !vm.showButtons; break;
 					case 'panel':
 						if(vm.showPanel == false) {
+							ev.stopPropagation();
 							ev.cancelBubble = true;
 						}
 						vm.showPanel = !vm.showPanel; break;
@@ -309,6 +311,7 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 				}else {
 					vm._dealSelected(ev, idx);
 				}
+				ev.stopPropagation();
 				ev.cancelBubble = true;
 			}
 			vm.clickRow = function(ev, idx) {
@@ -328,6 +331,7 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 			vm.cancelEdit = function(ev, idx) {
 				vm.editIdx = -1;
 				vm.modifyRow(idx, vm.$tmpData);
+				ev.stopPropagation();
 				ev.cancelBubble = true;
 			}
 			vm.submitEdit = function(ev, idx) {
@@ -343,6 +347,7 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 				}else {
 					vm.$tmpData = rowObj;
 				}
+				ev.stopPropagation();
 				ev.cancelBubble = true;
 			}
 			vm.clickAction = function(ev, fun) {
@@ -350,6 +355,7 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 					fun(ev, vm);
 				}
 				vm.showPanel = false;
+				ev.stopPropagation();
 				ev.cancelBubble = true;
 			}
 			vm.clickCell = function(ev, fun, row, col, val) {
@@ -515,6 +521,7 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 				for(var i=0; i<vm.cells.size(); i++) {
 					vm.filterArr.push(true);
 				}
+				vm.total = vm.cells.size();
 			}
 			if(vm.auto === true) {
 				vm.reloadData();

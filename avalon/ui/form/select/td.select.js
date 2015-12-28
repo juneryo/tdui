@@ -33,7 +33,15 @@ define(['avalon', 'mmRequest', 'text!./td.select.html', 'css!./td.select.css'], 
 		isSelected: _interface,
 		toggleList: _interface,
 		selectOne: _interface,
-		
+		_trigger: _interface,
+		_buildSelected: _interface,
+		validValue: _interface,
+		getData: _interface,
+		getValue: _interface,
+		setValue: _interface,
+		removeData: _interface,
+		reloadData: _interface,
+		_buildKeys: _interface,
 		$template: template,
 		// hooks : 定义component中的属性
 		//vmOpts : 引用component时的js配置$opt 
@@ -78,6 +86,14 @@ define(['avalon', 'mmRequest', 'text!./td.select.html', 'css!./td.select.css'], 
 					default: break;
 				}
 			}
+			vm._buildKeys = function(obj) {
+				for(var k in obj) {
+					if(obj.hasOwnProperty(k)) {
+						vm.keys.push(k);
+					}
+				}
+				vm.keys.sort();
+			}
 			vm._buildSelected = function() {
 				var val = '', text = '';
 				for(var i = 0; i < vm.selected.size(); i ++) {
@@ -113,6 +129,7 @@ define(['avalon', 'mmRequest', 'text!./td.select.html', 'css!./td.select.css'], 
 				if(!vm.disabled) {
 					vm.isShow = !vm.isShow;
 				}
+				ev.stopPropagation();
 				ev.cancelBubble = true;
 			}
 			vm.selectOne = function(ev, key) {
@@ -146,6 +163,7 @@ define(['avalon', 'mmRequest', 'text!./td.select.html', 'css!./td.select.css'], 
 				}
 				vm._trigger(ev, 'changed');
 				if(vm.muti) {
+					ev.stopPropagation();
 					ev.cancelBubble = true;
 				}
 			}
@@ -180,16 +198,21 @@ define(['avalon', 'mmRequest', 'text!./td.select.html', 'css!./td.select.css'], 
 					}
 					vm.loadInfo = '';
 					vm.isLoading = true;
+					var obj = {};
+					for(var k in vm.param) {
+						if(vm.param.hasOwnProperty(k)) {
+							obj[k] = vm.param[k];
+						}
+					}
 					req.ajax({
 						type: 'POST',
 						url: vm.url,
-						data: vm.param,
+						data: obj,
 						headers: {},
 						success: function(dat, status, xhr) {
 							if(dat.rspcod == '200') {
 								vm.data = dat.data;
-								vm.keys.pushArray(Object.keys(dat.data))
-								vm.keys.sort();
+								vm._buildKeys(vm.data);
 								vm.selected.removeAll();
 								vm._buildSelected();
 								vm._trigger(dat.data, 'loaded');
@@ -220,8 +243,7 @@ define(['avalon', 'mmRequest', 'text!./td.select.html', 'css!./td.select.css'], 
 				vm.reloadData();
 			}else {
 				if(vm.url == '') {
-					vm.keys.pushArray(Object.keys(vm.data));
-					vm.keys.sort();
+					vm._buildKeys(vm.data);
 				}
 			}
     }

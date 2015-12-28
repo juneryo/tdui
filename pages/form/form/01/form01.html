@@ -92,7 +92,7 @@ var vform = avalon.define({
 		},
 		onoksubmited: function(dat, vm) {
 			vform.form_info = '提交成功事件[' + dat.rspcod + ':' + dat.rspmsg + ']';
-			alert('[' + dat.rspcod + ':' + dat.rspmsg + ']');
+			TD.alert('[' + dat.rspcod + ':' + dat.rspmsg + ']');
 		},
 		onreseted: function(dat, vm) {
 			vform.form_info = '重置事件';

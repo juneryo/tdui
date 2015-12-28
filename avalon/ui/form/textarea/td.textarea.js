@@ -11,18 +11,19 @@ define(['avalon', 'text!./td.textarea.html', 'css!./td.textarea.css'], function(
 		must: false,
 		html: false,
 		disabled: false,
-		
 		//外部参数
 		onchanged: null,
 		onclicked: null,
-		
 		//view属性
 		isValid: true,
 		validInfo: '',
 		//view接口
 		validValue: _interface,
 		doClick: _interface,
-		
+		_trigger: _interface,
+		getData: _interface,
+		getValue: _interface,
+		setValue: _interface,
 		$template: template,
 		// hooks : 定义component中的属性
 		//vmOpts : 引用component时的js配置$opt 

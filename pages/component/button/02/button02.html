@@ -20,17 +20,17 @@ var vbutton = avalon.define({
 	$id: 'button02',
 	$opt: {
 		onclicked: function(ev, vm) {
-			alert('default');
+			TD.alert('default');
 		},
 		actions: [{display: '操作1', fun: function(ev, vm) {
-			alert('primary操作1');
+			TD.alert('primary操作1');
 		}},{display: '操作2', fun: function(ev, vm) {
-			alert('primary操作2');
+			TD.alert('primary操作2');
 		}}, {
 			type: 'split'
 		}, {
 			display: '操作3', fun: function(ev, vm) {
-			alert('primary操作3');
+			TD.alert('primary操作3');
 		}}]
 	}
 });

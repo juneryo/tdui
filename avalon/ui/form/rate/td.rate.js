@@ -19,7 +19,11 @@ define(['avalon', 'text!./td.rate.html', 'css!./td.rate.css'], function(avalon, 
 		clickRate: _interface,
 		mouseInRate: _interface,
 		mouseOutRate: _interface,
-		
+		_trigger: _interface,
+		_setRate: _interface,
+		getData: _interface,
+		getValue: _interface,
+		setValue: _interface,
 		$template: template,
 		$construct: function (hooks, vmOpts, elemOpts) {
 			var options = avalon.mix(hooks, vmOpts, elemOpts);

@@ -59,7 +59,7 @@ define(['tdDatagrid', 'tdForm', 'tdText', 'tdSelect'], function () {
 					return '<a href="javascript:void(0)">详情</a>';
 				}, fun: function(ev, vm, row, col, val) {
 					avalon.log(vm.getRow([row]));
-					alert('行' + row + ',列' + col);
+					TD.alert('行' + row + ',列' + col);
 				}}
 			],
 			render: function(vm, dat) {
@@ -67,18 +67,18 @@ define(['tdDatagrid', 'tdForm', 'tdText', 'tdSelect'], function () {
 			},
 			buttons: [{
 				display: '保存', icon: 'glyphicon glyphicon-save', fun: function(ev, vm) {
-					alert('save');
+					TD.alert('save');
 				}
 			}],
 			actions: [{title: '新增', icon: 'glyphicon glyphicon-plus', fun: function(ev, vm) {
-				alert('新增');
+				TD.alert('新增');
 			}}, {title: '删除', icon: 'glyphicon glyphicon-remove', fun: function(ev, vm) {
 				if(vm.getSelectedIdx().length > 0) {
-					confirm('<strong style="color:red;">确认要删除选中数据吗？</strong>', function() {
+					TD.confirm('<strong style="color:red;">确认要删除选中数据吗？</strong>', function() {
 						vm.removeSelectedRow();
 					});
 				}else {
-					alert('请选择需删除的数据');
+					TD.alert('请选择需删除的数据');
 				}
 			}},{title: '刷新', icon: 'glyphicon glyphicon-refresh', type: 'primary', fun: function(ev, vm) {
 				vm.reloadData();

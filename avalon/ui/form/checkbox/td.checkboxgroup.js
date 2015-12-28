@@ -10,7 +10,10 @@ define(['avalon', 'text!./td.checkboxgroup.html', 'css!./td.checkbox.css'], func
 		onchanged: null,
 		//view接口
 		clickCheckbox: _interface,
-		
+		_trigger: _interface,
+		getData: _interface,
+		getValue: _interface,
+		setValue: _interface,
 		$computed:{
 			value:{
 				set: function(val) {

@@ -195,6 +195,35 @@ blockquote.warning footer {
 	color: #000 !important;
 }
 
+/*IE8 hack(\9)*/
+.form-control {
+	border-bottom: solid 1px #d2d2d2\9;
+}
+.form-control:focus {
+	border-bottom: solid 1px #009688\9;
+}
+input.form-control {
+	line-height: 34px\9;
+}
+.dropdown-menu {
+	border-left: solid 1px #dddddd;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Shadow(Strength=5, Direction=135, Color='#dddddd')";
+	filter:progid:DXImageTransform.Microsoft.Shadow(Strength=5, Direction=135, Color='#dddddd');
+}
+.modal-content {
+	border-top: solid 1px #dddddd\9;
+	border-left: solid 1px #dddddd\9;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Shadow(Strength=3, Direction=135, Color='#cccccc')";
+	filter:progid:DXImageTransform.Microsoft.Shadow(Strength=3, Direction=135, Color='#cccccc');
+}
+.panel-heading {
+	margin: 0px 1px\9;
+}
+.panel-body {
+	border-left: solid 1px #eee\9;
+	border-right: solid 1px #eee\9;
+}
+
 .td_hint {
   z-index: 1000;
   position: fixed;

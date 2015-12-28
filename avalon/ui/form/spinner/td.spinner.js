@@ -28,7 +28,10 @@ define(['avalon', 'text!./td.spinner.html', 'css!./td.spinner.css'], function(av
 		toggleBtns: _interface,
 		validValue: _interface,
 		checkKeydown: _interface,
-		
+		_trigger: _interface,
+		getData: _interface,
+		getValue: _interface,
+		setValue: _interface,
 		$template: template,
 		$construct: function (hooks, vmOpts, elemOpts) {	
 			var options = avalon.mix(hooks, vmOpts, elemOpts);
@@ -80,6 +83,7 @@ define(['avalon', 'text!./td.spinner.html', 'css!./td.spinner.css'], function(av
 						vm._trigger(ev, 'changed');
 					}
 				}
+				ev.stopPropagation();
 				ev.cancelBubble = true;
 			}
 			vm.clickDown = function(ev) {
@@ -95,6 +99,7 @@ define(['avalon', 'text!./td.spinner.html', 'css!./td.spinner.css'], function(av
 						vm._trigger(ev, 'changed');
 					}
 				}
+				ev.stopPropagation();
 				ev.cancelBubble = true;
 			}
 			vm.toggleBtns = function(ev) {
@@ -102,6 +107,7 @@ define(['avalon', 'text!./td.spinner.html', 'css!./td.spinner.css'], function(av
 					vm.showBtns = !vm.showBtns;
 					vm._trigger(ev, 'clicked');
 				}
+				ev.stopPropagation();
 				ev.cancelBubble = true;
 			}
 			vm.checkKeydown = function(ev) {
