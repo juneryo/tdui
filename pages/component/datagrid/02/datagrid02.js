@@ -26,7 +26,7 @@ define(['ui/datagrid/td.datagrid', 'tdForm', 'tdText', 'tdSelect'], function () 
 			cols: [
 				{name: 'id', display: '编号', width: 100, type: 'text', disabled: true}, 
 				{name: 'name', display: '名称', width: 150, type: 'text'}, 
-				{name: 'price', display: '价格', width: 120, type: 'text', render: function(val, row) {
+				{name: 'price', display: '价格', width: 120, type: 'text', render: function(val, row, ridx) {
 					return '<b style="color:red;">' + val + '</b>';
 				}, fun: function(ev, vm, row, col, val) {
 					avalon.log(vm.getRow([row]));
