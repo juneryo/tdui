@@ -192,15 +192,15 @@ var TD = {
 		}, 4000);
 	},
 	alert: function(html) {
-		avalon(_alertEle).removeClass('fadeOutUp animated');
-		avalon(_alertEle).addClass('fadeInDown animated');
+		avalon(_alertEle).removeClass('zoomOut animated');
+		avalon(_alertEle).addClass('zoomIn animated');
 		_maskEle.style.display = 'block';
 		TD.getElementsByClassName('modal-body', _alertEle)[0].innerHTML = html;
 		_alertEle.style.display = 'block'
 	},
 	confirm: function(html, yCallback, nCallback) {
-		avalon(_confirmEle).removeClass('fadeOutUp animated');
-		avalon(_confirmEle).addClass('fadeInDown animated');
+		avalon(_confirmEle).removeClass('zoomOut animated');
+		avalon(_confirmEle).addClass('zoomIn animated');
 		_maskEle.style.display = 'block';
 		TD.getElementsByClassName('modal-body', _confirmEle)[0].innerHTML = html;
 		_confirmEle.style.display = 'block';
@@ -208,20 +208,24 @@ var TD = {
 		var yBtn = btns[btns.length - 1];
 		var nBtn = btns[btns.length - 2];
 		yBtn.onclick=function(e) {
-			avalon(_confirmEle).removeClass('fadeInDown animated');
-			avalon(_confirmEle).addClass('fadeOutUp animated');
+			avalon(_confirmEle).removeClass('zoomIn animated');
+			avalon(_confirmEle).addClass('zoomOut animated');
 			_maskEle.style.display = 'none';
 			if(typeof _IEversion == 'number' && _IEversion < 10) {
 				_confirmEle.style.display = 'none';
+			}else {
+				setTimeout(function() {_confirmEle.style.display = 'none';}, 800);
 			}
 			if(typeof yCallback == 'function') yCallback();
 		};
 		nBtn.onclick=function(e) {
-			avalon(_confirmEle).removeClass('fadeInDown animated');
-			avalon(_confirmEle).addClass('fadeOutUp animated');
+			avalon(_confirmEle).removeClass('zoomIn animated');
+			avalon(_confirmEle).addClass('zoomOut animated');
 			_maskEle.style.display = 'none';
 			if(typeof _IEversion == 'number' && _IEversion < 10) {
 				_confirmEle.style.display = 'none';
+			}else {
+				setTimeout(function() {_confirmEle.style.display = 'none';}, 800);
 			}
 			if(typeof nCallback == 'function') nCallback();
 		};
@@ -238,11 +242,13 @@ var TD = {
 				_hintEle.className = _hintEle.className.replace(_hintEle.className.split(' ')[1], 'alert-warning');
 				break;
 			case 'alert':
-				avalon(_alertEle).removeClass('fadeInDown animated');
-				avalon(_alertEle).addClass('fadeOutUp animated');
+				avalon(_alertEle).removeClass('zoomIn animated');
+				avalon(_alertEle).addClass('zoomOut animated');
 				_maskEle.style.display = 'none';
 				if(typeof _IEversion == 'number' && _IEversion < 10) {
 					_alertEle.style.display = 'none';
+				}else {
+					setTimeout(function() {_alertEle.style.display = 'none';}, 800);
 				}
 				break;
 		}
