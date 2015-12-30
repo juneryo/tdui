@@ -9,17 +9,20 @@
 	cursor: pointer;
 	display: inline-block;
 }
+.td_checkboxgroup_container .control-label{
+	padding-bottom: 15px;
+}
 .td_checkbox_container .td_checkbox {
 	position: relative;
 	display: inline-block;
-	height: 22px;
-	width: 22px;
+	height: 20px;
+	width: 20px;
 }
 .td_checkbox_container .td_checkbox_label {
 	position: relative;
 	height: 22px;
-	line-height:18px;
-	font-size: 18px;
+	line-height:16px;
+	font-size: 16px;
 	bottom: 3px;
 }
 .td_checkbox_container .td_checked {

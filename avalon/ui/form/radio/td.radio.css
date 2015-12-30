@@ -9,17 +9,20 @@
 	cursor: pointer;
 	display: inline-block;
 }
+.td_radiogroup_container .control-label{
+	padding-bottom: 15px;
+}
 .td_radio_container .td_radio {
 	position: relative;
 	display: inline-block;
-	height: 22px;
-	width: 22px;
+	height: 20px;
+	width: 20px;
 }
 .td_radio_container .td_radio_label {
 	position: relative;
 	height: 22px;
-	line-height:18px;
-	font-size: 18px;
+	line-height:16px;
+	font-size: 16px;
 	bottom: 3px;
 }
 .td_radio_container .td_checked {
@@ -29,8 +32,8 @@
 	background-image: url(img/unchecked.png);
 }
 .td_radio_checked_disabled {
-	background-image: url(img/checked.png);
+	background-image: url(img/checked-disabled.png);
 }
 .td_radio_unchecked_disabled {
-	background-image: url(img/unchecked.png);
+	background-image: url(img/unchecked-disabled.png);
 }

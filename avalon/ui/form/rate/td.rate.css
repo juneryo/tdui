@@ -3,6 +3,9 @@
 	display: inline-block;
 	cursor: pointer;
 }
+.td_rate_container .control-label{
+	padding-bottom: 15px;
+}
 .td_rate_container .td_rate {
 	position: relative;
 	display: inline-block;

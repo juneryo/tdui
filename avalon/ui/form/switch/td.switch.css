@@ -3,6 +3,9 @@
 	display: inline-block;
 	cursor: pointer;
 }
+.td_switch_container .control-label{
+	padding-bottom: 15px;
+}
 .td_switch_container .td_switch {
 	position: relative;
 	width: 55px;
