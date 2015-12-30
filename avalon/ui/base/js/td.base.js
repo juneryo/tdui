@@ -81,24 +81,25 @@ avalon.config({
 });
 
 //重写alert, confirm
+var _hintEle, _maskEle, _confirmEle, _alertEle;
 (function() {
-  var hintObj = document.createElement('div');
-  hintObj.id = '_td_hint';
-  hintObj.className = 'alert alert-warning td_hint';
-  hintObj.innerHTML = '<button type="button" class="close" onclick="TD.close(event, \'hint\')"><span>&times;</span></button><strong></strong>';
-  hintObj.style.display = 'none';
-  hintObj.onmouseenter = function() {
+  _hintEle = document.createElement('div');
+  _hintEle.id = '_td_hint';
+  _hintEle.className = 'alert alert-warning td_hint';
+  _hintEle.innerHTML = '<button type="button" class="close" onclick="TD.close(event, \'hint\')"><span>&times;</span></button><strong></strong>';
+  _hintEle.style.display = 'none';
+  _hintEle.onmouseenter = function() {
     if(_hintTime) {
       clearTimeout(_hintTime);
       _hintTime = null;
     }
   }
-  document.body.appendChild(hintObj);
+  document.body.appendChild(_hintEle);
 
-	var mask = document.createElement('div');
-	mask.id = '_td_mask';
-	mask.className = 'modal fade in bg_white opacity';
-	mask.onclick = function(e) {
+	_maskEle = document.createElement('div');
+	_maskEle.id = '_td_mask';
+	_maskEle.className = 'modal fade in bg_white opacity';
+	_maskEle.onclick = function(e) {
 		var ev = e ? e : window.event;
 		if(ev.stopPropagation){
 			ev.stopPropagation();    
@@ -106,12 +107,12 @@ avalon.config({
 			ev.cancelBubble = true;
 		}
 	}
-	document.body.appendChild(mask);
+	document.body.appendChild(_maskEle);
 
-	var confirmObj =  document.createElement('div');
-	confirmObj.id = '_td_confirm';
-	confirmObj.className = 'modal';
-	confirmObj.innerHTML = '<div class="modal-dialog modal-sm"><div class="modal-content">' +
+	_confirmEle =  document.createElement('div');
+	_confirmEle.id = '_td_confirm';
+	_confirmEle.className = 'modal';
+	_confirmEle.innerHTML = '<div class="modal-dialog modal-sm"><div class="modal-content">' +
 		'<div class="modal-header">' +
 			'<h4 class="modal-title">确认</h4>' +
 		'</div>' +
@@ -121,7 +122,7 @@ avalon.config({
 			'<button type="button" class="btn btn-primary waves-effect waves-light">确定</button>' +
 		'</div>' +
 	'</div></div>';
-	confirmObj.onclick = function(e) {
+	_confirmEle.onclick = function(e) {
 		var ev = e ? e : window.event;
 		if(ev.stopPropagation){
 			ev.stopPropagation();    
@@ -129,22 +130,22 @@ avalon.config({
 			ev.cancelBubble = true;
 		}
 	}
-	document.body.appendChild(confirmObj);
+	document.body.appendChild(_confirmEle);
 
-	var alertObj = document.createElement('div');
-	alertObj.id = '_td_alert';
-	alertObj.className = 'modal';
-	alertObj.innerHTML = '<div class="modal-dialog modal-sm"><div class="modal-content">' +
+	_alertEle = document.createElement('div');
+	_alertEle.id = '_td_alert';
+	_alertEle.className = 'modal';
+	_alertEle.innerHTML = '<div class="modal-dialog modal-sm"><div class="modal-content">' +
 		'<div class="modal-header">' +
 			'<button type="button" class="close" onclick="TD.close(event, \'alert\')"><span>&times;</span></button>' +
 			'<h4 class="modal-title">提示</h4>' +
 		'</div>' +
-		'<div id="_td_alert_body" class="modal-body"></div>' +
+		'<div class="modal-body"></div>' +
 		'<div class="modal-footer">' +
 			'<button type="button" class="btn btn-primary waves-effect waves-light" onclick="TD.close(event, \'alert\')">确定</button>' +
 		'</div>' +
 	'</div></div>';
-	alertObj.onclick = function(e) {
+	_alertEle.onclick = function(e) {
 		var ev = e ? e : window.event;
 		if(ev.stopPropagation){
 			ev.stopPropagation();    
@@ -152,8 +153,17 @@ avalon.config({
 			ev.cancelBubble = true;
 		}
 	}
-	document.body.appendChild(alertObj);
+	document.body.appendChild(_alertEle);
 })();
+//判断是否为ie7 8 9
+var _IEversion = (function(){
+    var v = 3, div = document.createElement('div'), all = div.getElementsByTagName('i');
+    while (
+        div.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]-->',
+        all[0]
+    );
+    return v > 4 ? v : false ;
+}());
 
 var _hintTime = null;
 var TD = {
@@ -170,52 +180,70 @@ var TD = {
 			clearTimeout(_hintTime);
 			_hintTime = null;
 		}
-		var hint = document.getElementById('_td_hint');
+		avalon(_hintEle).removeClass('fadeOut animated');
+		avalon(_hintEle).addClass('fadeInUp animated');
 		if(type == 'success' || type == 'info' || type == 'warning' || type == 'danger') {
-			hint.className = hint.className.replace(hint.className.split(' ')[1], 'alert-' + type);
+			_hintEle.className = _hintEle.className.replace(_hintEle.className.split(' ')[1], 'alert-' + type);
 		}
-		hint.getElementsByTagName('strong')[0].innerHTML = html;
-		hint.style.display = "block";
+		_hintEle.getElementsByTagName('strong')[0].innerHTML = html;
+		_hintEle.style.display = "block";
 		_hintTime = setTimeout(function() {
-			TD.getElementsByClassName('close', hint)[0].click();
+			TD.getElementsByClassName('close', _hintEle)[0].click();
 		}, 4000);
 	},
 	alert: function(html) {
-		document.getElementById('_td_mask').style.display = 'block';
-		document.getElementById('_td_alert_body').innerHTML = html;
-		document.getElementById('_td_alert').style.display = 'block';
+		avalon(_alertEle).removeClass('fadeOutUp animated');
+		avalon(_alertEle).addClass('fadeInDown animated');
+		_maskEle.style.display = 'block';
+		TD.getElementsByClassName('modal-body', _alertEle)[0].innerHTML = html;
+		_alertEle.style.display = 'block'
 	},
 	confirm: function(html, yCallback, nCallback) {
-		var mask = document.getElementById('_td_mask');
-		mask.style.display = 'block';
-		var obj = document.getElementById('_td_confirm');
-		TD.getElementsByClassName('modal-body', obj)[0].innerHTML = html;
-		obj.style.display = 'block';
-		var btns = obj.getElementsByTagName('button');
+		avalon(_confirmEle).removeClass('fadeOutUp animated');
+		avalon(_confirmEle).addClass('fadeInDown animated');
+		_maskEle.style.display = 'block';
+		TD.getElementsByClassName('modal-body', _confirmEle)[0].innerHTML = html;
+		_confirmEle.style.display = 'block';
+		var btns = _confirmEle.getElementsByTagName('button');
 		var yBtn = btns[btns.length - 1];
 		var nBtn = btns[btns.length - 2];
 		yBtn.onclick=function(e) {
-			obj.style.display = 'none';
-			mask.style.display = 'none';
+			avalon(_confirmEle).removeClass('fadeInDown animated');
+			avalon(_confirmEle).addClass('fadeOutUp animated');
+			_maskEle.style.display = 'none';
+			if(typeof _IEversion == 'number' && _IEversion < 10) {
+				_confirmEle.style.display = 'none';
+			}
 			if(typeof yCallback == 'function') yCallback();
 		};
 		nBtn.onclick=function(e) {
-			obj.style.display = 'none';
-			mask.style.display = 'none';
+			avalon(_confirmEle).removeClass('fadeInDown animated');
+			avalon(_confirmEle).addClass('fadeOutUp animated');
+			_maskEle.style.display = 'none';
+			if(typeof _IEversion == 'number' && _IEversion < 10) {
+				_confirmEle.style.display = 'none';
+			}
 			if(typeof nCallback == 'function') nCallback();
 		};
 	},
 	close: function(e, typ) {
 		switch (typ) {
 			case 'hint':
-				var hint = document.getElementById('_td_hint');
-				hint.getElementsByTagName('strong')[0].innerHTML = '';
-				hint.style.display = "none";
-				hint.className = hint.className.replace(hint.className.split(' ')[1], 'alert-warning');
+				avalon(_hintEle).removeClass('fadeInUp animated');
+				avalon(_hintEle).addClass('fadeOut animated');
+				if(typeof _IEversion == 'number' && _IEversion < 10) {
+					_hintEle.style.display = 'none';
+				}
+				_hintEle.getElementsByTagName('strong')[0].innerHTML = '';
+				_hintEle.className = _hintEle.className.replace(_hintEle.className.split(' ')[1], 'alert-warning');
 				break;
 			case 'alert':
-				document.getElementById('_td_mask').style.display = 'none';
-				document.getElementById('_td_alert').style.display = 'none';
+				avalon(_alertEle).removeClass('fadeInDown animated');
+				avalon(_alertEle).addClass('fadeOutUp animated');
+				_maskEle.style.display = 'none';
+				if(typeof _IEversion == 'number' && _IEversion < 10) {
+					_alertEle.style.display = 'none';
+				}
 				break;
 		}
 	},
