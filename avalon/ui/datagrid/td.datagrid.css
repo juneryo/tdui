@@ -76,8 +76,8 @@ table.td_datagrid tr.td_datagrid_tr_selected td {
 
 .td_datagrid_container .td_datagrid_actions {
 	position: absolute;
-	right: 10px;
-	bottom: 25px;
+	right: -10px;
+	bottom: 20px;
 	width: 55px;
 }
 .td_datagrid_container .td_datagrid_actions>a {
