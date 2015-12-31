@@ -138,6 +138,8 @@ span.td_valid_err {
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 4px;
 	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.176);
+	-ms-filter:"progid:DXImageTransform.Microsoft.Shadow(Strength=3, Direction=135, Color='#cccccc')";
+	filter:progid:DXImageTransform.Microsoft.Shadow(Strength=3, Direction=135, Color='#cccccc');
 	z-index: 5;
 }
 .td_valid_disabled {
