@@ -28,12 +28,14 @@ define(['avalon', 'text!./td.spinner.html', 'css!./td.spinner.css'], function(av
 		toggleBtns: _interface,
 		validValue: _interface,
 		checkKeydown: _interface,
+		checkKeyPress: _interface,
+		checkKeyUp: _interface,
 		_trigger: _interface,
 		getData: _interface,
 		getValue: _interface,
 		setValue: _interface,
 		$template: template,
-		$construct: function (hooks, vmOpts, elemOpts) {	
+		$construct: function (hooks, vmOpts, elemOpts) {
 			var options = avalon.mix(hooks, vmOpts, elemOpts);
 			return options;
 		},
@@ -112,10 +114,19 @@ define(['avalon', 'text!./td.spinner.html', 'css!./td.spinner.css'], function(av
 			}
 			vm.checkKeydown = function(ev) {
 				if(!vm.disabled) {
-					//退格则全部删除
-					if(ev.keyCode.toString() == '8') {
-						vm.setValue('');
+					if(ev.keyCode.toString() == '8' && vm.disabled == false) {
+						//keyUp中处理
+					}else {
+						ev.preventDefault();
 					}
+				}
+			}
+			vm.checkKeyPress = function(ev) {
+				ev.preventDefault();
+			}
+			vm.checkKeyUp = function(ev) {
+				if(ev.keyCode.toString() == '8' && vm.disabled == false) {
+					vm.setValue('');
 				}
 			}
 			vm.validValue = function() {
@@ -155,7 +166,7 @@ define(['avalon', 'text!./td.spinner.html', 'css!./td.spinner.css'], function(av
 			vm.validValue();
     }
 	});
-	
+
 	var widget = avalon.components["td:spinner"];
   widget.regionals = {};
 })

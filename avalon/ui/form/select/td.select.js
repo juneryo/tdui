@@ -42,9 +42,11 @@ define(['avalon', 'mmRequest', 'text!./td.select.html', 'css!./td.select.css'], 
 		removeData: _interface,
 		reloadData: _interface,
 		_buildKeys: _interface,
+		checkKeydown: _interface,
+		checkKeyPress: _interface,
 		$template: template,
 		// hooks : 定义component中的属性
-		//vmOpts : 引用component时的js配置$opt 
+		//vmOpts : 引用component时的js配置$opt
 		//eleOpts: 使用component时标签中的属性
 		$construct: function (hooks, vmOpts, elemOpts) {
 			var options = avalon.mix(hooks, vmOpts, elemOpts);
@@ -67,7 +69,7 @@ define(['avalon', 'mmRequest', 'text!./td.select.html', 'css!./td.select.css'], 
 			//内部方法
 			vm._trigger = function(ev, type) {
 				switch (type) {
-					case 'loaded': 
+					case 'loaded':
 						if(typeof vm.onloaded == 'function') {
 							vm.onloaded(ev, vm);
 						}
@@ -167,6 +169,12 @@ define(['avalon', 'mmRequest', 'text!./td.select.html', 'css!./td.select.css'], 
 					ev.cancelBubble = true;
 				}
 			}
+			vm.checkKeydown = function(ev) {
+				ev.preventDefault();
+			}
+			vm.checkKeyPress = function(ev) {
+				ev.preventDefault();
+			}
 			//对外方法
 			vm.getData = function() {
 				var data = {};
@@ -248,7 +256,7 @@ define(['avalon', 'mmRequest', 'text!./td.select.html', 'css!./td.select.css'], 
 			}
     }
 	});
-	
+
 	var widget = avalon.components["td:select"];
   widget.regionals = {};
 })
