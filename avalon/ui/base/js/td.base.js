@@ -48,40 +48,8 @@ String.prototype.toDate = function() {
 	}catch(e) {}
 	return dt;
 }
-
-avalon.config({
-	paths: {
-		mmRequest: 'ui/base/js/mmRequest.js',
-		mmPromise: 'ui/base/js/mmPromise.js',
-		mmHistory: 'ui/base/js/mmRouter/mmHistory.js',
-		mmRouter: 'ui/base/js/mmRouter/mmRouter.js',
-		mmState: 'ui/base/js/mmRouter/mmState.js',
-		//TDUI path
-		tdAccordion: 'ui/accordion/td.accordion.js',
-		tdButton: 'ui/button/td.button.js',
-		tdDatagrid: 'ui/datagrid/td.datagrid.js',
-		tdDialog: 'ui/dialog/td.dialog.js',
-		tdForm: 'ui/form/td.form.js',
-		tdNavbar: 'ui/navbar/td.navbar.js',
-		tdPanel: 'ui/panel/td.panel.js',
-		tdTab: 'ui/tab/td.tab.js',
-		tdTree: 'ui/tree/td.tree.js',
-		tdCheckboxgroup: 'ui/form/checkbox/td.checkboxgroup.js',
-		tdDatepicker: 'ui/form/datepicker/td.datepicker.js',
-		tdPassword: 'ui/form/password/td.password.js',
-		tdRadiogroup: 'ui/form/radio/td.radiogroup.js',
-		tdRate: 'ui/form/rate/td.rate.js',
-		tdSelect: 'ui/form/select/td.select.js',
-		tdSpinner: 'ui/form/spinner/td.spinner.js',
-		tdSwitch: 'ui/form/switch/td.switch.js',
-		tdText: 'ui/form/text/td.text.js',
-		tdTextarea: 'ui/form/textarea/td.textarea.js'
-	},
-	maxRepeatSize: 50
-});
-
 //重写alert, confirm
-var _hintEle, _maskEle, _confirmEle, _alertEle;
+var _hintEle, _maskEle, _confirmEle, _alertEle, _hintTime;
 (function() {
   _hintEle = document.createElement('div');
   _hintEle.id = '_td_hint';
@@ -164,12 +132,10 @@ var _IEversion = (function(){
     );
     return v > 4 ? v : false ;
 }());
-
-var _hintTime = null;
+//TD
 var TD = {
 	version: '0.0.1beta',
 	util: {
-		//生成UUID(id前缀)
 		genId: function(prefix) {
 			prefix = prefix.toUpperCase() || 'ID'
 			return String(Math.random() + Math.random()).replace(/\d\.\d{4}/, prefix);
@@ -214,7 +180,7 @@ var TD = {
 			if(typeof _IEversion == 'number' && _IEversion < 10) {
 				_confirmEle.style.display = 'none';
 			}else {
-				setTimeout(function() {_confirmEle.style.display = 'none';}, 800);
+				setTimeout(function() {_confirmEle.style.display = 'none';}, 500);
 			}
 			if(typeof yCallback == 'function') yCallback();
 		};
@@ -225,7 +191,7 @@ var TD = {
 			if(typeof _IEversion == 'number' && _IEversion < 10) {
 				_confirmEle.style.display = 'none';
 			}else {
-				setTimeout(function() {_confirmEle.style.display = 'none';}, 800);
+				setTimeout(function() {_confirmEle.style.display = 'none';}, 500);
 			}
 			if(typeof nCallback == 'function') nCallback();
 		};
@@ -248,10 +214,16 @@ var TD = {
 				if(typeof _IEversion == 'number' && _IEversion < 10) {
 					_alertEle.style.display = 'none';
 				}else {
-					setTimeout(function() {_alertEle.style.display = 'none';}, 800);
+					setTimeout(function() {_alertEle.style.display = 'none';}, 500);
 				}
 				break;
 		}
+	},
+	hideElement: function(elem) {
+		elem.style.display = 'none';
+	},
+	showElement: function(elem, dis) {
+		elem.style.display = dis ? dis : 'block';
 	},
 	getElementsByClassName: function(cls , par) {
 		if(!document.getElementsByClassName) {
@@ -309,4 +281,74 @@ var TD = {
 		}
 		return info;
 	}
+}
+//avalon config
+avalon.config({
+	paths: {
+		mmRequest: 'ui/base/js/mmRequest.js',
+		mmPromise: 'ui/base/js/mmPromise.js',
+		mmHistory: 'ui/base/js/mmRouter/mmHistory.js',
+		mmRouter: 'ui/base/js/mmRouter/mmRouter.js',
+		mmState: 'ui/base/js/mmRouter/mmState.js',
+		//TDUI path
+		tdAccordion: 'ui/accordion/td.accordion.js',
+		tdButton: 'ui/button/td.button.js',
+		tdDatagrid: 'ui/datagrid/td.datagrid.js',
+		tdDialog: 'ui/dialog/td.dialog.js',
+		tdForm: 'ui/form/td.form.js',
+		tdNavbar: 'ui/navbar/td.navbar.js',
+		tdPanel: 'ui/panel/td.panel.js',
+		tdTab: 'ui/tab/td.tab.js',
+		tdTree: 'ui/tree/td.tree.js',
+		tdCheckboxgroup: 'ui/form/checkbox/td.checkboxgroup.js',
+		tdDatepicker: 'ui/form/datepicker/td.datepicker.js',
+		tdPassword: 'ui/form/password/td.password.js',
+		tdRadiogroup: 'ui/form/radio/td.radiogroup.js',
+		tdRate: 'ui/form/rate/td.rate.js',
+		tdSelect: 'ui/form/select/td.select.js',
+		tdSpinner: 'ui/form/spinner/td.spinner.js',
+		tdSwitch: 'ui/form/switch/td.switch.js',
+		tdText: 'ui/form/text/td.text.js',
+		tdTextarea: 'ui/form/textarea/td.textarea.js'
+	},
+	maxRepeatSize: 50
+});
+//avalon effect
+if(typeof _IEversion == 'number' && _IEversion < 10) {
+	avalon.effect('flipX-visible', {enter: function(elem, done) {TD.showElement(elem);},leave: function(elem, done) {TD.hideElement(elem);}});
+	avalon.effect('flipY-visible', {enter: function(elem, done) {TD.showElement(elem);},leave: function(elem, done) {TD.hideElement(elem);}});
+	avalon.effect('zoom-visible', {enter: function(elem, done) {TD.showElement(elem);},leave: function(elem, done) {TD.hideElement(elem);}});
+	avalon.effect('fade-visible', {enter: function(elem, done) {TD.showElement(elem);},leave: function(elem, done) {TD.hideElement(elem);}});
+	avalon.effect('rotateLeft-visible', {enter: function(elem, done) {TD.showElement(elem);},leave: function(elem, done) {TD.hideElement(elem);}});
+}else {
+	avalon.effect('flipX-visible', {
+		enterClass: 'flipInX',
+		leaveClass: 'flipOutX',
+		afterEnter: function(elem) {TD.showElement(elem);},
+		afterLeave: function(elem) {TD.hideElement(elem);}
+	});
+	avalon.effect('flipY-visible', {
+		enterClass: 'flipInY',
+		leaveClass: 'flipOutY',
+		afterEnter: function(elem) {TD.showElement(elem);},
+		afterLeave: function(elem) {TD.hideElement(elem);}
+	});
+	avalon.effect('zoom-visible', {
+		enterClass: 'zoomIn',
+		leaveClass: 'zoomOut',
+		afterEnter: function(elem) {TD.showElement(elem);},
+		afterLeave: function(elem) {TD.hideElement(elem);}
+	});
+	avalon.effect('fade-visible', {
+		enterClass: 'fadeIn',
+		leaveClass: 'fadeOut',
+		afterEnter: function(elem) {TD.showElement(elem);},
+		afterLeave: function(elem) {TD.hideElement(elem);}
+	});
+	avalon.effect('rotateLeft-visible', {
+		enterClass: 'rotateInDownLeft',
+		leaveClass: 'rotateOutUpLeft',
+		afterEnter: function(elem) {TD.showElement(elem);},
+		afterLeave: function(elem) {TD.hideElement(elem);}
+	});
 }

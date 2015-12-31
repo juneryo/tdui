@@ -13,7 +13,7 @@
 					<span ms-if="el.icon != undefined" ms-attr-class="el.icon"></span>
 					<a ms-attr-href="el.href ? el.href : 'javascript:void(0)'" ms-click="clickNode($event, $index, el, 'node')">{{el.text}}</a>
 				</span>
-				<div ms-class-1="show:el.expand===true||el.expand==='true'" ms-class-2="hide:el.expand===false||el.expand==='false'" ms-include="tmpid" ms-visible="el.children.length"></div>
+				<div ms-include="tmpid" ms-visible="el.children.length&&(el.expand===true||el.expand==='true')" ms-effect="rotateLeft-visible" class="animated"></div>
 			</li>
 		</ul>
 	</script>
@@ -31,7 +31,7 @@
 				<span ms-if="el.icon != undefined" ms-attr-class="el.icon"></span>
 				<a ms-attr-href="el.href ? el.href : 'javascript:void(0)'" ms-click="clickNode($event, $index, el, 'node')">{{el.text}}</a>
 			</span>
-			<div ms-class-1="show:el.expand===true||el.expand==='true'" ms-class-2="hide:el.expand===false||el.expand==='false'" ms-include="tmpid" ms-visible="el.children.length>0"></div>
+			<div ms-include="tmpid" ms-visible="el.children.length>0&&(el.expand===true||el.expand==='true')" ms-effect="rotateLeft-visible" class="animated"></div>
 		</li>
 	</ul>
 </div>

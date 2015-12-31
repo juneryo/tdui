@@ -13,7 +13,7 @@
 					<li><a href="javascript:void(0)" class="waves-effect waves-light" ms-if="content!=''" ms-click="toggle($event, 'query')"><span class="glyphicon glyphicon-search"></span>&nbsp;查询</a></li>
 					<li class="dropdown" ms-if="buttons.length>0">
 						<a href="javascript:void(0)" class="dropdown-toggle waves-effect waves-light" ms-click="toggle($event, 'panel')">其他操作<span class="caret"></span></a>
-						<ul class="dropdown-menu" ms-if="buttons.length>0" ms-visible="showPanel">
+						<ul class="dropdown-menu animated" ms-if="buttons.length>0" ms-visible="showPanel" ms-effect="flipY-visible">
 							<li ms-repeat="buttons">
 								<a href="javascript:void(0)" class="waves-effect waves-light" ms-click="clickAction($event, el.fun)"><span ms-if="el.icon" ms-attr-class="el.icon"></span>{{el.display}}</a>
 							</li>
@@ -23,7 +23,7 @@
 			</div>
 		</div>
 	</nav>
-	<div ms-visible="showQuery">{{content|html}}</div>
+	<div ms-visible="showQuery" ms-effect="fade-visible" class="animated">{{content|html}}</div>
 	<div style="overflow:hidden;">
 		<table class="table table-hover td_datagrid relative_pos" ms-css-left="scrollLeft">
 			<thead>
