@@ -15,9 +15,7 @@ define(['avalon', 'mmRequest', 'text!./td.tree.html', 'css!./td.tree.css'], func
 		onexpanded: null,
 		oncollapsed: null,
 		setData: null,
-		
 		//内部属性
-		tmpid: '',		
 		isInit: true,
 		//view属性
 		isLoading: false,
@@ -34,7 +32,6 @@ define(['avalon', 'mmRequest', 'text!./td.tree.html', 'css!./td.tree.css'], func
 		//默认配置
 		$template: template,
 		$construct: function (hooks, vmOpts, elemOpts) {
-			hooks.tmpid = TD.util.genId('TREE');
 			var options = avalon.mix(hooks, vmOpts, elemOpts);
 			return options; //返回VM的定义对象
 		},
@@ -76,10 +73,16 @@ define(['avalon', 'mmRequest', 'text!./td.tree.html', 'css!./td.tree.css'], func
 			vm._ajax = function() {
 				vm.isLoading = true;
 				vm.loadInfo = '数据加载中...';
+				var p = {};
+				for(var k in vm.param) {
+					if(vm.param.hasOwnProperty(k)) {
+						p[k] = vm.param[k];
+					}
+				}
 				req.ajax({
 					type: 'POST',
 					url: vm.url,
-					data: vm.param,
+					data: p,
 					headers: {},
 					success: function(data, status, xhr) {
 						if(data.rspcod == '200') {
