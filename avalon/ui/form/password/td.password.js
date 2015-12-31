@@ -35,6 +35,8 @@ define(['avalon', 'text!./td.password.html', 'css!./td.password.css'], function(
 		switchTab: _interface,
 		clickKey: _interface,
 		checkKeydown: _interface,
+		checkKeyPress: _interface,
+		checkKeyUp: _interface,
 		doInput: _interface,
 		_trigger: _interface,
 		validValue: _interface,
@@ -125,8 +127,23 @@ define(['avalon', 'text!./td.password.html', 'css!./td.password.css'], function(
 			vm.checkKeydown = function(ev) {
 				if(vm.keypad === true) {
 					//退格则全部删除
-					if(ev.keyCode.toString() == '8') {
+					if(ev.keyCode.toString() == '8' && vm.disabled == false) {
+						//在keyUp中处理
+					}else {
+						ev.preventDefault();
+					}
+				}
+			}
+			vm.checkKeyPress = function(ev) {
+				if(vm.keypad === true) {
+					ev.preventDefault();
+				}
+			}
+			vm.checkKeyUp = function(ev) {
+				if(vm.keypad === true) {
+					if(ev.keyCode.toString() == '8' && vm.disabled == false) {
 						vm.value = '';
+						vm.validValue(ev);
 						vm._trigger(ev, 'changed');
 					}
 				}

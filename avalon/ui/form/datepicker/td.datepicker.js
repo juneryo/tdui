@@ -47,6 +47,8 @@ define(['avalon', 'text!./td.datepicker.html', 'css!./td.datepicker.css'], funct
 		showYearPicker: _interface,
 		doPick: _interface,
 		checkKeydown: _interface,
+		checkKeyPress: _interface,
+		checkKeyUp: _interface,
 		_trigger: _interface,
 		_buildDateArr: _interface,
 		_buildYearArr: _interface,
@@ -167,11 +169,19 @@ define(['avalon', 'text!./td.datepicker.html', 'css!./td.datepicker.css'], funct
 				ev.cancelBubble = true;
 			}
 			vm.checkKeydown = function(ev) {
-				if(!vm.disabled) {
-					//退格则全部删除
-					if(ev.keyCode.toString() == '8') {
-						vm.setValue('');
-					}
+				//退格则全部删除
+				if(ev.keyCode.toString() == '8' && vm.disabled == false) {
+					//keyUp中处理
+				}else {
+					ev.preventDefault();
+				}
+			}
+			vm.checkKeyPress = function(ev) {
+				ev.preventDefault();
+			}
+			vm.checkKeyUp = function(ev) {
+				if(ev.keyCode.toString() == '8' && vm.disabled == false) {
+					vm.setValue('');
 				}
 			}
 			vm.changeMonth = function(ev, oper) {
