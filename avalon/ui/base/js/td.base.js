@@ -134,7 +134,7 @@ var _IEversion = (function(){
 }());
 //TD
 var TD = {
-	version: '0.0.1beta',
+	version: '0.0.1',
 	util: {
 		genId: function(prefix) {
 			prefix = prefix.toUpperCase() || 'ID'
@@ -143,11 +143,11 @@ var TD = {
 	},
 	hint: function(html, type) {
 		if(_hintTime) {
-			clearTimeout(_hintTime);
-			_hintTime = null;
+			clearTimeout(_hintTime); _hintTime = null;
 		}
 		avalon(_hintEle).removeClass('fadeOut animated');
 		avalon(_hintEle).addClass('fadeInUp animated');
+		_hintEle.className = _hintEle.className.replace(_hintEle.className.split(' ')[1], 'alert-warning');
 		if(type == 'success' || type == 'info' || type == 'warning' || type == 'danger') {
 			_hintEle.className = _hintEle.className.replace(_hintEle.className.split(' ')[1], 'alert-' + type);
 		}
@@ -180,7 +180,7 @@ var TD = {
 			if(typeof _IEversion == 'number' && _IEversion < 10) {
 				_confirmEle.style.display = 'none';
 			}else {
-				setTimeout(function() {_confirmEle.style.display = 'none';}, 500);
+				setTimeout(function() {_confirmEle.style.display = 'none';}, 300);
 			}
 			if(typeof yCallback == 'function') yCallback();
 		};
@@ -191,7 +191,7 @@ var TD = {
 			if(typeof _IEversion == 'number' && _IEversion < 10) {
 				_confirmEle.style.display = 'none';
 			}else {
-				setTimeout(function() {_confirmEle.style.display = 'none';}, 500);
+				setTimeout(function() {_confirmEle.style.display = 'none';}, 300);
 			}
 			if(typeof nCallback == 'function') nCallback();
 		};
@@ -205,7 +205,6 @@ var TD = {
 					_hintEle.style.display = 'none';
 				}
 				_hintEle.getElementsByTagName('strong')[0].innerHTML = '';
-				_hintEle.className = _hintEle.className.replace(_hintEle.className.split(' ')[1], 'alert-warning');
 				break;
 			case 'alert':
 				avalon(_alertEle).removeClass('zoomIn animated');
@@ -214,7 +213,7 @@ var TD = {
 				if(typeof _IEversion == 'number' && _IEversion < 10) {
 					_alertEle.style.display = 'none';
 				}else {
-					setTimeout(function() {_alertEle.style.display = 'none';}, 500);
+					setTimeout(function() {_alertEle.style.display = 'none';}, 300);
 				}
 				break;
 		}

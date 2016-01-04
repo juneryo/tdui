@@ -93,8 +93,55 @@ var vpanel = avalon.define({
 		</dl>
 		<br/>
 		
+		<h2>其他组件</h2>
+		<hr/>
+		<dl>
+			<dt>TD.alert：&nbsp;<a href="javascript:void(0)" ms-click="testAlert($event)">测试alert</a><dt>
+			<dd>
+				<pre>
+TD.alert('&lt;strong&gt;这里是alert&lt;/strong&gt;');
+				</pre>
+			</dd>
+		</dl>
+		<dl>
+			<dt>TD.confirm：&nbsp;<a href="javascript:void(0)" ms-click="testConfirm($event)">测试confirm</a><dt>
+			<dd>
+				<pre>
+TD.confirm('&lt;strong&gt;这里是confirm&lt;/strong&gt;', function() {
+    TD.hint('点击了确定', 'success');
+}, function() {
+    TD.hint('点击了取消');
+});
+				</pre>
+			</dd>
+		</dl>
+		<dl>
+			<dt>TD.hint：&nbsp;<a href="javascript:void(0)" ms-click="testHint($event)">测试hint</a><dt>
+			<dd>
+				<pre>
+TD.hint('这里是hint', 'info');  //支持success,info,warning,danger这4中类型，默认warning
+				</pre>
+			</dd>
+		</dl>
+		<br/>
+		
 		<h2>浏览器支持</h2>
 		<hr/>
-		<p>目标支持至IE8（当前已完成大部分组件对IE8的支持）。</p>
+		<p>支持至IE8及以上IE浏览器，新版本的FireFox、Chrome等。</p>
+		<p>IE8及以下版本IE对私有标签库的支持需要在head中引入avalon，并将avalon.config紧随其后放置。</p>
+		<pre>
+&lt;head&gt;
+&lt;script type="text/javascript" src="avalon.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+    //这个东西必须跟挨着avalon库,并且放到head标签中
+    avalon.library("td", {
+        $init: function(){},
+        $childReady: function(){},
+        $ready: function(){},
+        $dispose: function(){}
+    });
+&lt;/script&gt;
+&lt;/head&gt;
+		</pre>
 	</div>
 </div>

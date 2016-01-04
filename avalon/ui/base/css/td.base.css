@@ -203,7 +203,10 @@ span.td_valid_err {
 	top: 2px;
 }
 .btn-default {
-	border: solid 1px #ddd !important;
+	border: solid 1px #eee !important;
+}
+.btn-primary {
+	border: solid 1px #eee !important;
 }
 blockquote.primary {
 	border-left: 5px solid #009688 !important;
