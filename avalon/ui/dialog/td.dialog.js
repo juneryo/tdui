@@ -1,27 +1,27 @@
 define(['avalon', 'text!./td.dialog.html', 'css!./td.dialog.css'], function(avalon, template) {
-	var _interface = function () {
-	};
+	var _interface = function () {};
 	avalon.component("td:dialog", {
-		//外部属性
+		//外部标签属性
 		title: '',
 		size: 'normal',  //large, small
 		padding: 15,
 		show: false,
-		//外部参数
+		//外部配置参数
 		buttons: [],
 		onshowed: null,
 		onhided: null,
+		//slot
+		content: '',
+		//内部接口
+		$trigger: _interface,
 		//view接口
-		btnClick: _interface,
-		clickDialog: _interface,
-		hideDialog: _interface,
-		_trigger: _interface,
+		_btnClick: _interface,
+		_clickDialog: _interface,
+		//对外方法
 		setTitle: _interface,
 		getTitle: _interface,
 		showDialog: _interface,
 		hideDialog: _interface,
-		//slot
-		content: '',
 		//默认配置
 		$template: template,
 		$construct: function (hooks, vmOpts, elemOpts) {
@@ -32,8 +32,7 @@ define(['avalon', 'text!./td.dialog.html', 'css!./td.dialog.css'], function(aval
 			elem.innerHTML = elem.textContent = '';
 		},
 		$init: function(vm, elem) {
-			//内部方法
-			vm._trigger = function(ev, type) {
+			vm.$trigger = function(ev, type) {
 				switch (type) {
 					case 'showed': 
 						if(typeof vm.onshowed == 'function') {
@@ -48,13 +47,12 @@ define(['avalon', 'text!./td.dialog.html', 'css!./td.dialog.css'], function(aval
 					default: break;
 				}
 			}
-			//接口方法
-			vm.btnClick = function(ev, fun) {
+			vm._btnClick = function(ev, fun) {
 				if(typeof fun == 'function') {
 					fun(ev, vm);
 				}
 			}
-			vm.clickDialog = function(ev) {
+			vm._clickDialog = function(ev) {
 				//阻止冒泡(避免点击弹出框时 弹出框关闭)
 				ev.stopPropagation();
 				ev.cancelBubble = true;
@@ -68,18 +66,17 @@ define(['avalon', 'text!./td.dialog.html', 'css!./td.dialog.css'], function(aval
 			}
 			vm.showDialog = function() {
 				vm.show = true;
-				vm._trigger({}, 'showed');
+				vm.$trigger({}, 'showed');
 			}
 			vm.hideDialog = function() {
 				vm.show = false;
-				vm._trigger({}, 'hided');
+				vm.$trigger({}, 'hided');
 			}
 		},
 		$ready: function (vm) {
       
     }
 	});
-	
 	var widget = avalon.components["td:dialog"];
   widget.regionals = {};
 });

@@ -1,5 +1,5 @@
 .td_tab_container {
-	
+	position: relative;
 }
 .td_tab_container>ul.nav {
 	background-color: transparent;
@@ -11,7 +11,6 @@
 }
 .td_tab_container>ul.nav>li>a {
 	color: #aaa !important;
-	/*transition: all .3s;*/
 	border: 0px none;
 }
 .td_tab_container>ul.nav>li.active>a {

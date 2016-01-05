@@ -1,8 +1,8 @@
 <div class="td_tab_container">
   <ul class="nav nav-tabs">
-		<li ms-repeat="tabs" ms-class="active:active==$index" ms-click="clickTab($event, $index)"><a href="javascript:void(0)">&nbsp;{{el.title}}&nbsp;</a></li>
+		<li ms-repeat="tabs" ms-class="active:active==$index" ms-click="_clickTab($event, $index)"><a href="javascript:void(0)">&nbsp;{{el.title}}&nbsp;</a></li>
   </ul>
   <div class="tab-content">
-		<div class="tab-pane" ms-repeat="tabs" ms-class="active:active==$index" ms-css-padding="padding">{{renderContent($index)|html}}</div>
+		<div class="tab-pane" ms-class-1="fadeIn: anime=='normal'" ms-class-2="flipInY: anime=='cool'" style="-webkit-animation-duration:1s;animation-duration:1s;-webkit-animation-fill-mode:both;animation-fill-mode:both" ms-repeat="tabs" ms-class="active:active==$index" ms-css-padding="padding">{{_renderContent($index)|html}}</div>
   </div>
 </div>

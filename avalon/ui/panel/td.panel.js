@@ -1,40 +1,37 @@
 define(['avalon', 'text!./td.panel.html', 'css!./td.panel.css'], function(avalon, template) {
-	var _interface = function () {
-	};
+	var _interface = function () {};
 	avalon.component("td:panel", {
-		//外部属性
+		//外部标签属性
 		title: '',
-		//外部参数
+		//外部配置参数
 		buttons: [],
-		//view参数
-		showButtons: false,
-		//view接口
-		btnClick: _interface,
-		toggleButtons: _interface,
-		setTitle: _interface,
-		getTitle: _interface,
 		//slot
 		content: '',
 		footer: '',
+		//view属性
+		_showButtons: false,
+		//view接口
+		_btnClick: _interface,
+		_toggleButtons: _interface,
+		//对外方法
+		setTitle: _interface,
+		getTitle: _interface,
 		//默认配置
 		$template: template,
 		$construct: function (hooks, vmOpts, elemOpts) {
-			var options = avalon.mix(hooks, vmOpts, elemOpts);
-			return options; //返回VM的定义对象
+			return avalon.mix(hooks, vmOpts, elemOpts);
 		},
 		$dispose: function (vm, elem) {
 			elem.innerHTML = elem.textContent = '';
 		},
 		$init: function(vm, elem) {
-			//接口方法
-			vm.btnClick = function(ev, fun) {
+			vm._btnClick = function(ev, fun) {
 				if(typeof fun == 'function') {
 					fun(ev, vm);
 				}
 			}
-			//切换导航条
-			vm.toggleButtons = function(ev) {
-				vm.showButtons = !vm.showButtons;
+			vm._toggleButtons = function(ev) {
+				vm._showButtons = !vm._showButtons;
 				ev.stopPropagation();
 				ev.cancelBubble = true;
 			}
@@ -46,11 +43,8 @@ define(['avalon', 'text!./td.panel.html', 'css!./td.panel.css'], function(avalon
 				return vm.title;
 			}
 		},
-		$ready: function (vm) {
-      
-    }
+		$ready: function (vm) {}
 	});
-	
 	var widget = avalon.components["td:panel"];
   widget.regionals = {};
 });
