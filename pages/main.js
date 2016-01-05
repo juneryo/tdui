@@ -2,7 +2,10 @@ define([], function () {
 	var vmain = avalon.define({
 		$id: 'main',
 		testAlert: function(ev) {
-			TD.alert('<strong>这里是alert</strong>');
+			var main = document.getElementById('idx_main');
+			var w = TD.css.getSize(main, 'width');
+			var h = TD.css.getSize(main, 'height');
+			TD.alert('<strong>主页main尺寸</strong>(宽：' + w + 'px,高：' + h + 'px)');
 		},
 		testConfirm: function(ev) {
 			TD.confirm('<strong>这里是confirm</strong>', function() {

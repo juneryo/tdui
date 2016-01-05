@@ -1,4 +1,4 @@
-<div class="row main" ms-controller="main">
+<div id="idx_main" class="row main" ms-controller="main">
 	<div class="col-xs-12 col-sm-12">
 		<h2 style="margin-top:0px;">简介</h2>
 		<hr/>
@@ -99,7 +99,10 @@ var vpanel = avalon.define({
 			<dt>TD.alert：&nbsp;<a href="javascript:void(0)" ms-click="testAlert($event)">测试alert</a><dt>
 			<dd>
 				<pre>
-TD.alert('&lt;strong&gt;这里是alert&lt;/strong&gt;');
+var main = document.getElementById('idx_main');
+var w = TD.css.getSize(main, 'width');
+var h = TD.css.getSize(main, 'height');
+TD.alert('&lt;strong&gt;主页main尺寸&lt;/strong&gt;(宽：' + w + 'px,高：' + h + 'px)');
 				</pre>
 			</dd>
 		</dl>
