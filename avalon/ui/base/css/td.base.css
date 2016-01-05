@@ -120,6 +120,19 @@ input::-ms-clear{
 .show {
 	display: block !important;
 }
+.no_height {
+	height: 0px;
+}
+.no_width {
+	width: 0px;
+}
+.height_transition {
+	overflow-y: auto;
+	-moz-transition: height 0.3s ease-out;
+	-webkit-transition: height 0.3s ease-out;
+	-o-transition: height 0.3s ease-out;
+	transition: height 0.3s ease-out;
+}
 /*custom ui style for tdui*/
 .td_hint {
   z-index: 1000;

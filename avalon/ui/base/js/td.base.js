@@ -48,6 +48,15 @@ String.prototype.toDate = function() {
 	}catch(e) {}
 	return dt;
 }
+//判断是否为ie7 8 9
+var _IEversion = (function(){
+    var v = 3, div = document.createElement('div'), all = div.getElementsByTagName('i');
+    while (
+        div.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]-->',
+        all[0]
+    );
+    return v > 4 ? v : false ;
+}());
 //重写alert, confirm
 var _hintEle, _maskEle, _confirmEle, _alertEle, _hintTime;
 (function() {
@@ -123,15 +132,6 @@ var _hintEle, _maskEle, _confirmEle, _alertEle, _hintTime;
 	}
 	document.body.appendChild(_alertEle);
 })();
-//判断是否为ie7 8 9
-var _IEversion = (function(){
-    var v = 3, div = document.createElement('div'), all = div.getElementsByTagName('i');
-    while (
-        div.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]-->',
-        all[0]
-    );
-    return v > 4 ? v : false ;
-}());
 //TD
 var TD = {
 	version: '0.0.1',
@@ -139,6 +139,63 @@ var TD = {
 		genId: function(prefix) {
 			prefix = prefix.toUpperCase() || 'ID'
 			return String(Math.random() + Math.random()).replace(/\d\.\d{4}/, prefix);
+		}
+	},
+	css: {
+		computedCss: function(elem, prop) {
+			if(document.documentElement.currentStyle) {
+				return elem.currentStyle[prop];    
+			}else if(document.defaultView && document.defaultView.getComputedStyle) {
+				return document.defaultView.getComputedStyle(elem, null)[prop];  
+			}else {
+				return null;
+			}
+		},
+		//获取元素大小(elem, width/height, padding/margin/border)
+		getSize: function(elem, prop, extra) {
+			//Start with offset property
+			var val = prop === 'width' ? elem.offsetWidth : elem.offsetHeight, i = prop === 'width' ? 1 : 0, len = 4;
+			var cssExpand = [ 'Top', 'Right', 'Bottom', 'Left' ];
+			var rnumnonpx = /^-?(?:\d*\.)?\d+(?!px)[^\d\s]+$/i;
+			if (val > 0) {
+				if (extra !== 'border') {
+					for (; i < len; i += 2) {
+						if (!extra) {
+							val -= parseFloat(elem.style['padding' + cssExpand[ i ]]) || 0;
+						}
+						if (extra === 'margin') {
+							val += parseFloat(elem.style[extra + cssExpand[ i ]]) || 0;
+						} else{
+							val -= parseFloat( elem.style["border" + cssExpand[ i ] + "Width"]) || 0;
+						}
+					}
+				}
+				return val;
+			}
+			// Fall back to computed then uncomputed css if necessary
+			val = TD.css.computedCss(elem, prop);
+			if (val < 0 || val == null) {
+				val = elem.style[prop];
+			}
+			// Computed unit is not pixels. Stop here and return.
+			if (rnumnonpx.test(val)) {
+				return parseFloat(val);
+			}
+			// Normalize "", auto, and prepare for extra
+			val = parseFloat(val) || 0;
+			// Add padding, border, margin
+			if(extra) {
+				for (; i < len; i += 2) {
+					val += parseFloat(elem.style['padding' + cssExpand[ i ]]) || 0;
+					if (extra !== 'padding') {
+						val += parseFloat( elem.style["border" + cssExpand[ i ] + "Width"] ) || 0;
+					}
+					if (extra === 'margin') {
+						val += parseFloat( elem.style[extra + cssExpand[ i ]] ) || 0;
+					}
+				}
+      }
+      return val;
 		}
 	},
 	hint: function(html, type) {
