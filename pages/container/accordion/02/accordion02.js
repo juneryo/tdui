@@ -6,6 +6,7 @@ define(['ui/accordion/td.accordion'], function () {
 		},
 		count: 0,
 		$accordion_opt: {
+			active: 2,
 			onchanged: function(obj, vm) {
 				vaccordion.count ++;
 			},
