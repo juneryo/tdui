@@ -1,5 +1,5 @@
 .td_accordion_container {
-	
+	position: relative;
 }
 .td_accordion_container>.panel>.panel-heading{
 	cursor: pointer;
