@@ -1,19 +1,15 @@
 define(['avalon', 'text!./td.radiogroup.html', 'css!./td.radio.css'], function(avalon, template) {
 	var _interface = function () {};
-	
 	avalon.component("td:radiogroup", {
-		//外部参数
+		//外部标签属性
 		label: '',
 		name: 'radiogroup',
-		//外部属性
+		//外部配置参数
 		radios: [],
 		onchanged: null,
-		//view接口
-		clickRadio: _interface,
-		_trigger: _interface,
-		getData: _interface,
-		getValue: _interface,
-		setValue: _interface,
+		//内部接口
+		$trigger: _interface,
+		//计算属性
 		$computed:{
 			value:{
 				set: function(val) {
@@ -22,13 +18,13 @@ define(['avalon', 'text!./td.radiogroup.html', 'css!./td.radio.css'], function(a
 						if(radio.value == val) {
 							if(radio.checked == false) {
 								radio.checked = true;
-								this._trigger(radio, null, 'checked');
-								this._trigger(radio, null, 'changed');
+								this.$trigger(radio, null, 'checked');
+								this.$trigger(radio, null, 'changed');
 							}
 						}else {
 							if(radio.checked == true) {
 								radio.checked = false;
-								this._trigger(radio, null, 'changed');
+								this.$trigger(radio, null, 'changed');
 							}
 						}
 					}
@@ -45,18 +41,22 @@ define(['avalon', 'text!./td.radiogroup.html', 'css!./td.radio.css'], function(a
 				}
 			}
 		},
-		
+		//view接口
+		_clickRadio: _interface,
+		//对外方法
+		getData: _interface,
+		getValue: _interface,
+		setValue: _interface,
+		//默认配置
 		$template: template,
 		$construct: function (hooks, vmOpts, elemOpts) {
-			var options = avalon.mix(hooks, vmOpts, elemOpts);
-			return options;
+			return avalon.mix(hooks, vmOpts, elemOpts);
 		},
 		$dispose: function (vm, elem) {
 			elem.innerHTML = elem.textContent = '';
 		},
 		$init: function(vm, elem) {
-			//内部方法
-			vm._trigger = function(radio, ev, type) {
+			vm.$trigger = function(radio, ev, type) {
 				switch (type) {
 					case 'checked':
 						if(typeof radio.onchecked == 'function') {
@@ -74,8 +74,7 @@ define(['avalon', 'text!./td.radiogroup.html', 'css!./td.radio.css'], function(a
 					default: break;
 				}
 			}
-			//接口方法
-			vm.clickRadio = function(ev, idx) {
+			vm._clickRadio = function(ev, idx) {
 				var radio = vm.radios[idx];
 				if(!radio.disabled) {
 					var changed = false;
@@ -83,21 +82,20 @@ define(['avalon', 'text!./td.radiogroup.html', 'css!./td.radio.css'], function(a
 						if(idx == i) {
 							changed = (vm.radios[i].checked == false);
 							radio.checked = true;
-							vm._trigger(radio, ev, 'checked');
+							vm.$trigger(radio, ev, 'checked');
 							if(changed) {
-								vm._trigger(radio, ev, 'changed');
+								vm.$trigger(radio, ev, 'changed');
 							}
 						}else {
 							changed = (vm.radios[i].checked == true);
 							vm.radios[i].checked = false;
 							if(changed) {
-								vm._trigger(vm.radios[i], ev, 'changed');
+								vm.$trigger(vm.radios[i], ev, 'changed');
 							}
 						}
 					}
 				}
 			}
-			//对外方法
 			vm.getData = function() {
 				var data = {};
 				data[vm.name] = vm.value;
@@ -110,11 +108,8 @@ define(['avalon', 'text!./td.radiogroup.html', 'css!./td.radio.css'], function(a
 				vm.value = val;
 			}
 		},
-		$ready: function (vm) {
-      
-    }
+		$ready: function (vm) {}
 	});
-	
 	var widget = avalon.components["td:radiogroup"];
   widget.regionals = {};
 })

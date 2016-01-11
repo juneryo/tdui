@@ -1,28 +1,27 @@
 define(['avalon', 'text!./td.radio.html', 'css!./td.radio.css'], function(avalon, template) {
 	var _interface = function () {};
-	
 	avalon.component("td:radio", {
-		//外部属性
+		//外部标签属性
 		label: '',
 		checked: false,
 		disabled: false,
-		//外部参数
+		//外部配置参数
 		onchecked: null,
 		onchanged: null,
+		//内部接口
+		$trigger: _interface,
 		//view接口
-		clickRadio: _interface,
-		_trigger: _interface,
+		_clickRadio: _interface,
+		//默认配置
 		$template: template,
 		$construct: function (hooks, vmOpts, elemOpts) {
-			var options = avalon.mix(hooks, vmOpts, elemOpts);
-			return options;
+			return avalon.mix(hooks, vmOpts, elemOpts);
 		},
 		$dispose: function (vm, elem) {
 			elem.innerHTML = elem.textContent = '';
 		},
 		$init: function(vm, elem) {
-			//内部方法
-			vm._trigger = function(ev, type) {
+			vm.$trigger = function(ev, type) {
 				switch (type) {
 					case 'checked':
 						if(typeof vm.onchecked == 'function') {
@@ -37,24 +36,18 @@ define(['avalon', 'text!./td.radio.html', 'css!./td.radio.css'], function(avalon
 					default: break;
 				}
 			}
-			//接口方法
-			vm.clickRadio = function(ev) {
+			vm._clickRadio = function(ev) {
 				if(!vm.disabled) {
 					vm.checked = !vm.checked;
 					if(vm.checked) {
-						vm._trigger(ev, 'checked');
+						vm.$trigger(ev, 'checked');
 					}
-					vm._trigger(ev, 'changed');
+					vm.$trigger(ev, 'changed');
 				}
 			}
-			//对外方法
 		},
-		$ready: function (vm) {
-            
-		}
+		$ready: function (vm) {}
 	});
-	
-	//定义标签名称
 	var widget = avalon.components["td:radio"];
 	widget.regionals = {};
 })
