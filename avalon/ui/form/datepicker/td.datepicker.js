@@ -1,88 +1,85 @@
 define(['avalon', 'text!./td.datepicker.html', 'css!./td.datepicker.css'], function(avalon, template) {
-	var _interface = function () {
-	};
+	var _interface = function () {};
 	avalon.component("td:datepicker", {
-		//外部属性
+		//外部标签属性
 		label: '',
-		name: 'datepicker',
 		value: '',
+		name: 'datepicker',
 		displayFormat: 'yyyy-MM-dd',
 		valueFormat: 'yyyyMMdd',
 		disabled: false,
 		must: false,
 		max: '',
 		min: '',
-		//外部参数
+		//外部配置参数
 		onclicked: null,
 		onchanged: null,
 		onpicked: null,	
 		//内部属性
-		isInit: true,
-		isValid: true,
-		_bindFun: null,
+		$isInit: true,
+		//内部接口
+		$bindFun: null,
+		$trigger: _interface,
+		$buildDateArr: _interface,
+		$buildYearArr: _interface,
+		$setPickMonth: _interface,
+		$showDatePicker: _interface,
+		$validValue: _interface,
 		//view属性
-		value: '',
-		validInfo: '',
-		isShow: false,
-		showDate: true,
-		showMonth: false,
-		showYear: false,
-		today: null,
-		pickYear: '',
-		pickMonth: '',
-		pickDate: '',
-		firstYear: '',
-		lastYear: '',
-		dateArr: [],
-		weekArr: ['一', '二', '三', '四', '五', '六', '日'],
-		monthArr: [['一月', '二月', '三月'], ['四月', '五月', '六月'], ['七月', '八月', '九月'], ['十月', '十一月', '十二月']],
-		yearArr: [],
+		_isValid: true,
+		_isShow: false,
+		_showDate: true,
+		_showMonth: false,
+		_showYear: false,
+		_today: null,
+		_validInfo: '',
+		_pickYear: '',
+		_pickMonth: '',
+		_pickDate: '',
+		_firstYear: '',
+		_lastYear: '',
+		_dateArr: [],
+		_weekArr: ['一', '二', '三', '四', '五', '六', '日'],
+		_monthArr: [['一月', '二月', '三月'], ['四月', '五月', '六月'], ['七月', '八月', '九月'], ['十月', '十一月', '十二月']],
+		_yearArr: [],
 		//view接口
-		clickPicker: _interface,
-		togglePicker: _interface,
-		changeMonth: _interface,
-		changeYear: _interface,
-		displayMonth: _interface,
-		showMonthPicker: _interface,
-		showYearPicker: _interface,
-		doPick: _interface,
-		checkKeydown: _interface,
-		checkKeyPress: _interface,
-		checkKeyUp: _interface,
-		_trigger: _interface,
-		_buildDateArr: _interface,
-		_buildYearArr: _interface,
-		_setPickMonth: _interface,
-		showDatePicker: _interface,
-		validValue: _interface,
+		_clickPicker: _interface,
+		_togglePicker: _interface,
+		_changeMonth: _interface,
+		_changeYear: _interface,
+		_displayMonth: _interface,
+		_showMonthPicker: _interface,
+		_showYearPicker: _interface,
+		_doPick: _interface,
+		_checkKeydown: _interface,
+		_checkKeyPress: _interface,
+		_checkKeyUp: _interface,
+		//对外方法
 		getData: _interface,
 		getValue: _interface,
 		setValue: _interface,
+		//默认配置
 		$template: template,
-		// hooks : 定义component中的属性
-		//vmOpts : 引用component时的js配置$opt 
-		//eleOpts: 使用component时标签中的属性
 		$construct: function (hooks, vmOpts, elemOpts) {
 			var options = avalon.mix(hooks, vmOpts, elemOpts);
-			hooks.today = new Date();
-			hooks.pickMonth = hooks.today.getMonth();
-			hooks.pickYear = hooks.today.getFullYear();
+			hooks._today = new Date();
+			hooks._pickMonth = hooks._today.getMonth();
+			hooks._pickYear = hooks._today.getFullYear();
 			if(hooks.value != '') {
 				var dt = hooks.value.toString().toDate();
 				hooks.value = dt.format(hooks.displayFormat);
-				hooks.pickYear = dt.getFullYear();
-				hooks.pickMonth = dt.getMonth();
-				hooks.pickDate = dt.getDate();
+				hooks._pickYear = dt.getFullYear();
+				hooks._pickMonth = dt.getMonth();
+				hooks._pickDate = dt.getDate();
 			}
 			return options;
 		},
 		$dispose: function (vm, elem) {
-			avalon.unbind(document, 'click', vm._bindFun);
+			avalon.unbind(document, 'click', vm.$bindFun);
 			elem.innerHTML = elem.textContent = '';
 		},
 		$init: function(vm, elem) {
-			//内部方法
-			vm._trigger = function(ev, type) {
+			vm.$trigger = function(ev, type) {
 				switch (type) {
 					case 'clicked':
 						if(typeof vm.onclicked == 'function') {
@@ -103,7 +100,7 @@ define(['avalon', 'text!./td.datepicker.html', 'css!./td.datepicker.css'], funct
 				}
 			}
 			//构建日期二维数组
-			vm._buildDateArr = function(yyyy, MM, dd) {
+			vm.$buildDateArr = function(yyyy, MM, dd) {
 				var dt = new Date(yyyy + '/' + MM + '/' + dd);
 				dt.setDate(1);  //设置为月1号
 				var day = dt.getDay();  //获取周(0为周日)
@@ -112,7 +109,7 @@ define(['avalon', 'text!./td.datepicker.html', 'css!./td.datepicker.css'], funct
 				dt.setDate(0); //设置为月最后一天
 				var lastDate = dt.getDate();
 				var count = Math.ceil((lastDate + leftPad) / 7);
-				vm.dateArr.removeAll();
+				vm._dateArr.removeAll();
 				for(var i = 0; i < count; i ++) {
 					var arr = [];
 					for(var j = 0; j < 7; j ++) {
@@ -127,136 +124,166 @@ define(['avalon', 'text!./td.datepicker.html', 'css!./td.datepicker.css'], funct
 							arr.push(d > lastDate ? '' : d);
 						}
 					}
-					vm.dateArr.push(arr);
+					vm._dateArr.push(arr);
 				}
 			}
 			//根据当年构建年份二维数组
-			vm._buildYearArr = function(yyyy) {
+			vm.$buildYearArr = function(yyyy) {
 				var dt = new Date(yyyy + '/01/01');
 				var fYear = parseInt(yyyy) - 8;
-				vm.yearArr.removeAll();
+				vm._yearArr.removeAll();
 				for(var i = 0; i < 4; i ++) {
 					var arr = [];
 					for(var j = 0; j < 4; j ++) {
 						arr.push(fYear + i*4 + j);
 					}
-					vm.yearArr.push(arr);
+					vm._yearArr.push(arr);
 				}
-				vm.firstYear = vm.yearArr[0][0];
-				vm.lastYear = vm.yearArr[3][3];
+				vm._firstYear = vm._yearArr[0][0];
+				vm._lastYear = vm._yearArr[3][3];
 			}
-			//根据月份二维数组中指定元素设置属性pickMonth(0 - 11)
-			vm._setPickMonth = function(val) {
-				for(var i = 0; i < vm.monthArr.length; i ++) {
-					for(var j = 0; j < vm.monthArr[i].length; j ++) {
-						if(vm.monthArr[i][j] == val) {
-							vm.pickMonth = (i*3 + j).toString(); return;
+			//根据月份二维数组中指定元素设置属性_pickMonth(0 - 11)
+			vm.$setPickMonth = function(val) {
+				for(var i = 0; i < vm._monthArr.length; i ++) {
+					for(var j = 0; j < vm._monthArr[i].length; j ++) {
+						if(vm._monthArr[i][j] == val) {
+							vm._pickMonth = (i*3 + j).toString(); return;
 						}
 					}
 				}
 			}
-			//接口方法
-			vm.clickPicker = function(ev) {
+			vm.$showDatePicker = function(ev) {
+				vm._showMonth = false; vm._showYear = false; vm._showDate = true;
+			}
+			vm.$validValue = function() {
+				if(vm.must === true && vm.value.trim() == '') {
+					vm._isValid = false; vm._validInfo = '请填写日期';
+				}else if(vm.max != '' && vm.value != '' && vm.max.toString().toDate().getTime() < vm.value.toDate().getTime()) {
+					vm._isValid = false; vm._validInfo = '选中日期大于最大日期';
+				}else if(vm.min != '' && vm.value != '' && vm.min.toString().toDate().getTime() > vm.value.toDate().getTime()) {
+					vm._isValid = false; vm._validInfo = '选中日期小于最小日期';
+				}else {
+					vm._isValid = true; vm._validInfo = '';
+				}
+			}
+			vm.$bindFun = function() {
+				if(vm._isShow == true) {
+					vm._isShow = false;
+				}
+			}
+			vm._clickPicker = function(ev) {
 				ev.stopPropagation();
 				ev.cancelBubble = true;
 			}
-			vm.togglePicker = function(ev) {
+			vm._togglePicker = function(ev) {
 				if(!vm.disabled) {
-					vm.isShow = !vm.isShow;
-					vm._trigger(ev, 'clicked');
+					vm._isShow = !vm._isShow;
+					vm.$trigger(ev, 'clicked');
 				}
 				ev.stopPropagation();
 				ev.cancelBubble = true;
 			}
-			vm.checkKeydown = function(ev) {
-				//退格则全部删除
-				if(ev.keyCode.toString() == '8' && vm.disabled == false) {
+			vm._checkKeydown = function(ev) {
+				if(ev.keyCode.toString() == '8' && vm.disabled == false) {  //退格则全部删除
 					//keyUp中处理
 				}else {
 					ev.preventDefault();
 				}
 			}
-			vm.checkKeyPress = function(ev) {
+			vm._checkKeyPress = function(ev) {
 				ev.preventDefault();
 			}
-			vm.checkKeyUp = function(ev) {
+			vm._checkKeyUp = function(ev) {
 				if(ev.keyCode.toString() == '8' && vm.disabled == false) {
 					vm.setValue('');
 				}
 			}
-			vm.changeMonth = function(ev, oper) {
+			vm._changeMonth = function(ev, oper) {
 				if(oper == '+') {
-					if(vm.pickMonth == '11') {
-						vm.pickMonth = '0'; vm.pickYear ++;
+					if(vm._pickMonth == '11') {
+						vm._pickMonth = '0'; vm._pickYear ++;
 					}else {
-						vm.pickMonth ++;
+						vm._pickMonth ++;
 					}
 				}else {
-					if(vm.pickMonth == '0') {
-						vm.pickMonth = '11'; vm.pickYear --;
+					if(vm._pickMonth == '0') {
+						vm._pickMonth = '11'; vm._pickYear --;
 					}else {
-						vm.pickMonth --;
+						vm._pickMonth --;
 					}
 				}
 			}
-			vm.changeYear = function(ev, oper) {
-				var fyear = vm.firstYear - 16;
+			vm._changeYear = function(ev, oper) {
+				var fyear = vm._firstYear - 16;
 				if(oper == '+') {
-					fyear = vm.lastYear + 1;
+					fyear = vm._lastYear + 1;
 				}
-				vm._buildYearArr(fyear + 8);
+				vm.$buildYearArr(fyear + 8);
 			}
-			//根据属性pickMonth在月份二维数组中查找月份
-			vm.displayMonth = function() {
+			//根据属性_pickMonth在月份二维数组中查找月份
+			vm._displayMonth = function() {
 				var v = 0;
-				for(var i = 0; i < vm.monthArr.length; i++) {
-					for(var j=0; j<vm.monthArr[i].length; j++) {
-						if((3*i + j).toString() == vm.pickMonth) {
-							return vm.monthArr[i][j];
+				for(var i = 0; i < vm._monthArr.length; i++) {
+					for(var j=0; j<vm._monthArr[i].length; j++) {
+						if((3*i + j).toString() == vm._pickMonth) {
+							return vm._monthArr[i][j];
 						}
 					}
 				}
 				return '';
 			}
-			vm.showDatePicker = function(ev) {
-				vm.showMonth = false; vm.showYear = false; vm.showDate = true;
+			vm._showMonthPicker = function(ev) {
+				vm._showDate = false; vm._showYear = false; vm._showMonth = true;
 			}
-			vm.showMonthPicker = function(ev) {
-				vm.showDate = false; vm.showYear = false; vm.showMonth = true;
+			vm._showYearPicker = function(ev) {
+				vm._showDate = false; vm._showMonth = false; vm._showYear = true;
 			}
-			vm.showYearPicker = function(ev) {
-				vm.showDate = false; vm.showMonth = false; vm.showYear = true;
-			}
-			vm.doPick = function(ev, val, type) {
+			vm._doPick = function(ev, val, type) {
 				switch(type) {
 					case 'D':
-						vm.pickDate = val; 
-						vm._trigger(ev, 'picked');
-						vm.isShow = false;
+						vm._pickDate = val; 
+						vm.$trigger(ev, 'picked');
+						vm._isShow = false;
 						break;
 					case 'M':
-						vm._setPickMonth(val); 
-						vm.showDatePicker(null);
+						vm.$setPickMonth(val); 
+						vm.$showDatePicker(null);
 						break;
 					case 'Y':
-						vm.pickYear = val; 
-						vm.showDatePicker(null);
+						vm._pickYear = val; 
+						vm.$showDatePicker(null);
 						break;
 					default: break;
 				}
 			}
-			vm.validValue = function() {
-				if(vm.must === true && vm.value.trim() == '') {
-					vm.isValid = false; vm.validInfo = '请填写日期';
-				}else if(vm.max != '' && vm.value != '' && vm.max.toString().toDate().getTime() < vm.value.toDate().getTime()) {
-					vm.isValid = false; vm.validInfo = '选中日期大于最大日期';
-				}else if(vm.min != '' && vm.value != '' && vm.min.toString().toDate().getTime() > vm.value.toDate().getTime()) {
-					vm.isValid = false; vm.validInfo = '选中日期小于最小日期';
-				}else {
-					vm.isValid = true; vm.validInfo = '';
+			vm.$watch('_pickDate', function(newVal, oldVal) {
+				if(!vm.$isInit && newVal != '') {
+					var dt = new Date(vm._pickYear + '/' + (parseInt(vm._pickMonth) + 1) + '/' + newVal);
+					vm.value = dt.format(vm.displayFormat);
 				}
-			}
-			//对外方法
+			});
+			vm.$watch('_pickMonth', function(newVal, oldVal) {
+				var yyyy = vm._pickYear, MM = parseInt(newVal) + 1, dd = (vm._pickDate == '' ? vm._today.getDate() : vm._pickDate);
+				var dt = new Date(yyyy + '/' + MM + '/' + dd);
+				vm.$buildDateArr(yyyy, MM, dd);
+				if(vm._pickDate != '') {
+					vm.value = dt.format(vm.displayFormat);
+				}
+			});
+			vm.$watch('_pickYear', function(newVal, oldVal) {
+				var yyyy = newVal, MM = parseInt(vm._pickMonth) + 1, dd = (vm._pickDate == '' ? vm._today.getDate() : vm._pickDate);
+				var dt = new Date(yyyy + '/' + MM + '/' + dd);
+				vm.$buildDateArr(yyyy, MM, dd);
+				if(vm._pickDate != '') {
+					vm.value = dt.format(vm.displayFormat);
+				}
+			});
+			vm.$watch('value', function(newVal, oldVal) {
+				if(!vm.$isInit) {
+					vm.$trigger({newVal: newVal, oldVal: oldVal}, 'changed');
+					vm.$validValue();
+				}
+			});
 			vm.getData = function() {
 				var data = {};
 				data[vm.name] = vm.getValue();
@@ -270,61 +297,26 @@ define(['avalon', 'text!./td.datepicker.html', 'css!./td.datepicker.css'], funct
 				if(val != '') {
 					var dt = val.toDate();
 					vm.value = dt.format(vm.displayFormat);
-					vm.pickYear = dt.getFullYear();
-					vm.pickMonth = dt.getMonth();
-					vm.pickDate = dt.getDate();
+					vm._pickYear = dt.getFullYear();
+					vm._pickMonth = dt.getMonth();
+					vm._pickDate = dt.getDate();
 				}else {
-					vm.pickDate = '';
-					vm.pickYear = vm.today.getFullYear();
-					vm.pickMonth = vm.today.getMonth();
+					vm._pickDate = '';
+					vm._pickYear = vm._today.getFullYear();
+					vm._pickMonth = vm._today.getMonth();
 					vm.value = '';
 				}
 			}
-			//观测方法
-			vm.$watch('pickDate', function(newVal, oldVal) {
-				if(!vm.isInit && newVal != '') {
-					var dt = new Date(vm.pickYear + '/' + (parseInt(vm.pickMonth) + 1) + '/' + newVal);
-					vm.value = dt.format(vm.displayFormat);
-				}
-			});
-			vm.$watch('pickMonth', function(newVal, oldVal) {
-				var yyyy = vm.pickYear, MM = parseInt(newVal) + 1, dd = (vm.pickDate == '' ? vm.today.getDate() : vm.pickDate);
-				var dt = new Date(yyyy + '/' + MM + '/' + dd);
-				vm._buildDateArr(yyyy, MM, dd);
-				if(vm.pickDate != '') {
-					vm.value = dt.format(vm.displayFormat);
-				}
-			});
-			vm.$watch('pickYear', function(newVal, oldVal) {
-				var yyyy = newVal, MM = parseInt(vm.pickMonth) + 1, dd = (vm.pickDate == '' ? vm.today.getDate() : vm.pickDate);
-				var dt = new Date(yyyy + '/' + MM + '/' + dd);
-				vm._buildDateArr(yyyy, MM, dd);
-				if(vm.pickDate != '') {
-					vm.value = dt.format(vm.displayFormat);
-				}
-			});
-			vm.$watch('value', function(newVal, oldVal) {
-				if(!vm.isInit) {
-					vm._trigger({newVal: newVal, oldVal: oldVal}, 'changed');
-					vm.validValue();
-				}
-			});
 			//绑定事件
-			vm._bindFun = function() {
-				if(vm.isShow == true) {
-					vm.isShow = false;
-				}
-			}
-			avalon.bind(document, 'click', vm._bindFun, false);
+			avalon.bind(document, 'click', vm.$bindFun, false);
 		},
 		$ready: function (vm) {
-			vm._buildDateArr(vm.today.getFullYear(), vm.today.getMonth() + 1, vm.today.getDate());
-			vm._buildYearArr(vm.today.getFullYear());
-			vm.validValue();
-			vm.isInit = false;
+			vm.$buildDateArr(vm._today.getFullYear(), vm._today.getMonth() + 1, vm._today.getDate());
+			vm.$buildYearArr(vm._today.getFullYear());
+			vm.$validValue();
+			vm.$isInit = false;
     }
 	});
-	
 	var widget = avalon.components["td:datepicker"];
   widget.regionals = {};
 })

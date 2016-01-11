@@ -5,10 +5,10 @@
 	</div>
 	<div class="form-group no_margin padding_top padding_bottom" ms-class-1="padding_left2: border===true" ms-class-2="padding_right2: border===true" ms-class-3="td_form_background: border===true" ms-class-4="td_form_border_top:border===true" ms-if="buttons===true">
 		<a ms-if="btnPos=='right'" class="btn btn-default btn-primary waves-effect waves-light no_margin" ms-class-1="btn-sm: btnSize=='small'" style="visibility:hidden;">&nbsp;</a>
-		<a class="btn btn-default btn-primary waves-effect waves-light no_margin" href="javascript:void(0)" ms-class-1="btn-sm: btnSize=='small'" ms-class-2="pull-right: btnPos=='right'" ms-class-3="margin_left: btnPos=='right'" ms-click="doSubmit($event)">&nbsp;提&nbsp;&nbsp;交&nbsp;</a>
-		<a class="btn btn-default waves-effect waves-light no_margin" href="javascript:void(0)" ms-class-1="btn-sm: btnSize=='small'" ms-class-2="pull-right: btnPos=='right'" ms-class-3="margin_left: btnPos=='left'" ms-click="doReset($event)">&nbsp;重&nbsp;&nbsp;置&nbsp;</a>
+		<a class="btn btn-default btn-primary waves-effect waves-light no_margin" href="javascript:void(0)" ms-class-1="btn-sm: btnSize=='small'" ms-class-2="pull-right: btnPos=='right'" ms-class-3="margin_left: btnPos=='right'" ms-click="_doSubmit($event)">&nbsp;提&nbsp;&nbsp;交&nbsp;</a>
+		<a class="btn btn-default waves-effect waves-light no_margin" href="javascript:void(0)" ms-class-1="btn-sm: btnSize=='small'" ms-class-2="pull-right: btnPos=='right'" ms-class-3="margin_left: btnPos=='left'" ms-click="_doReset($event)">&nbsp;重&nbsp;&nbsp;置&nbsp;</a>
 	</div>
-	<div class="loading-mask" ms-visible="isLoading">
+	<div class="loading-mask" ms-visible="_isLoading">
 		<div class="loading-container">
 			<div class="loading-speeding-wheel"></div><strong>数据加载中,请稍后…</strong>
 		</div>

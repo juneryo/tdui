@@ -1,19 +1,17 @@
 define(['avalon', 'text!./td.checkboxgroup.html', 'css!./td.checkbox.css'], function(avalon, template) {
 	var _interface = function () {};
-	
 	avalon.component("td:checkboxgroup", {
-		//外部属性
+		//外部标签属性
 		label: '',
 		name: 'checkboxgroup',
-		//外部参数
+		//外部配置参数
 		checkboxes: [], 
 		onchanged: null,
+		//内部接口
+		$trigger: _interface,
 		//view接口
-		clickCheckbox: _interface,
-		_trigger: _interface,
-		getData: _interface,
-		getValue: _interface,
-		setValue: _interface,
+		_clickCheckbox: _interface,
+		//计算属性
 		$computed:{
 			value:{
 				set: function(val) {
@@ -25,8 +23,8 @@ define(['avalon', 'text!./td.checkboxgroup.html', 'css!./td.checkbox.css'], func
 							if(box.value == arr[i]) {
 								if(box.checked == false) {
 									box.checked = true;
-									this._trigger(box, null, 'checked');
-									this._trigger(box, null, 'changed');
+									this.$trigger(box, null, 'checked');
+									this.$trigger(box, null, 'changed');
 								}
 								dealed = true;
 								break;
@@ -35,7 +33,7 @@ define(['avalon', 'text!./td.checkboxgroup.html', 'css!./td.checkbox.css'], func
 						if(!dealed) {
 							if(box.checked == true) {
 								box.checked = false;
-								this._trigger(box, null, 'changed');
+								this.$trigger(box, null, 'changed');
 							}
 						}
 					}
@@ -54,18 +52,20 @@ define(['avalon', 'text!./td.checkboxgroup.html', 'css!./td.checkbox.css'], func
 				}
 			}
 		},
-			
+		//对外方法
+		getData: _interface,
+		getValue: _interface,
+		setValue: _interface,
+		//默认配置
 		$template: template,
 		$construct: function (hooks, vmOpts, elemOpts) {    
-			var options = avalon.mix(hooks, vmOpts, elemOpts);
-			return options;
+			return avalon.mix(hooks, vmOpts, elemOpts);
 		},
 		$dispose: function (vm, elem) {
 			elem.innerHTML = elem.textContent = '';
 		},
 		$init: function(vm, elem) {
-			//内部方法
-			vm._trigger = function(box, ev, type) {
+			vm.$trigger = function(box, ev, type) {
 				switch (type) {
 					case 'checked':
 						if(typeof box.onchecked == 'function') {
@@ -83,18 +83,16 @@ define(['avalon', 'text!./td.checkboxgroup.html', 'css!./td.checkbox.css'], func
 					default: break;
 				}
 			}
-			//接口方法
-			vm.clickCheckbox = function(ev, idx) {
+			vm._clickCheckbox = function(ev, idx) {
 				var box = vm.checkboxes[idx];
 				if(!box.disabled) {
 					box.checked = !box.checked;
 					if(box.checked) {
-						vm._trigger(box, ev, 'checked');
+						vm.$trigger(box, ev, 'checked');
 					}
-					vm._trigger(box, ev, 'changed');
+					vm.$trigger(box, ev, 'changed');
 				}
 			}
-			//对外方法
 			vm.getData = function() {
 				var data = {};
 				data[vm.name] = vm.value;
@@ -107,11 +105,8 @@ define(['avalon', 'text!./td.checkboxgroup.html', 'css!./td.checkbox.css'], func
 				vm.value = val;
 			}
 		},
-		$ready: function (vm) {
-			
-		}
+		$ready: function (vm) {}
 	});
-	
 	var widget = avalon.components["td:checkboxgroup"];
 	widget.regionals = {};
 })
