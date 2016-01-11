@@ -1,6 +1,5 @@
 define(['avalon', 'text!./td.accordion.html', 'css!./td.accordion.css'], function(avalon, template) {
-	var _interface = function () {
-	};
+	var _interface = function () {};
 	avalon.component("td:accordion", {
 		//外部标签属性
 		active: 0,

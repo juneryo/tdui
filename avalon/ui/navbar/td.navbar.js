@@ -1,33 +1,33 @@
 define(['avalon', 'text!./td.navbar.html', 'css!./td.navbar.css'], function(avalon, template) {
-	var _interface = function () {
-	};
+	var _interface = function () {};
 	avalon.component("td:navbar", {
-		//外部属性
+		//外部标签属性
 		title: '',
 		operation: '操作',
 		href: 'javascript:void(0)',
 		form: false,
 		margin: 20,
 		padding: 0,
-		//外部参数
-		operations: [],      //自定义下拉操作列表
+		//外部配置参数
+		operations: [],  //自定义下拉操作列表
 		buttons: [],
 		ontitleclicked: null,
 		onsubmited: null,
-		//内部属性
-		_bindFun: null,
+		//内部接口
+		$trigger: _interface,
+		$bindFun: _interface,
 		//view参数
-		showOperations: false,
-		showButtons: false,
+		_showOperations: false,
+		_showButtons: false,
 		//view接口
-		toggleOperations: _interface,
-		toggleButtons: _interface,
-		doOperate: _interface,
-		doSubmit: _interface,
-		clickTitle: _interface,
-		clickInput: _interface,
-		clickBtn: _interface,
-		_trigger: _interface,
+		_toggleOperations: _interface,
+		_toggleButtons: _interface,
+		_doOperate: _interface,
+		_doSubmit: _interface,
+		_clickTitle: _interface,
+		_clickInput: _interface,
+		_clickBtn: _interface,
+		//对外方法
 		setTitle: _interface,
 		getTitle: _interface,
 		setOperation: _interface,
@@ -35,16 +35,14 @@ define(['avalon', 'text!./td.navbar.html', 'css!./td.navbar.css'], function(aval
 		//默认配置
 		$template: template,
 		$construct: function (hooks, vmOpts, elemOpts) {
-			var options = avalon.mix(hooks, vmOpts, elemOpts);
-			return options; //返回VM的定义对象
+			return avalon.mix(hooks, vmOpts, elemOpts);
 		},
 		$dispose: function (vm, elem) {
-			avalon.unbind(document, 'click', vm._bindFun);
+			avalon.unbind(document, 'click', vm.$bindFun);
 			elem.innerHTML = elem.textContent = '';
 		},
 		$init: function(vm, elem) {
-			//内部方法
-			vm._trigger = function(ev, type) {
+			vm.$trigger = function(ev, type) {
 				switch (type) {
 					case 'titleclicked': 
 						if(typeof vm.ontitleclicked == 'function') {
@@ -59,48 +57,51 @@ define(['avalon', 'text!./td.navbar.html', 'css!./td.navbar.css'], function(aval
 					default: break;
 				}
 			}
-			//view接口
-			vm.clickTitle = function(ev) {
-				vm._trigger(ev, 'titleclicked');
+			vm.$bindFun = function() {
+				if(vm._showOperations == true) {
+					vm._showOperations = false;
+				}else if(vm._showButtons == true) {
+					vm._showButtons = false;
+				}
 			}
-			vm.doSubmit = function(ev) {
+			vm._clickTitle = function(ev) {
+				vm.$trigger(ev, 'titleclicked');
+			}
+			vm._doSubmit = function(ev) {
 				if(ev.keyCode==13) {
-					vm._trigger(ev, 'submited');
+					vm.$trigger(ev, 'submited');
 				}
 			}
-			vm.clickInput = function(ev) {
-				vm.showOperations = false;
+			vm._clickInput = function(ev) {
+				vm._showOperations = false;
 				ev.stopPropagation();
 				ev.cancelBubble = true;
 			}
-			vm.clickBtn = function(ev, fun) {
+			vm._clickBtn = function(ev, fun) {
 				if(typeof fun == 'function') {
 					fun(ev, vm);
 				}
-				vm.showOperations = false;
+				vm._showOperations = false;
 				ev.cancelBubble = true;
 			}
-			//切换自定义操作面板
-			vm.toggleOperations = function(ev) {
-				vm.showOperations = !vm.showOperations;
+			vm._toggleOperations = function(ev) {
+				vm._showOperations = !vm._showOperations;
 				ev.stopPropagation();
 				ev.cancelBubble = true;
 			}
-			vm.toggleButtons = function(ev) {
-				vm.showButtons = !vm.showButtons;
+			vm._toggleButtons = function(ev) {
+				vm._showButtons = !vm._showButtons;
 				ev.stopPropagation();
 				ev.cancelBubble = true;
 			}
-			//触发自定义操作
-			vm.doOperate = function(ev, fun) {
+			vm._doOperate = function(ev, fun) {
 				if(typeof fun == 'function') {
 					fun(ev, vm);
 				}
-				vm.showOperations = false;
+				vm._showOperations = false;
 				ev.stopPropagation();
 				ev.cancelBubble = true;
 			}
-			//对外方法
 			vm.setTitle = function(title) {
 				vm.title = title;
 			}
@@ -114,20 +115,10 @@ define(['avalon', 'text!./td.navbar.html', 'css!./td.navbar.css'], function(aval
 				return vm.operation;
 			}
 			//绑定事件
-			vm._bindFun = function() {
-				if(vm.showOperations == true) {
-					vm.showOperations = false;
-				}else if(vm.showButtons == true) {
-					vm.showButtons = false;
-				}
-			}
-			avalon.bind(document, 'click', vm._bindFun, false);
+			avalon.bind(document, 'click', vm.$bindFun, false);
 		},
-		$ready: function (vm) {
-      
-    }
+		$ready: function (vm) {}
 	});
-	
 	var widget = avalon.components["td:navbar"];
   widget.regionals = {};
 });

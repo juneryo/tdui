@@ -1,11 +1,10 @@
 define(['avalon', 'mmRequest', 'text!./td.tree.html', 'css!./td.tree.css'], function(avalon, req, template) {
-	var _interface = function () {
-	};
+	var _interface = function () {};
 	avalon.component("td:tree", {
-		//外部属性
+		//外部标签属性
 		root: true,
 		checkbox: false,
-		//外部参数
+		//外部配置参数
 		url: '',
 		param: {},
 		data: [],
@@ -14,33 +13,33 @@ define(['avalon', 'mmRequest', 'text!./td.tree.html', 'css!./td.tree.css'], func
 		onchecked: null,
 		onexpanded: null,
 		oncollapsed: null,
-		setData: null,
 		//内部属性
-		isInit: true,
+		$isInit: true,
+		//内部接口
+		$trigger: _interface,
+		$ajax: _interface,
+		$getSelected: _interface,
+		$setCheckbox: _interface,
 		//view属性
-		isLoading: false,
-		loadInfo: '',
+		_isLoading: false,
+		_loadInfo: '',
 		//view接口
-		clickNode: _interface,
-		clickParent: _interface,
-		_trigger: _interface,
-		_ajax: _interface,
-		_getSelected: _interface,
-		_setCheckbox: _interface,
+		_clickNode: _interface,
+		_clickParent: _interface,
+		//对外方法
 		getChecked: _interface,
 		reloadData: _interface,
+		setData: _interface,
 		//默认配置
 		$template: template,
 		$construct: function (hooks, vmOpts, elemOpts) {
-			var options = avalon.mix(hooks, vmOpts, elemOpts);
-			return options; //返回VM的定义对象
+			return avalon.mix(hooks, vmOpts, elemOpts);
 		},
 		$dispose: function (vm, elem) {
 			elem.innerHTML = elem.textContent = '';
 		},
 		$init: function(vm, elem) {
-			//内部方法
-			vm._trigger = function(ev, type) {
+			vm.$trigger = function(ev, type) {
 				switch (type) {
 					case 'loaded':
 						if(typeof vm.onloaded == 'function') {
@@ -70,9 +69,9 @@ define(['avalon', 'mmRequest', 'text!./td.tree.html', 'css!./td.tree.css'], func
 					default: break;
 				}
 			}
-			vm._ajax = function() {
-				vm.isLoading = true;
-				vm.loadInfo = '数据加载中...';
+			vm.$ajax = function() {
+				vm._isLoading = true;
+				vm._loadInfo = '数据加载中...';
 				var p = {};
 				for(var k in vm.param) {
 					if(vm.param.hasOwnProperty(k)) {
@@ -86,73 +85,72 @@ define(['avalon', 'mmRequest', 'text!./td.tree.html', 'css!./td.tree.css'], func
 					headers: {},
 					success: function(data, status, xhr) {
 						if(data.rspcod == '200') {
-							vm.loadInfo = '';
+							vm._loadInfo = '';
 							vm.data.pushArray(data.data);
 						}else {
-							vm.loadInfo = data.rspmsg;
+							vm._loadInfo = data.rspmsg;
 						}
-						vm.isLoading = false;
-						vm._trigger(data, 'loaded');
+						vm._isLoading = false;
+						vm.$trigger(data, 'loaded');
 					},
 					error: function(data) {
-						vm.loadInfo = data.status + '[' + data.statusText + ']';
-						vm.isLoading = false;
+						vm._loadInfo = data.status + '[' + data.statusText + ']';
+						vm._isLoading = false;
 					}
 				});
 			}
-			vm._getSelected = function(dat) {
+			vm.$getSelected = function(dat) {
 				var val = '';
 				for(var i = 0; i < dat.size(); i ++) {
 					if(dat[i].checked === true || dat[i].checked === 'true') {
 						val += (dat[i].id + ',');
 					}
 					if(dat[i].children != undefined && dat[i].children.length > 0) {
-						val += vm._getSelected(dat[i].children);
+						val += vm.$getSelected(dat[i].children);
 					}
 				}
 				return val;
 			}
-			vm._setCheckbox = function(el, checked) {
+			vm.$setCheckbox = function(el, checked) {
 				//通过递归方式处理子checkbox	
 				if(el.disabled === false || el.disabled === 'false') {
 					el.checked = checked;
 					if(el.children != undefined && el.children.length > 0) {
 						for(var i = 0; i < el.children.length; i ++) {
-							vm._setCheckbox(el.children[i], checked);
+							vm.$setCheckbox(el.children[i], checked);
 						}
 					}
 				}
 			}
-			//接口方法
-			vm.clickNode = function(ev, idx, el, type) {
+			vm._clickNode = function(ev, idx, el, type) {
 				switch(type) {
 					case 'oper':
 						if(el.children != undefined && el.children.length > 0) {
 							if(el.expand ===true || el.expand==='true') {
 								el.expand = false;
-								vm._trigger(el, 'collapsed')
+								vm.$trigger(el, 'collapsed')
 							}else {
 								el.expand = true;
-								vm._trigger(el, 'expanded')
+								vm.$trigger(el, 'expanded')
 							}
 						}
 						break;
 					case 'checkbox':
-						vm._setCheckbox(el, (el.checked===true||el.checked==='true'?false:true));
+						vm.$setCheckbox(el, (el.checked===true||el.checked==='true'?false:true));
 						if(el.checked === true || el.checked === 'true') {
-							vm._trigger(el, 'checked');
+							vm.$trigger(el, 'checked');
 						}
 						break;
 					case 'node':
 						if(el.disabled === false || el.disabled === 'false') {
-							vm._trigger(el, 'clicked');
+							vm.$trigger(el, 'clicked');
 						}
 						break;
 					default:
 						break;
 				}
 			}
-			vm.clickParent = function(ev, idx, el) {
+			vm._clickParent = function(ev, idx, el) {
 				if(el.disabled === true || el.disabled === 'true') {
 					ev.stopPropagation();
 					ev.cancelBubble = true;
@@ -169,34 +167,31 @@ define(['avalon', 'mmRequest', 'text!./td.tree.html', 'css!./td.tree.css'], func
 					}
 				}
 			}
-			//对外方法
 			vm.getChecked = function() {
 				var val = '';
 				if(vm.checkbox === true) {
-					val = vm._getSelected(vm.data);
+					val = vm.$getSelected(vm.data);
 					val = val.substring(0, val.length - 1);
 				}
 				return val;
 			}
 			vm.reloadData = function() {
 				if(vm.url != '') {
-					vm._ajax();
+					vm.$ajax();
 				}
 			}
 			vm.setData = function(dat) {
 				vm.data.removeAll();
 				vm.data.pushArray(dat);
 			}
-			//观测方法
 		},
 		$ready: function (vm) {
 			if(vm.url != '') {
-				vm._ajax();
+				vm.$ajax();
 			}
-      vm.isInit = false;
+      vm.$isInit = false;
     }
 	});
-	
 	var widget = avalon.components["td:tree"];
   widget.regionals = {};
 });

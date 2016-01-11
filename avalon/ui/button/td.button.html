@@ -1,23 +1,13 @@
 <div class="btn-group" ms-class="pull-right: pull=='right'">
-	<a class="btn btn-default waves-effect waves-light" href="javascript:void(0)" 
-		ms-class-1="btn-primary: type=='primary'" ms-class-2="btn-success: type=='success'" ms-class-3="btn-info: type=='info'"
-		ms-class-4="btn-warning: type=='warning'" ms-class-5="btn-danger: type=='danger'" ms-class-6="disabled: disabled==true"
-		ms-class-7="btn-lg: size=='large'" ms-class-8="btn-sm: size=='small'" ms-class-9="btn-xs: size=='xsmall'"
-		ms-class-10="no_border_right: actions.length > 0"
-		ms-click="doClick($event)">
-		{{value}}
-		<span class="badge" ms-if="badge != ''">{{badge}}</span>
+	<a class="btn btn-default waves-effect waves-light" href="javascript:void(0)" ms-class-1="btn-primary: type=='primary'" ms-class-2="btn-success: type=='success'" ms-class-3="btn-info: type=='info'" ms-class-4="btn-warning: type=='warning'" ms-class-5="btn-danger: type=='danger'" ms-class-6="disabled: disabled==true" ms-class-7="btn-lg: size=='large'" ms-class-8="btn-sm: size=='small'" ms-class-9="btn-xs: size=='xsmall'" ms-class-10="no_border_right: actions.length > 0" ms-click="_doClick($event)">
+		{{value}}<span class="badge" ms-if="badge != ''">{{badge}}</span>
 	</a>
-	<a class="btn btn-default dropdown-toggle waves-effect waves-light no_border_left" href="javascript:void(0)"
-		ms-if="actions.length > 0" ms-click="toggleAction($event)"
-		ms-class-1="btn-primary: type=='primary'" ms-class-2="btn-success: type=='success'" ms-class-3="btn-info: type=='info'"
-		ms-class-4="btn-warning: type=='warning'" ms-class-5="btn-danger: type=='danger'" ms-class-6="disabled: disabled==true"
-		ms-class-7="btn-lg: size=='large'" ms-class-8="btn-sm: size=='small'" ms-class-9="btn-xs: size=='xsmall'">
+	<a class="btn btn-default dropdown-toggle waves-effect waves-light no_border_left" href="javascript:void(0)" ms-if="actions.length > 0" ms-click="_toggleAction($event)" ms-class-1="btn-primary: type=='primary'" ms-class-2="btn-success: type=='success'" ms-class-3="btn-info: type=='info'" ms-class-4="btn-warning: type=='warning'" ms-class-5="btn-danger: type=='danger'" ms-class-6="disabled: disabled==true" ms-class-7="btn-lg: size=='large'" ms-class-8="btn-sm: size=='small'" ms-class-9="btn-xs: size=='xsmall'">
 		<span class="caret"></span>
 	</a>
-	<ul class="dropdown-menu" ms-if="actions.length > 0" ms-visible="isAction">
+	<ul class="dropdown-menu animated" ms-if="actions.length > 0" ms-visible="isAction" ms-effect="flipY-visible">
 		<li ms-repeat="actions" ms-class="divider: el.type=='split'">
-			<a href="javascript:void(0)" ms-if="el.type!='split'" ms-click="doAction($event, el.fun)">{{el.display}}</a>
+			<a href="javascript:void(0)" ms-if="el.type!='split'" ms-click="_doAction($event, el.fun)">{{el.display}}</a>
 		</li>
 	</ul>
 </div>
