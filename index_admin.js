@@ -87,6 +87,29 @@ require(['mmState', 'tdTree', 'tdTab'], function () {
 				TD.hint('取消退出');
 			});
 		},
+		isFullScreen: false,
+		fullScreen: function(ev) {
+			var ele = document.documentElement;
+			if(vidx.isFullScreen == false) {
+				if(ele.requestFullscreen) {
+					ele.requestFullscreen();
+				}else if(ele.mozRequestFullScreen) {
+					ele.mozRequestFullScreen();
+				}else if(ele.webkitRequestFullscreen) {
+					ele.webkitRequestFullscreen();
+				}else if(ele.msRequestFullscreen) {
+					ele.msRequestFullscreen();
+				}
+			}else {
+				if(document.exitFullscreen) {
+					document.exitFullscreen();
+				}else if(document.mozCancelFullScreen) {
+					document.mozCancelFullScreen();
+				}else if(document.webkitExitFullscreen) {
+					document.webkitExitFullscreen();
+				}
+			}
+		},
 		$index_tree: {
 			data: dat
 		}
@@ -152,6 +175,11 @@ require(['mmState', 'tdTree', 'tdTab'], function () {
 	
 	avalon.bind(window, 'resize', function() {
 		vidx.height = document.documentElement.clientHeight - 100;
+		if(window.outerHeigth==screen.heigth && window.outerWidth==screen.width) {
+			vidx.isFullScreen = true;
+		}else {
+			vidx.isFullScreen = false;
+		}
 	});
 	
 	avalon.state.config({

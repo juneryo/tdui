@@ -104,6 +104,18 @@ document, body {
 	color: #6d6a69;
 	float: right;
 }
+.index_navbar .index_icon {
+	border: solid 1px #6d6a69;
+	border-radius: 3px;
+	background-color: #f8f8f8;
+	padding: 5px;
+	margin-top: 15px;
+	margin-right: 10px;
+	font-size: 16px;
+	cursor: pointer;
+	color: #6d6a69;
+	float: right;
+}
 .index_logo {
 	height: 60px;
 	background-color: #f3f3f3;
