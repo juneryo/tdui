@@ -1,33 +1,33 @@
 define(['avalon', 'text!./td.switch.html', 'css!./td.switch.css'], function(avalon, template) {
-	var _interface = function () {
-	};
+	var _interface = function () {};
 	avalon.component("td:switch", {
-		//外部属性
+		//外部标签属性
 		label: '',
 		name: 'switch',
 		disabled: false,
 		on: false,
-		//外部参数
+		//外部配置参数
 		display: {},
 		onclicked: null,
 		onchanged: null,
+		//内部接口
+		$trigger: _interface,
 		//view接口
-		clickSwitch: _interface,
-		_trigger: _interface,
+		_clickSwitch: _interface,
+		//对外方法
 		getData: _interface,
 		getValue: _interface,
 		setValue: _interface,
+		//默认配置
 		$template: template,
 		$construct: function (hooks, vmOpts, elemOpts) {	
-			var options = avalon.mix(hooks, vmOpts, elemOpts);
-			return options;
+			return avalon.mix(hooks, vmOpts, elemOpts);
 		},
 		$dispose: function (vm, elem) {
 			elem.innerHTML = elem.textContent = '';
 		},
 		$init: function(vm, elem) {
-			//内部方法
-			vm._trigger = function(ev, type) {
+			vm.$trigger = function(ev, type) {
 				switch (type) {
 					case 'changed':
 						if(typeof vm.onchanged == 'function') {
@@ -42,15 +42,13 @@ define(['avalon', 'text!./td.switch.html', 'css!./td.switch.css'], function(aval
 					default: break;
 				}
 			}
-			//接口方法
-			vm.clickSwitch = function(ev) {
+			vm._clickSwitch = function(ev) {
 				if(!vm.disabled) {
 					vm.on = !vm.on;
-					vm._trigger(ev, 'clicked');
-					vm._trigger(ev, 'changed');
+					vm.$trigger(ev, 'clicked');
+					vm.$trigger(ev, 'changed');
 				}
 			}
-			//对外方法
 			vm.getData = function() {
 				var data = new Object();
 				data[vm.name] = vm.getValue();
@@ -63,15 +61,12 @@ define(['avalon', 'text!./td.switch.html', 'css!./td.switch.css'], function(aval
 				var v = (val === true || val.toString() === '1') ? true : false;
 				if(v != vm.on) {
 					vm.on = v;
-					vm._trigger(null, 'changed');
+					vm.$trigger(null, 'changed');
 				}
 			}
 		},
-		$ready: function (vm) {
-      
-    }
+		$ready: function (vm) {}
 	});
-	
 	var widget = avalon.components["td:switch"];
   widget.regionals = {};
 })

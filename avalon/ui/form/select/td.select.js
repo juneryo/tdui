@@ -1,15 +1,14 @@
 define(['avalon', 'mmRequest', 'text!./td.select.html', 'css!./td.select.css'], function(avalon, req, template) {
-	var _interface = function () {
-	};
+	var _interface = function () {};
 	avalon.component("td:select", {
-		//外部属性
+		//外部标签属性
 		label: '',
 		name: 'select',
 		disabled: false,
 		muti: false,
 		must: false,
 		auto: true,
-		//外部参数
+		//外部配置参数
 		url: '',
 		param: {},
 		data: {},
@@ -18,56 +17,55 @@ define(['avalon', 'mmRequest', 'text!./td.select.html', 'css!./td.select.css'], 
 		onselected: null,
 		onchanged: null,
 		//内部属性
-		value: '',
-		selectedValue: '',
-		keys: [],
-		_bindFun: null,
+		$val: '',
+		$selectedVal: '',
+		//内部接口
+		$bindFun: null,
+		$trigger: _interface,
+		$validValue: _interface,
+		$buildKeys: _interface,
+		$buildSelected: _interface,
 		//view属性
-		isLoading: false,
-		isShow: false,
-		isValid: true,
-		validInfo: '',
-		text: '',
-		loadInfo: '',
+		_keys: [],
+		_isShow: false,
+		_isValid: true,
+		_isLoading: false,
+		_validInfo: '',
+		_text: '',
+		_loadInfo: '',
 		//view接口
-		isSelected: _interface,
-		toggleList: _interface,
-		selectOne: _interface,
-		_trigger: _interface,
-		_buildSelected: _interface,
-		validValue: _interface,
+		_isSelected: _interface,
+		_toggleList: _interface,
+		_selectOne: _interface,
+		_checkKeydown: _interface,
+		_checkKeyPress: _interface,
+		//对外方法
 		getData: _interface,
 		getValue: _interface,
 		setValue: _interface,
 		removeData: _interface,
 		reloadData: _interface,
-		_buildKeys: _interface,
-		checkKeydown: _interface,
-		checkKeyPress: _interface,
+		//默认配置
 		$template: template,
-		// hooks : 定义component中的属性
-		//vmOpts : 引用component时的js配置$opt
-		//eleOpts: 使用component时标签中的属性
 		$construct: function (hooks, vmOpts, elemOpts) {
 			var options = avalon.mix(hooks, vmOpts, elemOpts);
 			if(hooks.url == '') {
 				var selected = vmOpts.selected ? vmOpts.selected : [];
 				for(var i = 0; i < selected.length; i ++) {
-					hooks.value += (selected[i] + ',');
-					hooks.text += (vmOpts.data[selected[i]] + ',');
+					hooks.$val += (selected[i] + ',');
+					hooks._text += (vmOpts.data[selected[i]] + ',');
 				}
-				hooks.value = hooks.value == '' ? '' : hooks.value.substring(0, hooks.value.length - 1);
-				hooks.text = hooks.text == '' ? '' : hooks.text.substring(0, hooks.text.length - 1);
+				hooks.$val = hooks.$val == '' ? '' : hooks.$val.substring(0, hooks.$val.length - 1);
+				hooks._text = hooks._text == '' ? '' : hooks._text.substring(0, hooks._text.length - 1);
 			}
 			return options;
 		},
 		$dispose: function (vm, elem) {
-			avalon.unbind(document, 'click', vm._bindFun);
+			avalon.unbind(document, 'click', vm.$bindFun);
 			elem.innerHTML = elem.textContent = '';
 		},
 		$init: function(vm, elem) {
-			//内部方法
-			vm._trigger = function(ev, type) {
+			vm.$trigger = function(ev, type) {
 				switch (type) {
 					case 'loaded':
 						if(typeof vm.onloaded == 'function') {
@@ -75,7 +73,7 @@ define(['avalon', 'mmRequest', 'text!./td.select.html', 'css!./td.select.css'], 
 						}
 						break;
 					case 'changed':
-						vm.validValue(null);
+						vm.$validValue(null);
 						if(typeof vm.onchanged == 'function') {
 							vm.onchanged(ev, vm);
 						}
@@ -88,15 +86,15 @@ define(['avalon', 'mmRequest', 'text!./td.select.html', 'css!./td.select.css'], 
 					default: break;
 				}
 			}
-			vm._buildKeys = function(obj) {
+			vm.$buildKeys = function(obj) {
 				for(var k in obj) {
 					if(obj.hasOwnProperty(k)) {
-						vm.keys.push(k);
+						vm._keys.push(k);
 					}
 				}
-				vm.keys.sort();
+				vm._keys.sort();
 			}
-			vm._buildSelected = function() {
+			vm.$buildSelected = function() {
 				var val = '', text = '';
 				for(var i = 0; i < vm.selected.size(); i ++) {
 					if(vm.data[vm.selected[i]] != undefined) {
@@ -104,21 +102,25 @@ define(['avalon', 'mmRequest', 'text!./td.select.html', 'css!./td.select.css'], 
 						text += (vm.data[vm.selected[i]] + ',');
 					}
 				}
-				vm.value = val == '' ? '' : val.substring(0, val.length - 1);
-				vm.text = text == '' ? '' : text.substring(0, text.length - 1);
+				vm.$val = val == '' ? '' : val.substring(0, val.length - 1);
+				vm._text = text == '' ? '' : text.substring(0, text.length - 1);
 			}
-			//接口方法
-			vm.validValue = function(ev) {
+			vm.$validValue = function(ev) {
 				if(vm.must === true) {
-					vm.validInfo = '';
-					vm.isValid = true;
+					vm._validInfo = '';
+					vm._isValid = true;
 					if(vm.getValue() == '') {
-						vm.isValid = false;
-						vm.validInfo = '请选择项目';
+						vm._isValid = false;
+						vm._validInfo = '请选择项目';
 					}
 				}
 			}
-			vm.isSelected = function(key) {
+			vm.$bindFun = function() {
+				if(vm._isShow == true) {
+					vm._isShow = false;
+				}
+			}
+			vm._isSelected = function(key) {
 				var flag = false;
 				for(var i = 0; i < vm.selected.size(); i ++) {
 					if(vm.selected[i] == key) {
@@ -127,14 +129,14 @@ define(['avalon', 'mmRequest', 'text!./td.select.html', 'css!./td.select.css'], 
 				}
 				return flag;
 			}
-			vm.toggleList = function(ev) {
+			vm._toggleList = function(ev) {
 				if(!vm.disabled) {
-					vm.isShow = !vm.isShow;
+					vm._isShow = !vm._isShow;
 				}
 				ev.stopPropagation();
 				ev.cancelBubble = true;
 			}
-			vm.selectOne = function(ev, key) {
+			vm._selectOne = function(ev, key) {
 				var selected = false;
 				if(!vm.muti) {
 					if(vm.selected.size() >= 1) {
@@ -143,7 +145,7 @@ define(['avalon', 'mmRequest', 'text!./td.select.html', 'css!./td.select.css'], 
 					}else {
 						vm.selected.set(0, key);
 					}
-					vm.isShow = false;
+					vm._isShow = false;
 					selected = true;
 				}else {
 					var removed = false;
@@ -158,54 +160,53 @@ define(['avalon', 'mmRequest', 'text!./td.select.html', 'css!./td.select.css'], 
 						selected = true;
 					}
 				}
-				vm._buildSelected();
+				vm.$buildSelected();
 				if(selected) {
-					vm.selectedValue = key;
-					vm._trigger(ev, 'selected');
+					vm.$selectedVal = key;
+					vm.$trigger(ev, 'selected');
 				}
-				vm._trigger(ev, 'changed');
+				vm.$trigger(ev, 'changed');
 				if(vm.muti) {
 					ev.stopPropagation();
 					ev.cancelBubble = true;
 				}
 			}
-			vm.checkKeydown = function(ev) {
+			vm._checkKeydown = function(ev) {
 				ev.preventDefault();
 			}
-			vm.checkKeyPress = function(ev) {
+			vm._checkKeyPress = function(ev) {
 				ev.preventDefault();
 			}
-			//对外方法
 			vm.getData = function() {
 				var data = {};
-				data[vm.name] = vm.value;
+				data[vm.name] = vm.$val;
 				return data;
 			}
 			vm.getValue = function() {
-				return vm.value;
+				return vm.$val;
 			}
 			vm.setValue = function(val) {
 				var arr = val.split(',');
 				if(vm.selected.sort().toString() != arr.sort().toString()) {
 					vm.selected.removeAll();
 					vm.selected.pushArray(arr);
-					vm._buildSelected();
-					vm._trigger({}, 'changed');
+					vm.$buildSelected();
+					vm.$trigger({}, 'changed');
 				}
 			},
 			vm.removeData = function() {
 				vm.data = {};
-				vm.keys.removeAll();
+				vm._keys.removeAll();
 				vm.selected.removeAll();
-				vm._buildSelected();
+				vm.$buildSelected();
 			}
 			vm.reloadData = function(p) {
 				if(vm.url != '') {
 					if(p && typeof p == 'object') {
 						vm.param = p;
 					}
-					vm.loadInfo = '';
-					vm.isLoading = true;
+					vm._loadInfo = '';
+					vm._isLoading = true;
 					var obj = {};
 					for(var k in vm.param) {
 						if(vm.param.hasOwnProperty(k)) {
@@ -220,43 +221,37 @@ define(['avalon', 'mmRequest', 'text!./td.select.html', 'css!./td.select.css'], 
 						success: function(dat, status, xhr) {
 							if(dat.rspcod == '200') {
 								vm.data = dat.data;
-								vm._buildKeys(vm.data);
+								vm.$buildKeys(vm.data);
 								vm.selected.removeAll();
-								vm._buildSelected();
-								vm._trigger(dat.data, 'loaded');
+								vm.$buildSelected();
+								vm.$trigger(dat.data, 'loaded');
 							}else {
-								vm.loadInfo = dat.rspmsg;
+								vm._loadInfo = dat.rspmsg;
 							}
-							vm.validValue(null);
-							vm.isLoading = false;
+							vm.$validValue(null);
+							vm._isLoading = false;
 						},
 						error: function(dat) {
-							vm.loadInfo = dat.status + '[' + dat.statusText + ']';
-							vm.isLoading = false;
+							vm._loadInfo = dat.status + '[' + dat.statusText + ']';
+							vm._isLoading = false;
 						}
 					});
 				}
-				vm.validValue(null);
+				vm.$validValue(null);
 			}
 			//绑定事件
-			vm._bindFun = function() {
-				if(vm.isShow == true) {
-					vm.isShow = false;
-				}
-			}
-			avalon.bind(document, 'click', vm._bindFun, false);
+			avalon.bind(document, 'click', vm.$bindFun, false);
 		},
 		$ready: function (vm) {
 			if(vm.auto === true && vm.url != '') {
 				vm.reloadData();
 			}else {
 				if(vm.url == '') {
-					vm._buildKeys(vm.data);
+					vm.$buildKeys(vm.data);
 				}
 			}
     }
 	});
-
 	var widget = avalon.components["td:select"];
   widget.regionals = {};
 })

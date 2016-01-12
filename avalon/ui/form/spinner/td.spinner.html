@@ -1,13 +1,13 @@
-<div class="form-group td_spinner_container" ms-class-1="td_valid_disabled: disabled" ms-class-2="has-error: !isValid">
+<div class="form-group td_spinner_container" ms-class-1="td_valid_disabled: disabled" ms-class-2="has-error: !_isValid">
 	<label class="control-label" ms-if="label != ''">{{label}}：</label>
-	<input class="form-control" type="text" placeholder="" ms-attr-name="name" ms-attr-value="value" ms-click="toggleBtns($event)" ms-keydown="checkKeydown($event)" ms-keyPress="checkKeyPress($event)" ms-keyUp="checkKeyUp($event)" />
-	<span class="td_valid_err" ms-if="!isValid && validInfo != ''">{{validInfo}}</span>
-	<ul class="dropdown-menu" ms-visible="showBtns">
+	<input class="form-control" type="text" placeholder="" ms-attr-name="name" ms-attr-value="value" ms-click="_toggleBtns($event)" ms-keydown="_checkKeydown($event)" ms-keyPress="_checkKeyPress($event)" ms-keyUp="_checkKeyUp($event)" />
+	<span class="td_valid_err" ms-if="!_isValid && _validInfo != ''">{{_validInfo}}</span>
+	<ul class="dropdown-menu" ms-visible="_showBtns">
 		<li>
-			<div class="td_spinner_btn" style="border-right:solid 1px #ddd" ms-click="clickUp($event)">
+			<div class="td_spinner_btn" style="border-right:solid 1px #ddd" ms-click="_clickUp($event)">
 				<span class="td_spinner_up">▲</span>
 			</div>
-			<div class="td_spinner_btn" ms-click="clickDown($event)">
+			<div class="td_spinner_btn" ms-click="_clickDown($event)">
 				<span class="td_spinner_down">▼</span>
 			</div>
 		</li>

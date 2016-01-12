@@ -1,33 +1,32 @@
 define(['avalon', 'text!./td.textarea.html', 'css!./td.textarea.css'], function(avalon, template) {
-	var _interface = function () {
-	};
+	var _interface = function () {};
 	avalon.component("td:textarea", {
-		//外部属性
+		//外部标签属性
 		label: '',
 		value: '',
 		name: 'textarea',
-		maxlen: 999,   //最大长度
+		maxlen: 999,  //最大长度
 		width: '100%',
 		must: false,
 		html: false,
 		disabled: false,
-		//外部参数
+		//外部配置参数
 		onchanged: null,
 		onclicked: null,
+		//内部接口
+		$trigger: _interface,
 		//view属性
-		isValid: true,
-		validInfo: '',
+		_isValid: true,
+		_validInfo: '',
 		//view接口
-		validValue: _interface,
-		doClick: _interface,
-		_trigger: _interface,
+		_validValue: _interface,
+		_doClick: _interface,
+		//对外方法
 		getData: _interface,
 		getValue: _interface,
 		setValue: _interface,
+		//默认配置
 		$template: template,
-		// hooks : 定义component中的属性
-		//vmOpts : 引用component时的js配置$opt 
-		//eleOpts: 使用component时标签中的属性
 		$construct: function (hooks, vmOpts, elemOpts) {
 			if(typeof elemOpts.must == 'number') {
 				elemOpts.maxlen = elemOpts.must;
@@ -39,8 +38,7 @@ define(['avalon', 'text!./td.textarea.html', 'css!./td.textarea.css'], function(
 			elem.innerHTML = elem.textContent = '';
 		},
 		$init: function(vm, elem) {
-			//内部方法
-			vm._trigger = function(ev, type) {
+			vm.$trigger = function(ev, type) {
 				switch (type) {
 					case 'clicked':
 						if(typeof vm.onclicked == 'function') {
@@ -55,25 +53,23 @@ define(['avalon', 'text!./td.textarea.html', 'css!./td.textarea.css'], function(
 					default: break;
 				}
 			}
-			
-			//接口方法
-			vm.doClick = function(ev) {
-				vm._trigger(ev, 'clicked');
+			vm._doClick = function(ev) {
+				vm.$trigger(ev, 'clicked');
 			}
-			vm.validValue = function(ev) {
-				vm.isValid = true;
+			vm._validValue = function(ev) {
+				vm._isValid = true;
 				if(vm.must && vm.value == '') {
-					vm.validInfo = '该字段不允许为空';
-					vm.isValid = false;
+					vm._validInfo = '该字段不允许为空';
+					vm._isValid = false;
 				}
-				//禁止输入html内容
-				if(!vm.html && vm.isValid) {
-					vm.isValid = !/<[^>]+>/.test(vm.value);
-					vm.validInfo = vm.isValid ? '' : '不允许输入标签';
+				if(!vm.html && vm._isValid) {  //禁止输入html内容
+					vm._isValid = !/<[^>]+>/.test(vm.value);
+					vm._validInfo = vm._isValid ? '' : '不允许输入标签';
 				}
 			}
-			
-			//对外方法
+			vm.$watch('value', function(newVal, oldVal) {
+				vm.$trigger({newVal: newVal, oldVal: oldVal}, 'changed');
+			});
 			vm.getData = function() {
 				var data = {};
 				data[vm.name] = vm.value;
@@ -85,19 +81,14 @@ define(['avalon', 'text!./td.textarea.html', 'css!./td.textarea.css'], function(
 			vm.setValue = function(val) {
 				if(val != vm.value) {
 					vm.value = val;
-					vm.validValue(null);
+					vm._validValue(null);
 				}
 			}
-			
-			vm.$watch('value', function(newVal, oldVal) {
-				vm._trigger({newVal: newVal, oldVal: oldVal}, 'changed');
-			});
 		},
 		$ready: function (vm) {
-      vm.validValue(null);
+      vm._validValue(null);
     }
 	});
-	
 	var widget = avalon.components["td:textarea"];
   widget.regionals = {};
 })

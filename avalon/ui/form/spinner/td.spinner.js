@@ -1,8 +1,7 @@
 define(['avalon', 'text!./td.spinner.html', 'css!./td.spinner.css'], function(avalon, template) {
-	var _interface = function () {
-	};
+	var _interface = function () {};
 	avalon.component("td:spinner", {
-		//外部属性
+		//外部标签属性
 		disabled: false,
 		must: false,
 		label: '',
@@ -11,41 +10,41 @@ define(['avalon', 'text!./td.spinner.html', 'css!./td.spinner.css'], function(av
 		max: '',
 		min: '',
 		interval: 1,  //每次增减量
-		//外部参数
+		//外部配置参数
 		onupclicked: null,
 		ondownclicked: null,
 		onchanged: null,
 		onclicked: null,
-		//内部属性
-		_bindFun: null,
+		//内部接口
+		$bindFun: null,
+		$trigger: _interface,
+		$validValue: _interface,
 		//view属性
-		validInfo: '',
-		isValid: true,
-		showBtns: false,
+		_validInfo: '',
+		_isValid: true,
+		_showBtns: false,
 		//view接口
-		clickUp: _interface,
-		clickDown: _interface,
-		toggleBtns: _interface,
-		validValue: _interface,
-		checkKeydown: _interface,
-		checkKeyPress: _interface,
-		checkKeyUp: _interface,
-		_trigger: _interface,
+		_clickUp: _interface,
+		_clickDown: _interface,
+		_toggleBtns: _interface,
+		_checkKeydown: _interface,
+		_checkKeyPress: _interface,
+		_checkKeyUp: _interface,
+		//对外方法
 		getData: _interface,
 		getValue: _interface,
 		setValue: _interface,
+		//默认配置
 		$template: template,
 		$construct: function (hooks, vmOpts, elemOpts) {
-			var options = avalon.mix(hooks, vmOpts, elemOpts);
-			return options;
+			return avalon.mix(hooks, vmOpts, elemOpts);
 		},
 		$dispose: function (vm, elem) {
-			avalon.unbind(document, 'click', vm._bindFun);
+			avalon.unbind(document, 'click', vm.$bindFun);
 			elem.innerHTML = elem.textContent = '';
 		},
 		$init: function(vm, elem) {
-			//内部方法
-			vm._trigger = function(ev, type) {
+			vm.$trigger = function(ev, type) {
 				switch (type) {
 					case 'clicked':
 						if(typeof vm.onclicked == 'function') {
@@ -53,7 +52,7 @@ define(['avalon', 'text!./td.spinner.html', 'css!./td.spinner.css'], function(av
 						}
 						break;
 					case 'changed':
-						vm.validValue();
+						vm.$validValue();
 						if(typeof vm.onchanged == 'function') {
 							vm.onchanged(ev, vm);
 						}
@@ -71,8 +70,23 @@ define(['avalon', 'text!./td.spinner.html', 'css!./td.spinner.css'], function(av
 					default: break;
 				}
 			}
-			//接口方法
-			vm.clickUp = function(ev) {
+			vm.$validValue = function() {
+				vm._validInfo = '';
+				vm._isValid = true;
+				if(vm.must === true && vm.getValue() == '') {
+					vm._isValid = false;
+					vm._validInfo = '该字段为必填字段';
+				}else if(vm.min != '' && vm.getValue() == '') {
+					vm._isValid = false;
+					vm._validInfo = '该字段最小值为' + vm.min;
+				}
+			}
+			vm.$bindFun = function() {
+				if(vm._showBtns == true) {
+					vm._showBtns = false;
+				}
+			}
+			vm._clickUp = function(ev) {
 				if(!vm.disabled) {
 					var val = (vm.value === '' ? (vm.min == '' ? 0 : vm.min) : (parseInt(vm.value) + vm.interval));
 					if(vm.max != '' && parseInt(vm.max) < val) {
@@ -80,15 +94,15 @@ define(['avalon', 'text!./td.spinner.html', 'css!./td.spinner.css'], function(av
 					}
 					var changed = (!(vm.value == val) || vm.value === '');
 					vm.value = val;
-					vm._trigger(ev, 'upclicked');
+					vm.$trigger(ev, 'upclicked');
 					if(changed) {
-						vm._trigger(ev, 'changed');
+						vm.$trigger(ev, 'changed');
 					}
 				}
 				ev.stopPropagation();
 				ev.cancelBubble = true;
 			}
-			vm.clickDown = function(ev) {
+			vm._clickDown = function(ev) {
 				if(!vm.disabled) {
 					var val = (vm.value === '' ? 0 : (parseInt(vm.value) - vm.interval));
 					if(vm.min != '' && parseInt(vm.min) > val) {
@@ -96,23 +110,23 @@ define(['avalon', 'text!./td.spinner.html', 'css!./td.spinner.css'], function(av
 					}
 					var changed = (!(vm.value == val) || vm.value === '');
 					vm.value = val;
-					vm._trigger(ev, 'downclicked');
+					vm.$trigger(ev, 'downclicked');
 					if(changed) {
-						vm._trigger(ev, 'changed');
+						vm.$trigger(ev, 'changed');
 					}
 				}
 				ev.stopPropagation();
 				ev.cancelBubble = true;
 			}
-			vm.toggleBtns = function(ev) {
+			vm._toggleBtns = function(ev) {
 				if(!vm.disabled) {
-					vm.showBtns = !vm.showBtns;
-					vm._trigger(ev, 'clicked');
+					vm._showBtns = !vm._showBtns;
+					vm.$trigger(ev, 'clicked');
 				}
 				ev.stopPropagation();
 				ev.cancelBubble = true;
 			}
-			vm.checkKeydown = function(ev) {
+			vm._checkKeydown = function(ev) {
 				if(!vm.disabled) {
 					if(ev.keyCode.toString() == '8' && vm.disabled == false) {
 						//keyUp中处理
@@ -121,25 +135,15 @@ define(['avalon', 'text!./td.spinner.html', 'css!./td.spinner.css'], function(av
 					}
 				}
 			}
-			vm.checkKeyPress = function(ev) {
+			vm._checkKeyPress = function(ev) {
 				ev.preventDefault();
 			}
-			vm.checkKeyUp = function(ev) {
+			vm._checkKeyUp = function(ev) {
 				if(ev.keyCode.toString() == '8' && vm.disabled == false) {
 					vm.setValue('');
+					vm.$validValue();
 				}
 			}
-			vm.validValue = function() {
-				if(vm.must === true) {
-					vm.validInfo = '';
-					vm.isValid = true;
-					if(vm.getValue() == '') {
-						vm.isValid = false;
-						vm.validInfo = '该字段为必填字段';
-					}
-				}
-			}
-			//对外方法
 			vm.getData = function() {
 				var data = new Object();
 				data[vm.name] = vm.value;
@@ -151,22 +155,16 @@ define(['avalon', 'text!./td.spinner.html', 'css!./td.spinner.css'], function(av
 			vm.setValue = function(val) {
 				if(vm.value != val) {
 					vm.value = val;
-					vm._trigger({}, 'changed');
+					vm.$trigger({}, 'changed');
 				}
 			}
 			//绑定事件
-			vm._bindFun = function() {
-				if(vm.showBtns == true) {
-					vm.showBtns = false;
-				}
-			}
-			avalon.bind(document, 'click', vm._bindFun, false);
+			avalon.bind(document, 'click', vm.$bindFun, false);
 		},
 		$ready: function (vm) {
-			vm.validValue();
+			vm.$validValue();
     }
 	});
-
 	var widget = avalon.components["td:spinner"];
   widget.regionals = {};
 })
