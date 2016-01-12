@@ -107,7 +107,7 @@ require(['mmState', 'tdAccordion', 'tdTree', 'tdTab'], function () {
 		views: {
 			'index_view': {
 				templateUrl: 'pages/main.html',
-				controllerUrl: ['pages/main'],
+				controllerUrl: ['../pages/main'],
 				ignoreChange: function (changeType) {
 					if (changeType) return true;
 				}
