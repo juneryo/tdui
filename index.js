@@ -66,6 +66,10 @@ require(['mmState', 'tdAccordion', 'tdTree', 'tdTab'], function () {
 	var dat4 = [
 		{id:'1', text: '增删改查', expand:true, checked:true, disabled:true, icon:'glyphicon glyphicon-stop', children: [
 			{id:'1-1', text: '示例01', expand:false, checked:false, disabled:false, href:'#!/crud/01', children: []}
+		]},
+		{id:'2', text: '页面模板', expand:true, checked:true, disabled:true, icon:'glyphicon glyphicon-stop', children: [
+			{id:'2-1', text: 'admin主页', expand:false, checked:false, disabled:false, href:'index_admin.html', children: []},
+			{id:'2-2', text: '登录页面', expand:false, checked:false, disabled:false, href:'login.html', children: []}
 		]}
 	];
 	
@@ -103,7 +107,7 @@ require(['mmState', 'tdAccordion', 'tdTree', 'tdTab'], function () {
 		views: {
 			'index_view': {
 				templateUrl: 'pages/main.html',
-				controllerUrl: ['../pages/main'],
+				controllerUrl: ['pages/main'],
 				ignoreChange: function (changeType) {
 					if (changeType) return true;
 				}
@@ -113,11 +117,11 @@ require(['mmState', 'tdAccordion', 'tdTree', 'tdTab'], function () {
 	
 	var buildState = function(arr, type) {
 		for(var i = 0; i < arr.length; i ++) {
-			if(arr[i].href != undefined) {
+			if(arr[i].href != undefined && arr[i].href.split('/')[0] == '#!') {
 				var tmp = arr[i].href.split('/');
 				var url = '/' + tmp[1] + '/' + tmp[2];
 				var tmpUrl = 'pages/' + type +'/' + tmp[1] + '/' + tmp[2] + '/'  + tmp[1] + tmp[2] + '.html';
-				var ctrlUrl = ['../pages/' + type + '/' + tmp[1] + '/' + tmp[2] + '/'  + tmp[1] + tmp[2]];
+				var ctrlUrl = ['pages/' + type + '/' + tmp[1] + '/' + tmp[2] + '/'  + tmp[1] + tmp[2]];
 				if(tmp[2].indexOf('api') != -1) {
 					avalon.state(tmp[1], {
 						controller: 'index',
