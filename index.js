@@ -121,7 +121,7 @@ require(['mmState', 'tdAccordion', 'tdTree', 'tdTab'], function () {
 				var tmp = arr[i].href.split('/');
 				var url = '/' + tmp[1] + '/' + tmp[2];
 				var tmpUrl = 'pages/' + type +'/' + tmp[1] + '/' + tmp[2] + '/'  + tmp[1] + tmp[2] + '.html';
-				var ctrlUrl = ['pages/' + type + '/' + tmp[1] + '/' + tmp[2] + '/'  + tmp[1] + tmp[2]];
+				var ctrlUrl = ['../pages/' + type + '/' + tmp[1] + '/' + tmp[2] + '/'  + tmp[1] + tmp[2]];
 				if(tmp[2].indexOf('api') != -1) {
 					avalon.state(tmp[1], {
 						controller: 'index',

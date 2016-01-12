@@ -112,7 +112,7 @@ require(['mmState', 'tdTree', 'tdTab'], function () {
 				var tmp = arr[i].href.split('/');
 				var url = '/' + tmp[1] + '/' + tmp[2] + '/' + tmp[3];
 				var tmpUrl = 'pages/' + tmp[1] +'/' + tmp[2] + '/' + tmp[3] + '/'  + tmp[2] + tmp[3] + '.html';
-				var ctrlUrl = ['pages/' + tmp[1] + '/' + tmp[2] + '/' + tmp[3] + '/'  + tmp[2] + tmp[3]];
+				var ctrlUrl = ['../pages/' + tmp[1] + '/' + tmp[2] + '/' + tmp[3] + '/'  + tmp[2] + tmp[3]];
 				if(tmp[3].indexOf('api') != -1) {
 					avalon.state(tmp[2], {
 						controller: 'index',
