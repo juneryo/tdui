@@ -1,0 +1,53 @@
+document, body {
+	width: 100%;
+	height: 100%;
+	padding: 0px;
+	margin: 0px;
+}
+/* header silderbar*/
+.index_header {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 70px;
+	margin-bottom: 20px;
+	z-index: 7;
+}
+/* navbar */
+.index_navbar {
+	position: relative;
+	height: 100%;
+	background-color: #009688; 
+}
+.index_navbar a {
+	color: #fff;
+}
+.index_navbar .index_title {
+	position:absolute;
+	top: 10px;
+	left: 90px;
+	padding: 10px 20px;
+	color: #fff;
+	font-size: 25px;
+	font-weight: bold;
+}
+.index_navbar a:hover, .index_navbar a:active {
+	text-decoration: none;
+}
+/* body */
+.index_body {
+	position:relatvie;
+	padding-top: 70px;
+}
+.index_body .well{
+	position:relative;
+	z-index:7;
+}
+
+/* respond */
+@media screen and (max-width: 768px) {
+	.index_navbar .index_title {
+		left: 0px;
+	}
+}

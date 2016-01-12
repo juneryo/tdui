@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title>TDUI</title>
+  <meta charset="utf-8">
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+	<meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+	<meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<link rel="stylesheet" href="avalon/ui/base/css/normalize.min.css" />
+	<link rel="stylesheet" href="avalon/ui/base/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="avalon/ui/base/css/bootstrap-material-design.min.css" />
+	<link rel="stylesheet" href="avalon/ui/base/css/animate.min.css" />
+	<link rel="stylesheet" href="avalon/ui/base/css/waves.css" />
+	<link rel="stylesheet" href="avalon/ui/base/css/td.base.css">
+	<link rel="stylesheet" href="index_admin.css">
+	<!--[if lt IE 9]>
+		<script src="avalon/ui/base/js/html5.min.js"></script>
+		<script src="avalon/ui/base/js/respond.min.js"></script>
+	<![endif]-->
+	<script type="text/javascript" src="avalon/avalon.js"></script>
+	<script>
+    //这个东西必须跟挨着avalon库,并且放到head标签中
+		avalon.library("td", {
+			$init: function(){},
+			$childReady: function(){},
+			$ready: function(){},
+			$dispose: function(){}
+		});
+	</script>
+</head>
+<body class="ms-controller" ms-controller="index">
+	<div class="index_header">
+		<div class="index_navbar">
+			<a href="#!" class="index_title waves-effect waves-light">TDUI</a>
+			<span class="index_toggle glyphicon glyphicon-list" ms-click="toggleMenu($event)"></span>
+			<span class="index_logout glyphicon glyphicon-log-in" title="注销" ms-click="logout($event)"></span>
+		</div>
+		<div class="index_robin">
+			<span>{{path}}</span>
+		</div>
+	</div>
+	<div class="index_brand" ms-css-left="left">
+		<div class="index_logo"></div>
+		<div class="index_login">
+			<span><a href="javascript:void(0)">{{login_user}}&nbsp;({{login_role}})</a></span>
+		</div>
+	</div>
+	<div class="index_sliderbar" ms-css-left="left" ms-css-height="height">
+		<td:tree config="$index_tree" root="false"></td:tree>
+	</div>
+	<div class="container index_body">
+		<!--div class="index_content" ms-view="index_view"></div-->
+		<div class="well" ms-view="index_view"></div>
+	</div>
+</body>
+<script type="text/javascript" src="avalon/ui/base/js/waves.js"></script>
+<script type="text/javascript" src="avalon/ui/base/js/td.base.js"></script>
+<script type="text/javascript" src="index_admin.js"></script>
+</html>
