@@ -278,7 +278,7 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 				}
 			}
 			vm._scrollTable = function(ev) {
-				vm._scrollLeft = -ev.target._scrollLeft;
+				vm._scrollLeft = -ev.target.scrollLeft;
 				if(ev.target.scrollHeight - ev.target.scrollTop == vm.height) {
 					vm.$isBottom = true;
 				}
