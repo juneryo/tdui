@@ -10,6 +10,7 @@ define(['avalon', 'text!./td.dialog.html', 'css!./td.dialog.css'], function(aval
 		buttons: [],
 		onshowed: null,
 		onhided: null,
+		onready: null,
 		//slot
 		content: '',
 		//内部接口
@@ -44,6 +45,11 @@ define(['avalon', 'text!./td.dialog.html', 'css!./td.dialog.css'], function(aval
 							vm.onhided(ev, vm);
 						}
 						break;
+					case 'ready': 
+						if(typeof vm.onready == 'function') {
+							vm.onready(ev, vm);
+						}
+						break;
 					default: break;
 				}
 			}
@@ -73,8 +79,8 @@ define(['avalon', 'text!./td.dialog.html', 'css!./td.dialog.css'], function(aval
 				vm.$trigger({}, 'hided');
 			}
 		},
-		$ready: function (vm) {
-      
+		$ready: function (vm, elem) {
+      vm.$trigger(elem, 'ready');
     }
 	});
 	var widget = avalon.components["td:dialog"];

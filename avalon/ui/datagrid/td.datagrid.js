@@ -25,6 +25,7 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 		onrowclicked: null,
 		onrowdbclicked: null,
 		onrowselected: null,
+		onready: null,
 		//slot
 		content: '',
 		//内部属性
@@ -134,6 +135,11 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 					case 'rowselected':
 						if(typeof vm.onrowselected == 'function') {
 							vm.onrowselected(ev, vm);
+						}
+						break;
+					case 'ready': 
+						if(typeof vm.onready == 'function') {
+							vm.onready(ev, vm);
 						}
 						break;
 					default: break;
@@ -508,7 +514,7 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 			//绑定事件
 			avalon.bind(document, 'click', vm.$bindFun, false);
 		},
-		$ready: function (vm) {
+		$ready: function (vm, elem) {
 			//默认加载数据
 			if(vm.rows.length > 0) {
 				vm.$buildCells(vm.rows);
@@ -520,6 +526,7 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 			if(vm.auto === true) {
 				vm.reloadData();
 			}
+			vm.$trigger(elem, 'ready');
     }
 	});
 	var widget = avalon.components["td:datagrid"];

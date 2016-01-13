@@ -8,6 +8,7 @@ define(['avalon', 'text!./td.tab.html', 'css!./td.tab.css'], function(avalon, te
 		//外部配置参数
 		tabs: [],
 		onchanged: null,
+		onready: null,
 		//内部属性
 		$isInit: true,
 		//内部接口
@@ -39,6 +40,11 @@ define(['avalon', 'text!./td.tab.html', 'css!./td.tab.css'], function(avalon, te
 							vm.onchanged(ev, vm);
 						}
 						break;
+					case 'ready': 
+						if(typeof vm.onready == 'function') {
+							vm.onready(ev, vm);
+						}
+						break;
 					default: break;
 				}
 			}
@@ -64,11 +70,9 @@ define(['avalon', 'text!./td.tab.html', 'css!./td.tab.css'], function(avalon, te
 				return vm.active;
 			}
 		},
-		$ready: function(vm) {
+		$ready: function(vm, elem) {
       vm.$isInit = false;
-			//if(typeof vm.tabs[vm.active].fun == 'function') {
-			//	vm.tabs[vm.active].fun({}, vm);
-			//}
+			vm.$trigger(elem, 'ready');
     }
 	});
 	var widget = avalon.components["td:tab"];

@@ -9,10 +9,13 @@ define(['avalon', 'text!./td.button.html'], function(avalon, template) {
 		pull: '',
 		disabled: false,
 		isAction: false,
+		//外部配置参数
+		onready: null,
 		onclicked: null,
 		actions: [],
 		//内部接口
 		$bindFun: _interface,
+		$trigger: _interface,
 		//view接口
 		_toggleAction: _interface,
 		_doClick: _interface,
@@ -29,6 +32,16 @@ define(['avalon', 'text!./td.button.html'], function(avalon, template) {
 			elem.innerHTML = elem.textContent = '';
 		},
 		$init: function(vm, elem) {
+			vm.$trigger = function(ev, type) {
+				switch (type) {
+					case 'ready': 
+						if(typeof vm.onready == 'function') {
+							vm.onready(ev, vm);
+						}
+						break;
+					default: break;
+				}
+			}
 			vm.$bindFun = function() {
 				if(vm.isAction == true) {
 					vm.isAction = false;
@@ -65,7 +78,9 @@ define(['avalon', 'text!./td.button.html'], function(avalon, template) {
 			//绑定事件
 			avalon.bind(document, 'click', vm.$bindFun, false);
 		},
-		$ready: function (vm) {}
+		$ready: function (vm, elem) {
+			vm.$trigger(elem, 'ready');
+		}
 	});
 	var widget = avalon.components["td:button"];
   widget.regionals = {};

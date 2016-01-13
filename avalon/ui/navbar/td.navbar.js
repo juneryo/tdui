@@ -13,6 +13,7 @@ define(['avalon', 'text!./td.navbar.html', 'css!./td.navbar.css'], function(aval
 		buttons: [],
 		ontitleclicked: null,
 		onsubmited: null,
+		onready: null,
 		//内部接口
 		$trigger: _interface,
 		$bindFun: _interface,
@@ -52,6 +53,11 @@ define(['avalon', 'text!./td.navbar.html', 'css!./td.navbar.css'], function(aval
 					case 'submited': 
 						if(typeof vm.onsubmited == 'function') {
 							vm.onsubmited(ev, vm);
+						}
+						break;
+					case 'ready': 
+						if(typeof vm.onready == 'function') {
+							vm.onready(ev, vm);
 						}
 						break;
 					default: break;
@@ -117,7 +123,9 @@ define(['avalon', 'text!./td.navbar.html', 'css!./td.navbar.css'], function(aval
 			//绑定事件
 			avalon.bind(document, 'click', vm.$bindFun, false);
 		},
-		$ready: function (vm) {}
+		$ready: function (vm, elem) {
+			vm.$trigger(elem, 'ready');
+		}
 	});
 	var widget = avalon.components["td:navbar"];
   widget.regionals = {};

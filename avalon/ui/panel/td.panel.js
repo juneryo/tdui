@@ -5,9 +5,12 @@ define(['avalon', 'text!./td.panel.html', 'css!./td.panel.css'], function(avalon
 		title: '',
 		//外部配置参数
 		buttons: [],
+		onready: null,
 		//slot
 		content: '',
 		footer: '',
+		//内部接口
+		$trigger: _interface,
 		//view属性
 		_showButtons: false,
 		//view接口
@@ -25,6 +28,16 @@ define(['avalon', 'text!./td.panel.html', 'css!./td.panel.css'], function(avalon
 			elem.innerHTML = elem.textContent = '';
 		},
 		$init: function(vm, elem) {
+			vm.$trigger = function(ev, type) {
+				switch (type) {
+					case 'ready': 
+						if(typeof vm.onready == 'function') {
+							vm.onready(ev, vm);
+						}
+						break;
+					default: break;
+				}
+			}
 			vm._btnClick = function(ev, fun) {
 				if(typeof fun == 'function') {
 					fun(ev, vm);
@@ -43,7 +56,9 @@ define(['avalon', 'text!./td.panel.html', 'css!./td.panel.css'], function(avalon
 				return vm.title;
 			}
 		},
-		$ready: function (vm) {}
+		$ready: function (vm, elem) {
+			vm.$trigger(elem, 'ready');
+		}
 	});
 	var widget = avalon.components["td:panel"];
   widget.regionals = {};

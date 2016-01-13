@@ -13,6 +13,7 @@ define(['avalon', 'mmRequest', 'text!./td.tree.html', 'css!./td.tree.css'], func
 		onchecked: null,
 		onexpanded: null,
 		oncollapsed: null,
+		onready: null,
 		//内部属性
 		$isInit: true,
 		//内部接口
@@ -64,6 +65,11 @@ define(['avalon', 'mmRequest', 'text!./td.tree.html', 'css!./td.tree.css'], func
 					case 'collapsed':
 						if(typeof vm.oncollapsed == 'function') {
 							vm.oncollapsed(ev, vm);
+						}
+						break;
+					case 'ready': 
+						if(typeof vm.onready == 'function') {
+							vm.onready(ev, vm);
 						}
 						break;
 					default: break;
@@ -185,11 +191,12 @@ define(['avalon', 'mmRequest', 'text!./td.tree.html', 'css!./td.tree.css'], func
 				vm.data.pushArray(dat);
 			}
 		},
-		$ready: function (vm) {
+		$ready: function (vm, elem) {
 			if(vm.url != '') {
 				vm.$ajax();
 			}
       vm.$isInit = false;
+			vm.$trigger(elem, 'ready');
     }
 	});
 	var widget = avalon.components["td:tree"];

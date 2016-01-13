@@ -17,6 +17,7 @@ define(['avalon', 'mmRequest', 'text!./td.form.html', 'css!./td.form.css'], func
 		onsubmited: null,
 		onreseted: null,
 		onloaded: null,
+		onready: null,
 		//slot
 		content: '',
 		//内部属性
@@ -72,6 +73,11 @@ define(['avalon', 'mmRequest', 'text!./td.form.html', 'css!./td.form.css'], func
 						if(typeof vm.onerrsubmited == 'function') {
 							vm.onerrsubmited(ev, vm);
 						}
+					case 'ready': 
+						if(typeof vm.onready == 'function') {
+							vm.onready(ev, vm);
+						}
+						break;
 					default: break;
 				}
 			}
@@ -174,9 +180,10 @@ define(['avalon', 'mmRequest', 'text!./td.form.html', 'css!./td.form.css'], func
 				return arr;
 			}
 		},
-		$ready: function (vm) {
+		$ready: function (vm, elem) {
 			vm.$oriData = vm.getData();
       vm.reload();
+			vm.$trigger(elem, 'ready');
     }
 	});
 	var widget = avalon.components["td:form"];
