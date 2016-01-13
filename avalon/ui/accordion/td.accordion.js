@@ -4,29 +4,35 @@ define(['avalon', 'text!./td.accordion.html', 'css!./td.accordion.css'], functio
 		//外部标签属性
 		active: 0,
 		padding: 15,
+		height: '',
 		//外部配置参数
 		panels: [],
 		onchanged: null,
+		onready: null,
 		//内部属性
 		$isInit: true,
 		$lastActive: 0,
+		$oneHeight: '',
 		$bodys: [],
-		$bodysH: [],
 		//内部接口
 		$trigger: _interface,
-		$initUI: _interface,
+		$initBodys: _interface,
+		//view属性
+		_bodysH: [],
 		//view接口
 		_renderContent: _interface,
 		_clickPanel: _interface,
 		//对外方法
 		setActive: _interface,
 		getActive: _interface,
+		setHeight: _interface,
 		//默认配置
 		$template: template,
 		$construct: function (hooks, vmOpts, elemOpts) {
 			if(vmOpts.panels != undefined) {
 				for(var i = 0; i < vmOpts.panels.length; i ++) {
 					hooks['content' + i] = '';  //初始化slot标签页内容用属性
+					hooks['_bodysH'].push('');
 				}
 			}
 			var options = avalon.mix(hooks, vmOpts, elemOpts);
@@ -43,31 +49,22 @@ define(['avalon', 'text!./td.accordion.html', 'css!./td.accordion.css'], functio
 							vm.onchanged(ev, vm);
 						}
 						break;
+					case 'ready': 
+						if(typeof vm.onready == 'function') {
+							vm.onready(ev, vm);
+						}
+						break;
 					default: break;
 				}
 			}
-			vm.$initUI = function() {
-				vm.$lastActive = vm.active;
-				//计算高度用于伸缩动画效果
+			vm.$initBodys = function() {
 				var elems = TD.getElementsByClassName('panel-collapse', elem);
 				for(var i = 0; i < elems.length; i ++) {
 					var ele = elems[i];
 					if(ele.parentNode.parentNode.parentNode == elem) {
 						vm.$bodys.push(ele);
-						if(vm.active == vm.$bodys.length - 1) {
-							var h = TD.css.getSize(ele, 'height');
-							ele.style.height = h + 'px';
-							vm.$bodysH[vm.active] = h;
-						}else {
-							ele.style.height = '0px';
-						}
 					}
 				}
-				//计算高度用于伸缩动画效果END
-				//if(typeof vm.panels[vm.active].fun == 'function') {
-				//	vm.panels[vm.active].fun({}, vm);
-				//}
-				vm.$isInit = false;
 			}
 			vm._renderContent = function(idx) {
 				return vm['content' + idx];
@@ -76,11 +73,10 @@ define(['avalon', 'text!./td.accordion.html', 'css!./td.accordion.css'], functio
 				if(idx != vm.active) {
 					vm.active = idx;
 					//设置高度用于伸缩动画效果
-					vm.$bodys[vm.$lastActive].style.height = '0px';
-					if(vm.$bodysH[idx] == undefined || vm.$bodysH[idx] == 0) {
-						vm.$bodysH[idx] = vm.$bodys[idx].scrollHeight;
+					vm._bodysH.set(vm.$lastActive, 0);
+					if(vm._bodysH[idx] == undefined || vm._bodysH[idx] == 0) {
+						vm._bodysH.set(idx, (vm.$oneHeight == '' ? vm.$bodys[idx].scrollHeight : vm.$oneHeight));
 					}
-					vm.$bodys[idx].style.height = vm.$bodysH[idx] + 'px';
 					//设置,获取高度用于伸缩动画效果END
 					vm.$lastActive = idx;
 				}
@@ -96,10 +92,28 @@ define(['avalon', 'text!./td.accordion.html', 'css!./td.accordion.css'], functio
 			}
 			vm.getActive = function() {
 				return vm.active;
+			},
+			vm.setHeight = function(hei) {
+				if(hei) {
+					vm.height = parseFloat(hei);
+					vm.$oneHeight = vm.height - vm.panels.size() * 38;  //38为head高度
+				}
+				for(var i =0; i < vm.$bodys.length; i ++) {
+					if(i == vm.active) {
+						var h = (vm.$oneHeight == '' ? TD.css.getSize(vm.$bodys[i], 'height') : vm.$oneHeight);
+						vm._bodysH.set(i, h);
+					}else {
+						vm._bodysH.set(i, 0);
+					}
+				}
 			}
 		},
 		$ready: function (vm, elem) {
-			vm.$initUI();
+			vm.$initBodys();
+			vm.$lastActive = vm.active;
+			vm.setHeight(vm.height);
+			vm.$isInit = false;
+			vm.$trigger(elem, 'ready');
     }
 	});
 	var widget = avalon.components["td:accordion"];

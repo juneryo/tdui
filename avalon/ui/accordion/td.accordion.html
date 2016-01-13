@@ -5,7 +5,7 @@
         <a href="javascript:void(0)">{{el.title}}</a>
       </h4>
     </div>
-		<div class="panel-collapse height_transition" ms-class="in:active==$index">
+		<div class="panel-collapse height_transition" ms-class="in:active==$index" ms-css-height="_bodysH[$index]">
       <div class="panel-body " ms-css-padding="padding">
         {{_renderContent($index)|html}}
       </div>
