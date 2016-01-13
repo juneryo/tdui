@@ -366,6 +366,8 @@ avalon.config({
 		tdSwitch: 'ui/form/switch/td.switch.js',
 		tdText: 'ui/form/text/td.text.js',
 		tdTextarea: 'ui/form/textarea/td.textarea.js'
+		//图表
+		echarts: 'ui/base/js/echarts.common.min.js'
 	},
 	maxRepeatSize: 50
 });
