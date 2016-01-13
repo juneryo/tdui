@@ -85,7 +85,10 @@ require(['mmState', 'tdAccordion', 'tdTree', 'tdTab'], function () {
 			}
 		},
 		$index_accordion_opt: {
-			panels: [{title: '容器类UI'}, {title: '表单类UI'}, {title: '组件类UI'}, {title: '页面模板'}]
+			panels: [{title: '容器类UI'}, {title: '表单类UI'}, {title: '组件类UI'}, {title: '页面模板'}],
+			onready: function(elem, vm) {
+				vm.setHeight(document.documentElement.clientHeight - 120);
+			}
 		},
 		$index_tree_1: {
 			data: dat1
@@ -161,6 +164,11 @@ require(['mmState', 'tdAccordion', 'tdTree', 'tdTab'], function () {
 	buildState(dat2, 'form');
 	buildState(dat3, 'component');
 	buildState(dat4, 'template');
+	
+	avalon.bind(window, 'resize', function() {
+		avalon.vmodels['index_acc'].setHeight(document.documentElement.clientHeight - 120);
+	});
+	
 	avalon.state.config({
 		onError: function(obj, state) {
 			avalon.log('###onError###');
