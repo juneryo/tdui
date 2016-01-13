@@ -7,6 +7,7 @@ define(['avalon', 'text!./td.checkboxgroup.html', 'css!./td.checkbox.css'], func
 		//外部配置参数
 		checkboxes: [], 
 		onchanged: null,
+		onready: null,
 		//内部接口
 		$trigger: _interface,
 		//view接口
@@ -80,6 +81,11 @@ define(['avalon', 'text!./td.checkboxgroup.html', 'css!./td.checkbox.css'], func
 							vm.onchanged(ev, vm);
 						}
 						break;
+					case 'ready': 
+						if(typeof vm.onready == 'function') {
+							vm.onready(ev, vm);
+						}
+						break;
 					default: break;
 				}
 			}
@@ -105,7 +111,9 @@ define(['avalon', 'text!./td.checkboxgroup.html', 'css!./td.checkbox.css'], func
 				vm.value = val;
 			}
 		},
-		$ready: function (vm) {}
+		$ready: function (vm, elem) {
+			vm.$trigger(elem, 'ready');
+		}
 	});
 	var widget = avalon.components["td:checkboxgroup"];
 	widget.regionals = {};

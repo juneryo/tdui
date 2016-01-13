@@ -18,10 +18,19 @@
 		<script src="../../base/js/respond.min.js"></script>
 	<![endif]-->
 	
-	<!--[if (gte IE 10)|!(IE)]>-->
-		<link type="text/css" rel="stylesheet" href="../../base/css/waves.css" />
-		<script type="text/javascript" src="../../base/js/waves.js"></script>
-	<!--[endif]-->
+	<link type="text/css" rel="stylesheet" href="../../base/css/waves.css" />
+	<script type="text/javascript" src="../../base/js/waves.js"></script>
+	
+	<script type="text/javascript" src="../../../avalon.js"></script>
+	<script>
+		//这个东西必须跟挨着avalon库,并且放到head标签中
+		avalon.library("td", {
+			$init: function(){},
+			$childReady: function(){},
+			$ready: function(){},
+			$dispose: function(){}
+		});
+	</script>
 </head>
 <body>
 	<div class="container">
@@ -78,7 +87,6 @@ require(['ui/form/text/td.text'], function () {
 		</div>
 	</div>
 </body>
-<script type="text/javascript" src="../../../avalon.js"></script>
 <script type="text/javascript" src="../../base/js/td.base.js"></script>
 <script>
 	require(['ui/form/text/td.text'], function () {

@@ -14,6 +14,7 @@ define(['avalon', 'text!./td.password.html', 'css!./td.password.css'], function(
 		//外部配置参数
 		onchanged: null,
 		onclicked: null,
+		onready: null,
 		//内部接口
 		$bindFun: null,
 		$trigger: _interface,
@@ -63,6 +64,11 @@ define(['avalon', 'text!./td.password.html', 'css!./td.password.css'], function(
 					case 'changed':
 						if(typeof vm.onchanged == 'function') {
 							vm.onchanged(ev, vm);
+						}
+						break;
+					case 'ready': 
+						if(typeof vm.onready == 'function') {
+							vm.onready(ev, vm);
 						}
 						break;
 					default: break;
@@ -180,8 +186,9 @@ define(['avalon', 'text!./td.password.html', 'css!./td.password.css'], function(
 			//绑定事件
 			avalon.bind(document, 'click', vm.$bindFun, false);
 		},
-		$ready: function (vm) {
+		$ready: function (vm, elem) {
 			vm.$validValue(null);
+			vm.$trigger(elem, 'ready');
     }
 	});
 	var widget = avalon.components["td:password"];

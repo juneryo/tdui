@@ -14,7 +14,8 @@ define(['avalon', 'text!./td.datepicker.html', 'css!./td.datepicker.css'], funct
 		//外部配置参数
 		onclicked: null,
 		onchanged: null,
-		onpicked: null,	
+		onpicked: null,
+		onready: null,
 		//内部属性
 		$isInit: true,
 		//内部接口
@@ -94,6 +95,11 @@ define(['avalon', 'text!./td.datepicker.html', 'css!./td.datepicker.css'], funct
 					case 'picked':
 						if(typeof vm.onpicked == 'function') {
 							vm.onpicked(ev, vm);
+						}
+						break;
+					case 'ready': 
+						if(typeof vm.onready == 'function') {
+							vm.onready(ev, vm);
 						}
 						break;
 					default: break;
@@ -310,11 +316,12 @@ define(['avalon', 'text!./td.datepicker.html', 'css!./td.datepicker.css'], funct
 			//绑定事件
 			avalon.bind(document, 'click', vm.$bindFun, false);
 		},
-		$ready: function (vm) {
+		$ready: function (vm, elem) {
 			vm.$buildDateArr(vm._today.getFullYear(), vm._today.getMonth() + 1, vm._today.getDate());
 			vm.$buildYearArr(vm._today.getFullYear());
 			vm.$validValue();
 			vm.$isInit = false;
+			vm.$trigger(elem, 'ready');
     }
 	});
 	var widget = avalon.components["td:datepicker"];

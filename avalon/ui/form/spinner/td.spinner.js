@@ -15,6 +15,7 @@ define(['avalon', 'text!./td.spinner.html', 'css!./td.spinner.css'], function(av
 		ondownclicked: null,
 		onchanged: null,
 		onclicked: null,
+		onready: null,
 		//内部接口
 		$bindFun: null,
 		$trigger: _interface,
@@ -65,6 +66,11 @@ define(['avalon', 'text!./td.spinner.html', 'css!./td.spinner.css'], function(av
 					case 'downclicked':
 						if(typeof vm.ondownclicked == 'function') {
 							vm.ondownclicked(ev, vm);
+						}
+						break;
+					case 'ready': 
+						if(typeof vm.onready == 'function') {
+							vm.onready(ev, vm);
 						}
 						break;
 					default: break;
@@ -161,8 +167,9 @@ define(['avalon', 'text!./td.spinner.html', 'css!./td.spinner.css'], function(av
 			//绑定事件
 			avalon.bind(document, 'click', vm.$bindFun, false);
 		},
-		$ready: function (vm) {
+		$ready: function (vm, elem) {
 			vm.$validValue();
+			vm.$trigger(elem, 'ready');
     }
 	});
 	var widget = avalon.components["td:spinner"];

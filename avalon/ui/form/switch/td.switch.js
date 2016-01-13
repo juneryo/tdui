@@ -10,6 +10,7 @@ define(['avalon', 'text!./td.switch.html', 'css!./td.switch.css'], function(aval
 		display: {},
 		onclicked: null,
 		onchanged: null,
+		onready: null,
 		//内部接口
 		$trigger: _interface,
 		//view接口
@@ -39,6 +40,11 @@ define(['avalon', 'text!./td.switch.html', 'css!./td.switch.css'], function(aval
 							vm.onclicked(ev, vm);
 						}
 						break;
+					case 'ready': 
+						if(typeof vm.onready == 'function') {
+							vm.onready(ev, vm);
+						}
+						break;
 					default: break;
 				}
 			}
@@ -65,7 +71,9 @@ define(['avalon', 'text!./td.switch.html', 'css!./td.switch.css'], function(aval
 				}
 			}
 		},
-		$ready: function (vm) {}
+		$ready: function (vm, elem) {
+			vm.$trigger(elem, 'ready');
+		}
 	});
 	var widget = avalon.components["td:switch"];
   widget.regionals = {};

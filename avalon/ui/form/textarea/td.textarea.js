@@ -13,6 +13,7 @@ define(['avalon', 'text!./td.textarea.html', 'css!./td.textarea.css'], function(
 		//外部配置参数
 		onchanged: null,
 		onclicked: null,
+		onready: null,
 		//内部接口
 		$trigger: _interface,
 		//view属性
@@ -50,6 +51,11 @@ define(['avalon', 'text!./td.textarea.html', 'css!./td.textarea.css'], function(
 							vm.onchanged(ev, vm);
 						}
 						break;
+					case 'ready': 
+						if(typeof vm.onready == 'function') {
+							vm.onready(ev, vm);
+						}
+						break;
 					default: break;
 				}
 			}
@@ -85,8 +91,9 @@ define(['avalon', 'text!./td.textarea.html', 'css!./td.textarea.css'], function(
 				}
 			}
 		},
-		$ready: function (vm) {
+		$ready: function (vm, elem) {
       vm._validValue(null);
+			vm.$trigger(elem, 'ready');
     }
 	});
 	var widget = avalon.components["td:textarea"];

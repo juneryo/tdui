@@ -11,6 +11,7 @@ define(['avalon', 'text!./td.rate.html', 'css!./td.rate.css'], function(avalon, 
 		//外部配置参数
 		onclicked: null,
 		onchanged: null,
+		onready: null,
 		//内部接口
 		$trigger: _interface,
 		$setRate: _interface,
@@ -55,6 +56,11 @@ define(['avalon', 'text!./td.rate.html', 'css!./td.rate.css'], function(avalon, 
 					case 'clicked':
 						if(typeof vm.onclicked == 'function') {
 							vm.onclicked(ev, vm);
+						}
+						break;
+					case 'ready': 
+						if(typeof vm.onready == 'function') {
+							vm.onready(ev, vm);
 						}
 						break;
 					default: break;
@@ -103,7 +109,9 @@ define(['avalon', 'text!./td.rate.html', 'css!./td.rate.css'], function(avalon, 
 				}
 			}
 		},
-		$ready: function (vm) {}
+		$ready: function (vm, elem) {
+			vm.$trigger(elem, 'ready');
+		}
 	});
 	var widget = avalon.components["td:rate"];
 	widget.regionals = {};

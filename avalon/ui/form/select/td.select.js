@@ -16,6 +16,7 @@ define(['avalon', 'mmRequest', 'text!./td.select.html', 'css!./td.select.css'], 
 		onloaded: null,
 		onselected: null,
 		onchanged: null,
+		onready: null,
 		//内部属性
 		$val: '',
 		$selectedVal: '',
@@ -81,6 +82,11 @@ define(['avalon', 'mmRequest', 'text!./td.select.html', 'css!./td.select.css'], 
 					case 'selected':
 						if(typeof vm.onselected == 'function') {
 							vm.onselected(ev, vm);
+						}
+						break;
+					case 'ready': 
+						if(typeof vm.onready == 'function') {
+							vm.onready(ev, vm);
 						}
 						break;
 					default: break;
@@ -242,7 +248,7 @@ define(['avalon', 'mmRequest', 'text!./td.select.html', 'css!./td.select.css'], 
 			//绑定事件
 			avalon.bind(document, 'click', vm.$bindFun, false);
 		},
-		$ready: function (vm) {
+		$ready: function (vm, elem) {
 			if(vm.auto === true && vm.url != '') {
 				vm.reloadData();
 			}else {
@@ -250,6 +256,7 @@ define(['avalon', 'mmRequest', 'text!./td.select.html', 'css!./td.select.css'], 
 					vm.$buildKeys(vm.data);
 				}
 			}
+			vm.$trigger(elem, 'ready');
     }
 	});
 	var widget = avalon.components["td:select"];

@@ -8,6 +8,7 @@ define(['avalon', 'text!./td.radio.html', 'css!./td.radio.css'], function(avalon
 		//外部配置参数
 		onchecked: null,
 		onchanged: null,
+		onready: null,
 		//内部接口
 		$trigger: _interface,
 		//view接口
@@ -33,6 +34,11 @@ define(['avalon', 'text!./td.radio.html', 'css!./td.radio.css'], function(avalon
 							vm.onchanged(ev, vm);
 						}
 						break;
+					case 'ready': 
+						if(typeof vm.onready == 'function') {
+							vm.onready(ev, vm);
+						}
+						break;
 					default: break;
 				}
 			}
@@ -46,7 +52,9 @@ define(['avalon', 'text!./td.radio.html', 'css!./td.radio.css'], function(avalon
 				}
 			}
 		},
-		$ready: function (vm) {}
+		$ready: function (vm, elem) {
+			vm.$trigger(elem, 'ready');
+		}
 	});
 	var widget = avalon.components["td:radio"];
 	widget.regionals = {};
