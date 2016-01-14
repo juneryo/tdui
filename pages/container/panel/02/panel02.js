@@ -10,7 +10,12 @@ define(['ui/panel/td.panel'], function () {
 				display: '更新时间', icon: 'glyphicon glyphicon-question-sign', fun: function(ev, vm) {
 					vpanel.panel_info = '更新时间：' + new Date().format('yyyy-MM-dd hh:mm:ss.S');
 				}
-			}]
+			}],
+			actions: [{display: '操作1', fun: function(ev, vm) {
+				TD.hint('操作1');
+			}}, {display: '操作2', fun: function(ev, vm) {
+				TD.hint('操作2');
+			}}]
 		},
 		$panel_tab_opt: {
 			tabs: [{title: '标签0'}, {title: '标签1'}, {title: '标签2'}]

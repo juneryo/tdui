@@ -3,8 +3,10 @@ define(['avalon', 'text!./td.panel.html', 'css!./td.panel.css'], function(avalon
 	avalon.component("td:panel", {
 		//外部标签属性
 		title: '',
+		action: '操作',
 		//外部配置参数
 		buttons: [],
+		actions: [],
 		onready: null,
 		//slot
 		content: '',
@@ -13,9 +15,11 @@ define(['avalon', 'text!./td.panel.html', 'css!./td.panel.css'], function(avalon
 		$trigger: _interface,
 		//view属性
 		_showButtons: false,
+		_showActions: false,
 		//view接口
 		_btnClick: _interface,
 		_toggleButtons: _interface,
+		_toggleActions: _interface,
 		//对外方法
 		setTitle: _interface,
 		getTitle: _interface,
@@ -45,6 +49,11 @@ define(['avalon', 'text!./td.panel.html', 'css!./td.panel.css'], function(avalon
 			}
 			vm._toggleButtons = function(ev) {
 				vm._showButtons = !vm._showButtons;
+				ev.stopPropagation();
+				ev.cancelBubble = true;
+			}
+			vm._toggleActions = function(ev) {
+				vm._showActions = !vm._showActions;
 				ev.stopPropagation();
 				ev.cancelBubble = true;
 			}
