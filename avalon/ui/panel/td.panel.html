@@ -18,10 +18,10 @@
 				</ul>
 				
 				<ul class="nav navbar-nav navbar-right">
-					<li class="dropdown" ms-if="actions.length>0">
-						<a href="javascript:void(0)" class="dropdown-toggle waves-effect waves-light" ms-click="_toggleActions($event)">{{action}}<span class="caret"></span></a>
-						<ul class="dropdown-menu animated" ms-if="actions.length>0" ms-visible="_showActions" ms-effect="flipY-visible">
-							<li ms-repeat="actions">
+					<li class="dropdown" ms-if="operations.length>0">
+						<a href="javascript:void(0)" class="dropdown-toggle waves-effect waves-light" ms-click="_toggleOperations($event)">{{operation}}<span class="caret"></span></a>
+						<ul class="dropdown-menu animated" ms-if="operations.length>0" ms-visible="_showOperations" ms-effect="flipY-visible">
+							<li ms-repeat="operations">
 								<a href="javascript:void(0)" class="waves-effect waves-light" ms-click="_btnClick($event, el.fun)"><span ms-if="el.icon" ms-attr-class="el.icon"></span>&nbsp;{{el.display}}</a>
 							</li>
 						</ul>

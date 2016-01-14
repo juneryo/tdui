@@ -1,7 +1,7 @@
 <div ms-controller="panel02">
 	<td:tab config="$tab_opt" active="0">
 		<div slot="content0">
-			<td:panel config="$panel_opt" title="高级面板" action="我的操作">
+			<td:panel config="$panel_opt" title="高级面板" operation="我的操作">
 				<div slot="content">
 					<blockquote>
 						<p>高级面板</p>
@@ -21,7 +21,7 @@
 		</div>
 		<div slot="content1">
 			<pre ms-skip>
-&lt;td:panel config="$panel_opt" title="高级面板" action="我的操作"&gt;
+&lt;td:panel config="$panel_opt" title="高级面板" operation="我的操作"&gt;
 	&lt;div slot="content"&gt;
 		&lt;blockquote&gt;
 			&lt;p&gt;高级面板&lt;/p&gt;
@@ -50,7 +50,7 @@ var vpanel = avalon.define({
 				vpanel.panel_info = '更新时间：' + new Date().format('yyyy-MM-dd hh:mm:ss.S');
 			}
 		}],
-		actions: [{display: '操作1', fun: function(ev, vm) {
+		operations: [{display: '操作1', fun: function(ev, vm) {
 			TD.hint('操作1');
 		}}, {display: '操作2', fun: function(ev, vm) {
 			TD.hint('操作2');

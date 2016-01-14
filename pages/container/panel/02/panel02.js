@@ -11,7 +11,7 @@ define(['ui/panel/td.panel'], function () {
 					vpanel.panel_info = '更新时间：' + new Date().format('yyyy-MM-dd hh:mm:ss.S');
 				}
 			}],
-			actions: [{display: '操作1', fun: function(ev, vm) {
+			operations: [{display: '操作1', fun: function(ev, vm) {
 				TD.hint('操作1');
 			}}, {display: '操作2', fun: function(ev, vm) {
 				TD.hint('操作2');
