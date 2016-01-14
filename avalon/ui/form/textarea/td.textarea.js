@@ -10,6 +10,8 @@ define(['avalon', 'text!./td.textarea.html', 'css!./td.textarea.css'], function(
 		must: false,
 		html: false,
 		disabled: false,
+		horizontal: false,
+		labelCol: 4,
 		//外部配置参数
 		onchanged: null,
 		onclicked: null,

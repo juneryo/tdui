@@ -9,6 +9,8 @@ define(['avalon', 'text!./td.datepicker.html', 'css!./td.datepicker.css'], funct
 		valueFormat: 'yyyyMMdd',
 		disabled: false,
 		must: false,
+		horizontal: false,
+		labelCol: 4,
 		max: '',
 		min: '',
 		//外部配置参数

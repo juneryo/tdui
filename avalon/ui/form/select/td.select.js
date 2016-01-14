@@ -8,6 +8,8 @@ define(['avalon', 'mmRequest', 'text!./td.select.html', 'css!./td.select.css'], 
 		muti: false,
 		must: false,
 		auto: true,
+		horizontal: false,
+		labelCol: 4,
 		//外部配置参数
 		url: '',
 		param: {},

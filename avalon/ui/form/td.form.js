@@ -5,6 +5,7 @@ define(['avalon', 'mmRequest', 'text!./td.form.html', 'css!./td.form.css'], func
 		title: '',
 		buttons: true,  //是否显示submit、reset按钮
 		border: false,
+		horizontal: false,
 		btnSize: 'normal',
 		btnPos: 'left',
 		submitMode: 'ajax',

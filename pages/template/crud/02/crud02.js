@@ -1,4 +1,4 @@
-define(['tdPanel', 'tdDatagrid', 'tdDialog', 'tdForm', 'tdText', 'tdSelect'], function () {
+define(['tdPanel', 'tdDatagrid', 'tdDialog', 'tdForm', 'tdText', 'tdSelect', 'tdDatepicker', 'tdSpinner'], function () {
 	var vAgtManage = avalon.define({
 		$id: 'agtManage2',
 		$panel_opt: {

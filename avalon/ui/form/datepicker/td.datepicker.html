@@ -1,46 +1,48 @@
 <div class="form-group td_datepicker_container" ms-class-1="td_valid_disabled: disabled" ms-class-2="has-error: !_isValid">
-	<label class="control-label" ms-if="label != ''">{{label}}：</label>
-	<input class="form-control" type="text" placeholder="" ms-attr-disabled="disabled" ms-attr-name="name" ms-duplex="value" ms-click="_togglePicker($event)" ms-keydown="_checkKeydown($event)" ms-keyPress="_checkKeyPress($event)" ms-keyUp="_checkKeyUp($event)" />
-	<i class="pull-right td_datepicker_trigger"></i>
-	<span class="td_valid_err" ms-if="!_isValid && _validInfo != ''">{{_validInfo}}</span>
-	<div class="dropdown-menu" ms-visible="_isShow" ms-click="_clickPicker($event)">
-		<table class="table td_datepicker_picker" ms-visible="_showDate">
-			<tr>
-				<td ms-click="_changeMonth($event, '-')">◄</td>
-				<td colspan="5">
-					<span ms-click="_showYearPicker($event)">{{_pickYear}}&nbsp;&nbsp;</span>
-					<span ms-click="_showMonthPicker($event)">&nbsp;&nbsp;{{_displayMonth()}}</span>
-				</td>
-				<td ms-click="_changeMonth($event, '+')">►</td>
-			</tr>
-			<tr>
-				<td ms-repeat="_weekArr">{{el}}</td>
-			</tr>
-			<tr ms-repeat="_dateArr">
-				<td ms-repeat="el" ms-click="_doPick($event, el, 'D')" ms-class-1="td_datepicker_picked: _pickDate == el && _pickDate != ''" ms-class-2="td_datepicker_today: _pickDate != el && _today.getFullYear().toString()==_pickYear && _today.getMonth().toString()==_pickMonth && _today.getDate().toString()==el">
-					{{el}}
-				</td>
-			</tr>
-		</table>
-		<table class="table td_datepicker_picker" ms-visible="_showMonth">
-			<tr>
-				<td colspan="3">
-					<span ms-click="_showYearPicker($event)">&nbsp;{{_pickYear}}&nbsp;</span>
-				</td>
-			</tr>
-			<tr ms-repeat="_monthArr">
-				<td ms-repeat="el" ms-class="td_datepicker_picked: _displayMonth() == el && _pickMonth != ''" ms-click="_doPick($event, el, 'M')">{{el}}</td>
-			</tr>
-		<table>
-		<table class="table td_datepicker_picker" ms-visible="_showYear">
-			<tr>
-				<td ms-click="_changeYear($event, '-')">◄</td>
-				<td colspan="2">{{_firstYear}} - {{_lastYear}}</td>
-				<td ms-click="_changeYear($event, '+')">►</td>
-			</tr>
-			<tr ms-repeat="_yearArr">
-				<td ms-repeat="el" ms-class="td_datepicker_picked: _pickYear == el && _pickYear != ''" ms-click="_doPick($event, el, 'Y')">{{el}}</td>
-			</tr>
-		</table>
+	<label class="control-label" ms-if="label != ''" ms-class-1="col-sm-4:horizontal===true&&labelCol==4" ms-class-2="col-sm-3:horizontal===true&&labelCol==3" ms-class-3="col-sm-2:horizontal===true&&labelCol==2" ms-class-4="col-sm-1:horizontal===true&&labelCol==1" ms-class-5="no_padding:horizontal===true" ms-class-6="padding_top:horizontal===true">{{label}}：</label>
+	<div ms-class-1="col-sm-8:horizontal===true&&labelCol==4" ms-class-2="col-sm-9:horizontal===true&&labelCol==3" ms-class-3="col-sm-10:horizontal===true&&labelCol==2" ms-class-4="col-sm-11:horizontal===true&&labelCol==1">
+		<input class="form-control" type="text" ms-attr-disabled="disabled" ms-attr-name="name" ms-duplex="value" ms-click="_togglePicker($event)" ms-keydown="_checkKeydown($event)" ms-keyPress="_checkKeyPress($event)" ms-keyUp="_checkKeyUp($event)" />
+		<i class="pull-right td_datepicker_trigger"></i>
+		<span class="td_valid_err" ms-if="!_isValid && _validInfo != ''">{{_validInfo}}</span>
+		<div class="dropdown-menu" ms-class="dropdown-menu-horizontal:horizontal===true" ms-visible="_isShow" ms-click="_clickPicker($event)">
+			<table class="table td_datepicker_picker" ms-visible="_showDate">
+				<tr>
+					<td ms-click="_changeMonth($event, '-')">◄</td>
+					<td colspan="5">
+						<span ms-click="_showYearPicker($event)">{{_pickYear}}&nbsp;&nbsp;</span>
+						<span ms-click="_showMonthPicker($event)">&nbsp;&nbsp;{{_displayMonth()}}</span>
+					</td>
+					<td ms-click="_changeMonth($event, '+')">►</td>
+				</tr>
+				<tr>
+					<td ms-repeat="_weekArr">{{el}}</td>
+				</tr>
+				<tr ms-repeat="_dateArr">
+					<td ms-repeat="el" ms-click="_doPick($event, el, 'D')" ms-class-1="td_datepicker_picked: _pickDate == el && _pickDate != ''" ms-class-2="td_datepicker_today: _pickDate != el && _today.getFullYear().toString()==_pickYear && _today.getMonth().toString()==_pickMonth && _today.getDate().toString()==el">
+						{{el}}
+					</td>
+				</tr>
+			</table>
+			<table class="table td_datepicker_picker" ms-visible="_showMonth">
+				<tr>
+					<td colspan="3">
+						<span ms-click="_showYearPicker($event)">&nbsp;{{_pickYear}}&nbsp;</span>
+					</td>
+				</tr>
+				<tr ms-repeat="_monthArr">
+					<td ms-repeat="el" ms-class="td_datepicker_picked: _displayMonth() == el && _pickMonth != ''" ms-click="_doPick($event, el, 'M')">{{el}}</td>
+				</tr>
+			</table>
+			<table class="table td_datepicker_picker" ms-visible="_showYear">
+				<tr>
+					<td ms-click="_changeYear($event, '-')">◄</td>
+					<td colspan="2">{{_firstYear}} - {{_lastYear}}</td>
+					<td ms-click="_changeYear($event, '+')">►</td>
+				</tr>
+				<tr ms-repeat="_yearArr">
+					<td ms-repeat="el" ms-class="td_datepicker_picked: _pickYear == el && _pickYear != ''" ms-click="_doPick($event, el, 'Y')">{{el}}</td>
+				</tr>
+			</table>
+		</div>
 	</div>
 </div>

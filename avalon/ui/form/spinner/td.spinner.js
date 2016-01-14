@@ -4,12 +4,14 @@ define(['avalon', 'text!./td.spinner.html', 'css!./td.spinner.css'], function(av
 		//外部标签属性
 		disabled: false,
 		must: false,
+		horizontal: false,
 		label: '',
 		name: 'spinner',
 		value: '',
 		max: '',
 		min: '',
 		interval: 1,  //每次增减量
+		labelCol: 4,
 		//外部配置参数
 		onupclicked: null,
 		ondownclicked: null,

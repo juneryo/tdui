@@ -12,6 +12,8 @@ define(['avalon', 'text!./td.text.html', 'css!./td.text.css'], function(avalon, 
 		width: '100%',
 		must: false,  //可为数字,代表必须的长度(会将覆盖length)
 		disabled: false,
+		horizontal: false,
+		labelCol: 4,
 		//外部配置参数
 		onchanged: null,
 		onclicked: null,

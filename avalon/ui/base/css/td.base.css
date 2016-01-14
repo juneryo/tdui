@@ -252,6 +252,9 @@ blockquote.warning footer {
 .dropdown-menu {
 	top: 57px;
 }
+.dropdown-menu-horizontal {
+	top: 37px;
+}
 .btn-group .dropdown-menu {
 	top: 37px;
 }

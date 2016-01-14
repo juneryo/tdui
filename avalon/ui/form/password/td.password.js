@@ -11,6 +11,8 @@ define(['avalon', 'text!./td.password.html', 'css!./td.password.css'], function(
 		maxlen: 999,
 		minlen: 0,
 		must: false,
+		horizontal: false,
+		labelCol: 4,
 		//外部配置参数
 		onchanged: null,
 		onclicked: null,

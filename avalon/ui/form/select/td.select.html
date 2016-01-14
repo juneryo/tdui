@@ -1,13 +1,15 @@
 <div class="form-group td_select_container" ms-class="td_valid_disabled: disabled">
-	<label class="control-label" ms-if="label != ''">{{label}}：</label>
-	<input class="form-control" type="text" placeholder="" ms-keydown="_checkKeydown($event)" ms-keyPress="_checkKeyPress($event)" ms-attr-disabled="disabled" ms-attr-name="name" ms-attr-value="_text" ms-click="_toggleList($event)" />
-	<i class="pull-right td_select_trigger">▼</i>
-	<span class="td_valid_err" ms-if="!_isValid && _validInfo != ''">{{_validInfo}}</span>
-	<ul class="dropdown-menu td_select_list" ms-if="data != null" ms-visible="_isShow">
-		<i class="td_select_icon td_select_loading" ms-visible="_isLoading"></i><span class="td_select_loadinfo">{{_loadInfo}}</span>
-		<li ms-repeat="_keys">
-			<a href="javascript:void(0)" ms-attr-name="el" ms-click="_selectOne($event, el)">{{data[el]}}</a>
-			<span class="pull-right td_select_selected" ms-if="_isSelected(el)">✔</span>
-		</li>
-	</ul>
+	<label class="control-label" ms-if="label != ''" ms-class-1="col-sm-4:horizontal===true&&labelCol==4" ms-class-2="col-sm-3:horizontal===true&&labelCol==3" ms-class-3="col-sm-2:horizontal===true&&labelCol==2" ms-class-4="col-sm-1:horizontal===true&&labelCol==1" ms-class-5="no_padding:horizontal===true" ms-class-6="padding_top:horizontal===true">{{label}}：</label>
+	<div ms-class-1="col-sm-8:horizontal===true&&labelCol==4" ms-class-2="col-sm-9:horizontal===true&&labelCol==3" ms-class-3="col-sm-10:horizontal===true&&labelCol==2" ms-class-4="col-sm-11:horizontal===true&&labelCol==1">
+		<input class="form-control" type="text" ms-keydown="_checkKeydown($event)" ms-keyPress="_checkKeyPress($event)" ms-attr-disabled="disabled" ms-attr-name="name" ms-attr-value="_text" ms-click="_toggleList($event)" />
+		<i class="pull-right td_select_trigger">▼</i>
+		<span class="td_valid_err" ms-if="!_isValid && _validInfo != ''">{{_validInfo}}</span>
+		<ul class="dropdown-menu td_select_list" ms-class="dropdown-menu-horizontal:horizontal===true" ms-if="data != null" ms-visible="_isShow">
+			<i class="td_select_icon td_select_loading" ms-visible="_isLoading"></i><span class="td_select_loadinfo">{{_loadInfo}}</span>
+			<li ms-repeat="_keys">
+				<a href="javascript:void(0)" ms-attr-name="el" ms-click="_selectOne($event, el)">{{data[el]}}</a>
+				<span class="pull-right td_select_selected" ms-if="_isSelected(el)">✔</span>
+			</li>
+		</ul>
+	</div>
 </div>
