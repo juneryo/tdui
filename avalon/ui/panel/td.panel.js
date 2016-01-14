@@ -4,6 +4,7 @@ define(['avalon', 'text!./td.panel.html', 'css!./td.panel.css'], function(avalon
 		//外部标签属性
 		title: '',
 		operation: '操作',
+		padding: 15,
 		//外部配置参数
 		buttons: [],
 		operations: [],
