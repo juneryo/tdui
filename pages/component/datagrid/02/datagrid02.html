@@ -6,7 +6,7 @@
 				<footer>带复选框和事件信息的<cite title="高级数据表格">数据表格</cite></footer>
 			</blockquote>
 			<pre>事件信息：{{info}}</pre>
-			<td:datagrid $id="datagrid02_datagrid" config="$datagrid_opt" title="高级数据表格" editable="true" auto="true" height="300">
+			<td:datagrid $id="datagrid02_datagrid" config="$datagrid_opt" title="高级数据表格" operation="其他操作" btn-name="查询面板" editable="true" auto="true" height="300">
 				<div slot="content">
 					<td:form config="$form_opt" btn-size="small" btn-pos="right">
 						<div slot="content">
@@ -22,7 +22,7 @@
 		</div>
 		<div slot="content1">
 			<pre ms-skip>
-&lt;td:datagrid config="$datagrid_opt" title="高级数据表格" editable="true" auto="true" height="300"&gt;
+&lt;td:datagrid config="$datagrid_opt" title="高级数据表格" operation="其他操作" btn-name="查询面板" editable="true" auto="true" height="300"&gt;
 	&lt;div slot="content"&gt;
 		&lt;td:form config="$form_opt" btn-size="small" btn-pos="right"&gt;
 			&lt;div slot="content"&gt;
@@ -91,6 +91,11 @@ var vdatagrid = avalon.define({
 		buttons: [{
 			display: '保存', icon: 'glyphicon glyphicon-save', fun: function(ev, vm) {
 				TD.alert('save');
+			}
+		}],
+		operations: [{
+			display: '保存2', icon: 'glyphicon glyphicon-save', fun: function(ev, vm) {
+				TD.alert('save2', 'info');
 			}
 		}],
 		actions: [{title: '新增', icon: 'glyphicon glyphicon-plus', fun: function(ev, vm) {

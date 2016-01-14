@@ -33,6 +33,27 @@
 			<td>默认空字符串</td>
 		</tr>
 		<tr>
+			<td><strong>operation</strong></td>
+			<td>下拉按钮组名</td>
+			<td>字符串</td>
+			<td>可选</td>
+			<td>默认'操作'</td>
+		</tr>
+		<tr>
+			<td><strong>btn-name</strong></td>
+			<td>工具条默认按钮名</td>
+			<td>字符串</td>
+			<td>可选</td>
+			<td>默认'查询'</td>
+		</tr>
+		<tr>
+			<td><strong>btn-icon</strong></td>
+			<td>工具条默认按钮图标</td>
+			<td>字符串</td>
+			<td>可选</td>
+			<td>默认'glyphicon glyphicon-search'</td>
+		</tr>
+		<tr>
 			<td><strong>height</strong></td>
 			<td>表格高度</td>
 			<td>数字</td>
@@ -73,6 +94,13 @@
 			<td>布尔</td>
 			<td>可选</td>
 			<td>默认false</td>
+		</tr>
+		<tr>
+			<td><strong>bar</strong></td>
+			<td>是否带标题工具栏<br/>(false时无标题)</td>
+			<td>布尔</td>
+			<td>可选</td>
+			<td>默认true</td>
 		</tr>
 	</tbody>
 </table>
@@ -240,6 +268,43 @@
 				<table class="table table-bordered">
 					<tr>
 						<td colspan="5"><strong>buttons元素详细</strong></td>
+					</tr>
+					<tr>
+						<td><strong>display</strong></td>
+						<td>按钮显示</td>
+						<td>字符串</td>
+						<td>必选</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><strong>icon</strong></td>
+						<td>按钮图标</td>
+						<td>字符串</td>
+						<td>可选</td>
+						<td><a href="http://v3.bootcss.com/components/" target="blank">图标详情</a></td>
+					</tr>
+					<tr>
+						<td><strong>fun</strong></td>
+						<td>按钮点击事件</td>
+						<td>方法</td>
+						<td>可选</td>
+						<td><strong>方法参数：</strong><br>ev(事件对象)<br>vm(表格vmodel)</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td><strong>operations</strong></td>
+			<td>下拉按钮组</td>
+			<td>对象数组</td>
+			<td>可选</td>
+			<td>默认空数组</td>
+		</tr>
+		<tr>
+			<td colspan="5">
+				<table class="table table-bordered">
+					<tr>
+						<td colspan="5"><strong>operations元素详细</strong></td>
 					</tr>
 					<tr>
 						<td><strong>display</strong></td>

@@ -56,6 +56,11 @@ define(['ui/datagrid/td.datagrid', 'tdForm', 'tdText', 'tdSelect'], function () 
 					TD.alert('save');
 				}
 			}],
+			operations: [{
+				display: '保存2', icon: 'glyphicon glyphicon-save', fun: function(ev, vm) {
+					TD.alert('save2');
+				}
+			}],
 			actions: [{title: '新增', icon: 'glyphicon glyphicon-plus', fun: function(ev, vm) {
 				vdatagrid.info = '新增游戏999 GAME $999 A1';
 				vm.addRow([{id:'999', name:'GAME', price:'$999', category:'A1', selected:false}]);

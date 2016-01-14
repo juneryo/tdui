@@ -4,10 +4,14 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 		//外部标签属性
 		title: '',
 		height: '',
+		operation: '操作',
+		btnName: '查询',
+		btnIcon: 'glyphicon glyphicon-search',
 		auto: false,  //是否自动加载数据
 		checkbox: true,  //是否显示checkbox
 		singleSelect: false,
 		editable: false,
+		bar: true,
 		limit: 10,  //页大小
 		//外部配置参数
 		loadUrl: '',  //加载数据地址
@@ -18,6 +22,7 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 		cols: [],  //列模型
 		rows: [],  //行数据
 		buttons: [],
+		operations: [],
 		actions: [],  //自定义操作列表
 		render: null,
 		onloaded: null,

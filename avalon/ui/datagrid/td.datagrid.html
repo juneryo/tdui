@@ -1,5 +1,5 @@
 <div class="td_datagrid_container">
-	<nav class="navbar navbar-default no_margin">
+	<nav class="navbar navbar-default no_margin" ms-if="bar===true">
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed" ms-click="_toggle($event, 'button')">
@@ -9,12 +9,17 @@
 			</div>
 			<div class="collapse navbar-collapse" ms-visible="_showButtons">
 				<ul class="nav navbar-nav navbar-right">
+					<li ms-repeat="buttons">
+						<a href="javascript:void(0)" class="waves-effect waves-light" ms-click="_clickAction($event, el.fun)">
+							<span ms-if="el.icon" ms-attr-class="el.icon"></span>{{el.display}}
+						</a>
+					</li>
+					<li><a href="javascript:void(0)" class="waves-effect waves-light" ms-if="content!=''" ms-click="_toggle($event, 'query')"><span ms-attr-class="btnIcon"></span>&nbsp;{{btnName}}</a></li>
 					<li><a href="javascript:void(0)" class="waves-effect waves-light" ms-click="_toggle($event, 'filter')"><span class="glyphicon glyphicon-filter"></span>&nbsp;筛选</a></li>
-					<li><a href="javascript:void(0)" class="waves-effect waves-light" ms-if="content!=''" ms-click="_toggle($event, 'query')"><span class="glyphicon glyphicon-search"></span>&nbsp;查询</a></li>
-					<li class="dropdown" ms-if="buttons.length>0">
-						<a href="javascript:void(0)" class="dropdown-toggle waves-effect waves-light" ms-click="_toggle($event, 'panel')">其他操作<span class="caret"></span></a>
-						<ul class="dropdown-menu animated" ms-if="buttons.length>0" ms-visible="_showPanel" ms-effect="flipY-visible">
-							<li ms-repeat="buttons">
+					<li class="dropdown" ms-if="operations.length>0">
+						<a href="javascript:void(0)" class="dropdown-toggle waves-effect waves-light" ms-click="_toggle($event, 'panel')">{{operation}}<span class="caret"></span></a>
+						<ul class="dropdown-menu animated" ms-if="operations.length>0" ms-visible="_showPanel" ms-effect="flipY-visible">
+							<li ms-repeat="operations">
 								<a href="javascript:void(0)" class="waves-effect waves-light" ms-click="_clickAction($event, el.fun)"><span ms-if="el.icon" ms-attr-class="el.icon"></span>{{el.display}}</a>
 							</li>
 						</ul>
@@ -23,7 +28,7 @@
 			</div>
 		</div>
 	</nav>
-	<div ms-visible="_showQuery" ms-effect="fade-visible" class="animated">{{content|html}}</div>
+	<div ms-visible="_showQuery" ms-effect="flipY-visible" class="td_datagrid_content animated">{{content|html}}</div>
 	<div style="overflow:hidden;">
 		<table class="table table-hover td_datagrid relative_pos" ms-css-left="_scrollLeft">
 			<thead>
