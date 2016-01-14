@@ -1,9 +1,9 @@
-define(['tdDatagrid', 'tdForm', 'tdText', 'tdSelect'], function () {
+define(['tdDatagrid', 'tdDialog', 'tdForm', 'tdText', 'tdSelect'], function () {
 	var vAgtManage = avalon.define({
 		$id: 'agtManage',
 		$qry_form_opt: {
 			onsubmited: function(ev, vm) {
-				avalon.vmodels['agtManage_datagrid'].reloadData(vm.getData());
+				avalon.vmodels['crud01_datagrid'].reloadData(vm.getData());
 			}
 		},
 		$agt_status_opt: {
@@ -13,23 +13,23 @@ define(['tdDatagrid', 'tdForm', 'tdText', 'tdSelect'], function () {
 			url: 'data/td.crud01.select.prov.json',
 			onchanged: function(ev, vm) {
 				if(vm.getValue() == '') {
-					avalon.vmodels['agt_manage_city'].removeData();
-					avalon.vmodels['agt_manage_area'].removeData();
+					avalon.vmodels['crud01_city'].removeData();
+					avalon.vmodels['crud01_area'].removeData();
 				}else {
-					avalon.vmodels['agt_manage_city'].reloadData(vm.getData());
+					avalon.vmodels['crud01_city'].reloadData(vm.getData());
 				}
 			}
 		},
 		$agt_city_opt: {
 			url: 'data/td.crud01.select.city.json',
 			onloaded: function() {
-				avalon.vmodels['agt_manage_area'].removeData();
+				avalon.vmodels['crud01_area'].removeData();
 			},
 			onchanged: function(ev, vm) {
 				if(vm.getValue() == '') {
-					avalon.vmodels['agt_manage_area'].removeData();
+					avalon.vmodels['crud01_area'].removeData();
 				}else {
-					avalon.vmodels['agt_manage_area'].reloadData(vm.getData());
+					avalon.vmodels['crud01_area'].reloadData(vm.getData());
 				}
 			}
 		},
@@ -47,7 +47,7 @@ define(['tdDatagrid', 'tdForm', 'tdText', 'tdSelect'], function () {
 				{name: 'agt_prov', display: '合作省份', width: 100, type: 'text'},
 				{name: 'agt_city', display: '合作城市', width: 100, type: 'text'},
 				{name: 'agt_area', display: '合作区域', width: 100, type: 'text'},
-				{name: 'agt_status', display: '状态', width: 70, type: 'select', option: {'0': '禁用', '1': '正常'}, render: function(v, r) {
+				{name: 'agt_status', display: '状态', width: 70, type: 'select', option: {'0': '禁用', '1': '正常'}, render: function(v, r, ridx) {
 					var val = '';
 					switch(v) {
 						case '禁用': val = '<span style="color:red;">禁用</span>'; break;
@@ -55,32 +55,39 @@ define(['tdDatagrid', 'tdForm', 'tdText', 'tdSelect'], function () {
 					}
 					return val
 				}},
-				{name: 'detail', display: '详情', width: 70, type: 'text', disabled: 'true', render: function(v, r) {
+				{name: 'detail', display: '详情', width: 70, type: 'text', disabled: 'true', render: function(val, row, ridx) {
 					return '<a href="javascript:void(0)">详情</a>';
 				}, fun: function(ev, vm, row, col, val) {
-					avalon.log(vm.getRow([row]));
-					TD.alert('行' + row + ',列' + col);
+					avalon.vmodels['crud01_dialog'].setTitle(vm.getRow([row])[0].agt_name + '详情');
+					avalon.vmodels['crud01_dialog'].showDialog();
 				}}
 			],
 			render: function(vm, dat) {
 				return '<b>渲染结果&nbsp;&nbsp;响应码：' + dat.rspcod + '&nbsp;&nbsp;响应信息：' + dat.rspmsg + '</b>';
 			},
-			buttons: [{
-				display: '保存', icon: 'glyphicon glyphicon-save', fun: function(ev, vm) {
-					TD.alert('save');
+			buttons: [{display: '添加', icon: 'glyphicon glyphicon-plus', fun: function(ev, vm) {
+				TD.alert('添加');
+			}}, {display: '修改', icon: 'glyphicon glyphicon-pencil', fun: function(ev, vm) {
+				if(vm.getSelectedIdx().length > 1) {
+					TD.hint('每次只允许修改一条记录');
+				}else if(vm.getSelectedIdx().length == 0) {
+					TD.hint('请选择需修改的记录');
+				}else {
+					TD.alert('双击记录即可进行修改');
 				}
-			}],
-			actions: [{title: '新增', icon: 'glyphicon glyphicon-plus', fun: function(ev, vm) {
-				TD.alert('新增');
-			}}, {title: '删除', icon: 'glyphicon glyphicon-remove', fun: function(ev, vm) {
+			}}, {display: '删除', icon: 'glyphicon glyphicon-remove', fun: function(ev, vm) {
 				if(vm.getSelectedIdx().length > 0) {
 					TD.confirm('<strong style="color:red;">确认要删除选中数据吗？</strong>', function() {
 						vm.removeSelectedRow();
 					});
 				}else {
-					TD.alert('请选择需删除的数据');
+					TD.hint('请选择需删除的数据');
 				}
-			}},{title: '刷新', icon: 'glyphicon glyphicon-refresh', type: 'primary', fun: function(ev, vm) {
+			}}],
+			operations: [{display: '保存', icon: 'glyphicon glyphicon-save', fun: function(ev, vm) {
+				TD.alert('save');
+			}}],
+			actions: [{title: '刷新', icon: 'glyphicon glyphicon-refresh', type: 'primary', fun: function(ev, vm) {
 				vm.reloadData();
 			}}]
 		}

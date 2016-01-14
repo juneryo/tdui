@@ -1,5 +1,5 @@
 <div ms-controller="agtManage">
-	<td:datagrid $id="agtManage_datagrid" config="$datagrid_opt" title="合作商管理" editable="true" auto="true" height="400">
+	<td:datagrid $id="crud01_datagrid" config="$datagrid_opt" title="合作商管理" operation="其他操作" editable="true" auto="true" height="400">
 		<div slot="content">
 			<td:form config="$qry_form_opt" btn-size="small" btn-pos="right">
 				<div slot="content">
@@ -10,11 +10,16 @@
 					</div>
 					<div class="row">
 						<td:select label="合作省份" name="agt_prov" config="$agt_prov_opt" class="col-xs-12 col-sm-6 col-md-3"></td:select>
-						<td:select label="合作城市" name="agt_city" auto="false" $id="agt_manage_city" config="$agt_city_opt" class="col-xs-12 col-sm-6 col-md-3"></td:select>
-						<td:select label="合作区域" name="agt_area" auto="false" $id="agt_manage_area" config="$agt_area_opt" class="col-xs-12 col-sm-6 col-md-3"></td:select>
+						<td:select label="合作城市" name="agt_city" auto="false" $id="crud01_city" config="$agt_city_opt" class="col-xs-12 col-sm-6 col-md-3"></td:select>
+						<td:select label="合作区域" name="agt_area" auto="false" $id="crud01_area" config="$agt_area_opt" class="col-xs-12 col-sm-6 col-md-3"></td:select>
 					</div>
 				</div>
 			</td:form>
 		</div>
 	</td:datagrid>
+	<td:dialog $id="crud01_dialog" title="详情">
+		<div slot="content">
+			这里是详情
+		</div>
+	</td:dialog>
 </div>
