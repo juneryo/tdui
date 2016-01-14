@@ -58,12 +58,12 @@ require(['mmState', 'tdTree', 'tdTab'], function () {
 			{id:'10-2', text: '示例02', expand:false, checked:false, disabled:false, href:'#!/component/datagrid/02', children: []},
 			{id:'10-3', text: 'API', expand:false, checked:false, disabled:false, href:'#!/component/datagrid/api', children: []}
 		]},
-		{id:'11', text: '增删改查', expand:true, checked:true, disabled:true, icon:'glyphicon glyphicon-stop', children: [
-			{id:'11-1', text: '示例01', expand:false, checked:false, disabled:false, href:'#!/template/crud/01', children: []}
+		{id:'11', text: '图表', expand:true, checked:true, disabled:true, icon:'glyphicon glyphicon-stop', children: [
+			{id:'11-1', text: '饼状图', expand:false, checked:false, disabled:false, href:'#!/chart/pie/01', children: []},
+			{id:'11-2', text: '柱状图', expand:false, checked:false, disabled:false, href:'#!/chart/bar/01', children: []}
 		]},
-		{id:'12', text: '图表', expand:true, checked:true, disabled:true, icon:'glyphicon glyphicon-stop', children: [
-			{id:'12-1', text: '饼状图', expand:false, checked:false, disabled:false, href:'#!/chart/pie/01', children: []},
-			{id:'12-2', text: '柱状图', expand:false, checked:false, disabled:false, href:'#!/chart/bar/01', children: []}
+		{id:'12', text: '示例页面', expand:true, checked:true, disabled:true, icon:'glyphicon glyphicon-stop', children: [
+			{id:'12-1', text: '示例01', expand:false, checked:false, disabled:false, href:'#!/template/crud/01', children: []}
 		]},
 		{id:'13', text: '页面模板', expand:true, checked:true, disabled:true, icon:'glyphicon glyphicon-stop', children: [
 			{id:'13-1', text: '传统主页', expand:false, checked:false, disabled:false, href:'/tdui', children: []},
