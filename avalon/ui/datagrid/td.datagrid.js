@@ -89,6 +89,8 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 		modifyRow: _interface,
 		modifySelectRow: _interface,
 		addRow: _interface,
+		showContent: _interface,
+		hideContent: _interface,
 		//默认配置
 		$template: template,
 		$construct: function (hooks, vmOpts, elemOpts) {
@@ -515,6 +517,12 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 					vm.$buildCells(arr);
 					vm._total = parseInt(vm._total) + parseInt(arr.length);
 				}
+			}
+			vm.showContent = function() {
+				vm._showQuery = true;
+			}
+			vm.hideContent = function() {
+				vm._showQuery = false;
 			}
 			//绑定事件
 			avalon.bind(document, 'click', vm.$bindFun, false);
