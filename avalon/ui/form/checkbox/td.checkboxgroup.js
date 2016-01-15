@@ -4,6 +4,8 @@ define(['avalon', 'text!./td.checkboxgroup.html', 'css!./td.checkbox.css'], func
 		//外部标签属性
 		label: '',
 		name: 'checkboxgroup',
+		horizontal: false,
+		labelCol: 4,
 		//外部配置参数
 		checkboxes: [], 
 		onchanged: null,

@@ -4,6 +4,8 @@ define(['avalon', 'text!./td.radiogroup.html', 'css!./td.radio.css'], function(a
 		//外部标签属性
 		label: '',
 		name: 'radiogroup',
+		horizontal: false,
+		labelCol: 4,
 		//外部配置参数
 		radios: [],
 		onchanged: null,

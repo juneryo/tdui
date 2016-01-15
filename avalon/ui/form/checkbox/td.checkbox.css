@@ -8,6 +8,10 @@
 	position: relative;
 	cursor: pointer;
 	display: inline-block;
+	width: 100%;
+}
+.td_checkboxgroup_container .td_checkboxgroup_horizontal {
+	margin-top: -10px;
 }
 .td_checkboxgroup_container .control-label{
 	padding-bottom: 15px;

@@ -8,6 +8,8 @@ define(['avalon', 'text!./td.rate.html', 'css!./td.rate.css'], function(avalon, 
 		value: 0,
 		half: false,  //是否允许半个星星
 		disabled: false,
+		horizontal: false,
+		labelCol: 4,
 		//外部配置参数
 		onclicked: null,
 		onchanged: null,

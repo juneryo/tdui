@@ -2,6 +2,10 @@
 	position: relative;
 	display: inline-block;
 	cursor: pointer;
+	width: 100%;
+}
+.td_rate_container .td_rate_horizontal {
+	margin-top: 10px;
 }
 .td_rate_container .control-label{
 	padding-bottom: 15px;

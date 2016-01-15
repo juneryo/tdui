@@ -6,6 +6,8 @@ define(['avalon', 'text!./td.switch.html', 'css!./td.switch.css'], function(aval
 		name: 'switch',
 		disabled: false,
 		on: false,
+		horizontal: false,
+		labelCol: 4,
 		//外部配置参数
 		display: {},
 		onclicked: null,
