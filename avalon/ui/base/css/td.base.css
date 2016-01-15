@@ -229,6 +229,8 @@ span.td_valid_err {
 }
 .form-control {
 	height: 35px;
+	line-height: 14px;
+	font-size: 14px;
 }
 .btn-default {
 	border: solid 1px #eee !important;
