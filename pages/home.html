@@ -1,0 +1,49 @@
+<div id="idx_home" ms-controller="home">
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<h2><span class="glyphicon glyphicon-home"></span>&nbsp;系统首页&nbsp;&nbsp;<small>>系统信息及统计信息</small></h2>
+		</div>
+	</div>
+	<br/>
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<td:panel title="系统信息">
+				<div slot="content">
+					<td:tab config="$home_tab">
+						<div slot="content0">
+							<p ms-visible="noties.size==0">暂无通告</p>
+							<ol class="no_padding padding_left1_5">
+								<li ms-repeat="noties">{{el}}</li>
+							</ol>
+						</div>
+						<div slot="content1">
+							<p ms-visible="works.size()==0">暂无代办事项</p>
+							<ol class="no_padding padding_left1_5">
+								<li ms-repeat="works">{{el}}</li>
+							</ol>
+						</div>
+					</td:tab>
+				</div>
+			</td:panel>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<td:panel config="$panel_bar_01" title="柱状图统计1">
+				<div slot="content" id="home_bar_01" style="height:250px;"></div>
+			</td:panel>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+			<td:panel config="$panel_pie_01" title="饼状图统计1">
+				<div slot="content" id="home_pie_01" style="height:250px;"></div>
+			</td:panel>
+		</div>
+		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+			<td:panel config="$panel_pie_02" title="饼状图统计2">
+				<div slot="content" id="home_pie_02" style="height:250px;"></div>
+			</td:panel>
+		</div>
+	</div>
+</div>

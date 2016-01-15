@@ -76,7 +76,7 @@ require(['mmState', 'tdTree', 'tdTab'], function () {
 		$id: 'index',
 		index_view: '',
 		left: '',
-		height: document.documentElement.clientHeight - 100,
+		height: document.documentElement.clientHeight - 90,
 		toggleMenu: function(ev) {
 			if(vidx.left === 0) {
 				vidx.left = '';
@@ -125,8 +125,8 @@ require(['mmState', 'tdTree', 'tdTab'], function () {
 		url: '/',
 		views: {
 			'index_view': {
-				templateUrl: 'pages/main.html',
-				controllerUrl: ['../pages/main'],
+				templateUrl: 'pages/home.html',
+				controllerUrl: ['pages/home'],
 				ignoreChange: function (changeType) {
 					if (changeType) return true;
 				}
@@ -140,7 +140,7 @@ require(['mmState', 'tdTree', 'tdTab'], function () {
 				var tmp = arr[i].href.split('/');
 				var url = '/' + tmp[1] + '/' + tmp[2] + '/' + tmp[3];
 				var tmpUrl = 'pages/' + tmp[1] +'/' + tmp[2] + '/' + tmp[3] + '/'  + tmp[2] + tmp[3] + '.html';
-				var ctrlUrl = ['../pages/' + tmp[1] + '/' + tmp[2] + '/' + tmp[3] + '/'  + tmp[2] + tmp[3]];
+				var ctrlUrl = ['pages/' + tmp[1] + '/' + tmp[2] + '/' + tmp[3] + '/'  + tmp[2] + tmp[3]];
 				if(tmp[3].indexOf('api') != -1) {
 					avalon.state(tmp[2], {
 						controller: 'index',
@@ -179,7 +179,7 @@ require(['mmState', 'tdTree', 'tdTab'], function () {
 	buildState(dat);
 	
 	avalon.bind(window, 'resize', function() {
-		vidx.height = document.documentElement.clientHeight - 100;
+		vidx.height = document.documentElement.clientHeight - 90;
 		if(window.outerHeigth==screen.heigth && window.outerWidth==screen.width) {
 			vidx.isFullScreen = true;
 		}else {

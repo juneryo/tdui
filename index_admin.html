@@ -9,18 +9,18 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
 	<meta name="renderer" content="webkit">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-	<link rel="stylesheet" href="avalon/ui/base/css/normalize.min.css" />
-	<link rel="stylesheet" href="avalon/ui/base/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="avalon/ui/base/css/bootstrap-material-design.min.css" />
-	<link rel="stylesheet" href="avalon/ui/base/css/animate.min.css" />
-	<link rel="stylesheet" href="avalon/ui/base/css/waves.css" />
-	<link rel="stylesheet" href="avalon/ui/base/css/td.base.css">
+	<link rel="stylesheet" href="ui/base/css/normalize.min.css" />
+	<link rel="stylesheet" href="ui/base/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="ui/base/css/bootstrap-material-design.min.css" />
+	<link rel="stylesheet" href="ui/base/css/animate.min.css" />
+	<link rel="stylesheet" href="ui/base/css/waves.css" />
+	<link rel="stylesheet" href="ui/base/css/td.base.css">
 	<link rel="stylesheet" href="index_admin.css">
 	<!--[if lt IE 9]>
-		<script src="avalon/ui/base/js/html5.min.js"></script>
-		<script src="avalon/ui/base/js/respond.min.js"></script>
+		<script src="ui/base/js/html5.min.js"></script>
+		<script src="ui/base/js/respond.min.js"></script>
 	<![endif]-->
-	<script type="text/javascript" src="avalon/avalon.js"></script>
+	<script type="text/javascript" src="avalon.js"></script>
 	<script>
     //这个东西必须跟挨着avalon库,并且放到head标签中
 		avalon.library("td", {
@@ -50,14 +50,14 @@
 		</div>
 	</div>
 	<div class="index_sliderbar" ms-css-left="left" ms-css-height="height">
-		<td:tree config="$index_tree" root="false"></td:tree>
+		<td:tree config="$index_tree" root="false" reverse="true"></td:tree>
 	</div>
 	<div class="container index_body">
-		<!--div class="index_content" ms-view="index_view"></div-->
-		<div class="well" ms-view="index_view"></div>
+		<div class="index_content" ms-view="index_view"></div>
+		<!--div class="well" ms-view="index_view"></div-->
 	</div>
 </body>
-<script type="text/javascript" src="avalon/ui/base/js/waves.js"></script>
-<script type="text/javascript" src="avalon/ui/base/js/td.base.js"></script>
+<script type="text/javascript" src="ui/base/js/waves.js"></script>
+<script type="text/javascript" src="ui/base/js/td.base.js"></script>
 <script type="text/javascript" src="index_admin.js"></script>
 </html>
