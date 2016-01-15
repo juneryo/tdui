@@ -4,6 +4,7 @@ define(['avalon', 'mmRequest', 'text!./td.tree.html', 'css!./td.tree.css'], func
 		//外部标签属性
 		root: true,
 		checkbox: false,
+		reverse: false,
 		//外部配置参数
 		url: '',
 		param: {},
@@ -23,6 +24,7 @@ define(['avalon', 'mmRequest', 'text!./td.tree.html', 'css!./td.tree.css'], func
 		$setCheckbox: _interface,
 		//view属性
 		_isLoading: false,
+		_color: '#000',  //默认黑色
 		_loadInfo: '',
 		//view接口
 		_clickNode: _interface,
@@ -34,7 +36,11 @@ define(['avalon', 'mmRequest', 'text!./td.tree.html', 'css!./td.tree.css'], func
 		//默认配置
 		$template: template,
 		$construct: function (hooks, vmOpts, elemOpts) {
-			return avalon.mix(hooks, vmOpts, elemOpts);
+			var option = avalon.mix(hooks, vmOpts, elemOpts);
+			if(hooks.reverse === true) {
+				hooks._color = '#f0f0f0';
+			}
+			return option;
 		},
 		$dispose: function (vm, elem) {
 			elem.innerHTML = elem.textContent = '';

@@ -72,8 +72,14 @@
 .td_tree_add {
 	background-image:url(img/add.png);
 }
+.td_tree_add_reverse {
+	background-image:url(img/add_reverse.png);
+}
 .td_tree_minus {
 	background-image:url(img/minus.png);
+}
+.td_tree_minus_reverse{
+	background-image:url(img/minus_reverse.png);
 }
 .td_tree_checked {
 	background-image:url(img/checked.png);

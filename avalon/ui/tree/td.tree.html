@@ -4,10 +4,10 @@
 	<ul ms-class="td_tree_noroot: root===false" ms-each-el="data">
 		<li ms-click="_clickParent($event, $index, el)">
 			<span>
-				<i class="td_tree_icon" ms-click="_clickNode($event, $index, el, 'oper')" ms-class-1="td_tree_add:el.expand===false||el.expand==='false'" ms-class-2="td_tree_minus:el.expand===true||el.expand==='true'" ms-if="el.children.length>0"></i>
+				<i class="td_tree_icon" ms-click="_clickNode($event, $index, el, 'oper')" ms-class-1="td_tree_add:(el.expand===false||el.expand==='false')&&reverse===false" ms-class-2="td_tree_minus:(el.expand===true||el.expand==='true')&&reverse===false" ms-class-3="td_tree_add_reverse:(el.expand===false||el.expand==='false')&&reverse===true" ms-class-4="td_tree_minus_reverse:(el.expand===true||el.expand==='true')&&reverse===true" ms-if="el.children.length>0"></i>
 				<i class="td_tree_icon" ms-click="_clickNode($event, $index, el, 'checkbox')" ms-if="checkbox===true" ms-class-1="td_tree_unchecked:checkbox===true&&(el.disabled===false||el.disabled==='false')&&(el.checked===false||el.checked==='false')" ms-class-2="td_tree_checked:checkbox===true&&(el.disabled===false||el.disabled==='false')&&(el.checked===true||el.checked==='true')" ms-class-3="td_tree_unchecked_disabled:checkbox===true&&(el.disabled===true||el.disabled==='true')&&(el.checked===false||el.checked==='false')" ms-class-4="td_tree_checked_disabled:checkbox===true&&(el.disabled===true||el.disabled==='true')&&(el.checked===true||el.checked==='true')"></i>
-				<span ms-if="el.icon != undefined" ms-attr-class="el.icon"></span>
-				<a ms-attr-href="el.href ? el.href : 'javascript:void(0)'" ms-click="_clickNode($event, $index, el, 'node')">{{el.text}}</a>
+				<span ms-if="el.icon != undefined" ms-attr-class="el.icon" ms-css-color="_color"></span>
+				<a ms-attr-href="el.href ? el.href : 'javascript:void(0)'" ms-css-color="_color" ms-click="_clickNode($event, $index, el, 'node')">{{el.text}}</a>
 			</span>
 			<div ms-include="'tpl'" ms-visible="el.children.length>0&&(el.expand===true||el.expand==='true')" ms-effect="rotateLeft-visible" class="animated"></div>
 		</li>
@@ -18,8 +18,8 @@
 				<span>
 					<i class="td_tree_icon" ms-click="_clickNode($event, $index, el, 'oper')" ms-class-1="td_tree_add:el.expand===false||el.expand==='false'" ms-class-2="td_tree_minus:el.expand===true||el.expand==='true'" ms-if="el.children.length>0"></i>
 					<i class="td_tree_icon" ms-click="_clickNode($event, $index, el, 'checkbox')" ms-if="checkbox===true" ms-class-1="td_tree_unchecked:checkbox===true&&(el.disabled===false||el.disabled==='false')&&(el.checked===false||el.checked==='false')" ms-class-2="td_tree_checked:checkbox===true&&(el.disabled===false||el.disabled==='false')&&(el.checked===true||el.checked==='true')" ms-class-3="td_tree_unchecked_disabled:checkbox===true&&(el.disabled===true||el.disabled==='true')&&(el.checked===false||el.checked==='false')" ms-class-4="td_tree_checked_disabled:checkbox===true&&(el.disabled===true||el.disabled==='true')&&(el.checked===true||el.checked==='true')"></i>
-					<span ms-if="el.icon != undefined" ms-attr-class="el.icon"></span>
-					<a ms-attr-href="el.href ? el.href : 'javascript:void(0)'" ms-click="_clickNode($event, $index, el, 'node')">{{el.text}}</a>
+					<span ms-if="el.icon != undefined" ms-attr-class="el.icon" ms-css-color="_color"></span>
+					<a ms-attr-href="el.href ? el.href : 'javascript:void(0)'" ms-css-color="_color" ms-click="_clickNode($event, $index, el, 'node')">{{el.text}}</a>
 				</span>
 				<div ms-include="'tpl'" ms-visible="el.children.length>0&&(el.expand===true||el.expand==='true')" ms-effect="rotateLeft-visible" class="animated"></div>
 			</li>
