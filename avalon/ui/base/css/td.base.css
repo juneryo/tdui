@@ -71,6 +71,18 @@ input::-ms-clear{
 .padding_right2 {
 	padding-right: 20px !important;
 }
+.padding_top1_5 {
+	padding-top: 15px !important;
+}
+.padding_bottom1_5 {
+	padding-bottom: 15px !important;
+}
+.padding_left1_5 {
+	padding-left: 15px !important;
+}
+.padding_right1_5 {
+	padding-right: 15px !important;
+}
 .margin_all {
 	margin: 10px !important;
 }
@@ -215,6 +227,9 @@ span.td_valid_err {
 	position: relative;
 	top: 2px;
 }
+.form-control {
+	height: 35px;
+}
 .btn-default {
 	border: solid 1px #eee !important;
 }
@@ -250,13 +265,13 @@ blockquote.warning footer {
 }
 /*bootstrap-material-design style path for tdui*/
 .dropdown-menu {
-	top: 57px;
+	top: 55px;
 }
 .dropdown-menu-horizontal {
-	top: 37px;
+	top: 35px;
 }
 .btn-group .dropdown-menu {
-	top: 37px;
+	top: 35px;
 }
 .form-group {
 	margin-top: 10px;
