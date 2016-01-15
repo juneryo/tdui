@@ -14,6 +14,7 @@ define(['avalon', 'text!./td.panel.html', 'css!./td.panel.css'], function(avalon
 		footer: '',
 		//内部接口
 		$trigger: _interface,
+		$bindFun: _interface,
 		//view属性
 		_showButtons: false,
 		_showOperations: false,
@@ -30,6 +31,7 @@ define(['avalon', 'text!./td.panel.html', 'css!./td.panel.css'], function(avalon
 			return avalon.mix(hooks, vmOpts, elemOpts);
 		},
 		$dispose: function (vm, elem) {
+			avalon.unbind(document, 'click', vm.$bindFun);
 			elem.innerHTML = elem.textContent = '';
 		},
 		$init: function(vm, elem) {
@@ -41,6 +43,11 @@ define(['avalon', 'text!./td.panel.html', 'css!./td.panel.css'], function(avalon
 						}
 						break;
 					default: break;
+				}
+			}
+			vm.$bindFun = function() {
+				if(vm._showOperations == true) {
+					vm._showOperations = false;
 				}
 			}
 			vm._btnClick = function(ev, fun) {
@@ -65,6 +72,8 @@ define(['avalon', 'text!./td.panel.html', 'css!./td.panel.css'], function(avalon
 			vm.getTitle = function() {
 				return vm.title;
 			}
+			//绑定事件
+			avalon.bind(document, 'click', vm.$bindFun, false);
 		},
 		$ready: function (vm, elem) {
 			vm.$trigger(elem, 'ready');
