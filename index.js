@@ -72,6 +72,11 @@ require(['mmState', 'tdAccordion', 'tdTree', 'tdTab'], function () {
 			{id:'2-2', text: '登录页面', expand:false, checked:false, disabled:false, href:'login.html', children: []}
 		]}
 	];
+	var dat5 = [
+		{id:'1', text: '上传', expand:true, checked:true, disabled:true, icon:'glyphicon glyphicon-stop', children: [
+			{id:'1-1', text: '上传01', expand:false, checked:false, disabled:false, href:'#!/upload/01', children: []}
+		]}
+	];
 	
 	var vidx = avalon.define({
 		$id: 'index',
@@ -85,7 +90,7 @@ require(['mmState', 'tdAccordion', 'tdTree', 'tdTab'], function () {
 			}
 		},
 		$index_accordion_opt: {
-			panels: [{title: '容器类UI'}, {title: '表单类UI'}, {title: '组件类UI'}, {title: '页面模板'}],
+			panels: [{title: '容器类UI'}, {title: '表单类UI'}, {title: '组件类UI'}, {title: 'jQuery插件'}, {title: '页面模板'}],
 			onready: function(elem, vm) {
 				vm.setHeight(document.documentElement.clientHeight - 120);
 			}
@@ -101,6 +106,9 @@ require(['mmState', 'tdAccordion', 'tdTree', 'tdTab'], function () {
 		},
 		$index_tree_4: {
 			data: dat4
+		},
+		$index_tree_5: {
+			data: dat5
 		}
 	});
 	
@@ -164,6 +172,7 @@ require(['mmState', 'tdAccordion', 'tdTree', 'tdTab'], function () {
 	buildState(dat2, 'form');
 	buildState(dat3, 'component');
 	buildState(dat4, 'template');
+	buildState(dat5, 'jquery');
 	
 	avalon.bind(window, 'resize', function() {
 		avalon.vmodels['index_acc'].setHeight(document.documentElement.clientHeight - 120);

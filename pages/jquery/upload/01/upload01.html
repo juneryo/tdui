@@ -1,0 +1,29 @@
+<div ms-controller="upload01">
+	<td:tab config="$tab_opt" active="0">
+		<div slot="content0">
+			<blockquote>
+				<p>基础上传</p>
+				<footer>展现最简单的<cite title="基础上传">上传</cite></footer>
+			</blockquote>
+			<td:upload config="$opt"></td:upload>
+		</div>
+		<div slot="content1">
+			<pre ms-skip>
+&lt;td:upload config="$opt"&gt;&lt;/td:upload&gt;
+			</pre>
+		</div>
+		<div slot="content2">
+			<pre ms-skip>
+var vupload01 = avalon.define({
+	$id: 'upload01',
+	$tab_opt: {
+		tabs: [{title: 'UI界面'}, {title: 'HTML代码'}, {title: 'JS代码'}]
+	},
+	$opt: {
+		url: 'http://webuploader.duapp.com/server/fileupload.php'
+	}
+});			
+			</pre>
+		</div>
+	</td:tab>
+</div>
