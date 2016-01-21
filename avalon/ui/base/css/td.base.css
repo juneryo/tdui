@@ -223,19 +223,15 @@ span.td_valid_err {
 	100%{ -moz-transform: rotate(360deg); transform: rotate(360deg); }
 }
 /*bootstrap style path for tdui*/
-.glyphicon {
-	position: relative;
-	top: 2px;
+.navbar .dropdown-menu li > a, .navbar.navbar-default .dropdown-menu li > a {
+	padding: 10px;
 }
 .form-control {
 	height: 35px;
 	line-height: 14px;
 	font-size: 14px;
 }
-.btn-default {
-	border: solid 1px #eee !important;
-}
-.btn-primary {
+.btn {
 	border: solid 1px #eee !important;
 }
 blockquote.primary {
