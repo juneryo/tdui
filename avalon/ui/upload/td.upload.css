@@ -1,0 +1,96 @@
+.td_upload_container,.webuploader-container {
+	position: relative;
+}
+.td_upload_container .webuploader-element-invisible {
+	position: absolute !important;
+	clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+  clip: rect(1px,1px,1px,1px);
+}
+.td_upload_container .webuploader-pick-disable {
+	opacity: 0.6;
+	pointer-events:none;
+}
+.td_upload_container .progress {
+	margin-bottom: 0px;
+}
+.td_upload_container ol {
+	padding-left: 15px;
+}
+.td_upload_container .td_upload_item {
+	position: relative;
+	display:inline-block;
+	width: 130px;
+	margin-right: 10px;
+	border: solid 1px #ccc;
+	border-radius: 5px;
+	padding: 5px 5px 10px 5px;
+	margin-bottom: 10px;
+	box-shadow: 0 1px 2px #ccc;
+}
+.td_upload_container .td_upload_item img {
+	width: 120px;
+	height: 120px;
+}
+.td_upload_container .td_upload_dnd {
+	position: relative;
+	width: 100%;
+	padding: 10px;
+	border: 3px dashed #e6e6e6;
+  font-size: 18px;
+}
+.td_upload_container .td_upload_dnd_info {
+	text-align: center;
+	color: #cccccc;
+}
+.td_upload_container .td_upload_dnd_info>p {
+	margin: 60px auto;
+}
+.td_upload_container .td_upload_info {
+	position: relative;
+	top: 5px;
+	height: 20px;
+	line-height: 20px;
+	color: white;
+	font-size: 12px;
+	font-weight: bold;
+	text-align: center;
+	text-indent: 5px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	background: rgba(0, 0, 0, 0.6) none repeat scroll 0 0;
+}
+.td_upload_container .td_upload_result {
+	position: absolute;
+	top: 4px;
+	left: 4px;
+	right: 4px;
+	height: 20px;
+	color: white;
+  font-size: 14px;
+	font-weight: bold;
+  line-height: 20px;
+  text-align: center;
+}
+.td_upload_container .td_upload_result_pending {
+	background: rgba(0, 0, 0, 0.6) none repeat scroll 0 0;
+}
+.td_upload_container .td_upload_result_uploading {
+	background: #009688 none repeat scroll 0 0;
+}
+.td_upload_container .td_upload_result_success {
+	background: green none repeat scroll 0 0;
+}
+.td_upload_container .td_upload_result_error {
+	background: red none repeat scroll 0 0;
+}
+
+.td_upload_container .td_upload_file_uploading {
+	color: #009688;
+}
+.td_upload_container .td_upload_file_success {
+	color: green;
+}
+.td_upload_container .td_upload_file_error {
+	color: red;
+}

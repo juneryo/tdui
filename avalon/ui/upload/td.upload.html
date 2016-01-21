@@ -1,0 +1,31 @@
+<div class="td_upload_container">
+	<label class="control-label" ms-if="label != ''" ms-class-1="col-sm-4:horizontal===true&&labelCol==4" ms-class-2="col-sm-3:horizontal===true&&labelCol==3" ms-class-3="col-sm-2:horizontal===true&&labelCol==2" ms-class-4="col-sm-1:horizontal===true&&labelCol==1" ms-class-5="no_padding:horizontal===true" ms-class-6="padding_top:horizontal===true" ms-class-7="padding_left1_5:horizontal===true">{{label}}：</label>
+	<div ms-class-1="col-sm-8:horizontal===true&&labelCol==4" ms-class-2="col-sm-9:horizontal===true&&labelCol==3" ms-class-3="col-sm-10:horizontal===true&&labelCol==2" ms-class-4="col-sm-11:horizontal===true&&labelCol==1">
+		<a href="javascript:void(0)" class="btn btn-primary btn-sm waves-effect waves-light" ms-attr-id="_pickerId"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;选择文件</a>
+		<a href="javascript:void(0)" class="btn btn-warning btn-sm waves-effect waves-light" ms-click="removeAll($event)"><span class="glyphicon glyphicon-trash"></span>&nbsp;移除文件</a>
+		<a href="javascript:void(0)" class="btn btn-default btn-sm waves-effect waves-light" ms-if="auto===false" ms-click="uploadAll($event)"><span class="glyphicon glyphicon-open"></span>&nbsp;上传文件</a>
+		<div class="progress" ms-visible="_progress">
+			<div class="progress-bar progress-bar-striped" ms-class="progress-bar-warning: _err===true" ms-css-width="_uploadPercentage"></div>
+		</div>
+		<div><small>{{_uploadInfo}}</small></div>
+		<div class="td_upload_dnd" ms-attr-id="_dndId" ms-visible="_uploadQueue.size()>0||dnd===true">
+			<div class="td_upload_dnd_info" ms-if="dnd===true" ms-visible="_uploadQueue.size()==0">
+				<p>文件拖拽至此+</p>
+			</div>
+			<div ms-if="preview===true" ms-repeat="_uploadQueue" ms-attr-id="el.id" class="td_upload_item">
+				<img class="td_upload_file" ms-attr-src="el.url" />
+				<div class="td_upload_info" ms-attr-title="el.name">{{el.name}}</div>
+				<div class="td_upload_result" 
+					ms-class-1="td_upload_result_pending: el.status=='pending'" 
+					ms-class-2="td_upload_result_uploading: el.status=='uploading'"
+					ms-class-3="td_upload_result_success: el.status=='success'"
+					ms-class-4="td_upload_result_error: el.status=='error'">{{el.desc}}</div>
+			</div>
+			<div ms-if="preview===false" >
+				<ol>
+					<li ms-repeat="_uploadQueue">{{el.name}}&nbsp;[<span ms-class-1="td_upload_file_uploading: el.status=='uploading'" ms-class-2="td_upload_file_success: el.status=='success'" ms-class-3="td_upload_file_error: el.status=='error'">{{el.desc}}</span>]</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+</div>
