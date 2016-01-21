@@ -7,8 +7,8 @@
 		<div class="progress" ms-visible="_progress">
 			<div class="progress-bar progress-bar-striped" ms-class="progress-bar-warning: _err===true" ms-css-width="_uploadPercentage"></div>
 		</div>
-		<div><small>{{_uploadInfo}}</small></div>
-		<div class="td_upload_dnd" ms-attr-id="_dndId" ms-visible="_uploadQueue.size()>0||dnd===true">
+		<div class="padding_bottom"><small>{{_uploadInfo}}</small></div>
+		<div class="td_upload_dnd" ms-attr-id="_dndId" ms-visible="(_uploadQueue.size()>0&&preview==true)||dnd===true">
 			<div class="td_upload_dnd_info" ms-if="dnd===true" ms-visible="_uploadQueue.size()==0">
 				<p>文件拖拽至此+</p>
 			</div>
@@ -21,11 +21,11 @@
 					ms-class-3="td_upload_result_success: el.status=='success'"
 					ms-class-4="td_upload_result_error: el.status=='error'">{{el.desc}}</div>
 			</div>
-			<div ms-if="preview===false" >
-				<ol>
-					<li ms-repeat="_uploadQueue">{{el.name}}&nbsp;[<span ms-class-1="td_upload_file_uploading: el.status=='uploading'" ms-class-2="td_upload_file_success: el.status=='success'" ms-class-3="td_upload_file_error: el.status=='error'">{{el.desc}}</span>]</li>
-				</ol>
-			</div>
+		</div>
+		<div ms-if="preview===false" >
+			<ol>
+				<li ms-repeat="_uploadQueue">{{el.name}}&nbsp;[<span ms-class-1="td_upload_file_uploading: el.status=='uploading'" ms-class-2="td_upload_file_success: el.status=='success'" ms-class-3="td_upload_file_error: el.status=='error'">{{el.desc}}</span>]</li>
+			</ol>
 		</div>
 	</div>
 </div>

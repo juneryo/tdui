@@ -8,7 +8,7 @@ define(['avalon', 'jquery', 'webupload', 'text!./td.upload.html', 'css!./td.uplo
 		//外部标签属性
 		auto: false,
 		abort: true,  //上传异常时是否终止后续上传
-		preview: true,
+		preview: false,
 		dnd: false,
 		horizontal: false,
 		labelCol: 4,
@@ -28,7 +28,7 @@ define(['avalon', 'jquery', 'webupload', 'text!./td.upload.html', 'css!./td.uplo
 		onfinuploaded: null,
 		onready: null,
 		//内部属性
-		$swfUrl: 'ui/base/swf/Uploader.swf',
+		$swfUrl: 'avalon/ui/base/swf/Uploader.swf',
 		$uploader: null,
 		//内部接口
 		$trigger: _interface,
@@ -160,16 +160,22 @@ define(['avalon', 'jquery', 'webupload', 'text!./td.upload.html', 'css!./td.uplo
 						desc: '待上传',
 						url: '',
 					};
-					vm.$uploader.makeThumb(file, function(error, src) {  // 创建缩略图(如果为非图片文件，可以不用调用此方法)
-						if (error) {
-							obj.url = "";  //return;
-						}else {
-							obj.url = src;
-						}
+					if(vm.preview == true) {
+						vm.$uploader.makeThumb(file, function(error, src) {  // 创建缩略图(如果为非图片文件，可以不用调用此方法)
+							if (error) {
+								obj.url = "";  //return;
+							}else {
+								obj.url = src;
+							}
+							vm._uploadQueue.push(obj);
+							vm._progress = true;
+							vm._err = false;
+						}, 120, 120);  //分辨率120x120
+					}else {
 						vm._uploadQueue.push(obj);
 						vm._progress = true;
 						vm._err = false;
-					}, 120, 120);  //分辨率120x120
+					}
 				});
 				vm.$uploader.on('uploadStart', function(file) {
 					vm.$updateUploadQueue(file, 'uploading');
