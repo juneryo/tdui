@@ -367,7 +367,10 @@ avalon.config({
 		tdText: 'ui/form/text/td.text.js',
 		tdTextarea: 'ui/form/textarea/td.textarea.js',
 		//图表
-		echarts: 'ui/base/js/echarts.common.min.js'
+		echarts: 'ui/base/js/echarts.common.min.js',
+		//jquery及插件
+		jquery: 'ui/base/js/jquery.min.js',
+		webupload: 'ui/base/js/webuploader.min.js'
 	},
 	maxRepeatSize: 50
 });
