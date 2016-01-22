@@ -10,6 +10,7 @@
 日历事件信息：{{datepicker_info}}
 开关事件信息：{{switch_info}}
 评分事件信息：{{rate_info}}
+自动补全事件信息：{{auto_info}}
 			</pre>
 			<div class="row">
 				<td:spinner config="$spinner_opt" label="年龄" name="age" value="21" max="99" min="1" class="col-xs-12 col-sm-6"></td:spinner>
@@ -20,6 +21,9 @@
 			</div>
 			<div class="row">
 				<td:rate config="$rate_opt" label="评分" name="rate" half="true" num="5" value="3.5" class="col-xs-12 col-sm-12"></td:rate>
+			</div>
+			<div class="row">
+				<td:autocomplete config="$auto_opt" label="自动补全(如：输入'国')" name="auto" class="col-xs-12 col-sm-12"></td:autocomplete>
 			</div>
 		</div>
 		<div slot="content1">
@@ -33,7 +37,10 @@
 &lt;/div&gt;
 &lt;div class="row"&gt;
 	&lt;td:rate config="$rate_opt" label="评分" name="rate" half="true" num="5" value="3.5" class="col-xs-12 col-sm-12"&gt;&lt;/td:rate&gt;
-&lt;/div&gt;		
+&lt;/div&gt;
+&lt;div class="row"&gt;
+	&lt;td:autocomplete config="$auto_opt" label="自动补全(如：输入'国')" name="auto" class="col-xs-12 col-sm-12"&gt;&lt;/td:autocomplete&gt;
+&lt;/div&gt;
 			</pre>
 		</div>
 		<div slot="content2">
@@ -87,6 +94,16 @@ var velement = avalon.define({
 		},
 		onchanged: function(ev, vm) {
 			velement.rate_info = '改变事件[' + vm.getValue() + ']';
+		}
+	},
+	$auto_opt: {
+		//data: {'china': '中国', 'america': '美国', 'korea': '韩国', 'japan': '日本'},
+		url: 'data/td.select.json',
+		param: {key: '111'},
+		onselected: function(ev, vm) {
+			velement.auto_info = '选中事件[' + vm.getValue() + ']';
+			avalon.log(vm.getData(true));
+			TD.hint('选中' + vm.getText());
 		}
 	}
 });

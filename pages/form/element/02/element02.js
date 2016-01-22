@@ -1,4 +1,4 @@
-define(['ui/form/spinner/td.spinner', 'ui/form/datepicker/td.datepicker', 'ui/form/switch/td.switch', 'ui/form/rate/td.rate'], function () {
+define(['ui/form/spinner/td.spinner', 'ui/form/datepicker/td.datepicker', 'ui/form/switch/td.switch', 'ui/form/rate/td.rate', 'ui/form/autocomplete/td.autocomplete'], function () {
 	var velement = avalon.define({
 		$id: 'element02',
 		$tab_opt: {
@@ -8,6 +8,7 @@ define(['ui/form/spinner/td.spinner', 'ui/form/datepicker/td.datepicker', 'ui/fo
 		datepicker_info: '',
 		switch_info: '',
 		rate_info: '',
+		auto_info: '',
 		$spinner_opt: {
 			onclicked: function(ev, vm) {
 				velement.spinner_info = '点击事件';
@@ -51,6 +52,16 @@ define(['ui/form/spinner/td.spinner', 'ui/form/datepicker/td.datepicker', 'ui/fo
 			},
 			onchanged: function(ev, vm) {
 				velement.rate_info = '改变事件[' + vm.getValue() + ']';
+			}
+		},
+		$auto_opt: {
+			data: {'china': '中国', 'america': '美国', 'korea': '韩国', 'japan': '日本'},
+			url: 'data/td.select.json',
+			param: {key: '111'},
+			onselected: function(ev, vm) {
+				velement.auto_info = '选中事件[' + vm.getValue() + ']';
+				avalon.log(vm.getData(true));
+				TD.hint('选中' + vm.getText());
 			}
 		}
 	});

@@ -1,0 +1,13 @@
+<div class="form-group td_autocomplete_container" ms-class-1="td_valid_disabled: disabled" ms-class-2="has-error: !_isValid">
+	<label class="control-label" ms-if="label != ''" ms-class-1="col-sm-4:horizontal===true&&labelCol==4" ms-class-2="col-sm-3:horizontal===true&&labelCol==3" ms-class-3="col-sm-2:horizontal===true&&labelCol==2" ms-class-4="col-sm-1:horizontal===true&&labelCol==1" ms-class-5="no_padding:horizontal===true" ms-class-6="padding_top:horizontal===true" ms-class-7="padding_left1_5:horizontal===true">{{label}}：</label>
+	<div ms-class-1="col-sm-8:horizontal===true&&labelCol==4" ms-class-2="col-sm-9:horizontal===true&&labelCol==3" ms-class-3="col-sm-10:horizontal===true&&labelCol==2" ms-class-4="col-sm-11:horizontal===true&&labelCol==1">
+		<input class="form-control" type="text" ms-attr-disabled="disabled" ms-attr-name="name" ms-keydown="_checkKeyDown($event)" ms-click="_clickInput($event)" ms-duplex="_text" />
+		<span class="td_valid_err" ms-if="!_isValid && _validInfo != ''">{{_validInfo}}</span>
+		<ul class="dropdown-menu td_autocomplete_list" ms-class="dropdown-menu-horizontal:horizontal===true" ms-if="data != null" ms-visible="_isShow">
+			<i class="td_autocomplete_icon td_autocomplete_loading" ms-visible="_isLoading"></i><span class="td_autocomplete_loadinfo">{{_loadInfo}}</span>
+			<li ms-repeat="_keys">
+				<a href="javascript:void(0)" ms-click="_selectOne($event, el)">{{data[el] | html}}&nbsp;[{{el}}]</a>
+			</li>
+		</ul>
+	</div>
+</div>

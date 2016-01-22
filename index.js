@@ -34,7 +34,8 @@ require(['mmState', 'tdAccordion', 'tdTree', 'tdTab'], function () {
 			{id:'1-09', text: 'API[spinner]', expand:false, checked:false, disabled:false, href:'#!/element/api-spinner', children: []},
 			{id:'1-10', text: 'API[datepicker]', expand:false, checked:false, disabled:false, href:'#!/element/api-datepicker', children: []},
 			{id:'1-11', text: 'API[switch]', expand:false, checked:false, disabled:false, href:'#!/element/api-switch', children: []},
-			{id:'1-12', text: 'API[rate]', expand:false, checked:false, disabled:false, href:'#!/element/api-rate', children: []}
+			{id:'1-12', text: 'API[rate]', expand:false, checked:false, disabled:false, href:'#!/element/api-rate', children: []},
+			{id:'1-13', text: 'API[autocomplete]', expand:false, checked:false, disabled:false, href:'#!/element/api-autocomplete', children: []}
 		]},
 		{id:'2', text: '表单', expand:true, checked:false, disabled:false, icon:'glyphicon glyphicon-list-alt', children: [
 			{id:'2-1', text: '示例01', expand:false, checked:false, disabled:false, href:'#!/form/01', children: []},

@@ -1,0 +1,29 @@
+.td_autocomplete_container {
+	position: relative;
+	cursor: pointer;
+}
+.td_autocomplete_container .td_autocomplete_list {
+	width:100%;
+	max-height: 200px; 
+	_height:expression(this.scrollHeight > 200 ? "200px" : "auto"); 
+	overflow-y:auto; 
+}
+.td_autocomplete_container i.td_autocomplete_icon {
+	display: inline-block;
+	margin-top: 2px;
+	width: 18px;
+	height: 18px;
+	line-height: 18px;
+	vertical-align: text-top;
+	background-repeat: no-repeat;
+}
+.td_autocomplete_container .td_autocomplete_list li a span {
+	color: red;
+}
+.td_autocomplete_container i.td_autocomplete_loading {
+	background-image:url(img/loading.gif);
+}
+.td_autocomplete_container .td_autocomplete_loadinfo {
+	color: red;
+	font-size: 16px;
+}
