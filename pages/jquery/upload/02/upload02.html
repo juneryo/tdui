@@ -1,0 +1,39 @@
+<div ms-controller="upload02">
+	<td:tab config="$tab_opt" active="0">
+		<div slot="content0">
+			<blockquote>
+				<p>基础上传</p>
+				<footer>展现高级的<cite title="高级上传">上传</cite></footer>
+			</blockquote>
+			<td:upload config="$opt" label="图片上传" exts="gif,jpg,jpeg,bmp,png" mime="image/*" dnd="true" abort="false"></td:upload>
+		</div>
+		<div slot="content1">
+			<pre ms-skip>
+&lt;td:upload config="$opt" label="图片上传" exts="gif,jpg,jpeg,bmp,png" mime="image/*" dnd="true" abort="false"&gt;&lt;/td:upload&gt;
+			</pre>
+		</div>
+		<div slot="content2">
+			<pre ms-skip>
+var vupload01 = avalon.define({
+	$id: 'upload01',
+	$tab_opt: {
+		tabs: [{title: 'UI界面'}, {title: 'HTML代码'}, {title: 'JS代码'}]
+	},
+	$opt: {
+		url: 'http://webuploader.duapp.com/server/fileupload.php',
+		onokuploaded: function(file, response, vm) {
+			avalon.log(file.name + '上传成功');
+			return true;
+		},
+		onfinuploaded: function(file, vm) {
+			avalon.log(file.name + '上传完成');
+		},
+		onerruploaded: function(file, reason, vm) {
+			TD.hint(file.name + '上传失败[' + reason + ']');
+		}
+	}
+});			
+			</pre>
+		</div>
+	</td:tab>
+</div>

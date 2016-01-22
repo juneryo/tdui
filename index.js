@@ -74,7 +74,8 @@ require(['mmState', 'tdAccordion', 'tdTree', 'tdTab'], function () {
 	];
 	var dat5 = [
 		{id:'1', text: '上传', expand:true, checked:true, disabled:true, icon:'glyphicon glyphicon-stop', children: [
-			{id:'1-1', text: '上传01', expand:false, checked:false, disabled:false, href:'#!/upload/01', children: []}
+			{id:'1-1', text: '上传01', expand:false, checked:false, disabled:false, href:'#!/upload/01', children: []},
+			{id:'1-2', text: '上传02', expand:false, checked:false, disabled:false, href:'#!/upload/02', children: []}
 		]}
 	];
 	
