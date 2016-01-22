@@ -1,10 +1,12 @@
-define(['avalon', 'text!./td.password.html', 'css!./td.password.css'], function(avalon, template) {
+define(['avalon', 'md5', 'text!./td.password.html', 'css!./td.password.css'], function(avalon, MD5, template) {
+	avalon.log(MD5)
 	var _interface = function () {};
 	avalon.component("td:password", {
 		//外部标签属性
 		disabled: false,
 		keypad: true,
 		order: true,  //键盘是否有序
+		md5: false,  //通过getData,getValue获取时是否md5加密
 		label: '',
 		value: '',
 		name: 'password',
@@ -173,11 +175,11 @@ define(['avalon', 'text!./td.password.html', 'css!./td.password.css'], function(
 			}
 			vm.getData = function() {
 				var data = new Object();
-				data[vm.name] = vm.value;
+				data[vm.name] = (vm.md5 ? MD5.encrypt(vm.value) : vm.value);
 				return data;
 			}
 			vm.getValue = function() {
-				return vm.value;
+				return vm.md5 ? MD5.encrypt(vm.value) : vm.value;
 			}
 			vm.setValue = function(val) {
 				if(vm.value != val) {
