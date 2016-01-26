@@ -1,6 +1,6 @@
 <div class="td_tree_container">
 	<i class="td_tree_icon td_tree_loading margin_left" ms-if="_isLoading"></i>
-	<span class="td_tree__loadInfo">{{_loadInfo}}</span>
+	<span class="td_tree_loadInfo">{{_loadInfo}}</span>
 	<ul ms-class="td_tree_noroot: root===false" ms-each-el="data">
 		<li ms-click="_clickParent($event, $index, el)">
 			<span>
