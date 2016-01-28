@@ -51,7 +51,7 @@ table.td_datagrid>thead>tr>th,
 table.td_datagrid>tbody>tr>td {
 	transition: all .3s;
 	padding: 5px;
-	padding-left: 8px;
+	padding-left: 15px;
 	height: 42px;
 	cursor: default;
 	white-space:nowrap;
