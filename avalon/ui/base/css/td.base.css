@@ -4,6 +4,7 @@ document, body {
 	height: 100%;
 	padding: 0px;
 	margin: 0px;
+	font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Î¢ÈíÑÅºÚ",Arial,sans-serif;
 }
 input::-ms-clear{
 	display:none;
