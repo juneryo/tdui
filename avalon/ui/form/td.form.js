@@ -101,7 +101,7 @@ define(['avalon', 'mmRequest', 'text!./td.form.html', 'css!./td.form.css'], func
 					});
 				}
 			}
-			vm.$checkValid = function() {
+			vm.checkValid = function() {
 				var result = true;
 				for(k in vm.$refs) {
 					var comp = vm.$refs[k];
@@ -113,7 +113,7 @@ define(['avalon', 'mmRequest', 'text!./td.form.html', 'css!./td.form.css'], func
 			}
 			vm._doSubmit = function(ev) {
 				vm.$trigger(ev, 'clicksubmited');
-				if(vm.$checkValid() && vm.submitUrl != '') {
+				if(vm.checkValid() && vm.submitUrl != '') {
 					if(vm.submitMode=='ajax') {
 						var dat = vm.getData();
 						vm.$ajax(vm.submitUrl, dat, function(d) {
