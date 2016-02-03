@@ -15,7 +15,7 @@ define(['avalon', 'mmRequest', 'text!./td.form.html', 'css!./td.form.css'], func
 		loadParam: {},
 		onoksubmited: null,
 		onerrsubmited: null,
-		onsubmited: null,
+		onclicksubmited: null,
 		onreseted: null,
 		onloaded: null,
 		onready: null,
@@ -26,7 +26,6 @@ define(['avalon', 'mmRequest', 'text!./td.form.html', 'css!./td.form.css'], func
 		//内部接口
 		$trigger: _interface,
 		$ajax: _interface,
-		$checkValid: _interface,
 		//view属性
 		_isLoading: false,
 		//view接口
@@ -38,6 +37,7 @@ define(['avalon', 'mmRequest', 'text!./td.form.html', 'css!./td.form.css'], func
 		submit: _interface,
 		reset: _interface,
 		reload: _interface,
+		checkValid: _interface,
 		getElements: _interface,
 		//默认配置
 		$template: template,
@@ -56,9 +56,9 @@ define(['avalon', 'mmRequest', 'text!./td.form.html', 'css!./td.form.css'], func
 							vm.onloaded(ev, vm);
 						}
 						break;
-					case 'submited': 
-						if(typeof vm.onsubmited == 'function') {
-							vm.onsubmited(ev, vm);
+					case 'clicksubmited': 
+						if(typeof vm.onclicksubmited == 'function') {
+							vm.onclicksubmited(ev, vm);
 						}
 						break;
 					case 'reseted': 
@@ -112,7 +112,7 @@ define(['avalon', 'mmRequest', 'text!./td.form.html', 'css!./td.form.css'], func
 				return result;
 			}
 			vm._doSubmit = function(ev) {
-				vm.$trigger(ev, 'submited');
+				vm.$trigger(ev, 'clicksubmited');
 				if(vm.$checkValid() && vm.submitUrl != '') {
 					if(vm.submitMode=='ajax') {
 						var dat = vm.getData();

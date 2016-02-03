@@ -14,7 +14,7 @@ define(['ui/form/td.form', 'ui/form/text/td.text', 'ui/form/select/td.select',
 			onloaded: function(dat, vm) {
 				vform.form_info = '加载数据事件' + dat;
 			},
-			onsubmited: function(ev, vm) {
+			onclicksubmited: function(ev, vm) {
 				vform.form_info = '点击提交按钮事件';
 			},
 			onoksubmited: function(dat, vm) {
