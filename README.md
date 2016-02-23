@@ -1,5 +1,11 @@
 # tdui    
-»ùÓÚ[avalonjs 1.5.x](https://github.com/RubyLouvre/avalon2)   
-Ö§³ÖIE8¼°ÒÔÉÏ°æ±¾IEä¯ÀÀÆ÷£¬FireFox¡¢ChromeµÈ  
+åŸºäºï¼š  
+[avalonjs 1.5.x](https://github.com/RubyLouvre/avalon2)   
+[bootstrap-material-design](https://github.com/FezVrasta/bootstrap-material-design)  
   
-Ö±½ÓÏÂÔØzipÎÄ¼ş£¬½âÑ¹·ÅÈëÈÎÒâwebÈİÆ÷¼´¿É¡£
+æ”¯æŒIE8åŠä»¥ä¸Šç‰ˆæœ¬IEæµè§ˆå™¨ï¼ŒFireFoxã€Chromeç­‰ã€‚  
+  
+ç›´æ¥ä¸‹è½½zipæ–‡ä»¶ï¼Œè§£å‹æ”¾å…¥ä»»æ„webå®¹å™¨å³å¯ã€‚  
+  
+ä½¿ç”¨webpackæ‰“åŒ…tuidçš„SPAé¡¹ç›®ï¼š  
+[tdui-admin](https://github.com/juneryo/tdui-admin) 
