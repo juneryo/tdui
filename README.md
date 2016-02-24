@@ -7,5 +7,4 @@
   
 直接下载zip文件，解压放入任意web容器即可。  
   
-使用webpack打包tuid的SPA项目：  
-[tdui-admin](https://github.com/juneryo/tdui-admin) 
+使用webpack打包tdui的SPA项目：[tdui-admin](https://github.com/juneryo/tdui-admin) 
