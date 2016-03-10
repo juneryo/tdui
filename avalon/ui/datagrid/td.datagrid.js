@@ -11,7 +11,8 @@ define(['avalon', 'mmRequest', 'text!./td.datagrid.html', 'css!./td.datagrid.css
 		checkbox: true,  //是否显示checkbox
 		singleSelect: false,
 		editable: false,
-		bar: true,
+		bar: true,  //工具条
+        shadow: false,  //边框阴影
 		limit: 10,  //页大小
 		//外部配置参数
 		loadUrl: '',  //加载数据地址

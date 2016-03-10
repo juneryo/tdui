@@ -36,8 +36,8 @@ table.td_datagrid>tbody>tr>td>div>select {
 	border: 0px none;
 	border-bottom: solid 1px #ddd;
 	-webkit-box-sizing: content-box;
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
 }
 table.td_datagrid>thead>tr>th>input[type="text"]:focus,
 table.td_datagrid>tbody>tr>td>div>input[type="text"]:focus,
@@ -107,6 +107,9 @@ table.td_datagrid tr.td_datagrid_tr_selected td {
 	line-height: 18px;
 	vertical-align: text-top;
 	background-repeat: no-repeat;
+}
+.td_datagrid_container .td_datagrid_padding {
+    padding: 0 5px;
 }
 .td_datagrid_container .td_datagrid_checked {
 	background-image:url(img/checked.png);
