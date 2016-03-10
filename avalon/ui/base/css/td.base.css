@@ -4,7 +4,7 @@ document, body {
 	height: 100%;
 	padding: 0px;
 	margin: 0px;
-	font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Î¢ÈíÑÅºÚ",Arial,sans-serif;
+	font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","å¾®è½¯é›…é»‘",Arial,sans-serif;
 }
 input::-ms-clear{
 	display:none;
@@ -18,19 +18,25 @@ input::-ms-clear{
 	-khtml-opacity: 0.5 !important;
 	opacity: 0.5 !important;
 }
+.border_shadow {
+	box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.12), 0 1px 6px 0 rgba(0, 0, 0, 0.12) !important;
+}
+.border_no_shadow {
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0), 0 0 0 0 rgba(0, 0, 0, 0) !important;
+}
 .relative_pos {
 	position: relative !important;
 }
-.hidden_overflow: {
+.hidden_overflow {
 	overflow: hidden !important;
 }
-.auto_overflow: {
+.auto_overflow {
 	overflow: auto !important;
 }
-.auto_overflow_x: {
+.auto_overflow_x {
 	overflow-x: auto !important;
 }
-.auto_overflow_y: {
+.auto_overflow_y {
 	overflow-y: auto !important;
 }
 .bg_white {
@@ -300,14 +306,14 @@ blockquote.warning footer {
 /*css hack for tdui*/
 .dropdown-menu {
 	border-left: solid 1px #dddddd\9;
-	-ms-filter:"progid:DXImageTransform.Microsoft.Shadow(Strength=5, Direction=135, Color='#dddddd')";
-	filter:progid:DXImageTransform.Microsoft.Shadow(Strength=5, Direction=135, Color='#dddddd');
+	-ms-filter: progid:DXImageTransform.Microsoft.Shadow(Strength=5, Direction=135, Color='#dddddd');
+	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=5, Direction=135, Color='#dddddd');
 }
 .modal-content {
 	border-top: solid 1px #dddddd\9;
 	border-left: solid 1px #dddddd\9;
-	-ms-filter:"progid:DXImageTransform.Microsoft.Shadow(Strength=3, Direction=135, Color='#cccccc')";
-	filter:progid:DXImageTransform.Microsoft.Shadow(Strength=3, Direction=135, Color='#cccccc');
+	-ms-filter: progid:DXImageTransform.Microsoft.Shadow(Strength=3, Direction=135, Color='#cccccc');
+	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=3, Direction=135, Color='#cccccc');
 }
 .panel-heading {
 	margin: 0px 1px\9;
