@@ -315,18 +315,8 @@ blockquote.warning footer {
 	-ms-filter: progid:DXImageTransform.Microsoft.Shadow(Strength=3, Direction=135, Color='#cccccc');
 	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=3, Direction=135, Color='#cccccc');
 }
-.panel-heading {
-	margin: 0px 1px\9;
-}
-.panel-body {
-	border-left: solid 1px #eee\9;
-	border-right: solid 1px #eee\9;
-}
 /*css hack ie8 only*/
 @media \0screen {
-	.panel-heading {
-		margin: 0px 1px\9;
-	}
 	.btn:hover {
 		background-color: #eee;
 	}
